@@ -1,0 +1,115 @@
+digraph G {
+  /* default settings */
+  node [fontname="Helvetica"];
+  edge [arrowhead=vee,fontname="Helvetica"];
+
+  /* entities */
+  client [shape=box];
+  seller [shape=box];
+  store [shape=box];
+  shipping [shape=box];
+  shippingRecipient [shape=box];
+  shippingAddress [shape=box];
+  order [shape=box];
+  product [shape=box];
+  orderline [shape=box,peripheries=2];
+  productItem [shape=box,peripheries=2];
+
+  /* primary keys */
+  clientId_pk [label=<<u>clientId</u>>];
+  sellerId_pk [label=<<u>sellerId</u>>];
+  storeId_pk [label=<<u>storeId</u>>];
+  shippingId_pk [label=<<u>shippingId</u>>];
+  shippingRecipientId_pk [label=<<u>shippingRecipientId</u>>];
+  shippingAddressId_pk [label=<<u>shippingAddressId</u>>];
+  orderId_pk [label=<<u>orderId</u>>];
+  productId_pk [label=<<u>productId</u>>];
+
+  /* foreign keys */
+  sellerId_fk [label=<<u>sellerId</u>>];
+  clientId_fk [label=<<u>clientId</u>>];
+  productId_fk [label=<<u>productId</u>>];
+  locationId_fk [label=<<u>locationId</u>>];
+
+  /* weak primary keys */
+  orderIdLine_weak_pk [label=<<u>orderIdLine</u>>];
+  sellerIdProductId_weak_pk [label=<<u>sellerIdProductId</u>>];
+
+  /* relations */
+  writes [shape=diamond];
+  profile -> writes [label="1"];
+  writes -> tweet [label="n"];
+  favorites [shape=diamond];
+  profile -> favorites [label="m"];
+  favorites -> favorite [label="n"];
+  favorited [label="are favorited",shape=diamond];
+  tweet -> favorited [label="m"];
+  favorited -> favorite [label="n"];
+
+  /* client attributes */
+  client -> clientId_pk;
+  client -> firstName;
+  client -> lastName;
+  client -> phone;
+  client -> email;
+  client -> password;
+
+  /* seller attributes */
+  seller -> sellerId_pk;
+  seller -> firstName;
+  seller -> lastName;
+  seller -> creationDate;
+  seller -> email;
+  seller -> password;
+
+  /* store attributes */
+  store -> storeId;
+  store -> brand;
+  store -> locationId;
+
+  /* location attributes */
+  location -> locationId;
+  location -> state;
+  location -> city;
+  location -> zipCode;
+  location -> streetName;
+  location -> number;
+  location -> appartement;
+
+  /* shippingRecipient attributes */
+  shippingRecipient -> shippingRecipientId;
+  shippingRecipient -> firstName;
+  shippingRecipient -> lastName;
+
+  /* shippingAddress attributes */
+  shippingAddress -> shippingAddressId;
+  shippingAddress -> shippingNameId;
+  shippingAddress -> state;
+  shippingAddress -> city;
+  shippingAddress -> zipCode;
+  shippingAddress -> streetName;
+  shippingAddress -> number;
+  shippingAddress -> appartement;
+
+  /* order attributes */
+  order -> orderId;
+  order -> clientId;
+  order -> sellerId;
+
+  /* orderLine attributes */
+  orderLine -> orderId;
+  orderLine -> line;
+  orderLine -> productId;
+  orderLine -> quantity;
+
+  /* product attributes */
+  product -> productId;
+  product -> type;
+  product -> weight;
+  product -> label;
+
+  /* productItem attributes */
+  productItem -> productItemId;
+  productItem -> sellerId;
+  productItem -> price;
+}

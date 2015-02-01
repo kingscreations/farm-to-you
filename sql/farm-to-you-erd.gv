@@ -32,19 +32,19 @@ digraph G {
   locationId_fk [label=<<u>locationId</u>>];
 
   /* weak primary keys */
-  orderIdLine_weak_pk [label=<<u>orderIdLine</u>>];
-  sellerIdProductId_weak_pk [label=<<u>sellerIdProductId</u>>];
+  orderId_weak_pk [label=<<u>orderIdLine</u>>];
+  productId_weak_pk [label=<<u>productId</u>>];
+  sellerId_weak_pk [label=<<u>sellerIdProductId</u>>];
 
   /* relations */
+  has [shape=diamond];
+  are [shape=diamond];
   writes [shape=diamond];
-  profile -> writes [label="1"];
-  writes -> tweet [label="n"];
-  favorites [shape=diamond];
-  profile -> favorites [label="m"];
-  favorites -> favorite [label="n"];
-  favorited [label="are favorited",shape=diamond];
-  tweet -> favorited [label="m"];
-  favorited -> favorite [label="n"];
+  similar [shape=diamond];
+  sets [shape=diamond];
+
+  client -> has [label="1"];
+  has -> order [label="is ordered",shape=diamond];
 
   /* client attributes */
   client -> clientId_pk;

@@ -137,33 +137,52 @@ class User {
 	/**
 	 * mutator method for hash content
 	 *
+	 * @param string $hash new value
+	 * @throws InvalidArgumentException if $hash is not a string or insecure
+	 * @throws RangeException if $hash is > 128 characters
 	 *
 	 **/
-		// generate a hash value
-
-		// FACT: a hash is only hexadecimal digits
-		// HINT: ctype_xdigit()
-
-		// FACT: a hash is 128 characters long
-		// HINT: strlen()
-
-	//
+	public function setHash($newHash) {
+		// verify the hash is a hexadecimal digit
+		$newHash = ctype_xdigit($newHash);
+		if(ctype_xdigit($newHash) === false) {
+			throw(new InvalidArgumentException("hash content in not a hexadecimal digit"));
+		}
+		// verify the hash content will fit in the database
+		if(strlen($newHash) > 128) {
+			throw(new RangeException("hash is too large"));
+		}
+	}
 
 	/**
-	 * accessor method for salted hash
+	 * accessor method for salt
 	 *
-	 * @return salt value of hashed password
+	 * @return salt value
 	 **/
 	public function getSalt() {
 		return($this->salt);
 	}
 
 	/**
-	 * mutator method for salted hash
+	 * mutator method for salt
 	 *
-	 *
-	 **/
+	 * @param string $salt new value
+	 * @throws InvalidArgumentException if newSalt is not a string or insecure
+	 * @throws RangeException if $newSalt is > 32 characters
+	 */
+	public function setSalt($newSalt) {
+		// verify the salt content is secure
 
+		$newSalt = filter_var($newSalt, FILTER_SANITIZE_STRING);
+		if(empty($newSalt) === true) {
+			throw(new InvalidArgumentException("salt content is empty or insecure"));
+		}
+
+		// verify the salt content will fit in the database
+		if(strlen($newSalt) > 32) {
+			throw(new RangeException("salt content too large"));
+		}
+	}
 
 	/**
 	 * inserts this user into mySQL

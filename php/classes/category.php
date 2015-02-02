@@ -54,6 +54,10 @@ class Category {
 	 * @throws RangeException if the $categoryId is not positive
 	 **/
 	public function setCategoryId($newCategoryId) {
+		if($newCategoryId === null) {
+			$this->categoryId = null;
+			return;
+		}
 		// verify the category id is valid
 		$newCategoryId = filter_var($newCategoryId, FILTER_VALIDATE_INT);
 		if($newCategoryId === false) {
@@ -70,9 +74,9 @@ class Category {
 	/**
 	 * accessor method for the category name
 	 *
-	 * @return int value of category name
+	 * @return string value of category name
 	 **/
-	public function getCategoryNameId() {
+	public function getCategoryName() {
 		return ($this->categoryName);
 	}
 
@@ -92,7 +96,7 @@ class Category {
 		}
 
 		// convert and store the category name
-		$this->categoryName = intval($newCategoryName);
+		$this->categoryName = $newCategoryName;
 	}
 
 	/**
@@ -129,6 +133,7 @@ class Category {
 		$this->categoryId = $mysqli->insert_id;
 		// clean up the statement
 		$statement->close();
+
 	}
 
 	/**
@@ -223,7 +228,6 @@ class Category {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the category id to the place holder in the template
-		$categoryId = "%$categoryId%";
 		$wasClean = $statement->bind_param("i", $categoryId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));

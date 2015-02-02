@@ -36,7 +36,7 @@ CREATE TABLE profile (
 CREATE TABLE store (
 	storeId INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	creationDate DATETIME NOT NULL,
-	brand VARCHAR(45),
+	storeName VARCHAR(100),
 	imagePath VARCHAR(100),
 	profileId INT UNSIGNED NOT NULL,
 	INDEX(profileId),

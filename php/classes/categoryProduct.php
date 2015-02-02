@@ -149,9 +149,17 @@ class CategoryProduct {
 		$statement->close();
 	}
 
+	/**
+	 * gets the categoryProduct by categoryId
+	 *
+	 * @param resource $mysqli pointer to mysql connection, by reference
+	 * @param int $categoryId category id to search for
+	 * @return mixed array of categories found, or null if not found
+	 * @throws mysqli_sql_exception when mysql related errors occur
+	 **/
 	public static function getCategoryByCategoryId(&$mysqli, $categoryId) {
 		// handle degenerate cases
-		if(gettype($mysqli) !== "obeject" || get_class($mysqli) !== "mysqli") {
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 		// sanitize the description before searching
@@ -202,6 +210,15 @@ class CategoryProduct {
 			return ($categories);
 		}
 	}
+
+	/**
+	 * gets the categoryProduct by categoryId
+	 *
+	 * @param resource $mysqli pointer to mysql connection, by reference
+	 * @param int $productId product id to search for
+	 * @return mixed array of products found, or null if not found
+	 * @throws mysqli_sql_exception when mysql related errors occur
+	 **/
 
 	public static function getProductByProductId(&$mysqli, $productId) {
 		// handle degenerate cases
@@ -256,6 +273,16 @@ class CategoryProduct {
 			return ($products);
 		}
 	}
+
+	/**
+	 * gets the categoryProduct by both categoryId and productId
+	 *
+	 * @param resource $mysqli pointer to mysql connection, by reference
+	 * @param int $categoryId category id to search for
+	 * @param int $productId product id to search for
+	 * @return mixed array of categories and products found, or null if not found
+	 * @throws mysqli_sql_exception when mysql related errors occur
+	 **/
 
 	public static function getCategoryProductByCategoryIdAndProductId(&$mysqli, $categoryId, $productId) {
 

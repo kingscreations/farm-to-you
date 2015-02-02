@@ -205,7 +205,7 @@ class Category {
 	 *
 	 * @param resource $mysqli pointer to mysql connection, by reference
 	 * @param int $categoryId category id to search for
-	 * @return mixed array of categoryies found, or null if not found
+	 * @return mixed array of categories found, or null if not found
 	 * @throws mysqli_sql_exception when mysql related errors occur
 	 **/
 	public static function getCategoryByCategoryId(&$mysqli, $categoryId) {

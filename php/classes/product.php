@@ -22,7 +22,7 @@ class Product {
 	private $productName;
 
 	/**
-	 * @var string $productPrice price of the product
+	 * @var float $productPrice price of the product
 	 */
 	private $productPrice;
 
@@ -188,7 +188,7 @@ class Product {
 	/**
 	 * accessor for the product price
 	 *
-	 * @return int value for the product price
+	 * @return float value for the product price
 	 */
 	public function getProductPrice() {
 		return $this->productPrice;
@@ -197,7 +197,7 @@ class Product {
 	/**
 	 * mutator for the product price
 	 *
-	 * @param int value for the product price
+	 * @param float value for the product price
 	 * @throws InvalidArgumentException if data types are not valid
 	 * @throws RangeException if $newProductPrice is less than 0
 	 */
@@ -246,7 +246,7 @@ class Product {
 	}
 
 	/**
-	 * Insert this product id into mySQL
+	 * insert this product id into mySQL
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
 	 * @throws mysqli_sql_exception when mySQL related errors occur
@@ -279,4 +279,74 @@ class Product {
 		$this->productId = $mysqli->insert_id;
 		$statement->close();
 	}
+
+	/**
+	 * deletes this product from mySQL
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+	public function delete(&$mysqli) {
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+
+		if($this->productId === null) {
+			throw(new mysqli_sql_exception("unable to delete a product that does not exist"));
+		}
+
+		$query	 = "DELETE FROM product WHERE productId = ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		$wasClean = $statement->bind_param("i", $this->productId);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+
+		$statement->close();
+	}
+
+	/**
+	 * updates this product in mySQL
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+	public function update(&$mysqli) {
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+
+		if($this->productId === null) {
+			throw(new mysqli_sql_exception("unable to update a product that does not exist"));
+		}
+
+		$query	 = "UPDATE product SET profileId = ?, productName = ?, productPrice = ?, productType = ?,
+			productWeight = ? WHERE productId = ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		$wasClean	  = $statement->bind_param("isdsd", $this->profileId, $this->productName, $this->productPrice,
+			$this->productType, $this->productWeight);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+
+		$statement->close();
+	}
+
+
 }

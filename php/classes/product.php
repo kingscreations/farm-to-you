@@ -252,6 +252,31 @@ class Product {
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 */
 	public function insert(&$mysqli) {
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
 
+		if($this->productId !== null) {
+			throw(new mysqli_sql_exception("not a new product"));
+		}
+
+		$query	 = "INSERT INTO product(profileId, productName, productPrice, productType, productWeight) VALUES(?, ?, ?, ?, ?)";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		$wasClean	  = $statement->bind_param("isdsd", $this->profileId, $this->productName, $this->productPrice,
+			$this->productType, $this->productWeight);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+
+		$this->productId = $mysqli->insert_id;
+		$statement->close();
 	}
 }

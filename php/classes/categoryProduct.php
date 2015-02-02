@@ -341,4 +341,5 @@ class CategoryProduct {
 			return ($categoryProducts);
 		}
 	}
+
 }

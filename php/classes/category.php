@@ -111,13 +111,13 @@ class Category {
 			throw(new mysqli_sql_exception("this category already exists"));
 		}
 		// create query template
-		$query = "INSERT INTO category(categoryId, categoryName) VALUES (?, ?)";
+		$query = "INSERT INTO category(categoryName) VALUES (?)";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the member variables to the place holders in the template
-		$wasClean = $statement->bind_param("is", $this->categoryId, $this->categoryName);
+		$wasClean = $statement->bind_param("s",$this->categoryName);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters:"));
 		}
@@ -181,13 +181,13 @@ class Category {
 			throw(new mysqli_sql_exception("unable to update a category that does not exist"));
 		}
 		// create a query template
-		$query = "UPDATE category SET categoryId = ?, categoryName = ? WHERE categoryId = ?";
+		$query = "UPDATE category SET categoryName = ? WHERE categoryId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the member variables to the place holders in the template
-		$wasClean = $statement->bind_param("ii", $this->categoryId, $this->categoryName);
+		$wasClean = $statement->bind_param("s", $this->categoryName);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -210,7 +210,7 @@ class Category {
 	 **/
 	public static function getCategoryByCategoryId(&$mysqli, $categoryId) {
 		// handle degenerate cases
-		if(gettype($mysqli) !== "obeject" || get_class($mysqli) !== "mysqli") {
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 		// sanitize the description before searching

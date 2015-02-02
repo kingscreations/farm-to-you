@@ -111,7 +111,7 @@ class Category {
 			throw(new mysqli_sql_exception("this category already exists"));
 		}
 		// create query template
-		$query = "INSERT INTO category(categoryId, categoryName) VALUES (?, ?,)";
+		$query = "INSERT INTO category(categoryId, categoryName) VALUES (?, ?)";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));

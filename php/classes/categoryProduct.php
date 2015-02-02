@@ -86,7 +86,7 @@ class CategoryProduct {
 		if($this->categoryId !== null) {
 			throw(new mysqli_sql_exception("this category already exists"));
 		}
-		if($this->productId !== null){
+		if($this->productId !== null) {
 			throw(new mysqli_sql_exception("this product already exists"));
 		}
 
@@ -205,7 +205,7 @@ class CategoryProduct {
 
 	public static function getProductByProductId(&$mysqli, $productId) {
 		// handle degenerate cases
-		if(gettype($mysqli) !== "obeject" || get_class($mysqli) !== "mysqli") {
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 		// sanitize the description before searching
@@ -257,5 +257,61 @@ class CategoryProduct {
 		}
 	}
 
+	public static function getCategoryProductByCategoryIdAndProductId(&$mysqli, $categoryId, $productId) {
 
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+		// sanitize the description before searching
+		$productId = trim($productId);
+		$productId = filter_var($productId, FILTER_VALIDATE_INT);
+		$categoryId = trim($categoryId);
+		$categoryId = filter_var($categoryId, FILTER_VALIDATE_INT);
+		// create query template
+		$query = "SELECT categoryId, productId FROM categoryProduct WHERE (productId = ?, categoryId = ?)";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+		// bind the product id to the place holder in the template
+		$productId = "%$productId%";
+		$categoryId = "%$categoryId%";
+		$wasClean = $statement->bind_param("ii", $productId, $categoryId);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
+		}
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+		// build an array of categorys
+		$categoryProducts = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$categoryProduct = new category($row["categoryId"], $row["productId"]);
+				$categoryProducts[] = $categoryProduct;
+			} catch(Exception $exception) {
+				// if the row couldnt be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+		}
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) a single object if 1 result
+		// 3) the entire array if > 1 result
+		$numberOfCategoryProducts = count($categoryProducts);
+		if($numberOfCategoryProducts === 0) {
+			return (null);
+		} else if($numberOfCategoryProducts === 1) {
+			return ($categoryProducts[0]);
+		} else {
+			return ($categoryProducts);
+		}
+	}
 }

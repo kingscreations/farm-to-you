@@ -192,7 +192,7 @@ class Category {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the member variables to the place holders in the template
-		$wasClean = $statement->bind_param("s", $this->categoryName);
+		$wasClean = $statement->bind_param("si", $this->categoryName, $this->categoryId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}

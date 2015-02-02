@@ -182,7 +182,7 @@ class CategoryProduct {
 		$categories = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$category = new category($row["categoryId"], $row["categoryName"]);
+				$category = new category($row["categoryId"], $row["productId"]);
 				$categories[] = $category;
 			} catch(Exception $exception) {
 				// if the row couldnt be converted, rethrow it
@@ -200,6 +200,60 @@ class CategoryProduct {
 			return ($categories[0]);
 		} else {
 			return ($categories);
+		}
+	}
+
+	public static function getProductByProductId(&$mysqli, $productId) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "obeject" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+		// sanitize the description before searching
+		$productId = trim($productId);
+		$productId = filter_var($productId, FILTER_VALIDATE_INT);
+		// create query template
+		$query = "SELECT categoryId, productId FROM categoryProduct WHERE productId = ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+		// bind the product id to the place holder in the template
+		$productId = "%$productId%";
+		$wasClean = $statement->bind_param("i", $productId);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
+		}
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+		// build an array of categorys
+		$products = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$product = new category($row["categoryId"], $row["productId"]);
+				$products[] = $product;
+			} catch(Exception $exception) {
+				// if the row couldnt be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+		}
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) a single object if 1 result
+		// 3) the entire array if > 1 result
+		$numberOfProducts = count($products);
+		if($numberOfProducts === 0) {
+			return (null);
+		} else if($numberOfProducts === 1) {
+			return ($products[0]);
+		} else {
+			return ($products);
 		}
 	}
 }

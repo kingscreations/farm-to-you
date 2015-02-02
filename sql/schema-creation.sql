@@ -77,6 +77,7 @@ CREATE TABLE `order`(
 CREATE TABLE checkout (
 	checkoutId INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	orderId INT UNSIGNED NOT NULL,
+	checkoutDate DATETIME NOT NULL,
 	INDEX(orderId),
 	FOREIGN KEY(orderId) REFERENCES `order`(orderId),
 	PRIMARY KEY(checkoutId)

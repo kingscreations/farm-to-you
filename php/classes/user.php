@@ -32,8 +32,8 @@ class User {
 	 *
 	 * @param mixed $newUserId id of this User or null if a new User
 	 * @param string $newEmail of the User
-	 * @param int $newHash int of users password
-	 * @param int $newSalt int of password hash
+	 * @param string $newHash int of users password
+	 * @param string $newSalt int of password hash
 	 * @param string $newActivation ??
 	 * @throws InvalidArgumentException if data types are not valid
 	 * @throws RangeException if data values are out of bounds (e.g., strings too long, negative integers)
@@ -141,6 +141,11 @@ class User {
 	 **/
 		// generate a hash value
 
+		// FACT: a hash is only hexadecimal digits
+		// HINT: ctype_xdigit()
+
+		// FACT: a hash is 128 characters long
+		// HINT: strlen()
 
 	//
 

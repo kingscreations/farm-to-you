@@ -2,10 +2,10 @@
 /**
 /**
  * the creation of the user class
- * This class is a collection of user data
+ * This class is a collection of user login data
  * @jason king <jason@kingscreations.org>
  **/
-class user {
+class User {
 	/**
 	 * id for this user; this is the primary key
 	 **/

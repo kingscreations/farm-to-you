@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS orderProduct;
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS checkout;
-DROP TABLE IF EXISTS order;
+DROP TABLE IF EXISTS `order`;
 DROP TABLE IF EXISTS storeLocation;
 DROP TABLE IF EXISTS location;
 DROP TABLE IF EXISTS store;
@@ -65,7 +65,7 @@ CREATE TABLE storeLocation(
 	PRIMARY KEY(locationId, storeId)
 );
 
-CREATE TABLE order(
+CREATE TABLE `order`(
 	orderId INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	orderDate DATETIME NOT NULL,
 	profileId INT UNSIGNED NOT NULL,
@@ -78,7 +78,7 @@ CREATE TABLE checkout (
 	checkoutId INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	orderId INT UNSIGNED NOT NULL,
 	INDEX(orderId),
-	FOREIGN KEY(orderId) REFERENCES order(orderId),
+	FOREIGN KEY(orderId) REFERENCES `order`(orderId),
 	PRIMARY KEY(checkoutId)
 );
 
@@ -101,7 +101,7 @@ CREATE TABLE orderProduct (
 	productId INT UNSIGNED NOT NULL,
 	INDEX(orderId),
 	INDEX(productId),
-	FOREIGN KEY(orderId) REFERENCES order(orderId),
+	FOREIGN KEY(orderId) REFERENCES `order`(orderId),
 	FOREIGN KEY(productId) REFERENCES product(productId),
 	PRIMARY KEY(orderId, productId)
 );

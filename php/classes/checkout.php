@@ -17,17 +17,24 @@ class Checkout {
 	private $orderId;
 
 	/**
+	 * date for the checkout
+	 **/
+	private $checkoutDate;
+
+	/**
 	 * constructor for this checkout class
 	 *
 	 * @param int $newCheckoutId id of the checkout
 	 * @param int $newOrderId of the order
+	 * @param DateTime $newCheckoutDate for the checkout
 	 * @throws InvalidArgumentException it data types are not valid
 	 * @throws RangeException if data values are out of bounds (e.g. strings too long, negative integers)
 	 **/
-	public function __construct($newCheckoutId, $newOrderId = null) {
+	public function __construct($newCheckoutId, $newOrderId, $newCheckoutDate = null) {
 		try {
 			$this->setCheckoutId($newCheckoutId);
 			$this->setOrderId($newOrderId);
+			$this->setCheckoutDate($newCheckoutDate);
 		} catch(InvalidArgumentException $invalidArgument) {
 			// rethrow the exception to the caller
 			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
@@ -98,7 +105,57 @@ class Checkout {
 	}
 
 	/**
-	 * inserts this checlout into mySQL
+	 * accessor method for checkout date
+	 *
+	 * @return DateTime value of checkout date
+	 **/
+	public function getCheckoutDate() {
+		return ($this->checkoutDate);
+	}
+	/**
+	 * mutator method for checkout date
+	 *
+	 * @param mixed $newCheckoutDate checkout date as a DateTime object or string (or null to load current time)
+	 * @throws InvalidArgumentException if $newCheckoutDate is not a valid object or string
+	 * @throws RangeException if $newCheckoutDate is a date that does not exist
+	 **/
+	public function setCheckoutDate($newCheckoutDate) {
+		// base case: if the date is null, use current date and time
+		if($newCheckoutDate === null) {
+			$this->checkoutDate = new DateTime();
+			return;
+		}
+		// base case: if the date is a DateTime object, there's no work to be done
+		if(is_object($newCheckoutDate) === true && get_class($newCheckoutDate) === "DateTime") {
+			$this->checkoutDate = $newCheckoutDate;
+			return;
+		}
+		// treat the date as a mySQL date string: Y-m-d H:i:s
+		$newCheckoutDate = trim($newCheckoutDate);
+		if((preg_match("/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/", $newCheckoutDate, $matches)) !== 1) {
+			throw(new InvalidArgumentException("checkout date is not a valid date"));
+		}
+		// verify the date is a valid calendar date
+		$year = intval($matches[1]);
+		$month = intval($matches[2]);
+		$day = intval($matches[3]);
+		$hour = intval($matches[4]);
+		$minute = intval($matches[5]);
+		$second = intval($matches[6]);
+		if(checkdate($month, $day, $year) === false) {
+			throw(new RangeException("checkout date $newCheckoutDate is not a Gregorian date"));
+		}
+		// verify the time is really a valid wall clock time
+		if($hour < 0 || $hour >= 24 || $minute < 0 || $minute >= 60 || $second < 0 || $second >= 60) {
+			throw(new RangeException("checkout date $newCheckoutDate is not a valid time"));
+		}
+		// store the checkout date
+		$newCheckoutDate = DateTime::createFromFormat("Y-m-d H:i:s", $newCheckoutDate);
+		$this->checkoutDate = $newCheckoutDate;
+	}
+
+	/**
+	 * inserts this checkout into mySQL
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
 	 * @throws mysqli_sql_exception when mySQL related errors occur
@@ -113,13 +170,13 @@ class Checkout {
 			throw(new mysqli_sql_exception("this order already exists"));
 		}
 		// create query template
-		$query = "INSERT INTO checkout(checkoutId, orderId) VALUES (?, ?,)";
+		$query = "INSERT INTO checkout(checkoutId, orderId, checkoutDate) VALUES (?, ?, ?)";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the member variables to the place holders in the template
-		$wasClean = $statement->bind_param("ii", $this->checkoutId, $this->orderId);
+		$wasClean = $statement->bind_param("iis", $this->checkoutId, $this->orderId, $this->checkoutDate);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters:"));
 		}
@@ -183,13 +240,13 @@ class Checkout {
 			throw(new mysqli_sql_exception("unable to update a checkout that does not exist"));
 		}
 		// create a query template
-		$query = "UPDATE checkout SET checkoutId = ?, orderId = ? WHERE checkoutId = ?";
+		$query = "UPDATE checkout SET checkoutId = ?, orderId = ?, checkoutDate = ? WHERE checkoutId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the member variables to the place holders in the template
-		$wasClean = $statement->bind_param("ii", $this->checkoutId, $this->orderId);
+		$wasClean = $statement->bind_param("iis", $this->checkoutId, $this->orderId, $this->checkoutDate);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -219,7 +276,7 @@ class Checkout {
 		$checkoutId = trim($checkoutId);
 		$checkoutId = filter_var($checkoutId, FILTER_VALIDATE_INT);
 		// create query template
-		$query = "SELECT checkoutId, orderId FROM checkout WHERE checkoutId LIKE ?";
+		$query = "SELECT checkoutId, orderId, checkoutDate FROM checkout WHERE checkoutId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -243,7 +300,7 @@ class Checkout {
 		$checkouts = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$checkout = new checkout($row["checkoutId"], $row["orderId"]);
+				$checkout = new checkout($row["checkoutId"], $row["orderId"], $row["checkoutDate"]);
 				$checkouts[] = $checkout;
 			} catch(Exception $exception) {
 				// if the row couldnt be converted, rethrow it

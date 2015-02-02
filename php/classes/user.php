@@ -183,6 +183,39 @@ class User {
 			throw(new RangeException("salt content too large"));
 		}
 	}
+	/**
+	 * accessor method for activation
+	 *
+	 * @return string value for activation
+	 */
+	public function getActivation() {
+		return($this->activation);
+	}
+
+	/**
+	 * mutator method for activation
+	 *
+	 * @param string $activation
+	 * @throws InvalidArgumentException if $newActivation is not a string or insecure
+	 * @throws RangeException if $newActivation is > 16 characters
+	 */
+	public function setActivation($newActivation) {
+		// verify the activation content is secure
+		$newActivationl = trim($newActivation);
+		$newActivation = filter_var($newActivation, FILTER_SANITIZE_STRING);
+		if(empty($newActivation) === true) {
+			throw(new InvalidArgumentException("activation content is empty or insecure"));
+		}
+
+		// verify the email content will fit in the database
+		if(strlen($newActivationl) > 16) {
+			throw(new RangeException("activation content too large"));
+		}
+
+		// store the email content
+		$this->activation = $newActivation;
+	}
+
 
 	/**
 	 * inserts this user into mySQL

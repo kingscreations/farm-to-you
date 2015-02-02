@@ -108,7 +108,7 @@ class Category {
 		}
 		// enforce the categoryId is null (i.e., dont insert a category that already exists)
 		if($this->categoryId !== null) {
-			throw(new mysqli_sql_exception("this order already exists"));
+			throw(new mysqli_sql_exception("this category already exists"));
 		}
 		// create query template
 		$query = "INSERT INTO category(categoryId, categoryName) VALUES (?, ?,)";
@@ -217,7 +217,7 @@ class Category {
 		$categoryId = trim($categoryId);
 		$categoryId = filter_var($categoryId, FILTER_VALIDATE_INT);
 		// create query template
-		$query = "SELECT categoryId, categoryName FROM category WHERE categoryId LIKE ?";
+		$query = "SELECT categoryId, categoryName FROM category WHERE categoryId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -237,7 +237,7 @@ class Category {
 		if($result === false) {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
-		// build an array of categorys
+		// build an array of categories
 		$categories = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {

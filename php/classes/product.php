@@ -237,7 +237,7 @@ class Product {
 	public function setProductPrice($newProductPrice) {
 		$newProductPrice = filter_var($newProductPrice, FILTER_VALIDATE_FLOAT);
 		if($newProductPrice === false) {
-			throw(new InvalidArgumentException("product id is not a valid float"));
+			throw(new InvalidArgumentException("product price is not a valid float"));
 		}
 
 		$newProductPrice = round($newProductPrice, 4);
@@ -245,7 +245,7 @@ class Product {
 			throw(new RangeException("product price is too large"));
 		}
 
-		$this->productPrice = inval($newProductPrice);
+		$this->productPrice = intval($newProductPrice);
 	}
 
 	/**
@@ -275,7 +275,7 @@ class Product {
 			throw(new RangeException("product weight is too large"));
 		}
 
-		$this->productWeight = inval($newProductWeight);
+		$this->productWeight = intval($newProductWeight);
 	}
 
 	/**
@@ -294,6 +294,7 @@ class Product {
 		}
 
 		$query	 = "INSERT INTO product(profileId, imagePath, productName, productPrice, productType, productWeight) VALUES(?, ?, ?, ?, ?, ?)";
+		var_dump($query);
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));

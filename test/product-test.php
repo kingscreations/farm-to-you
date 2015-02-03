@@ -36,34 +36,34 @@ class ProductTest extends UnitTestCase {
 	/**
 	 * @var string $imagePath image path of the product
 	 */
-	private $imagePath;
+	private $imagePath = "images/tomato.jpg";
 
 	/**
 	 * @var string $productName name of the product
 	 */
-	private $productName;
+	private $productName = "cherry tomatoes";
 
 	/**
 	 * @var float $productPrice price of the product
 	 */
-	private $productPrice;
+	private $productPrice = 5.6;
 
 	/**
 	 * @var string $productType type of the product
 	 */
-	private $productType;
+	private $productType = "vegetable";
 
 	/**
 	 * @var float $productWeight weight of the product
 	 */
-	private $productWeight;
+	private $productWeight = 1.2;
 
 	/**
 	 * sets up the mySQL connection for this test
 	 **/
 	public function setUp() {
 		// get the credentials information from the server
-		$configFile = "/etc/apache2/capstone-mysql/farm-to-you.ini";
+		$configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 		$configArray = readConfig($configFile);
 
 		// connection

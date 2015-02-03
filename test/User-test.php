@@ -55,11 +55,11 @@ class UserTest extends UnitTestCase {
 	public function setUp() {
 		// first, connect to mysqli
 		mysqli_report(MYSQLI_REPORT_STRICT);
-		$this->mysqli = new mysqli("localhost", "--USERNAME--", "--PASSWORD--", "--DATABASE--");
+		$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
+		$this->mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 		// second, create an instance of the object under scrutiny
-		$this->tweetDate = new DateTime();
-		$this->user = new Tweet(null, $this->profileId, $this->tweetContent, $this->tweetDate);
+		$this->user = new User(null, $this->email, $this->hash, $this->salt, $this->activation);
 	}
 
 	/**
@@ -80,125 +80,128 @@ class UserTest extends UnitTestCase {
 	}
 
 	/**
-	 * test inserting a valid Tweet into mySQL
+	 * test inserting a valid User into mySQL
 	 **/
-	public function testInsertValidTweet() {
-		// zeroth, ensure the Tweet and mySQL class are sane
+	public function testInsertValidUser() {
+		// zeroth, ensure the User and mySQL class are sane
 		$this->assertNotNull($this->user);
 		$this->assertNotNull($this->mysqli);
 
-		// first, insert the Tweet into mySQL
+		// first, insert the User into mySQL
 		$this->user->insert($this->mysqli);
 
-		// second, grab a Tweet from mySQL
-		$mysqlTweet = Tweet::getTweetByTweetId($this->mysqli, $this->user->getTweetId());
+		// second, grab a User from mySQL
+		$mysqlUser = User::getUserByUserId($this->mysqli, $this->user->getUserId());
 
-		// third, assert the Tweet we have created and mySQL's Tweet are the same object
-		$this->assertIdentical($this->user->getTweetId(), $mysqlTweet->getTweetId());
-		$this->assertIdentical($this->user->getProfileId(), $mysqlTweet->getProfileId());
-		$this->assertIdentical($this->user->getTweetContent(), $mysqlTweet->getTweetContent());
-		$this->assertIdentical($this->user->getTweetDate(), $mysqlTweet->getTweetDate());
+		// third, assert the User we have created and mySQL's User are the same object
+		$this->assertIdentical($this->user->getUserId(), $mysqlUser->getUserId());
+		$this->assertIdentical($this->user->getEmail(), $mysqlUser->getEmail());
+		$this->assertIdentical($this->user->getHash(), $mysqlUser->getHash());
+		$this->assertIdentical($this->user->getSalt(), $mysqlUser->getSalt());
+		$this->assertIdentical($this->user->getActivation(), $mysqlUser->getActivation());
+
 	}
 
 	/**
-	 * test inserting an invalid Tweet into mySQL
+	 * test inserting an invalid User into mySQL
 	 **/
-	public function testInsertInvalidTweet() {
-		// zeroth, ensure the Tweet and mySQL class are sane
+	public function testInsertInvalidUser() {
+		// zeroth, ensure the User and mySQL class are sane
 		$this->assertNotNull($this->user);
 		$this->assertNotNull($this->mysqli);
 
-		// first, set the tweet id to an invented value that should never insert in the first place
-		$this->user->setTweetId(42);
+		// first, set the user id to an invented value that should never insert in the first place
+		$this->user->setUserId(42);
 
-		// second, try to insert the Tweet and ensure the exception is thrown
+		// second, try to insert the User and ensure the exception is thrown
 		$this->expectException("mysqli_sql_exception");
 		$this->user->insert($this->mysqli);
 
-		// third, set the Tweet to null to prevent tearDown() from deleting a Tweet that never existed
+		// third, set the User to null to prevent tearDown() from deleting a User that never existed
 		$this->user = null;
 	}
 
 	/**
-	 * test deleting a Tweet from mySQL
+	 * test deleting a User from mySQL
 	 **/
-	public function testDeleteValidTweet() {
-		// zeroth, ensure the Tweet and mySQL class are sane
+	public function testDeleteValidUser() {
+		// zeroth, ensure the User and mySQL class are sane
 		$this->assertNotNull($this->user);
 		$this->assertNotNull($this->mysqli);
 
-		// first, assert the Tweet is inserted into mySQL by grabbing it from mySQL and asserting the primary key
+		// first, assert the User is inserted into mySQL by grabbing it from mySQL and asserting the primary key
 		$this->user->insert($this->mysqli);
-		$mysqlTweet = Tweet::getTweetByTweetId($this->mysqli, $this->user->getTweetId());
-		$this->assertIdentical($this->user->getTweetId(), $mysqlTweet->getTweetId());
+		$mysqlUser = User::getUserByUserId($this->mysqli, $this->user->getUserId());
+		$this->assertIdentical($this->user->getUserId(), $mysqlUser->getUserId());
 
-		// second, delete the Tweet from mySQL and re-grab it from mySQL and assert it does not exist
+		// second, delete the User from mySQL and re-grab it from mySQL and assert it does not exist
 		$this->user->delete($this->mysqli);
-		$mysqlTweet = Tweet::getTweetByTweetId($this->mysqli, $this->user->getTweetId());
-		$this->assertNull($mysqlTweet);
+		$mysqlUser = User::getUserByUserId($this->mysqli, $this->user->getUserId());
+		$this->assertNull($mysqlUser);
 
-		// third, set the Tweet to null to prevent tearDown() from deleting a Tweet that has already been deleted
+		// third, set the User to null to prevent tearDown() from deleting a User that has already been deleted
 		$this->user = null;
 	}
 
 	/**
-	 * test deleting a Tweet from mySQL that does not exist
+	 * test deleting a User from mySQL that does not exist
 	 **/
-	public function testDeleteInvalidTweet() {
-		// zeroth, ensure the Tweet and mySQL class are sane
+	public function testDeleteInvalidUser() {
+		// zeroth, ensure the User and mySQL class are sane
 		$this->assertNotNull($this->user);
 		$this->assertNotNull($this->mysqli);
 
-		// first, try to delete the Tweet before inserting it and ensure the exception is thrown
+		// first, try to delete the User before inserting it and ensure the exception is thrown
 		$this->expectException("mysqli_sql_exception");
 		$this->user->delete($this->mysqli);
 
-		// second, set the Tweet to null to prevent tearDown() from deleting a Tweet that has already been deleted
+		// second, set the User to null to prevent tearDown() from deleting a User that has already been deleted
 		$this->user = null;
 	}
 
 	/**
-	 * test updating a Tweet from mySQL
+	 * test updating a User from mySQL
 	 **/
-	public function testUpdateValidTweet() {
-		// zeroth, ensure the Tweet and mySQL class are sane
+	public function testUpdateValidUser() {
+		// zeroth, ensure the User and mySQL class are sane
 		$this->assertNotNull($this->user);
 		$this->assertNotNull($this->mysqli);
 
-		// first, assert the Tweet is inserted into mySQL by grabbing it from mySQL and asserting the primary key
+		// first, assert the User is inserted into mySQL by grabbing it from mySQL and asserting the primary key
 		$this->user->insert($this->mysqli);
-		$mysqlTweet = Tweet::getTweetByTweetId($this->mysqli, $this->user->getTweetId());
-		$this->assertIdentical($this->user->getTweetId(), $mysqlTweet->getTweetId());
+		$mysqlUser = User::getUserByUserId($this->mysqli, $this->user->getUserId());
+		$this->assertIdentical($this->user->getUserId(), $mysqlUser->getUserId());
 
-		// second, change the Tweet, update it mySQL
+		// second, change the User, update it mySQL
 		$newContent = "My unit tests updated everything!";
-		$this->user->setTweetContent($newContent);
+		$this->user->setUserContent($newContent);
 		$this->user->update($this->mysqli);
 
-		// third, re-grab the Tweet from mySQL
-		$mysqlTweet = Tweet::getTweetByTweetId($this->mysqli, $this->user->getTweetId());
-		$this->assertNotNull($mysqlTweet);
+		// third, re-grab the User from mySQL
+		$mysqlUser = User::getUserByUserId($this->mysqli, $this->user->getUserId());
+		$this->assertNotNull($mysqlUser);
 
-		// fourth, assert the Tweet we have updated and mySQL's Tweet are the same object
-		$this->assertIdentical($this->user->getTweetId(), $mysqlTweet->getTweetId());
-		$this->assertIdentical($this->user->getProfileId(), $mysqlTweet->getProfileId());
-		$this->assertIdentical($this->user->getTweetContent(), $mysqlTweet->getTweetContent());
-		$this->assertIdentical($this->user->getTweetDate(), $mysqlTweet->getTweetDate());
+		// fourth, assert the User we have updated and mySQL's User are the same object
+		$this->assertIdentical($this->user->getUserId(), $mysqlUser->getUserId());
+		$this->assertIdentical($this->user->getEmail(), $mysqlUser->getEmail());
+		$this->assertIdentical($this->user->getHash(), $mysqlUser->getHash());
+		$this->assertIdentical($this->user->getSalt(), $mysqlUser->getSalt());
+		$this->assertIdentical($this->user->getActivation(), $mysqlUser->getActivation());
 	}
 
 	/**
-	 * test updating a Tweet from mySQL that does not exist
+	 * test updating a User from mySQL that does not exist
 	 **/
-	public function testUpdateInvalidTweet() {
-		// zeroth, ensure the Tweet and mySQL class are sane
+	public function testUpdateInvalidUser() {
+		// zeroth, ensure the User and mySQL class are sane
 		$this->assertNotNull($this->user);
 		$this->assertNotNull($this->mysqli);
 
-		// first, try to update the Tweet before inserting it and ensure the exception is thrown
+		// first, try to update the User before inserting it and ensure the exception is thrown
 		$this->expectException("mysqli_sql_exception");
 		$this->user->update($this->mysqli);
 
-		// second, set the Tweet to null to prevent tearDown() from deleting a Tweet that has already been deleted
+		// second, set the User to null to prevent tearDown() from deleting a User that has already been deleted
 		$this->user = null;
 	}
 }

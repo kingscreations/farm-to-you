@@ -56,7 +56,7 @@ class ProfileTest extends UnitTestCase {
 	/**
 	 * picture file of the test user
 	 **/
-	private $imagepath = "picture.jpg";
+	private $imagePath = "picture.jpg";
 	/**
 	 * user Id of the test user
 	 **/

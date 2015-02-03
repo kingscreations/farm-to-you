@@ -264,5 +264,75 @@ class Category {
 		}
 	}
 
+	/**
+	 * gets the category by category name
+	 *
+	 * @param resource $mysqli pointer to mysql connection, by reference
+	 * @param string $categoryName category name to search for
+	 * @return mixed array of categories found, or null if not found
+	 * @throws mysqli_sql_exception when mysql related errors occur
+	 **/
+	public static function getCategoryByCategoryName(&$mysqli, $categoryName) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+
+		// sanitize the description before searching
+		$categoryName = trim($categoryName);
+		$categoryName = filter_var($categoryName, FILTER_SANITIZE_STRING);
+
+		// create query template
+		$query = "SELECT categoryId, categoryName FROM category WHERE categoryName LIKE ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		// bind the category name to the place holder in the template
+		$categoryName = "%$categoryName%";
+		$wasClean = $statement->bind_param("s", $categoryName);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
+		}
+
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+
+		// build an array of categories
+		$categories = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$category = new category($row["categoryId"], $row["categoryName"]);
+				$categories[] = $category;
+			} catch(Exception $exception) {
+				// if the row couldnt be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+
+		}
+
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) a single object if 1 result
+		// 3) the entire array if > 1 result
+		$numberOfCategories = count($categories);
+		if($numberOfCategories === 0) {
+			return (null);
+		} else if($numberOfCategories === 1) {
+			return ($categories[0]);
+		} else {
+			return ($categories);
+		}
+	}
+
 	// add get category by category name here
 }

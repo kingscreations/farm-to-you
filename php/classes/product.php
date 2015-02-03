@@ -596,7 +596,7 @@ class Product {
 		$products = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$product	= new Product(null, $row["profileId"], $row["imagePath"], $row["productName"], $row["productPrice"],
+				$product	= new Product($row["productId"], $row["profileId"], $row["imagePath"], $row["productName"], $row["productPrice"],
 					$row["productType"], $row["productWeight"]);
 				$products[] = $product;
 			}

@@ -176,13 +176,14 @@ class Order {
 			throw(new mysqli_sql_exception("not a new order"));
 		}
 
-		$query	 = "INSERT INTO order(profileId, orderDate) VALUES(?, ?)";
+		$query	 = "INSERT INTO `order`(profileId, orderDate) VALUES(?, ?)";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-		$wasClean	  = $statement->bind_param("is", $this->profileId, $this->orderDate);
+		$formattedDate = $this->orderDate->format("Y-m-d H:i:s");
+		$wasClean	  = $statement->bind_param("is", $this->profileId, $formattedDate);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -210,7 +211,7 @@ class Order {
 			throw(new mysqli_sql_exception("unable to delete a order that does not exist"));
 		}
 
-		$query	 = "DELETE FROM order WHERE orderId = ?";
+		$query	 = "DELETE FROM `order` WHERE orderId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -243,13 +244,14 @@ class Order {
 			throw(new mysqli_sql_exception("unable to update a order that does not exist"));
 		}
 
-		$query	 = "UPDATE order SET profileId = ?, orderDate = ? WHERE orderId = ?";
+		$query	 = "UPDATE `order` SET profileId = ?, orderDate = ? WHERE orderId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-		$wasClean	  = $statement->bind_param("isi", $this->profileId, $this->orderDate, $this->orderId);
+		$formattedDate = $this->orderDate->format("Y-m-d H:i:s");
+		$wasClean	  = $statement->bind_param("isi", $this->profileId, $formattedDate, $this->orderId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -262,30 +264,30 @@ class Order {
 	}
 
 	/**
-	 * gets the Order by name
+	 * gets the Order by date
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
-	 * @param string $orderName order name to search for
+	 * @param string $orderDate order date to search for
 	 * @return mixed array of Orders found, Orders found, or null if not found
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 **/
-	public static function getOrderByOrderName(&$mysqli, $orderName) {
+	public static function getOrderByOrderDate(&$mysqli, $orderDate) {
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 
-		$orderName = trim($orderName);
-		$orderName = filter_var($orderName, FILTER_SANITIZE_STRING);
+		$orderDate = trim($orderDate);
+		$orderDate = filter_var($orderDate, FILTER_SANITIZE_STRING);
 
-		$query	 = "SELECT orderId, profileId, imagePath, orderName, orderPrice, orderType, orderWeight FROM order WHERE orderName LIKE ?";
+		$query	 = "SELECT orderId, profileId, orderDate FROM `order` WHERE orderDate LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-		// bind the order name to the place holder in the template
-		$orderName = "%$orderName%";
-		$wasClean = $statement->bind_param("s", $orderName);
+		// bind the order date to the place holder in the template
+		$orderDate = "%$orderDate%";
+		$wasClean = $statement->bind_param("s", $orderDate);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -303,70 +305,9 @@ class Order {
 		$orders = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$order	= new Order(null, $row["profileId"], $row["imagePath"], $row["orderName"], $row["orderPrice"],
+				$order	= new Order(null, $row["profileId"], $row["imagePath"], $row["orderDate"], $row["orderPrice"],
 					$row["orderType"], $row["orderWeight"]);
 				$orders[] = $order;
-			}
-			catch(Exception $exception) {
-				// if the row couldn't be converted, rethrow it
-				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
-			}
-		}
-
-		$numberOfOrders = count($orders);
-		if($numberOfOrders === 0) {
-			return(null);
-		} else if($numberOfOrders === 1) {
-			return($orders[0]);
-		} else {
-			return($orders);
-		}
-	}
-
-	/**
-	 * gets the Order by type
-	 *
-	 * @param resource $mysqli pointer to mySQL connection, by reference
-	 * @param string $orderType order type to search for
-	 * @return mixed array of Orders found, Orders found, or null if not found
-	 * @throws mysqli_sql_exception when mySQL related errors occur
-	 **/
-	public static function getOrderByOrderType(&$mysqli, $orderType) {
-		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
-			throw(new mysqli_sql_exception("input is not a mysqli object"));
-		}
-
-		$orderType = trim($orderType);
-		$orderType = filter_var($orderType, FILTER_SANITIZE_STRING);
-
-		$query	 = "SELECT orderId, profileId, imagePath, orderType, orderPrice, orderType, orderWeight FROM order WHERE orderType LIKE ?";
-		$statement = $mysqli->prepare($query);
-		if($statement === false) {
-			throw(new mysqli_sql_exception("unable to prepare statement"));
-		}
-
-		// bind the order type to the place holder in the template
-		$orderType = "%$orderType%";
-		$wasClean = $statement->bind_param("s", $orderType);
-		if($wasClean === false) {
-			throw(new mysqli_sql_exception("unable to bind parameters"));
-		}
-
-		if($statement->execute() === false) {
-			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
-		}
-
-		$result = $statement->get_result();
-		if($result === false) {
-			throw(new mysqli_sql_exception("unable to get result set"));
-		}
-
-		// build an array of order
-		$orders = array();
-		while(($row = $result->fetch_assoc()) !== null) {
-			try {
-				$order	= new Order(null, $row["profileId"], $row["imagePath"], $row["orderName"], $row["orderPrice"],
-					$row["orderType"], $row["orderWeight"]);
 			}
 			catch(Exception $exception) {
 				// if the row couldn't be converted, rethrow it
@@ -388,7 +329,7 @@ class Order {
 	 * gets the Order by orderId
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
-	 * @param int $orderId tweet content to search for
+	 * @param int $orderId order content to search for
 	 * @return mixed Order found or null if not found
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 **/
@@ -397,16 +338,15 @@ class Order {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 
-		// sanitize the orderId before searching
 		$orderId = filter_var($orderId, FILTER_VALIDATE_INT);
 		if($orderId === false) {
-			throw(new mysqli_sql_exception("tweet id is not an integer"));
+			throw(new mysqli_sql_exception("order id is not an integer"));
 		}
 		if($orderId <= 0) {
-			throw(new mysqli_sql_exception("tweet id is not positive"));
+			throw(new mysqli_sql_exception("order id is not positive"));
 		}
 
-		$query	 = "SELECT orderId, profileId, tweetContent, tweetDate FROM tweet WHERE orderId = ?";
+		$query	 = "SELECT orderId, profileId, orderDate FROM `order` WHERE orderId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -427,13 +367,12 @@ class Order {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
 
-		// grab the tweet from mySQL
+		// grab the order from mySQL
 		try {
-			$tweet = null;
+			$order = null;
 			$row   = $result->fetch_assoc();
 			if($row !== null) {
-				$order	= new Order(null, $row["profileId"], $row["imagePath"], $row["orderName"], $row["orderPrice"],
-					$row["orderType"], $row["orderWeight"]);
+				$order	= new Order($row["orderId"], $row["profileId"], $row["orderDate"]);
 			}
 		} catch(Exception $exception) {
 			// if the row couldn't be converted, rethrow it
@@ -460,7 +399,7 @@ class Order {
 		}
 
 		// create query template
-		$query	 = "SELECT orderId, profileId, tweetContent, tweetDate FROM tweet";
+		$query	 = "SELECT orderId, profileId, orderContent, orderDate FROM `order`";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -477,12 +416,11 @@ class Order {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
 
-		// build an array of tweet
+		// build an array of order
 		$orders = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$order	= new Order(null, $row["profileId"], $row["imagePath"], $row["orderName"], $row["orderPrice"],
-					$row["orderType"], $row["orderWeight"]);
+				$order	= new Order($row["productId"], $row["profileId"], $row["orderDate"]);
 				$orders[] = $order;
 			}
 			catch(Exception $exception) {

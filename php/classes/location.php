@@ -100,5 +100,104 @@ class Location {
 		// convert and store the user id
 		$this->locationId = intval($newLocationId);
 	}
+	/**
+	 * accessor method for store name
+	 *
+	 * @return string value of store name
+	 **/
+	public function getCountry() {
+		return ($this->country);
+	}
+
+	/**
+	 * mutator method for tweet content
+	 *
+	 * @param string $newStoreName new value of tweet content
+	 * @throws InvalidArgumentException if $newStoreName is not a string or insecure
+	 * @throws RangeException if $newStoreName is > 100 characters
+	 **/
+	public function setCountry($newCountry) {
+// verify that the store name is secure
+		$newCountry = trim($newCountry);
+		$newCountry = filter_var($newCountry, FILTER_SANITIZE_STRING);
+		if(empty($newCountry) === true) {
+			throw(new InvalidArgumentException("country name is empty or insecure"));
+		}
+
+// verify the store name will fit in the database
+		if(strlen($newCountry) > 30) {
+			throw(new RangeException("country name too large"));
+		}
+
+// store the store name
+		$this->country = $newCountry;
+	}
+	/**
+	 * accessor method for store name
+	 *
+	 * @return string value of store name
+	 **/
+	public function getState() {
+		return ($this->state);
+	}
+
+	/**
+	 * mutator method for tweet content
+	 *
+	 * @param string $newStoreName new value of tweet content
+	 * @throws InvalidArgumentException if $newStoreName is not a string or insecure
+	 * @throws RangeException if $newStoreName is > 100 characters
+	 **/
+	public function setState($newState) {
+// verify that the store name is secure
+		$newState = trim($newState);
+		$newState = filter_var($newState, FILTER_SANITIZE_STRING);
+		if(empty($newState) === true) {
+			throw(new InvalidArgumentException("state name is empty or insecure"));
+		}
+
+// verify the store name will fit in the database
+		if(strlen($newState) > 2) {
+			throw(new RangeException("state name too large"));
+		}
+
+// store the store name
+		$this->state = $newState;
+	}
+
+	/**
+	 * accessor method for store name
+	 *
+	 * @return string value of store name
+	 **/
+	public function getCity() {
+		return ($this->city);
+	}
+
+	/**
+	 * mutator method for tweet content
+	 *
+	 * @param string $newStoreName new value of tweet content
+	 * @throws InvalidArgumentException if $newStoreName is not a string or insecure
+	 * @throws RangeException if $newStoreName is > 100 characters
+	 **/
+	public function setCity($newCity) {
+// verify that the store name is secure
+		$newCity = trim($newCity);
+		$newCity = filter_var($newCity, FILTER_SANITIZE_STRING);
+		if(empty($newCity) === true) {
+			throw(new InvalidArgumentException("city name is empty or insecure"));
+		}
+
+// verify the store name will fit in the database
+		if(strlen($newCity) > 40) {
+			throw(new RangeException("city name too large"));
+		}
+
+// store the store name
+		$this->city = $newCity;
+	}
+
+
 }
 ?>

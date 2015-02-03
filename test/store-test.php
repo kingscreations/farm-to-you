@@ -8,7 +8,7 @@ require_once ("/usr/lib/php5/simpletest/autorun.php");
 
 require_once ("../php/classes/store.php");
 
-require_once("../php/misc/load-config.php");
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 /**
  * Unit test for the Store class
  *
@@ -52,12 +52,13 @@ class StoreTest extends UnitTestCase {
 	public function setUp() {
 // first, connect to mysqli
 		mysqli_report(MYSQLI_REPORT_STRICT);
-		/** @var TYPE_NAME $configArray */
+		$configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
+		$configArray = readConfig($configFile);
 		$this->mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"], $configArray["database"]);
 
 // second, create an instance of the object under scrutiny
 		$this->creationDate = new DateTime();
-		$this->store = new Store(null, $this->profileId, $this->creationDate, $this->storeName, $this->imagePath);
+		$this->store = new Store(null, $this->profileId, $this->storeName, $this->imagePath, $this->creationDate);
 	}
 
 	/**

@@ -47,9 +47,9 @@ class Store {
 		try {
 			$this->setStoreId($newStoreId);
 			$this->setProfileId($newProfileId);
+			$this->setCreationDate($newCreationDate);
 			$this->setStoreName($newStoreName);
 			$this->setImagePath($newImagePath);
-			$this->setCreationDate($newCreationDate);
 		} catch(InvalidArgumentException $invalidArgument) {
 			// rethrow the exception to the caller
 			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
@@ -76,6 +76,11 @@ class Store {
 	 * @throws RangeException if the $storeId is not positive
 	 **/
 	public function setStoreId($newStoreId) {
+		if($newStoreId === null) {
+			$this->storeId = null;
+			return;
+		}
+
 		// verify the store id is valid
 		$newStoreId = filter_var($newStoreId, FILTER_VALIDATE_INT);
 		if($newStoreId === false) {
@@ -335,7 +340,7 @@ class Store {
 		}
 		// bind the member variables to the place holders in the template
 		$formattedDate = $this->creationDate->format("Y-m-d H:i:s");
-		$wasClean = $statement->bind_param("isss", $this->profileId, $formattedDate, $this->storeName, $this->imagePath);
+		$wasClean = $statement->bind_param("isssi", $this->profileId, $formattedDate, $this->storeName, $this->imagePath, $this->storeId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -399,7 +404,7 @@ class Store {
 			$store = null;
 			$row = $result->fetch_assoc();
 			if($row !== null) {
-				$store = new Store($row["storeId"], $row["profileId"], $row["creationDate"], $row["storeName"], $row["imagePath"]);
+				$store = new Store($row["storeId"], $row["profileId"], $row["storeName"], $row["imagePath"], $row["creationDate"]);
 			}
 		} catch(Exception $exception) {
 // if the row couldn't be converted, rethrow it

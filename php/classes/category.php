@@ -85,7 +85,7 @@ class Category {
 	 *
 	 * @param string $newCategoryName new value of $categoryName
 	 * @throws InvalidArgumentException if the $categoryName is not an integer
-	 * @throws RangeException if the $categoryName is not positive
+	 * @throws RangeException if the $categoryName is longer then 20 characters
 	 **/
 	public function setCategoryName($newCategoryName) {
 		// verify the category name is valid and secure
@@ -93,6 +93,11 @@ class Category {
 		$newCategoryName = filter_var($newCategoryName, FILTER_SANITIZE_STRING);
 		if(empty($newCategoryName) === true) {
 			throw(new InvalidArgumentException("category name is empty or insecure"));
+		}
+
+		// verify the category name is not longer then 20 characters
+		if($newCategoryName > 20) {
+			throw(new RangeException ("category name too long"));
 		}
 
 		// convert and store the category name

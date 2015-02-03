@@ -333,6 +333,4 @@ class Category {
 			return ($categories);
 		}
 	}
-
-	// add get category by category name here
 }

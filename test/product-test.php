@@ -31,7 +31,7 @@ class ProductTest extends UnitTestCase {
 	/**
 	 * @var int $profileId id for the profile. This is a foreign key to the profile entity.
 	 */
-	private $profileId;
+	private $profileId = 1;
 
 	/**
 	 * @var string $imagePath image path of the product
@@ -179,8 +179,9 @@ class ProductTest extends UnitTestCase {
 
 		$this->product->insert($this->mysqli);
 		$mysqlProduct = Product::getProductByProductId($this->mysqli, $this->product->getProductId());
-		$this->assertIdentical($this->product->getProductId(), $mysqlProduct->getProductId());
 
+		$this->assertIdentical($this->product->getProductId(), $mysqlProduct->getProductId());
+//
 		// second, change the Product, update it mySQL
 		$newName = "new product name!";
 		$this->product->setProductName($newName);

@@ -88,7 +88,7 @@ CREATE TABLE product (
 	productName VARCHAR(45) NOT NULL,
 	productPrice FLOAT(7,2) NOT NULL,
 	productType VARCHAR(40) NOT NULL,
-	productWeignt FLOAT(8, 4) NOT NULL,
+	productWeight FLOAT(8, 4) NOT NULL,
 	imagePath VARCHAR(100),
 	profileId INT UNSIGNED NOT NULL,
 	INDEX(profileId),

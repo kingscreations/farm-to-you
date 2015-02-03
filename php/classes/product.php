@@ -294,7 +294,6 @@ class Product {
 		}
 
 		$query	 = "INSERT INTO product(profileId, imagePath, productName, productPrice, productType, productWeight) VALUES(?, ?, ?, ?, ?, ?)";
-		var_dump($query);
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -369,8 +368,8 @@ class Product {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-		$wasClean	  = $statement->bind_param("issdsd", $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
-			$this->productType, $this->productWeight);
+		$wasClean	  = $statement->bind_param("issdsdi", $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
+			$this->productType, $this->productWeight, $this->productId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -517,8 +516,6 @@ class Product {
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
-
-		// sanitize the productId before searching
 		$productId = filter_var($productId, FILTER_VALIDATE_INT);
 		if($productId === false) {
 			throw(new mysqli_sql_exception("tweet id is not an integer"));
@@ -526,8 +523,7 @@ class Product {
 		if($productId <= 0) {
 			throw(new mysqli_sql_exception("tweet id is not positive"));
 		}
-
-		$query	 = "SELECT productId, profileId, tweetContent, tweetDate FROM tweet WHERE productId = ?";
+		$query	 = "SELECT productId, profileId, imagePath, productName, productPrice, productType, productWeight FROM product WHERE productId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -542,18 +538,17 @@ class Product {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
 		}
 
-		// get result from the SELECT query
 		$result = $statement->get_result();
 		if($result === false) {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
 
-		// grab the tweet from mySQL
+		// grab the product from mySQL
 		try {
-			$tweet = null;
+			$product = null;
 			$row   = $result->fetch_assoc();
 			if($row !== null) {
-				$product	= new Product(null, $row["profileId"], $row["imagePath"], $row["productName"], $row["productPrice"],
+				$product	= new Product($row["productId"], $row["profileId"], $row["imagePath"], $row["productName"], $row["productPrice"],
 					$row["productType"], $row["productWeight"]);
 			}
 		} catch(Exception $exception) {
@@ -561,7 +556,6 @@ class Product {
 			throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 		}
 
-		// free up memory and return the result
 		$result->free();
 		$statement->close();
 		return($product);

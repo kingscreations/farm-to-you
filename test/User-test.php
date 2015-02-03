@@ -4,21 +4,21 @@
 require_once("/usr/lib/php5/simpletest/autorun.php");
 
 // next, require the class from the project under scrutiny
-require_once("../php/classes/category.php");
+require_once("../php/classes/user.php");
 
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 /**
- * unit test for the Category class
+ * unit test for the User class
  *
- * This is a simpletest test case for the CRUD methods of the Category class
+ * This is a simpletest test case for the CRUD methods of the User class
  *
- * @see category
- * @author Jay Renteria <jason@kingscreations.org>
+ * @see user
+ * @author Jason King <jason@kingscreations.org>
  *
  **/
 
-class CategoryTest extends UnitTestCase {
+class UserTest extends UnitTestCase {
 	/**
 	 * mysqli object shared amongst all tests
 	 **/
@@ -26,34 +26,50 @@ class CategoryTest extends UnitTestCase {
 	/**
 	 * instance of the object we are testing with
 	 **/
-	private $category = null;
+	private $user = null;
 
-	// this section contains member variables with constants needed for creating a new category
+	// this section contains member variables with constants needed for creating a new user
 	/**
-	 * category name of the test category
+	 * user id of the person who is inserting the test User
+	 * @deprecated a parent class of type Profile should be used here instead
 	 **/
-	private $categoryName = "test category";
-
 	/**
+	 * email of the test user
+	 **/
+	private $email = "BillyJoBob@suspender.com";
+	/**
+	 * hash generated from test users awesome password
+	 **/
+	private $hash = "cd5a4f0b677843c4d656579250ccb7aada88031641cf05d203ca021b135ccec2";
+	/**
+	 * salt to add to hash of test user
+	 **/
+	private $phone = "jasonkingisgreatjasonkingisgreat";
+	/**
+	 * activation value for test user
+	 **/
+	private $profileType = "greatisjasonking";
+			/**
 	 * sets up the mySQL connection for this test
 	 **/
 	public function setUp() {
-		// first connect to mysqli
+		// first, connect to mysqli
 		mysqli_report(MYSQLI_REPORT_STRICT);
-		$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
-		$this->mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
+		$this->mysqli = new mysqli("localhost", "--USERNAME--", "--PASSWORD--", "--DATABASE--");
 
-		// second create an instance of the object under scrutiny
-		$this->category = new Category(null, $this->categoryName);
+		// second, create an instance of the object under scrutiny
+		$this->tweetDate = new DateTime();
+		$this->user = new Tweet(null, $this->profileId, $this->tweetContent, $this->tweetDate);
 	}
 
 	/**
-	 * tears down the connection to mysql and deletes the test instance object
+	 * tears down the connection to mySQL and deletes the test instance object
 	 **/
 	public function tearDown() {
-		if($this->category !== null) {
-			$this->category->delete($this->mysqli);
-			$this->category = null;
+		// destroy the object if it was created
+		if($this->user !== null) {
+			$this->user->delete($this->mysqli);
+			$this->user = null;
 		}
 
 		// disconnect from mySQL
@@ -63,125 +79,127 @@ class CategoryTest extends UnitTestCase {
 		}
 	}
 
-
 	/**
-	 * test inserting a valid category into mySQL
+	 * test inserting a valid Tweet into mySQL
 	 **/
-	public function testInsertValidCategory() {
-		// zeroth, ensure that the category and mySQL class are sane
-		$this->assertNotNull($this->category);
+	public function testInsertValidTweet() {
+		// zeroth, ensure the Tweet and mySQL class are sane
+		$this->assertNotNull($this->user);
 		$this->assertNotNull($this->mysqli);
 
-		// first insert the category into mySQL
-		$this->category->insert($this->mysqli);
+		// first, insert the Tweet into mySQL
+		$this->user->insert($this->mysqli);
 
-		// second, grab a category from mySQL
-		$mysqlCategory = Category::getCategoryByCategoryId($this->mysqli, $this->category->getCategoryId());
+		// second, grab a Tweet from mySQL
+		$mysqlTweet = Tweet::getTweetByTweetId($this->mysqli, $this->user->getTweetId());
 
-		// third, assert the category we have created and mySQL's category are the same object
-		$this->assertIdentical($this->category->getCategoryId(), $mysqlCategory->getCategoryId());
-		$this->assertIdentical($this->category->getCategoryName(), $mysqlCategory->getCategoryName());
+		// third, assert the Tweet we have created and mySQL's Tweet are the same object
+		$this->assertIdentical($this->user->getTweetId(), $mysqlTweet->getTweetId());
+		$this->assertIdentical($this->user->getProfileId(), $mysqlTweet->getProfileId());
+		$this->assertIdentical($this->user->getTweetContent(), $mysqlTweet->getTweetContent());
+		$this->assertIdentical($this->user->getTweetDate(), $mysqlTweet->getTweetDate());
 	}
 
 	/**
-	 * test inserting an invalid category into mySQL
+	 * test inserting an invalid Tweet into mySQL
 	 **/
-	public function testInsertInvalidCategory(){
-		// zeroth, ensure that the category and mySQL class are sane
-		$this->assertNotNull($this->category);
+	public function testInsertInvalidTweet() {
+		// zeroth, ensure the Tweet and mySQL class are sane
+		$this->assertNotNull($this->user);
 		$this->assertNotNull($this->mysqli);
 
-		// first, ser the category id to an invented value that should never insert in the first place
-		$this->category->setCategoryId(42);
+		// first, set the tweet id to an invented value that should never insert in the first place
+		$this->user->setTweetId(42);
 
-		// second, try to insert the category and ensure the execption is thrown
+		// second, try to insert the Tweet and ensure the exception is thrown
 		$this->expectException("mysqli_sql_exception");
-		$this->category->insert($this->mysqli);
+		$this->user->insert($this->mysqli);
 
-		// third, set the category to null to prevent tearDown() from deleting a category that never existed
-		$this->category = null;
+		// third, set the Tweet to null to prevent tearDown() from deleting a Tweet that never existed
+		$this->user = null;
 	}
 
 	/**
-	 * test deleting a category in mySQL
+	 * test deleting a Tweet from mySQL
 	 **/
-	public function testDeleteValidCategory(){
-		// zeroth, ensure that the category and mySQL class are sane
-		$this->assertNotNull($this->category);
+	public function testDeleteValidTweet() {
+		// zeroth, ensure the Tweet and mySQL class are sane
+		$this->assertNotNull($this->user);
 		$this->assertNotNull($this->mysqli);
 
-		// first assert the category is inserted into mySQL by grabbing it from mySQL and asserting the primary key
-		$this->category->insert($this->mysqli);
-		$mysqliCategory = Category::getCategoryByCategoryId($this->mysqli, $this->category->getCategoryId());
-		$this->assertIdentical($this->category->getCategoryId(), $mysqliCategory->getCategoryId());
+		// first, assert the Tweet is inserted into mySQL by grabbing it from mySQL and asserting the primary key
+		$this->user->insert($this->mysqli);
+		$mysqlTweet = Tweet::getTweetByTweetId($this->mysqli, $this->user->getTweetId());
+		$this->assertIdentical($this->user->getTweetId(), $mysqlTweet->getTweetId());
 
-		// second delete the category from mySQL and re-grab it from mySQL and assert it does not exist
-		$this->category->delete($this->mysqli);
-		$mysqliCategory = Category::getCategoryByCategoryId($this->mysqli, $this->category->getCategoryId());
-		$this->assertNull($mysqliCategory);
+		// second, delete the Tweet from mySQL and re-grab it from mySQL and assert it does not exist
+		$this->user->delete($this->mysqli);
+		$mysqlTweet = Tweet::getTweetByTweetId($this->mysqli, $this->user->getTweetId());
+		$this->assertNull($mysqlTweet);
 
-		// third set the category to null to prevent tearDown() from deleting a category that has already been deleted
-		$this->category = null;
+		// third, set the Tweet to null to prevent tearDown() from deleting a Tweet that has already been deleted
+		$this->user = null;
 	}
 
 	/**
-	 * test deleting a category from mySQL that does not exist
+	 * test deleting a Tweet from mySQL that does not exist
 	 **/
-	public function testDeleteInvalidCategory(){
-		// zeroth, ensure that the category and mySQL class are sane
-		$this->assertNotNull($this->category);
+	public function testDeleteInvalidTweet() {
+		// zeroth, ensure the Tweet and mySQL class are sane
+		$this->assertNotNull($this->user);
 		$this->assertNotNull($this->mysqli);
 
-		// first try to delete the category before inserting it and ensure that the exception is thrown
+		// first, try to delete the Tweet before inserting it and ensure the exception is thrown
 		$this->expectException("mysqli_sql_exception");
-		$this->category->delete($this->mysqli);
+		$this->user->delete($this->mysqli);
 
-		// second set the category to null to prevent tearDown() from deleting a category that has already been deleted
-		$this->category = null;
+		// second, set the Tweet to null to prevent tearDown() from deleting a Tweet that has already been deleted
+		$this->user = null;
 	}
 
 	/**
-	 * test updating a category from mySQL
+	 * test updating a Tweet from mySQL
 	 **/
-	public function testUpdateValidCategory(){
-		// zeroth, ensure that the category and mySQL class are sane
-		$this->assertNotNull($this->category);
+	public function testUpdateValidTweet() {
+		// zeroth, ensure the Tweet and mySQL class are sane
+		$this->assertNotNull($this->user);
 		$this->assertNotNull($this->mysqli);
 
-		// first asser the category is inserting into mySQL by grabbing it from mySQL and asserting the primary key
-		$this->category->insert($this->mysqli);
-		$mysqlCategory = Category::getCategoryByCategoryId($this->mysqli, $this->category->getCategoryId());
-		$this->assertIdentical($this->category->getCategoryId(), $mysqlCategory ->getCategoryId());
+		// first, assert the Tweet is inserted into mySQL by grabbing it from mySQL and asserting the primary key
+		$this->user->insert($this->mysqli);
+		$mysqlTweet = Tweet::getTweetByTweetId($this->mysqli, $this->user->getTweetId());
+		$this->assertIdentical($this->user->getTweetId(), $mysqlTweet->getTweetId());
 
-		// second change the category and update it in mySQL
-		$newCategoryName = "test update category";
-		$this->category->setCategoryName($newCategoryName);
-		$this->category->update($this->mysqli);
+		// second, change the Tweet, update it mySQL
+		$newContent = "My unit tests updated everything!";
+		$this->user->setTweetContent($newContent);
+		$this->user->update($this->mysqli);
 
-		// third, re-grab the category form mySQL
-		$mysqlCategory = Category::getCategoryByCategoryId($this->mysqli, $this->category->getCategoryId());
-		$this->assertNotNull($mysqlCategory);
+		// third, re-grab the Tweet from mySQL
+		$mysqlTweet = Tweet::getTweetByTweetId($this->mysqli, $this->user->getTweetId());
+		$this->assertNotNull($mysqlTweet);
 
-		// fourth, assert the category we have updated and mySQL's category are the same object
-		$this->assertIdentical($this->category->getCategoryId(), $mysqlCategory->getCategoryId());
-		$this->assertIdentical($this->category->getCategoryName(), $mysqlCategory->getCategoryName());
+		// fourth, assert the Tweet we have updated and mySQL's Tweet are the same object
+		$this->assertIdentical($this->user->getTweetId(), $mysqlTweet->getTweetId());
+		$this->assertIdentical($this->user->getProfileId(), $mysqlTweet->getProfileId());
+		$this->assertIdentical($this->user->getTweetContent(), $mysqlTweet->getTweetContent());
+		$this->assertIdentical($this->user->getTweetDate(), $mysqlTweet->getTweetDate());
 	}
 
 	/**
-	 * test updating a category from mySQL that does not exists
+	 * test updating a Tweet from mySQL that does not exist
 	 **/
-	public function testUpdateInvalidCategory(){
-		// zeroth, ensure that the category and mySQL class are sane
-		$this->assertNotNull($this->category);
+	public function testUpdateInvalidTweet() {
+		// zeroth, ensure the Tweet and mySQL class are sane
+		$this->assertNotNull($this->user);
 		$this->assertNotNull($this->mysqli);
 
-		// first try to update the category before inserting it and ensure the exception is thrown
+		// first, try to update the Tweet before inserting it and ensure the exception is thrown
 		$this->expectException("mysqli_sql_exception");
-		$this->category->update($this->mysqli);
+		$this->user->update($this->mysqli);
 
-		// second set the comment to null to prevent tearDown() from deleting a comment that has already been deleted
-		$this->category= null;
+		// second, set the Tweet to null to prevent tearDown() from deleting a Tweet that has already been deleted
+		$this->user = null;
 	}
-
-	// add test for category name, need to add get by category name in category.php
 }
+?>

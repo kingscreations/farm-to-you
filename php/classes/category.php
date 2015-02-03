@@ -20,11 +20,11 @@ class Category {
 	 * constructor for this category class
 	 *
 	 * @param int $newCategoryId id of the category
-	 * @param string $newCategoryName of the category
-	 * @throws InvalidArgumentException it data types are not valid
+	 * @param string $newCategoryName name of the category
+	 * @throws InvalidArgumentException if data types are not valid
 	 * @throws RangeException if data values are out of bounds (e.g. strings too long, negative integers)
 	 **/
-	public function __construct($newCategoryId, $newCategoryName = null) {
+	public function __construct($newCategoryId, $newCategoryName) {
 		try {
 			$this->setCategoryId($newCategoryId);
 			$this->setCategoryName($newCategoryName);
@@ -49,7 +49,7 @@ class Category {
 	/**
 	 * mutator method for categoryId
 	 *
-	 * @param int $newCategoryId new value of $categoryId
+	 * @param mixed $newCategoryId new value of $categoryId or null if new object
 	 * @throws InvalidArgumentException if the $categoryId is not an integer
 	 * @throws RangeException if the $categoryId is not positive
 	 **/
@@ -261,8 +261,8 @@ class Category {
 			return (null);
 		} else if($numberOfCategories === 1) {
 			return ($categories[0]);
-		} else {
-			return ($categories);
 		}
 	}
+
+	// add get category by category name here
 }

@@ -182,5 +182,7 @@ class CategoryTest extends UnitTestCase {
 		// second set the comment to null to prevent tearDown() from deleting a comment that has already been deleted
 		$this->category= null;
 	}
+
+	// add test for category name, need to add get by category name in category.php
 }
 ?>

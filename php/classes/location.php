@@ -89,7 +89,13 @@ class Location {
 	 **/
 	public function setLocationId($newLocationId) {
 		// verify the store id is valid
+		if($newLocationId === null) {
+			$this->locationId = null;
+			return;
+		}
+
 		$newLocationId = filter_var($newLocationId, FILTER_VALIDATE_INT);
+
 		if($newLocationId === false) {
 			throw(new InvalidArgumentException("location id is not a valid integer"));
 		}
@@ -255,7 +261,7 @@ class Location {
 		}
 
 // verify the store name will fit in the database
-		if(strlen($newAddress1) > 5) {
+		if(strlen($newAddress1) > 150) {
 			throw(new RangeException("address 1 too large"));
 		}
 
@@ -279,6 +285,12 @@ class Location {
 	 * @throws RangeException if $newStoreName is > 100 characters
 	 **/
 	public function setAddress2($newAddress2) {
+		if($newAddress2 === null) {
+			$this->address2 = null;
+			return;
+		}
+
+
 // verify that the store name is secure
 		$newAddress2 = trim($newAddress2);
 		$newAddress2 = filter_var($newAddress2, FILTER_SANITIZE_STRING);
@@ -287,7 +299,7 @@ class Location {
 		}
 
 // verify the store name will fit in the database
-		if(strlen($newAddress2) > 5) {
+		if(strlen($newAddress2) > 150) {
 			throw(new RangeException("address 2 too large"));
 		}
 
@@ -450,7 +462,7 @@ class Location {
 			$location = null;
 			$row = $result->fetch_assoc();
 			if($row !== null) {
-				$location = new Store($row["locationId"], $row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
+				$location = new Location($row["locationId"], $row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
 			}
 		} catch(Exception $exception) {
 // if the row couldn't be converted, rethrow it
@@ -470,31 +482,31 @@ class Location {
 	 * @return mixed Store found or null if not found
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 **/
-	public static function getStoreByStoreName(&$mysqli, $storeName) {
+	public static function getLocationByCity(&$mysqli, $city) {
 // handle degenerate cases
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 
 // sanitize the storeName before searching
-		$storeName = trim($storeName);
-		$storeName = filter_var($storeName, FILTER_SANITIZE_STRING);
-		if(empty($storeName) === true) {
-			throw(new mysqli_sql_exception("store name is empty or insecure"));
+		$city = trim($city);
+		$city = filter_var($city, FILTER_SANITIZE_STRING);
+		if(empty($city) === true) {
+			throw(new mysqli_sql_exception("city name is empty or insecure"));
 		}
-		if(strlen($storeName) > 100) {
-			throw(new mysqli_sql_exception("store name too large"));
+		if(strlen($city) > 40) {
+			throw(new mysqli_sql_exception("city name too large"));
 		}
 
 // create query template
-		$query = "SELECT storeId, profileId, creationDate, storeName, imagePath FROM store WHERE storeName = ?";
+		$query = "SELECT locationId, country, state, city, zipCode, address1, address2 FROM location WHERE city = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
 // bind the store id to the place holder in the template
-		$wasClean = $statement->bind_param("s", $storeName);
+		$wasClean = $statement->bind_param("s", $city);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -512,10 +524,10 @@ class Location {
 
 // grab the store from mySQL
 		try {
-			$store = null;
+			$location = null;
 			$row = $result->fetch_assoc();
 			if($row !== null) {
-				$store = new Store($row["storeId"], $row["profileId"], $row["storeName"], $row["imagePath"], $row["creationDate"]);
+				$location = new Location($row["locationId"], $row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
 			}
 		} catch(Exception $exception) {
 // if the row couldn't be converted, rethrow it
@@ -525,7 +537,7 @@ class Location {
 // free up memory and return the result
 		$result->free();
 		$statement->close();
-		return ($store);
+		return ($location);
 	}
 
 }

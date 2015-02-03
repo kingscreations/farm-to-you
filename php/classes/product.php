@@ -508,7 +508,7 @@ class Product {
 	 * gets the Product by productId
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
-	 * @param int $productId tweet content to search for
+	 * @param int $productId product content to search for
 	 * @return mixed Product found or null if not found
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 **/
@@ -518,10 +518,10 @@ class Product {
 		}
 		$productId = filter_var($productId, FILTER_VALIDATE_INT);
 		if($productId === false) {
-			throw(new mysqli_sql_exception("tweet id is not an integer"));
+			throw(new mysqli_sql_exception("product id is not an integer"));
 		}
 		if($productId <= 0) {
-			throw(new mysqli_sql_exception("tweet id is not positive"));
+			throw(new mysqli_sql_exception("product id is not positive"));
 		}
 		$query	 = "SELECT productId, profileId, imagePath, productName, productPrice, productType, productWeight FROM product WHERE productId = ?";
 		$statement = $mysqli->prepare($query);
@@ -575,7 +575,7 @@ class Product {
 		}
 
 		// create query template
-		$query	 = "SELECT productId, profileId, tweetContent, tweetDate FROM tweet";
+		$query	 = "SELECT productId, profileId, productContent, productDate FROM product";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -592,7 +592,7 @@ class Product {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
 
-		// build an array of tweet
+		// build an array of product
 		$products = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {

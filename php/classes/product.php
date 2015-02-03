@@ -293,13 +293,13 @@ class Product {
 			throw(new mysqli_sql_exception("not a new product"));
 		}
 
-		$query	 = "INSERT INTO product(profileId, productName, productPrice, productType, productWeight) VALUES(?, ?, ?, ?, ?)";
+		$query	 = "INSERT INTO product(profileId, imagePath, productName, productPrice, productType, productWeight) VALUES(?, ?, ?, ?, ?, ?)";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-		$wasClean	  = $statement->bind_param("isdsd", $this->profileId, $this->productName, $this->productPrice,
+		$wasClean	  = $statement->bind_param("issdsd", $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
 			$this->productType, $this->productWeight);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
@@ -361,14 +361,14 @@ class Product {
 			throw(new mysqli_sql_exception("unable to update a product that does not exist"));
 		}
 
-		$query	 = "UPDATE product SET profileId = ?, productName = ?, productPrice = ?, productType = ?,
+		$query	 = "UPDATE product SET profileId = ?, imagePath = ?, productName = ?, productPrice = ?, productType = ?,
 			productWeight = ? WHERE productId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-		$wasClean	  = $statement->bind_param("isdsd", $this->profileId, $this->productName, $this->productPrice,
+		$wasClean	  = $statement->bind_param("issdsd", $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
 			$this->productType, $this->productWeight);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));

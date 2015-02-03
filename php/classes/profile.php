@@ -426,7 +426,7 @@ class Profile {
 		$lastName = trim($lastName);
 		$lastName = filter_var($lastName, FILTER_SANITIZE_STRING);
 		// create query template
-		$query	 = "SELECT firstName, lastName, phone, profileType, imagePath, userId FROM profile WHERE lastName LIKE ?";
+		$query	 = "SELECT firstName, lastName, phone, profileType, customerToken, imagePath, userId FROM profile WHERE lastName LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -450,7 +450,7 @@ class Profile {
 		$profile = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$profile	= new Profile($row["profileId"], $row["firstName"], $row["lastName"], $row["phone"], $row["profileType"],  $row["imagePath"],  $row["userId"]);
+				$profile	= new Profile($row["profileId"], $row["firstName"], $row["lastName"], $row["phone"], $row["profileType"], $row["customerToken"], $row["imagePath"], $row["userId"]);
 				$profiles[] = $profile;
 			}
 			catch(Exception $exception) {
@@ -493,7 +493,7 @@ class Profile {
 			throw(new mysqli_sql_exception("profile id is not positive"));
 		}
 		// create query template
-		$query = "SELECT firstName, lastName, phone, profileType, imagePath, userId FROM profile WHERE lastName LIKE ?";
+		$query = "SELECT firstName, lastName, phone, profileType, customerToken imagePath, userId FROM profile WHERE lastName LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -517,7 +517,7 @@ class Profile {
 			$profile = null;
 			$row = $result->fetch_assoc();
 			if($row !== null) {
-				$profile = new Profile($row["profileId"], $row["firstName"], $row["lastName"], $row["phone"], $row["profileType"],  $row["imagePath"],  $row["userId"]);
+				$profile = new Profile($row["profileId"], $row["firstName"], $row["lastName"], $row["phone"], $row["profileType"], $row["customerToken"], $row["imagePath"], $row["userId"]);
 			}
 		} catch(Exception $exception) {
 			// if the row couldn't be converted, rethrow it
@@ -559,7 +559,7 @@ class Profile {
 		$profiles = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$profile	= new Profile($row["profileId"], $row["firstName"], $row["lastName"], $row["phone"], $row["profileType"], $row["imagePath"], $row["userId"]);
+				$profile	= new Profile($row["profileId"], $row["firstName"], $row["lastName"], $row["phone"], $row["profileType"], $row["customerToken"], $row["imagePath"], $row["userId"]);
 				$profiles[] = $profile;
 			}
 			catch(Exception $exception) {

@@ -96,7 +96,7 @@ class Category {
 		}
 
 		// verify the category name is not longer then 20 characters
-		if($newCategoryName > 20) {
+		if(strlen($newCategoryName) > 20) {
 			throw(new RangeException ("category name too long"));
 		}
 

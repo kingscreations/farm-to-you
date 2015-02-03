@@ -1,7 +1,7 @@
 <?php
 /**
 /**
- * the creation of the user class
+ * the creation of the user class for farmtoyou capstone
  * This class is a collection of user login data
  * @jason king <jason@kingscreations.org>
  **/

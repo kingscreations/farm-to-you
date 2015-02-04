@@ -219,18 +219,21 @@ class LocationTest extends UnitTestCase {
 // second, set the Tweet to null to prevent tearDown() from deleting a Tweet that has already been deleted
 		$this->location = null;
 	}
-
+	/**
+	 * test getLocationByCity by inserting two identical Locations into mySQL, calling them with getLocationByCity,
+	 * and asserting mySQL Locations and original Locations are identical
+	 **/
 	public function testValidInsertCity() {
-		// zeroth, ensure the Tweet and mySQL class are sane
+// zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);
 		$this->assertNotNull($this->location2);
 		$this->assertNotNull($this->mysqli);
-// first, insert the Tweet into mySQL
+// first, insert the Location into mySQL
 		$this->location->insert($this->mysqli);
 		$this->location2->insert($this->mysqli);
-// second, grab a Tweet from mySQL
+// second, grab the Locations from mySQL
 		$mysqlLocations = Location::getLocationByCity($this->mysqli, $this->location->getCity(), $this->location2->getCity());
-// third, assert the Tweet we have created and mySQL's Tweet are the same object
+// third, assert the Locations we have created and mySQL's Locations are the same object
 		foreach($mysqlLocations as $mysqlLocation) {
 			$this->assertIdentical($this->location->getLocationId(), $mysqlLocation->getLocationId());
 			$this->assertIdentical($this->location->getCity(), $mysqlLocation->getCity());
@@ -238,22 +241,30 @@ class LocationTest extends UnitTestCase {
 			$this->assertIdentical($this->location2->getCity(), $mysqlLocation->getCity());
 		}
 	}
+	/**
+	 * test getLocationByCity by inserting two identical Locations into mySQL, setting city to an invalid entry (null in
+	 * this case) for both, calling them with getLocationByCity, and asserting mySQL Locations and original Locations are
+	 * identical
+	 **/
 	public function testInvalidInsertCity() {
-		// zeroth, ensure the Tweet and mySQL class are sane
+// zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);
 		$this->assertNotNull($this->location2);
 		$this->assertNotNull($this->mysqli);
 
+// first, expect the exception and set City in both locations to an invalid entry
 		$this->expectException("InvalidArgumentException");
 		$this->location->setCity(null);
 		$this->location2->setCity(null);
 
-// first, insert the Tweet into mySQL
+// second, insert the Location into mySQL
 		$this->location->insert($this->mysqli);
 		$this->location2->insert($this->mysqli);
-// second, grab a Tweet from mySQL
+
+// third, grab the Locations from mySQL
 		$mysqlLocations = Location::getLocationByCity($this->mysqli, $this->location->getCity(), $this->location2->getCity());
-// third, assert the Tweet we have created and mySQL's Tweet are the same object
+
+// fourth, assert the Locations we have created and mySQL's Locations are the same object
 		foreach($mysqlLocations as $mysqlLocation) {
 			$this->assertIdentical($this->location->getLocationId(), $mysqlLocation->getLocationId());
 			$this->assertIdentical($this->location->getCity(), $mysqlLocation->getCity());

@@ -188,5 +188,33 @@ class CheckoutTest extends UnitTestCase {
 		// second, set the checkout to null to prevent tearDown() from deleting a checkout that has already been deleted
 		$this->checkout = null;
 	}
+
+	/**
+	 * test get valid checkout by checkout date
+	 */
+	public function testGetValidCheckoutByCheckoutDate() {
+		$this->assertNotNull($this->checkout);
+		$this->assertNotNull($this->mysqli);
+
+		$this->checkout->insert($this->mysqli);
+		$formattedDate = $this->checkout->getCheckoutDate()->format("Y-m-d H:i:s");
+		$mysqlCheckout = Checkout::getCheckoutByCheckoutDate($this->mysqli, $formattedDate);
+
+		$this->assertIdentical($this->checkout->getCheckoutId(), $mysqlCheckout->getCheckoutId());
+	}
+
+	/**
+	 * test get invalid checkout by checkout date
+	 */
+	public function testGetInvalidCheckoutByCheckoutDate() {
+		$this->assertNotNull($this->checkout);
+		$this->assertNotNull($this->mysqli);
+
+		$this->checkout->insert($this->mysqli);
+		$formattedDate = $this->checkout->getCheckoutDate()->format("Y-m-s H:i:s");
+		$mysqlCheckout = Checkout::getCheckoutByCheckoutDate($this->mysqli, $formattedDate);
+
+		$this->assertNull($mysqlCheckout);
+	}
 }
 ?>

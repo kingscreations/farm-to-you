@@ -475,70 +475,73 @@ class Location {
 		return ($location);
 	}
 	/**
-	 * gets the store by storeName
+	 * gets the Tweet by content
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
-	 * @param string $storeName store name to search for
-	 * @return mixed Store found or null if not found
+	 * @param string $tweetContent tweet content to search for
+	 * @return mixed array of Tweets found, Tweets found, or null if not found
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 **/
 	public static function getLocationByCity(&$mysqli, $city) {
-// handle degenerate cases
+		// handle degenerate cases
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 
-// sanitize the storeName before searching
+		// sanitize the description before searching
 		$city = trim($city);
 		$city = filter_var($city, FILTER_SANITIZE_STRING);
-		if(empty($city) === true) {
-			throw(new mysqli_sql_exception("city name is empty or insecure"));
-		}
-		if(strlen($city) > 40) {
-			throw(new mysqli_sql_exception("city name too large"));
-		}
 
-// create query template
-		$query = "SELECT locationId, country, state, city, zipCode, address1, address2 FROM location WHERE city = ?";
+		// create query template
+		$query	 = "SELECT locationId, country, state, city, zipCode, address1, address2 FROM location WHERE city LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-// bind the store id to the place holder in the template
+		// bind the tweet content to the place holder in the template
+		$city = "%$city%";
 		$wasClean = $statement->bind_param("s", $city);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
 
-// execute the statement
+		// execute the statement
 		if($statement->execute() === false) {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
 		}
 
-// get result from the SELECT query
+		// get result from the SELECT query
 		$result = $statement->get_result();
 		if($result === false) {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
 
-// grab the store from mySQL
-		try {
-			$location = null;
-			$row = $result->fetch_assoc();
-			if($row !== null) {
-				$location = new Location($row["locationId"], $row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
+		// build an array of tweet
+		$locations = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$location	= new Location($row["locationId"], $row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
+				$locations[] = $location;
 			}
-		} catch(Exception $exception) {
-// if the row couldn't be converted, rethrow it
-			throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
 		}
 
-// free up memory and return the result
-		$result->free();
-		$statement->close();
-		return ($location);
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) a single object if 1 result
+		// 3) the entire array if > 1 result
+		$numberOfLocations = count($locations);
+		if($numberOfLocations === 0) {
+			return(null);
+		} else if($numberOfLocations === 1) {
+			return($locations[0]);
+		} else {
+			return($locations);
+		}
 	}
-
 }
 ?>

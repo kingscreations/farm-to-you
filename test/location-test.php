@@ -26,11 +26,6 @@ class LocationTest extends UnitTestCase {
 	 * instance of the object we are testing with
 	 **/
 	private $location = null;
-	/**
-	 * instance of the object we are testing with
-	 **/
-	private $location2 = null;
-
 // this section contains member variables with constants needed for creating a new tweet
 	/**
 	 * profile id of the person who is inserting the test Tweet
@@ -70,7 +65,6 @@ class LocationTest extends UnitTestCase {
 
 // second, create an instance of the object under scrutiny
 		$this->location = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
-		$this->location2 = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
 	}
 
 	/**
@@ -115,9 +109,9 @@ class LocationTest extends UnitTestCase {
 
 	}
 
-	/**
-	 * test inserting an invalid Tweet into mySQL
-	 **/
+//	/**
+//	 * test inserting an invalid Tweet into mySQL
+//	 **/
 	public function testInsertInvalidLocation() {
 // zeroth, ensure the Tweet and mySQL class are sane
 		$this->assertNotNull($this->location);
@@ -134,9 +128,9 @@ class LocationTest extends UnitTestCase {
 		$this->location = null;
 	}
 
-	/**
-	 * test deleting a Tweet from mySQL
-	 **/
+//	/**
+//	 * test deleting a Tweet from mySQL
+//	 **/
 	public function testDeleteValidLocation() {
 // zeroth, ensure the Tweet and mySQL class are sane
 		$this->assertNotNull($this->location);
@@ -156,9 +150,9 @@ class LocationTest extends UnitTestCase {
 		$this->location = null;
 	}
 
-	/**
-	 * test deleting a Tweet from mySQL that does not exist
-	 **/
+//	/**
+//	 * test deleting a Tweet from mySQL that does not exist
+//	 **/
 	public function testDeleteInvalidLocation() {
 // zeroth, ensure the Tweet and mySQL class are sane
 		$this->assertNotNull($this->location);
@@ -172,9 +166,9 @@ class LocationTest extends UnitTestCase {
 		$this->location = null;
 	}
 
-	/**
-	 * test updating a Tweet from mySQL
-	 **/
+//	/**
+//	 * test updating a Tweet from mySQL
+//	 **/
 	public function testUpdateValidLocation() {
 // zeroth, ensure the Tweet and mySQL class are sane
 		$this->assertNotNull($this->location);
@@ -204,41 +198,38 @@ class LocationTest extends UnitTestCase {
 		$this->assertIdentical($this->location->getAddress2(), $mysqlLocation->getAddress2());
 	}
 
-	/**
-	 * test updating a Tweet from mySQL that does not exist
-	 **/
+//	/**
+//	 * test updating a Tweet from mySQL that does not exist
+//	 **/
 	public function testUpdateInvalidLocation() {
-// zeroth, ensure the Tweet and mySQL class are sane
+//// zeroth, ensure the Tweet and mySQL class are sane
 		$this->assertNotNull($this->location);
 		$this->assertNotNull($this->mysqli);
 
-// first, try to update the Tweet before inserting it and ensure the exception is thrown
+//// first, try to update the Tweet before inserting it and ensure the exception is thrown
 		$this->expectException("mysqli_sql_exception");
 		$this->location->update($this->mysqli);
 
-// second, set the Tweet to null to prevent tearDown() from deleting a Tweet that has already been deleted
+//// second, set the Tweet to null to prevent tearDown() from deleting a Tweet that has already been deleted
 		$this->location = null;
 	}
 	/**
 	 * test getLocationByCity by inserting two identical Locations into mySQL, calling them with getLocationByCity,
 	 * and asserting mySQL Locations and original Locations are identical
 	 **/
-	public function testValidInsertCity() {
+	public function testGetLocationByValidCity() {
 // zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);
-		$this->assertNotNull($this->location2);
 		$this->assertNotNull($this->mysqli);
+		var_dump($this->location);
 // first, insert the Location into mySQL
 		$this->location->insert($this->mysqli);
-		$this->location2->insert($this->mysqli);
 // second, grab the Locations from mySQL
-		$mysqlLocations = Location::getLocationByCity($this->mysqli, $this->location->getCity(), $this->location2->getCity());
+		$mysqlLocations = Location::getLocationByCity($this->mysqli, $this->city);
+		var_dump($mysqlLocations);
 // third, assert the Locations we have created and mySQL's Locations are the same object
 		foreach($mysqlLocations as $mysqlLocation) {
-			$this->assertIdentical($this->location->getLocationId(), $mysqlLocation->getLocationId());
 			$this->assertIdentical($this->location->getCity(), $mysqlLocation->getCity());
-			$this->assertIdentical($this->location2->getLocationId(), $mysqlLocation->getLocationId());
-			$this->assertIdentical($this->location2->getCity(), $mysqlLocation->getCity());
 		}
 	}
 	/**
@@ -246,30 +237,24 @@ class LocationTest extends UnitTestCase {
 	 * this case) for both, calling them with getLocationByCity, and asserting mySQL Locations and original Locations are
 	 * identical
 	 **/
-	public function testInvalidInsertCity() {
+	public function testGetLocationByInvalidCity() {
 // zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);
-		$this->assertNotNull($this->location2);
 		$this->assertNotNull($this->mysqli);
 
 // first, expect the exception and set City in both locations to an invalid entry
 		$this->expectException("InvalidArgumentException");
 		$this->location->setCity(null);
-		$this->location2->setCity(null);
 
 // second, insert the Location into mySQL
 		$this->location->insert($this->mysqli);
-		$this->location2->insert($this->mysqli);
 
 // third, grab the Locations from mySQL
-		$mysqlLocations = Location::getLocationByCity($this->mysqli, $this->location->getCity(), $this->location2->getCity());
+		$mysqlLocations = Location::getLocationByCity($this->mysqli, $this->city);
 
 // fourth, assert the Locations we have created and mySQL's Locations are the same object
 		foreach($mysqlLocations as $mysqlLocation) {
-			$this->assertIdentical($this->location->getLocationId(), $mysqlLocation->getLocationId());
 			$this->assertIdentical($this->location->getCity(), $mysqlLocation->getCity());
-			$this->assertIdentical($this->location2->getLocationId(), $mysqlLocation->getLocationId());
-			$this->assertIdentical($this->location2->getCity(), $mysqlLocation->getCity());
 		}
 	}
 

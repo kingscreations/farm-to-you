@@ -14,7 +14,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
  * This is a SimpleTest test case for the CRUD methods of the checkout class.
  *
  * @see checkout
- * @author Dylan McDonald <dmcdonald21@cnm.edu>
+ * @author Jay Renteria <jay@jayrenteria.com>
  **/
 class CheckoutTest extends UnitTestCase {
 	/**

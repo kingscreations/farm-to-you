@@ -205,7 +205,6 @@ class CategoryTest extends UnitTestCase {
 //		var_dump($this->category);
 		foreach($mysqlCategories as $mysqlCategory) {
 
-			$this->assertIdentical($this->category->getCategoryId(), $mysqlCategory->getCategoryId());
 			$this->assertIdentical($this->category->getCategoryName(), $mysqlCategory->getCategoryName());
 		}
 	}

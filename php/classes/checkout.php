@@ -252,7 +252,8 @@ class Checkout {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the member variables to the place holders in the template
-		$wasClean = $statement->bind_param("iis", $this->checkoutId, $this->orderId, $this->checkoutDate);
+		$formattedDate = $this->checkoutDate->format("Y-m-d H:i:s");
+		$wasClean = $statement->bind_param("iisi", $this->checkoutId, $this->orderId, $formattedDate, $this->checkoutId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}

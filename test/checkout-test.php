@@ -158,10 +158,10 @@ class CheckoutTest extends UnitTestCase {
 		$mysqlCheckout = Checkout::getCheckoutByCheckoutId($this->mysqli, $this->checkout->getCheckoutId());
 		$this->assertIdentical($this->checkout->getCheckoutId(), $mysqlCheckout->getCheckoutId());
 //
-//		// second, change the checkout, update it mySQL
-//		$newContent = "My unit tests updated everything!";
-//		$this->checkout->setTweetContent($newContent);
-//		$this->tweet->update($this->mysqli);
+		// second, change the checkout, update it mySQL
+		$newDate = $this->checkout->getCheckoutDate();
+		$this->checkout->setCheckoutDate($newDate);
+		$this->checkout->update($this->mysqli);
 
 		// third, re-grab the checkout from mySQL
 		$mysqlCheckout = Checkout::getCheckoutByCheckoutId($this->mysqli, $this->checkout->getCheckoutId());

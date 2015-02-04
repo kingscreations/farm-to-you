@@ -399,7 +399,7 @@ class Order {
 		}
 
 		// create query template
-		$query	 = "SELECT orderId, profileId, orderContent, orderDate FROM `order`";
+		$query	 = "SELECT orderId, profileId, orderDate FROM `order`";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));

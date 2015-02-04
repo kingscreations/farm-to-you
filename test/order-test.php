@@ -22,10 +22,16 @@ class OrderTest extends UnitTestCase {
 	 * mysqli object shared amongst all tests
 	 **/
 	private $mysqli = null;
+
 	/**
 	 * instance of the object we are testing with
 	 **/
 	private $order = null;
+
+	/**
+	 * instance of another instance of Order to test getAllOrders() function
+	 **/
+	private $order2 = null;
 
 	// this section contains member variables with constants needed for creating a new order
 	/**
@@ -159,7 +165,6 @@ class OrderTest extends UnitTestCase {
 
 		$this->order->insert($this->mysqli);
 		$mysqlOrder = Order::getOrderByOrderId($this->mysqli, $this->order->getOrderId());
-
 		$this->assertIdentical($this->order->getOrderId(), $mysqlOrder->getOrderId());
 
 		// second, change the Order, update it mySQL
@@ -188,39 +193,6 @@ class OrderTest extends UnitTestCase {
 		$this->order->update($this->mysqli);
 
 		// second, set the Order to null to prevent tearDown() from deleting a Order that has already been deleted
-		$this->order = null;
-	}
-
-	/**
-	 * test getting all the orders
-	 **/
-	public function testGetAllOrders() {
-		$this->assertNotNull($this->order);
-		$this->assertNotNull($this->mysqli);
-
-		$this->order->insert($this->mysqli);
-
-		// create a new order
-		$this->order->setProfileId(2);
-		$this->order->setOrderDate(new DateTime());
-		$this->order->insert($this->mysqli);
-
-		$mysqlOrder = Order::getAllOrders($this->mysqli);
-		$this->assertIdentical($this->order->getOrderId(), $mysqlOrder->getOrderId());
-
-		// second, change the Order, update it mySQL
-		$newDate = new DateTime();
-		$this->order->setOrderDate($newDate);
-		$this->order->update($this->mysqli);
-
-		$mysqlOrder = Order::getOrderByOrderId($this->mysqli, $this->order->getOrderId());
-		$this->assertNotNull($mysqlOrder);
-
-		// fourth, assert the Order we have updated and mySQL's Order are the same object
-		$this->assertIdentical($this->order->getOrderId(), $mysqlOrder->getOrderId());
-		$this->assertIdentical($this->order->getProfileId(), $mysqlOrder->getProfileId());
-		$this->assertIdentical($this->order->getOrderDate(), $mysqlOrder->getOrderDate());
-
 		$this->order = null;
 	}
 

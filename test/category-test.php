@@ -183,6 +183,135 @@ class CategoryTest extends UnitTestCase {
 		$this->category= null;
 	}
 
-	// add test for category name, need to add get by category name in category.php
+
+
+	// add test for category name
+	/**
+	 * test for inserting a category name to mySQL
+	 */
+	public function testInsertValidCategoryName() {
+		// zeroth, ensure that the category name and mySQL class are sane
+		$this->assertNotNull($this->category);
+		$this->assertNotNull($this->mysqli);
+
+		// first insert the category name into mySQL
+		$this->category->insert($this->mysqli);
+
+		// second, grab a category from mySQL
+		$mysqlCategories = Category::getCategoryByCategoryName($this->mysqli, $this->category->getCategoryName());
+
+		// third, assert the category we have created and mySQL's category are the same object
+//		var_dump($mysqlCategory);
+//		var_dump($this->category);
+		foreach($mysqlCategories as $mysqlCategory) {
+
+			$this->assertIdentical($this->category->getCategoryId(), $mysqlCategory->getCategoryId());
+			$this->assertIdentical($this->category->getCategoryName(), $mysqlCategory->getCategoryName());
+		}
+	}
+
+	/**
+	 * test inserting an invalid category name into mySQL
+	 **/
+	public function testInsertInvalidCategoryName() {
+		// zeroth, ensure that the category and mySQL class are sane
+		$this->assertNotNull($this->category);
+		$this->assertNotNull($this->mysqli);
+
+
+		// set up to expect the exception
+		$this->expectException("RangeException");
+
+
+		// set the category id to an invented value that should never insert in the first place
+		$this->category->setCategoryName("something over twenty charactewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwrs");
+
+
+		$this->category->insert($this->mysqli);
+
+		// then, set the category to null to prevent tearDown() from deleting a category that never existed
+		$this->category = null;
+	}
+
+	/**
+	 * test deleting a category name in mySQL
+	 **/
+	public function testDeleteValidCategoryName() {
+		// zeroth, ensure that the category name and mySQL class are sane
+		$this->assertNotNull($this->category);
+		$this->assertNotNull($this->mysqli);
+
+		// first assert the category name is inserted into mySQL by grabbing it from mySQL and asserting the primary key
+		$this->category->insert($this->mysqli);
+		$mysqliCategory = Category::getCategoryByCategoryName($this->mysqli, $this->category->getCategoryName());
+		$this->assertIdentical($this->category->getCategoryName(), $mysqliCategory->getCategoryName());
+
+		// second delete the category name from mySQL and re-grab it from mySQL and assert it does not exist
+		$this->category->delete($this->mysqli);
+		$mysqliCategory = Category::getCategoryByCategoryName($this->mysqli, $this->category->getCategoryName());
+		$this->assertNull($mysqliCategory);
+
+		// third set the category to null to prevent tearDown() from deleting a category that has already been deleted
+		$this->category = null;
+	}
+
+	/**
+	 * test deleting a category name from mySQL that does not exist
+	 **/
+	public function testDeleteInvalidCategoryName() {
+		// zeroth, ensure that the category name and mySQL class are sane
+		$this->assertNotNull($this->category);
+		$this->assertNotNull($this->mysqli);
+
+		// first try to delete the category name before inserting it and ensure that the exception is thrown
+		$this->expectException("mysqli_sql_exception");
+		$this->category->delete($this->mysqli);
+
+		// second set the category name to null to prevent tearDown() from deleting a category name that has already been deleted
+		$this->category = null;
+	}
+
+	/**
+	 * test updating a category name from mySQL
+	 **/
+	public function testUpdateValidCategoryName() {
+		// zeroth, ensure that the category and mySQL class are sane
+		$this->assertNotNull($this->category);
+		$this->assertNotNull($this->mysqli);
+
+		// first assert the category name is inserting into mySQL by grabbing it from mySQL and asserting the primary key
+		$this->category->insert($this->mysqli);
+		$mysqlCategory = Category::getCategoryByCategoryName($this->mysqli, $this->category->getCategoryName());
+		$this->assertIdentical($this->category->getCategoryName(), $mysqlCategory->getCategoryName());
+
+		// second change the category name and update it in mySQL
+		$newCategoryName = "test update category";
+		$this->category->setCategoryName($newCategoryName);
+		$this->category->update($this->mysqli);
+
+		// third, re-grab the category name from mySQL
+		$mysqlCategory = Category::getCategoryByCategoryName($this->mysqli, $this->category->getCategoryName());
+		$this->assertNotNull($mysqlCategory);
+
+		// fourth, assert the category we have updated and mySQL's category are the same object
+		$this->assertIdentical($this->category->getCategoryId(), $mysqlCategory->getCategoryId());
+		$this->assertIdentical($this->category->getCategoryName(), $mysqlCategory->getCategoryName());
+	}
+
+	/**
+	 * test updating a category name from mySQL that does not exists
+	 **/
+	public function testUpdateInvalidCategoryName() {
+		// zeroth, ensure that the category name and mySQL class are sane
+		$this->assertNotNull($this->category);
+		$this->assertNotNull($this->mysqli);
+
+		// first try to update the category name before inserting it and ensure the exception is thrown
+		$this->expectException("mysqli_sql_exception");
+		$this->category->update($this->mysqli);
+
+		// second set the comment to null to prevent tearDown() from deleting a comment that has already been deleted
+		$this->category = null;
+	}
 }
 ?>

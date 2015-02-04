@@ -187,8 +187,8 @@ class ProfileTest extends UnitTestCase {
 		$this->assertIdentical($this->profile->getProfileId(), $mysqlProfile->getProfileId());
 
 		// second, change the Profile, update it mySQL
-		$newContent = "My unit tests updated everything!";
-		$this->profile->setProfileContent($newContent);
+		$newLastName = "O'Unit Tests";
+		$this->profile->setLastName($newLastName);
 		$this->profile->update($this->mysqli);
 
 		// third, re-grab the Profile from mySQL

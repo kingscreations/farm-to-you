@@ -138,19 +138,19 @@ class User {
 	 * mutator method for hash content
 	 *
 	 * @param string $hash new value
-	 * @throws InvalidArgumentException if $hash is not a string or insecure
-	 * @throws RangeException if $hash is > 128 characters
+	 * @throws InvalidArgumentException if $hash is not a hexadecimal digit
+	 * @throws RangeException if $hash is !=== 128 characters
 	 *
 	 **/
 	public function setHash($newHash) {
 		// verify the hash is a hexadecimal digit
-		$newHash = ctype_xdigit($newHash);
+		$newHash = trim($newHash);
 		if(ctype_xdigit($newHash) === false) {
 			throw(new InvalidArgumentException("hash content in not a hexadecimal digit"));
 		}
 		// verify the hash content will fit in the database
-		if(strlen($newHash) > 128) {
-			throw(new RangeException("hash is too large"));
+		if(strlen($newHash) !== 128) {
+			throw(new RangeException("hash is not the correct size"));
 		}
 	}
 
@@ -167,20 +167,18 @@ class User {
 	 * mutator method for salt
 	 *
 	 * @param string $salt new value
-	 * @throws InvalidArgumentException if newSalt is not a string or insecure
-	 * @throws RangeException if $newSalt is > 32 characters
+	 * @throws InvalidArgumentException if $salt is not a hexadecimal digit
+	 * @throws RangeException if $salt is !=== 32 characters
 	 */
 	public function setSalt($newSalt) {
-		// verify the salt content is secure
-
-		$newSalt = filter_var($newSalt, FILTER_SANITIZE_STRING);
-		if(empty($newSalt) === true) {
-			throw(new InvalidArgumentException("salt content is empty or insecure"));
+		// verify the salt is a hexadecimal digit
+		$newSalt = trim($newSalt);
+		if(ctype_xdigit($newSalt) === false) {
+			throw(new InvalidArgumentException("salt content in not a hexadecimal digit"));
 		}
-
 		// verify the salt content will fit in the database
-		if(strlen($newSalt) > 32) {
-			throw(new RangeException("salt content too large"));
+		if(strlen($newSalt) !== 32) {
+			throw(new RangeException("salt is not the correct size"));
 		}
 	}
 	/**
@@ -196,24 +194,19 @@ class User {
 	 * mutator method for activation
 	 *
 	 * @param string $activation
-	 * @throws InvalidArgumentException if $newActivation is not a string or insecure
-	 * @throws RangeException if $newActivation is > 16 characters
+	 * @throws InvalidArgumentException if $activation is not a hexadecimal digit
+	 * @throws RangeException if $activation is !=== 16 characters
 	 */
 	public function setActivation($newActivation) {
-		// verify the activation content is secure
-		$newActivationl = trim($newActivation);
-		$newActivation = filter_var($newActivation, FILTER_SANITIZE_STRING);
-		if(empty($newActivation) === true) {
-			throw(new InvalidArgumentException("activation content is empty or insecure"));
+		// verify the activation is a hexadecimal digit
+		$newActivation = trim($newActivation);
+		if(ctype_xdigit($newActivation) === false) {
+			throw(new InvalidArgumentException("activation content in not a hexadecimal digit"));
 		}
-
-		// verify the email content will fit in the database
-		if(strlen($newActivationl) > 16) {
-			throw(new RangeException("activation content too large"));
+		// verify the Activation content will fit in the database
+		if(strlen($newActivation) !== 128) {
+			throw(new RangeException("activation is not the correct size"));
 		}
-
-		// store the email content
-		$this->activation = $newActivation;
 	}
 
 

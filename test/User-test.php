@@ -40,15 +40,15 @@ class UserTest extends UnitTestCase {
 	/**
 	 * hash generated from test users awesome password
 	 **/
-	private $hash = "cd5a4f0b677843c4d656579250ccb7aada88031641cf05d203ca021b135ccec2";
+	private $hash = "12345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678";
 	/**
 	 * salt to add to hash of test user
 	 **/
-	private $phone = "jasonkingisgreatjasonkingisgreat";
+	private $salt = "48121620481216204812162048121620";
 	/**
 	 * activation value for test user
 	 **/
-	private $profileType = "greatisjasonking";
+	private $activation = "greatisjasonking";
 			/**
 	 * sets up the mySQL connection for this test
 	 **/

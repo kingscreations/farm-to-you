@@ -392,13 +392,13 @@ class Profile {
 			throw(new mysqli_sql_exception("unable to update a profile that does not exist"));
 		}
 		// create query template
-		$query = "UPDATE profile SET firstName = ?, lastName = ?, phone = ?, profileType = ?, customerToken = ?, imagePath = ?, userId = ?, WHERE profileId = ?";
+		$query = "UPDATE profile SET firstName = ?, lastName = ?, phone = ?, profileType = ?, customerToken = ?, imagePath = ?, userId = ? WHERE profileId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the member variables to the place holders in the template
-		$wasClean = $statement->bind_param("ssssssi", $this->firstName, $this->lastName, $this->phone, $this->profileType, $this->customerToken, $this->imagePath, $this->userId);
+		$wasClean = $statement->bind_param("ssssssii", $this->firstName, $this->lastName, $this->phone, $this->profileType, $this->customerToken, $this->imagePath, $this->userId, $this->profileId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -493,7 +493,7 @@ class Profile {
 			throw(new mysqli_sql_exception("profile id is not positive"));
 		}
 		// create query template
-		$query = "SELECT firstName, lastName, phone, profileType, customerToken imagePath, userId FROM profile WHERE lastName LIKE ?";
+		$query = "SELECT profileId, firstName, lastName, phone, profileType, customerToken, imagePath, userId FROM profile WHERE profileId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));

@@ -232,14 +232,36 @@ class LocationTest extends UnitTestCase {
 		$mysqlLocations = Location::getLocationByCity($this->mysqli, $this->location->getCity(), $this->location2->getCity());
 // third, assert the Tweet we have created and mySQL's Tweet are the same object
 		foreach($mysqlLocations as $mysqlLocation) {
-
 			$this->assertIdentical($this->location->getLocationId(), $mysqlLocation->getLocationId());
 			$this->assertIdentical($this->location->getCity(), $mysqlLocation->getCity());
-
+			$this->assertIdentical($this->location2->getLocationId(), $mysqlLocation->getLocationId());
+			$this->assertIdentical($this->location2->getCity(), $mysqlLocation->getCity());
 		}
-
-
 	}
+	public function testInvalidInsertCity() {
+		// zeroth, ensure the Tweet and mySQL class are sane
+		$this->assertNotNull($this->location);
+		$this->assertNotNull($this->location2);
+		$this->assertNotNull($this->mysqli);
+
+		$this->expectException("InvalidArgumentException");
+		$this->location->setCity(null);
+		$this->location2->setCity(null);
+
+// first, insert the Tweet into mySQL
+		$this->location->insert($this->mysqli);
+		$this->location2->insert($this->mysqli);
+// second, grab a Tweet from mySQL
+		$mysqlLocations = Location::getLocationByCity($this->mysqli, $this->location->getCity(), $this->location2->getCity());
+// third, assert the Tweet we have created and mySQL's Tweet are the same object
+		foreach($mysqlLocations as $mysqlLocation) {
+			$this->assertIdentical($this->location->getLocationId(), $mysqlLocation->getLocationId());
+			$this->assertIdentical($this->location->getCity(), $mysqlLocation->getCity());
+			$this->assertIdentical($this->location2->getLocationId(), $mysqlLocation->getLocationId());
+			$this->assertIdentical($this->location2->getCity(), $mysqlLocation->getCity());
+		}
+	}
+
 }
 
 

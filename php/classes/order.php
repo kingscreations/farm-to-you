@@ -279,14 +279,13 @@ class Order {
 		$orderDate = trim($orderDate);
 		$orderDate = filter_var($orderDate, FILTER_SANITIZE_STRING);
 
-		$query	 = "SELECT orderId, profileId, orderDate FROM `order` WHERE orderDate LIKE ?";
+		$query	 = "SELECT orderId, profileId, orderDate FROM `order` WHERE orderDate = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
 		// bind the order date to the place holder in the template
-		$orderDate = "%$orderDate%";
 		$wasClean = $statement->bind_param("s", $orderDate);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
@@ -305,8 +304,7 @@ class Order {
 		$orders = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$order	= new Order(null, $row["profileId"], $row["imagePath"], $row["orderDate"], $row["orderPrice"],
-					$row["orderType"], $row["orderWeight"]);
+				$order	= new Order($row["orderId"], $row["profileId"], $row["orderDate"]);
 				$orders[] = $order;
 			}
 			catch(Exception $exception) {

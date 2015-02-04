@@ -28,11 +28,6 @@ class OrderTest extends UnitTestCase {
 	 **/
 	private $order = null;
 
-	/**
-	 * instance of another instance of Order to test getAllOrders() function
-	 **/
-	private $order2 = null;
-
 	// this section contains member variables with constants needed for creating a new order
 	/**
 	 * @var int $profileId id for the profile. This is a foreign key to the profile entity.
@@ -196,5 +191,56 @@ class OrderTest extends UnitTestCase {
 		$this->order = null;
 	}
 
+	/**
+	 * test get valid order by order date
+	 */
+	public function testGetValidOrderByOrderDate() {
+		$this->assertNotNull($this->order);
+		$this->assertNotNull($this->mysqli);
+
+		$this->order->insert($this->mysqli);
+		$formattedDate = $this->order->getOrderDate()->format("Y-m-d H:i:s");
+		$mysqlOrder = Order::getOrderByOrderDate($this->mysqli, $formattedDate);
+
+		$this->assertIdentical($this->order->getOrderId(), $mysqlOrder->getOrderId());
+	}
+
+	/**
+	 * test get invalid order by order date
+	 */
+	public function testGetInvalidOrderByOrderDate() {
+		$this->assertNotNull($this->order);
+		$this->assertNotNull($this->mysqli);
+
+		$this->order->insert($this->mysqli);
+		$formattedDate = $this->order->getOrderDate()->format("Y-m-s H:i:s");
+		$mysqlOrder = Order::getOrderByOrderDate($this->mysqli, $formattedDate);
+
+		$this->assertNull($mysqlOrder);
+	}
+
+	/**
+	 * test get valid order by order id
+	 */
+	public function testGetValidOrderByOrderId() {
+		$this->assertNotNull($this->order);
+		$this->assertNotNull($this->mysqli);
+
+		$this->order->insert($this->mysqli);
+		$mysqlOrder = Order::getOrderByOrderId($this->mysqli, $this->order->getOrderId());
+		$this->assertIdentical($this->order->getOrderId(), $mysqlOrder->getOrderId());
+	}
+
+	/**
+	 * test get invalid order by order id
+	 */
+//	public function testGetInvalidOrderByOrderId() {
+//		$this->assertNotNull($this->order);
+//		$this->assertNotNull($this->mysqli);
+//
+//		$this->order->insert($this->mysqli);
+//		$mysqlOrder = Order::getOrderByOrderId($this->mysqli, -1);
+//		$this->assertNull($mysqlOrder);
+//	}
 }
 ?>

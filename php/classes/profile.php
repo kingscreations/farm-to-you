@@ -410,7 +410,7 @@ class Profile {
 		$statement->close();
 	}
 	/**
-	 * gets the Profile by content
+	 * gets the Profile by last name
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
 	 * @param string $lastName profile content to search for

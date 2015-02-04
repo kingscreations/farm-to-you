@@ -48,7 +48,7 @@ class UserTest extends UnitTestCase {
 	/**
 	 * activation value for test user
 	 **/
-	private $activation = "greatisjasonking";
+	private $activation = "1234567812345678";
 			/**
 	 * sets up the mySQL connection for this test
 	 **/

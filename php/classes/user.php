@@ -105,17 +105,18 @@ class User {
 	 * mutator method for email
 	 *
 	 * @param string $email new value of user email
-	 * @throws InvalidArgumentException if $newEmail is not a string or insecure
+	 * @throws InvalidArgumentException if $newEmail is invalid
 	 * @throws RangeException if $newEmail is > 100 characters
 	 */
 	public function setEmail($newEmail) {
 		// verify the email content is secure
 		$newEmail = trim($newEmail);
-		$newEmail = filter_var($newEmail, FILTER_SANITIZE_STRING);
+		$newEmail = filter_var($newEmail, FILTER_SANITIZE_EMAIL);
 		if(empty($newEmail) === true) {
-			throw(new InvalidArgumentException("email content is empty or insecure"));
+			throw(new InvalidArgumentException("email address is invalid"));
 		}
 
+		// verify the email address is valid
 		// verify the email content will fit in the database
 		if(strlen($newEmail) > 100) {
 			throw(new RangeException("email content too large"));
@@ -204,7 +205,7 @@ class User {
 			throw(new InvalidArgumentException("activation content in not a hexadecimal digit"));
 		}
 		// verify the Activation content will fit in the database
-		if(strlen($newActivation) !== 128) {
+		if(strlen($newActivation) !== 16) {
 			throw(new RangeException("activation is not the correct size"));
 		}
 	}
@@ -317,7 +318,7 @@ class User {
 		}
 
 		// bind the member variables to the place holders in the template
-		$wasClean = $statement->bind_param("ssssi",  $this->email, $this->hash, $this->salt, $this->activation,$this->userId);
+		$wasClean = $statement->bind_param("ssssi", $this->email, $this->hash, $this->salt, $this->activation,$this->userId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -330,6 +331,131 @@ class User {
 		// clean up the statement
 		$statement->close();
 	}
-
+//get user by email
+	/**
+	 * gets the User by email address
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @param string $email profile content to search for
+	 * @return mixed array of Emails found, Email found, or null if not found
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+	public static function getUserByEmail(&$mysqli, $email) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+		// sanitize the description before searching
+		$email = trim($email);
+		$email = filter_var($email, FILTER_SANITIZE_STRING);
+		// create query template
+		$query	 = "SELECT UserId, lastName, email, hash, salt, activation FROM user WHERE email LIKE ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+		// bind the user content to the place holder in the template
+		$email = "%$email%";
+		$wasClean = $statement->bind_param("s", $email);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+		// build an array of User
+		$user = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$user	= new User($row["userId"], $row["email"], $row["hash"], $row["salt"], $row["activation"]);
+				$users[] = $user;
+			}
+			catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+		}
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) a single object if 1 result
+		// 3) the entire array if > 1 result
+		$numberOfUsers = count($users);
+		if($numberOfUsers === 0) {
+			return(null);
+		} else if($numberOfUsers === 1) {
+			return($users[0]);
+		} else {
+			return($users);
+		}
+	}
+//get user by activation
+	/**
+	 * gets the User by activation
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @param string $activation content to search for
+	 * @return mixed array of activations found, Activation found, or null if not found
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+	public static function getUserByActivation(&$mysqli, $activation) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+		// sanitize the description before searching
+		$activation = trim($activation);
+		$activation = filter_var($activation, FILTER_SANITIZE_STRING);
+		// create query template
+		$query	 = "SELECT userId, email, hash, salt, FROM user WHERE activation LIKE ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+		// bind the user content to the place holder in the template
+		$activation = "%$activation%";
+		$wasClean = $statement->bind_param("s", $activation);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+		// build an array of user
+		$user = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$user	= new User($row["userId"], $row["email"], $row["hash"], $row["salt"], $row["activation"]);
+				$users[] = $user;
+			}
+			catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+		}
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) a single object if 1 result
+		// 3) the entire array if > 1 result
+		$numberOfUsers = count($users);
+		if($numberOfUsers === 0) {
+			return(null);
+		} else if($numberOfUsers === 1) {
+			return($users[0]);
+		} else {
+			return($users);
+		}
+	}
 }
 ?>

@@ -61,6 +61,11 @@ class Checkout {
 	 * @throws RangeException if the $checkoutId is not positive
 	 **/
 	public function setCheckoutId($newCheckoutId) {
+		if($newCheckoutId === null) {
+			$this->checkoutId = null;
+			return;
+		}
+
 		// verify the checkout id is valid
 		$newCheckoutId = filter_var($newCheckoutId, FILTER_VALIDATE_INT);
 		if($newCheckoutId === false) {
@@ -167,16 +172,17 @@ class Checkout {
 		}
 		// enforce the checkoutId is null (i.e., dont insert a checkout that already exists)
 		if($this->checkoutId !== null) {
-			throw(new mysqli_sql_exception("this order already exists"));
+			throw(new mysqli_sql_exception("this checkout already exists"));
 		}
 		// create query template
-		$query = "INSERT INTO checkout(checkoutId, orderId, checkoutDate) VALUES (?, ?, ?)";
+		$query = "INSERT INTO checkout(orderId, checkoutDate) VALUES (?, ?)";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the member variables to the place holders in the template
-		$wasClean = $statement->bind_param("iis", $this->checkoutId, $this->orderId, $this->checkoutDate);
+		$formattedDate = $this->checkoutDate->format("Y-m-d H:i:s");
+		$wasClean = $statement->bind_param("is", $this->orderId, $formattedDate);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters:"));
 		}
@@ -269,7 +275,7 @@ class Checkout {
 	 **/
 	public static function getCheckoutByCheckoutId(&$mysqli, $checkoutId) {
 		// handle degenerate cases
-		if(gettype($mysqli) !== "obeject" || get_class($mysqli) !== "mysqli") {
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 		// sanitize the description before searching
@@ -282,7 +288,6 @@ class Checkout {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the checkout id to the place holder in the template
-		$checkoutId = "%$checkoutId%";
 		$wasClean = $statement->bind_param("i", $checkoutId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));

@@ -326,4 +326,64 @@ class Checkout {
 			return ($checkouts);
 		}
 	}
+
+	/**
+	 * gets the checkout by date
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @param string $checkoutDate checkout date to search for
+	 * @return mixed array of checkouts found,  or null if not found
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+	public static function getCheckoutByCheckoutDate(&$mysqli, $checkoutDate) {
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+
+		$checkoutDate = trim($checkoutDate);
+		$checkoutDate = filter_var($checkoutDate, FILTER_SANITIZE_STRING);
+
+		$query	 = "SELECT checkoutId, orderId, checkoutDate FROM checkout WHERE checkoutDate = ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		// bind the checkout date to the place holder in the template
+		$wasClean = $statement->bind_param("s", $checkoutDate);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+
+		// build an array of checkout
+		$checkouts = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$checkout	= new Checkout($row["checkoutId"], $row["orderId"], $row["checkoutDate"]);
+				$checkouts[] = $checkout;
+			}
+			catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+		}
+
+		$numberOfCheckouts = count($checkouts);
+		if($numberOfCheckouts === 0) {
+			return(null);
+		} else if($numberOfCheckouts === 1) {
+			return($checkouts[0]);
+		} else {
+			return($checkouts);
+		}
+	}
 }

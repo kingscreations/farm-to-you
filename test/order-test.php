@@ -234,13 +234,13 @@ class OrderTest extends UnitTestCase {
 	/**
 	 * test get invalid order by order id
 	 */
-//	public function testGetInvalidOrderByOrderId() {
-//		$this->assertNotNull($this->order);
-//		$this->assertNotNull($this->mysqli);
-//
-//		$this->order->insert($this->mysqli);
-//		$mysqlOrder = Order::getOrderByOrderId($this->mysqli, -1);
-//		$this->assertNull($mysqlOrder);
-//	}
+	public function testGetInvalidOrderByOrderId() {
+		$this->assertNotNull($this->order);
+		$this->assertNotNull($this->mysqli);
+
+		$this->order->insert($this->mysqli);
+		$mysqlOrder = Order::getOrderByOrderId($this->mysqli, 4);
+		$this->assertNull($mysqlOrder);
+	}
 }
 ?>

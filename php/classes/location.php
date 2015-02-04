@@ -43,17 +43,17 @@ class Location {
 
 
 	/**
-	 * constructor for this store class
+	 * constructor for this location class
 	 *
-	 * @param int $newStoreId id of the store
-	 * @param int $newProfileId id of the profile associated with the store
-	 * @param mixed $newCreationDate date and time store was created or null if set to current date and time
-	 * @param string $newStoreName name of the store
-	 * @param string $newImagePath path of image associated with the store or null if none
+	 * @param int $newStoreId id of the location
+	 * @param int $newProfileId id of the profile associated with the location
+	 * @param mixed $newCreationDate date and time location was created or null if set to current date and time
+	 * @param string $newStoreName name of the location
+	 * @param string $newImagePath path of image associated with the location or null if none
 	 * @throws InvalidArgumentException it data types are not valid
 	 * @throws RangeException if data values are out of bounds (e.g. strings too long, negative integers)
 	 **/
-	public function __construct($newLocationId, $newCountry, $newState, $newCity, $newZipCode, $newAddress1, $newAddress2 = null) {
+	public function __construct($newLocationId, $newCountry = null, $newState, $newCity, $newZipCode, $newAddress1, $newAddress2 = null) {
 		try {
 			$this->setLocationId($newLocationId);
 			$this->setCountry($newCountry);
@@ -131,7 +131,7 @@ class Location {
 		}
 
 // verify the store name will fit in the database
-		if(strlen($newCountry) > 30) {
+		if(strlen($newCountry) > 2) {
 			throw(new RangeException("country name too large"));
 		}
 
@@ -194,9 +194,8 @@ class Location {
 		if(empty($newCity) === true) {
 			throw(new InvalidArgumentException("city name is empty or insecure"));
 		}
-
 // verify the store name will fit in the database
-		if(strlen($newCity) > 40) {
+		if(strlen($newCity) > 100) {
 			throw(new RangeException("city name too large"));
 		}
 
@@ -229,7 +228,7 @@ class Location {
 		}
 
 // verify the store name will fit in the database
-		if(strlen($newZipCode) > 5) {
+		if(strlen($newZipCode) > 10) {
 			throw(new RangeException("zip code too large"));
 		}
 
@@ -543,5 +542,143 @@ class Location {
 			return($locations);
 		}
 	}
+	/**
+	 * gets the Tweet by content
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @param string $tweetContent tweet content to search for
+	 * @return mixed array of Tweets found, Tweets found, or null if not found
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+	public static function getLocationByZipCode(&$mysqli, $zipCode) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+
+		// sanitize the description before searching
+		$zipCode = trim($zipCode);
+		$zipCode = filter_var($zipCode, FILTER_SANITIZE_STRING);
+
+		// create query template
+		$query	 = "SELECT locationId, country, state, city, zipCode, address1, address2 FROM location WHERE zipCode LIKE ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		// bind the tweet content to the place holder in the template
+		$wasClean = $statement->bind_param("s", $zipCode);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+
+		// build an array of tweet
+		$locations = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$location	= new Location($row["locationId"], $row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
+				$locations[] = $location;
+			}
+			catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+		}
+
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) a single object if 1 result
+		// 3) the entire array if > 1 result
+		$numberOfLocations = count($locations);
+		if($numberOfLocations === 0) {
+			return(null);
+		} else if($numberOfLocations === 1) {
+			return($locations[0]);
+		} else {
+			return($locations);
+		}
+	}
+	/**
+	 * gets the Tweet by content
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @param string $tweetContent tweet content to search for
+	 * @return mixed array of Tweets found, Tweets found, or null if not found
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+	public static function getLocationByAddress1(&$mysqli, $address1) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+
+		// sanitize the description before searching
+		$address1 = trim($address1);
+		$address1 = filter_var($address1, FILTER_SANITIZE_STRING);
+
+		// create query template
+		$query	 = "SELECT locationId, country, state, city, zipCode, address1, address2 FROM location WHERE address1 LIKE ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		// bind the tweet content to the place holder in the template
+		$address1 = "%$address1%";
+		$wasClean = $statement->bind_param("s", $address1);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+
+		// build an array of tweet
+		$locations = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$location	= new Location($row["locationId"], $row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
+				$locations[] = $location;
+			}
+			catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+		}
+
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) a single object if 1 result
+		// 3) the entire array if > 1 result
+		$numberOfLocations = count($locations);
+		if($numberOfLocations === 0) {
+			return(null);
+		} else if($numberOfLocations === 1) {
+			return($locations[0]);
+		} else {
+			return($locations);
+		}
+	}
+
 }
 ?>

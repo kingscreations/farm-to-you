@@ -26,12 +26,17 @@ class LocationTest extends UnitTestCase {
 	 * instance of the object we are testing with
 	 **/
 	private $location = null;
+	/**
+	 * instance of the object we are testing with
+	 **/
+	private $location2 = null;
+
 // this section contains member variables with constants needed for creating a new tweet
 	/**
 	 * profile id of the person who is inserting the test Tweet
 	 * @deprecated a parent class of type Profile should be used here instead
 	 **/
-	private $country = "USA";
+	private $country = "US";
 	/**
 	 * date the Tweet was created
 	 **/
@@ -65,6 +70,7 @@ class LocationTest extends UnitTestCase {
 
 // second, create an instance of the object under scrutiny
 		$this->location = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+
 	}
 
 	/**
@@ -76,7 +82,10 @@ class LocationTest extends UnitTestCase {
 			$this->location->delete($this->mysqli);
 			$this->location = null;
 		}
-
+		if($this->location2 !== null) {
+			$this->location2->delete($this->mysqli);
+			$this->location2 = null;
+		}
 // disconnect from mySQL
 		if($this->mysqli !== null) {
 			$this->mysqli->close();
@@ -218,18 +227,28 @@ class LocationTest extends UnitTestCase {
 	 * and asserting mySQL Locations and original Locations are identical
 	 **/
 	public function testGetLocationByValidCity() {
+		$this->location2 = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+
 // zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);
+		$this->assertNotNull($this->location2);
 		$this->assertNotNull($this->mysqli);
-		var_dump($this->location);
+
 // first, insert the Location into mySQL
 		$this->location->insert($this->mysqli);
+		$this->location2->insert($this->mysqli);
+//		var_dump($this->location);
+//		var_dump($this->location2);
+
 // second, grab the Locations from mySQL
 		$mysqlLocations = Location::getLocationByCity($this->mysqli, $this->city);
-		var_dump($mysqlLocations);
+//		var_dump($mysqlLocations);
 // third, assert the Locations we have created and mySQL's Locations are the same object
 		foreach($mysqlLocations as $mysqlLocation) {
+			$this->assertNotNull($mysqlLocation->getLocationId());
+			$this->assertTrue($mysqlLocation->getLocationId() > 0);
 			$this->assertIdentical($this->location->getCity(), $mysqlLocation->getCity());
+			$this->assertIdentical($this->location2->getCity(), $mysqlLocation->getCity());
 		}
 	}
 	/**
@@ -238,27 +257,124 @@ class LocationTest extends UnitTestCase {
 	 * identical
 	 **/
 	public function testGetLocationByInvalidCity() {
+		$this->location2 = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
 // zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);
+		$this->assertNotNull($this->location2);
 		$this->assertNotNull($this->mysqli);
-
-// first, expect the exception and set City in both locations to an invalid entry
-		$this->expectException("InvalidArgumentException");
-		$this->location->setCity(null);
+		var_dump($this->location);
+		var_dump($this->location2);
 
 // second, insert the Location into mySQL
 		$this->location->insert($this->mysqli);
+		$this->location2->insert($this->mysqli);
 
 // third, grab the Locations from mySQL
-		$mysqlLocations = Location::getLocationByCity($this->mysqli, $this->city);
+		$mysqlLocations = Location::getLocationByCity($this->mysqli, "Ciudad de México");
+		var_dump($mysqlLocations);
 
-// fourth, assert the Locations we have created and mySQL's Locations are the same object
+		$this->assertNull($mysqlLocations);
+	}
+	/**
+	 * test getLocationByCity by inserting two identical Locations into mySQL, calling them with getLocationByCity,
+	 * and asserting mySQL Locations and original Locations are identical
+	 **/
+	public function testGetLocationByValidZipCode() {
+		$this->location2 = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+
+// zeroth, ensure the Location and mySQL class are sane
+		$this->assertNotNull($this->location);
+		$this->assertNotNull($this->location2);
+		$this->assertNotNull($this->mysqli);
+
+// first, insert the Location into mySQL
+		$this->location->insert($this->mysqli);
+		$this->location2->insert($this->mysqli);
+//		var_dump($this->location);
+//		var_dump($this->location2);
+
+// second, grab the Locations from mySQL
+		$mysqlLocations = Location::getLocationByZipCode($this->mysqli, $this->zipCode);
+//		var_dump($mysqlLocations);
+// third, assert the Locations we have created and mySQL's Locations are the same object
 		foreach($mysqlLocations as $mysqlLocation) {
-			$this->assertIdentical($this->location->getCity(), $mysqlLocation->getCity());
+			$this->assertNotNull($mysqlLocation->getLocationId());
+			$this->assertTrue($mysqlLocation->getLocationId() > 0);
+			$this->assertIdentical($this->location->getZipCode(), $mysqlLocation->getZipCode());
+			$this->assertIdentical($this->location2->getZipCode(), $mysqlLocation->getZipCode());
 		}
+	}
+	/**
+	 * test getLocationByCity by inserting two identical Locations into mySQL, setting city to an invalid entry (null in
+	 * this case) for both, calling them with getLocationByCity, and asserting mySQL Locations and original Locations are
+	 * identical
+	 **/
+	public function testGetLocationByInvalidZipCode() {
+		$this->location2 = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+// zeroth, ensure the Location and mySQL class are sane
+		$this->assertNotNull($this->location);
+		$this->assertNotNull($this->location2);
+		$this->assertNotNull($this->mysqli);
+
+// second, insert the Location into mySQL
+		$this->location->insert($this->mysqli);
+		$this->location2->insert($this->mysqli);
+
+// third, grab the Locations from mySQL
+		$mysqlLocations = Location::getLocationByZipCode($this->mysqli, "26847");
+
+		$this->assertNull($mysqlLocations);
+	}
+	/**
+	 * test getLocationByCity by inserting two identical Locations into mySQL, calling them with getLocationByCity,
+	 * and asserting mySQL Locations and original Locations are identical
+	 **/
+	public function testGetLocationByValidAddress1() {
+		$this->location2 = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+
+// zeroth, ensure the Location and mySQL class are sane
+		$this->assertNotNull($this->location);
+		$this->assertNotNull($this->location2);
+		$this->assertNotNull($this->mysqli);
+
+// first, insert the Location into mySQL
+		$this->location->insert($this->mysqli);
+		$this->location2->insert($this->mysqli);
+//		var_dump($this->location);
+//		var_dump($this->location2);
+
+// second, grab the Locations from mySQL
+		$mysqlLocations = Location::getLocationByAddress1($this->mysqli, $this->address1);
+//		var_dump($mysqlLocations);
+// third, assert the Locations we have created and mySQL's Locations are the same object
+		foreach($mysqlLocations as $mysqlLocation) {
+			$this->assertNotNull($mysqlLocation->getLocationId());
+			$this->assertTrue($mysqlLocation->getLocationId() > 0);
+			$this->assertIdentical($this->location->getAddress1(), $mysqlLocation->getAddress1());
+			$this->assertIdentical($this->location2->getAddress1(), $mysqlLocation->getAddress1());
+		}
+	}
+	/**
+	 * test getLocationByCity by inserting two identical Locations into mySQL, setting city to an invalid entry (null in
+	 * this case) for both, calling them with getLocationByCity, and asserting mySQL Locations and original Locations are
+	 * identical
+	 **/
+	public function testGetLocationByInvalidAddress1() {
+		$this->location2 = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+// zeroth, ensure the Location and mySQL class are sane
+		$this->assertNotNull($this->location);
+		$this->assertNotNull($this->location2);
+		$this->assertNotNull($this->mysqli);
+
+// second, insert the Location into mySQL
+		$this->location->insert($this->mysqli);
+		$this->location2->insert($this->mysqli);
+
+// third, grab the Locations from mySQL
+		$mysqlLocations = Location::getLocationByAddress1($this->mysqli, "203 Judy Street");
+
+		$this->assertNull($mysqlLocations);
 	}
 
 }
-
-
 ?>

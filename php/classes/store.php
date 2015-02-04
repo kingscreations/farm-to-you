@@ -238,7 +238,7 @@ class Store {
 		}
 
 // verify the image path will fit in the database
-		if(strlen($newImagePath) > 100) {
+		if(strlen($newImagePath) > 255) {
 			throw(new RangeException("image path too large"));
 		}
 

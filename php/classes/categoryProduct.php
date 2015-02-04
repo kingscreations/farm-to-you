@@ -302,8 +302,6 @@ class CategoryProduct {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the product id to the place holder in the template
-		$productId = "%$productId%";
-		$categoryId = "%$categoryId%";
 		$wasClean = $statement->bind_param("ii", $productId, $categoryId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));

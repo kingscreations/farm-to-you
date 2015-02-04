@@ -26,6 +26,10 @@ class LocationTest extends UnitTestCase {
 	 * instance of the object we are testing with
 	 **/
 	private $location = null;
+	/**
+	 * instance of the object we are testing with
+	 **/
+	private $location2 = null;
 
 // this section contains member variables with constants needed for creating a new tweet
 	/**
@@ -66,6 +70,7 @@ class LocationTest extends UnitTestCase {
 
 // second, create an instance of the object under scrutiny
 		$this->location = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+		$this->location2 = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
 	}
 
 	/**
@@ -214,5 +219,28 @@ class LocationTest extends UnitTestCase {
 // second, set the Tweet to null to prevent tearDown() from deleting a Tweet that has already been deleted
 		$this->location = null;
 	}
+
+	public function testValidInsertCity() {
+		// zeroth, ensure the Tweet and mySQL class are sane
+		$this->assertNotNull($this->location);
+		$this->assertNotNull($this->location2);
+		$this->assertNotNull($this->mysqli);
+// first, insert the Tweet into mySQL
+		$this->location->insert($this->mysqli);
+		$this->location2->insert($this->mysqli);
+// second, grab a Tweet from mySQL
+		$mysqlLocations = Location::getLocationByCity($this->mysqli, $this->location->getCity(), $this->location2->getCity());
+// third, assert the Tweet we have created and mySQL's Tweet are the same object
+		foreach($mysqlLocations as $mysqlLocation) {
+
+			$this->assertIdentical($this->location->getLocationId(), $mysqlLocation->getLocationId());
+			$this->assertIdentical($this->location->getCity(), $mysqlLocation->getCity());
+
+		}
+
+
+	}
 }
+
+
 ?>

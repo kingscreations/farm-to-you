@@ -84,7 +84,7 @@ class Location {
 	/**
 	 * mutator method for locationId
 	 *
-	 * @param int $newLocationId new value of $storeId
+	 * @param int $newLocationId new value of $locationId
 	 * @throws InvalidArgumentException if the $newLocationId is not an integer
 	 * @throws RangeException if the $newLocationId is not positive
 	 **/

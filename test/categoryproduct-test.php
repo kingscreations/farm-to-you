@@ -35,10 +35,8 @@ class CategoryProductTest extends UnitTestCase {
 	// this section contains member variables with constants needed for creating a new category
 	/**
 	 * category name of the test category
-//	 **/
-//	private $productId = 1;
-//
-//	private $categoryId = 1;
+	 **/
+
 	private $category = null;
 	private $product = null;
 	private $user = null;
@@ -120,11 +118,9 @@ class CategoryProductTest extends UnitTestCase {
 		$this->categoryProduct->insert($this->mysqli);
 
 		// second, grab a categoryproduct from mySQL
-		$mysqlCategoryProduct = CategoryProduct::getCategoryProductByCategoryIdAndProductId($this->mysqli, $this->category->getCategoryId(),
-			$this->product->getProductId());
+		$mysqlCategoryProduct = CategoryProduct::getCategoryProductByCategoryIdAndProductId($this->mysqli, $this->categoryProduct->getCategoryId(),
+			$this->categoryProduct->getProductId());
 
-		var_dump($mysqlCategoryProduct);
-		var_dump($this->categoryProduct);
 
 		// third, assert the categoryproduct we have created and mySQL's category are the same object
 		$this->assertIdentical($this->categoryProduct->getCategoryId(), $mysqlCategoryProduct->getCategoryId());
@@ -162,9 +158,11 @@ class CategoryProductTest extends UnitTestCase {
 
 		// first assert the category is inserted into mySQL by grabbing it from mySQL and asserting the primary key
 		$this->categoryProduct->insert($this->mysqli);
-		$mysqliCategoryProduct = CategoryProduct::getCategoryProductByCategoryIdAndProductId($this->mysqli, $this->categoryProduct->getCategoryId(), $this->categoryProduct->getProductId());
-		$this->assertIdentical($this->categoryProduct->getCategoryId(), $mysqliCategoryProduct->getCategoryId());
-		$this->assertIdentical($this->categoryProduct->getProductId(), $mysqliCategoryProduct->getProductId());
+		$mysqlCategoryProduct = CategoryProduct::getCategoryProductByCategoryIdAndProductId($this->mysqli, $this->categoryProduct->getCategoryId(),
+			$this->categoryProduct->getProductId());
+
+		$this->assertIdentical($this->categoryProduct->getCategoryId(), $mysqlCategoryProduct->getCategoryId());
+		$this->assertIdentical($this->categoryProduct->getProductId(), $mysqlCategoryProduct->getProductId());
 
 		// second delete the category from mySQL and re-grab it from mySQL and assert it does not exist
 		$this->categoryProduct->delete($this->mysqli);
@@ -174,23 +172,5 @@ class CategoryProductTest extends UnitTestCase {
 		// third set the category to null to prevent tearDown() from deleting a category that has already been deleted
 		$this->categoryProduct = null;
 	}
-
-	/**
-	 * test deleting a category from mySQL that does not exist
-	 **/
-	public function testDeleteInvalidCategoryProduct() {
-		// zeroth, ensure that the category and mySQL class are sane
-		$this->assertNotNull($this->categoryProduct);
-		$this->assertNotNull($this->mysqli);
-
-		// first try to delete the category before inserting it and ensure that the exception is thrown
-		$this->expectException("mysqli_sql_exception");
-		$this->categoryProduct->delete($this->mysqli);
-
-		// second set the category to null to prevent tearDown() from deleting a category that has already been deleted
-		$this->categoryProduct = null;
-	}
-
-
 }
 ?>

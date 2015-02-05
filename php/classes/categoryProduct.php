@@ -110,13 +110,10 @@ class CategoryProduct {
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
-//		// enforce the categoryProduct intersection is null (i.e., dont insert a categoryProduct intersection that already exists)
-//		if($this->categoryId !== null) {
-//			throw(new mysqli_sql_exception("this category already exists"));
-//		}
-//		if($this->productId !== null) {
-//			throw(new mysqli_sql_exception("this product already exists"));
-//		}
+		// enforce the categoryProduct intersection is null (i.e., dont insert a categoryProduct intersection that already exists)
+		if($this->categoryId === null || $this->productId === null) {
+			throw(new mysqli_sql_exception("this category already exists"));
+		}
 
 		// create query template
 		$query = "INSERT INTO categoryProduct(categoryId, productId) VALUES (?,?)";
@@ -134,9 +131,6 @@ class CategoryProduct {
 		if($statement->execute() === false) {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
 		}
-		// update the null categoryId and product id with what mysql just gave us
-		$this->categoryId = $mysqli->insert_id;
-		$this->productId = $mysqli->insert_id;
 		// clean up the statement
 		$statement->close();
 	}
@@ -312,7 +306,7 @@ class CategoryProduct {
 	 **/
 
 	public static function getCategoryProductByCategoryIdAndProductId(&$mysqli, $categoryId, $productId) {
-
+//		var_dump($categoryId);var_dump($productId);
 		// handle degenerate cases
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
@@ -322,6 +316,7 @@ class CategoryProduct {
 		if($categoryId === false) {
 			throw(new mysqli_sql_exception("category id is not an integer"));
 		}
+
 		if($categoryId <= 0) {
 			throw(new mysqli_sql_exception("category id is not positive"));
 		}
@@ -353,18 +348,6 @@ class CategoryProduct {
 		if($result === false) {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
-		// build an array of categorys
-//		$categoryProducts = array();
-//		while(($row = $result->fetch_assoc()) !== null) {
-//			try {
-//				$categoryProduct = new category($row["categoryId"], $row["productId"]);
-//				$categoryProducts[] = $categoryProduct;
-//			} catch(Exception $exception) {
-//				// if the row couldnt be converted, rethrow it
-//				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
-//			}
-//		}
-
 
 		// grab the order from mySQL
 		try {
@@ -381,18 +364,6 @@ class CategoryProduct {
 			$result->free();
 			$statement->close();
 			return ($categoryProduct);
-			// count the results in the array and return:
-			// 1) null if 0 results
-			// 2) a single object if 1 result
-			// 3) the entire array if > 1 result
-//		$numberOfCategoryProducts = count($categoryProducts);
-//		if($numberOfCategoryProducts === 0) {
-//			return (null);
-//		} else if($numberOfCategoryProducts === 1) {
-//			return ($categoryProducts[0]);
-//		} else {
-//			return ($categoryProducts);
-//		}
 		}
 	}
 

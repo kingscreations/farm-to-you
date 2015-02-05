@@ -312,5 +312,50 @@ class CategoryTest extends UnitTestCase {
 		// second set the comment to null to prevent tearDown() from deleting a comment that has already been deleted
 		$this->category = null;
 	}
+
+	/**
+	 * test grabbing multiple tweets from mySQL by content
+	 **/
+	public function testSelectValidTweetByTweetContent() {
+		// zeroth, ensure the Tweet and mySQL class are sane
+		$this->assertNotNull($this->tweet1);
+		$this->assertNotNull($this->tweet2);
+		$this->assertNotNull($this->mysqli);
+
+		// first, insert the two test tweets
+		$this->tweet1->insert($this->mysqli);
+		$this->tweet2->insert($this->mysqli);
+
+		// second, grab an array of Tweets from mySQL and assert we got an array
+		$needle = "unit tests";
+		$tweets = Tweet::getTweetByTweetContent($this->mysqli, $needle);
+		$this->assertIsA($tweets, "array");
+		$this->assertIdentical(count($tweets), 2);
+
+		// third, verify each tweet by asserting the primary key and the select criteria
+		foreach($tweets as $tweet) {
+			$this->assertTrue($tweet->getTweetId() > 0);
+			$this->assertTrue(strpos($tweet->getTweetContent(), $needle) >= 0);
+		}
+	}
+
+	/**
+	 * test grabbing no tweets from mySQL by non existent content
+	 **/
+	public function testSelectInvalidTweetByTweetContent() {
+		// zeroth, ensure the Tweet and mySQL class are sane
+		$this->assertNotNull($this->tweet1);
+		$this->assertNotNull($this->tweet2);
+		$this->assertNotNull($this->mysqli);
+
+		// first, insert the two test tweets
+		$this->tweet1->insert($this->mysqli);
+		$this->tweet2->insert($this->mysqli);
+
+		// second, try to grab an array of Tweets from mySQL and assert we a null
+		$needle = "something that does not exist";
+		$tweets = Tweet::getTweetByTweetContent($this->mysqli, $needle);
+		$this->assertNull($tweets);
+	}
 }
 ?>

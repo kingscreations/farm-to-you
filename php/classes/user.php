@@ -152,6 +152,8 @@ class User {
 		if(strlen($newHash) !== 128) {
 			throw(new RangeException("hash is not the correct size"));
 		}
+
+		$this->hash = $newHash;
 	}
 
 	/**
@@ -180,6 +182,8 @@ class User {
 		if(strlen($newSalt) !== 32) {
 			throw(new RangeException("salt is not the correct size"));
 		}
+
+		$this->salt = $newSalt;
 	}
 	/**
 	 * accessor method for activation
@@ -196,7 +200,7 @@ class User {
 	 * @param string $activation
 	 * @throws InvalidArgumentException if $activation is not a hexadecimal digit
 	 * @throws RangeException if $activation is !=== 16 characters
-	 */
+	 */  
 	public function setActivation($newActivation) {
 		// verify the activation is a hexadecimal digit
 		$newActivation = trim($newActivation);
@@ -207,6 +211,8 @@ class User {
 		if(strlen($newActivation) !== 16) {
 			throw(new RangeException("activation is not the correct size"));
 		}
+
+		$this->activation = $newActivation;
 	}
 
 
@@ -330,7 +336,64 @@ class User {
 		// clean up the statement
 		$statement->close();
 	}
-//get user by email
+	/**
+	 * gets the User by userId
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @param int $userId profile content to search for
+	 * @return mixed User found or null if not found
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+	public static function getUserByUserId(&$mysqli, $userId) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+		// sanitize the UserId before searching
+		$userId = filter_var($userId, FILTER_VALIDATE_INT);
+		if($userId === false) {
+			throw(new mysqli_sql_exception("user id is not an integer"));
+		}
+		if($userId <= 0) {
+			throw(new mysqli_sql_exception("user id is not positive"));
+		}
+		// create query template
+		$query = "SELECT userId, email, hash, salt, activation FROM user WHERE userId = ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+		// bind the profile content to the place holder in the template
+		$wasClean = $statement->bind_param("i", $userId);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+		// grab the user from mySQL
+		try {
+			$user = null;
+			$row = $result->fetch_assoc();
+			if($row !== null) {
+				$user = new User($row["userId"], $row["email"], $row["hash"], $row["salt"], $row["activation"]);
+			}
+		} catch(Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+		}
+		// free up memory and return the result
+		$result->free();
+		$statement->close();
+		return($user);
+	}
+
 	/**
 	 * gets the User by email address
 	 *

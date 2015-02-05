@@ -89,7 +89,8 @@ class OrderProductTest extends UnitTestCase {
 		$this->orderProduct->insert($this->mysqli);
 
 		// second, grab a Order from mySQL
-		$mysqlOrderProduct = OrderProduct::getOrderProductByProductId($this->mysqli, $this->orderProduct->getProductId());
+		$mysqlOrderProduct = OrderProduct::getOrderProductByOrderIdAndProductId($this->mysqli, $this->orderId,
+			$this->productId);
 
 		// third, assert the Order we have created and mySQL's Order are the same object
 		$this->assertIdentical($this->orderProduct->getProductId(), $mysqlOrderProduct->getProductId());

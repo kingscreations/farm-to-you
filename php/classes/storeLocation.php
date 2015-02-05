@@ -127,35 +127,35 @@ class StoreLocation {
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 **/
 	public function delete(&$mysqli) {
-// handle degenerate cases
+		// handle degenerate cases
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 
-// enforce that the store id and location id is not null (i.e., don't delete a storeLocation that hasn't been inserted)
+		// enforce that the store id and location id is not null (i.e., don't delete a storeLocation that hasn't been inserted)
 		if($this->storeId === null || $this->locationId === null) {
 			throw(new mysqli_sql_exception("unable to delete a store location that does not exist"));
 		}
 
-// create query template
+		// create query template
 		$query	 = "DELETE FROM storeLocation WHERE storeId = ? AND locationId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-// bind the member variables to the place holders in the template
+		// bind the member variables to the place holders in the template
 		$wasClean = $statement->bind_param("ii", $this->storeId, $this->locationId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
 
-// execute the statement
+		// execute the statement
 		if($statement->execute() === false) {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
 		}
 
-// clean up the statement
+		// clean up the statement
 		$statement->close();
 	}
 	/**

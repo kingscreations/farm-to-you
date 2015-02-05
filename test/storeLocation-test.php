@@ -58,7 +58,7 @@ class StoreLocationTest extends UnitTestCase {
 	 * tears down the connection to mySQL and deletes the test instance object
 	 **/
 	public function tearDown() {
-// destroy the objects if they were created
+		// destroy the objects if they were created
 		if($this->storeLocation !== null) {
 			$this->storeLocation->delete($this->mysqli);
 			$this->storeLocation = null;
@@ -89,14 +89,14 @@ class StoreLocationTest extends UnitTestCase {
 	 * test inserting a valid StoreLocation into mySQL
 	 **/
 	public function testInsertValidStoreLocation() {
-// zeroth, ensure the StoreLocation and mySQL class are sane
+		// zeroth, ensure the StoreLocation and mySQL class are sane
 		$this->assertNotNull($this->storeLocation);
 		$this->assertNotNull($this->mysqli);
-// first, insert the StoreLocation into mySQL
+		// first, insert the StoreLocation into mySQL
 		$this->storeLocation->insert($this->mysqli);
-// second, grab a StoreLocation from mySQL
+		// second, grab a StoreLocation from mySQL
 		$mysqlStoreLocation = StoreLocation::getStoreLocationByStoreIdAndLocationId($this->mysqli, $this->storeLocation->getStoreId(), $this->storeLocation->getLocationId());
-// third, assert the StoreLocation we have created and mySQL's StoreLocation are the same object
+		// third, assert the StoreLocation we have created and mySQL's StoreLocation are the same object
 		$this->assertIdentical($this->storeLocation->getStoreId(), $mysqlStoreLocation->getStoreId());
 		$this->assertIdentical($this->storeLocation->getLocationId(), $mysqlStoreLocation->getLocationId());
 	}
@@ -104,35 +104,35 @@ class StoreLocationTest extends UnitTestCase {
 	 * test inserting an invalid StoreLocation into mySQL
 	 **/
 	public function testInsertInvalidStoreLocation() {
-// zeroth, ensure the StoreLocation and mySQL class are sane
+		// zeroth, ensure the StoreLocation and mySQL class are sane
 		$this->assertNotNull($this->storeLocation);
 		$this->assertNotNull($this->mysqli);
-// first, set the store id and location id to an invented value that should never insert in the first place
+		// first, set the store id and location id to an invented value that should never insert in the first place
 		$this->storeLocation->setStoreId(42);
 		$this->storeLocation->setLocationId(42);
-// second, try to insert the StoreLocation and ensure the exception is thrown
+		// second, try to insert the StoreLocation and ensure the exception is thrown
 		$this->expectException("mysqli_sql_exception");
 		$this->storeLocation->insert($this->mysqli);
-// third, set the StoreLocation to null to prevent tearDown() from deleting a StoreLocation that never existed
+		// third, set the StoreLocation to null to prevent tearDown() from deleting a StoreLocation that never existed
 		$this->storeLocation = null;
 	}
 	/**
 	 * test deleting a StoreLocation from mySQL
 	 **/
 	public function testDeleteValidStoreLocation() {
-// zeroth, ensure the StoreLocation and mySQL class are sane
+		// zeroth, ensure the StoreLocation and mySQL class are sane
 		$this->assertNotNull($this->storeLocation);
 		$this->assertNotNull($this->mysqli);
-// first, assert the StoreLocation is inserted into mySQL by grabbing it from mySQL and asserting the primary key
+		// first, assert the StoreLocation is inserted into mySQL by grabbing it from mySQL and asserting the primary key
 		$this->storeLocation->insert($this->mysqli);
 		$mysqlStoreLocation = StoreLocation::getStoreLocationByStoreIdAndLocationId($this->mysqli, $this->storeLocation->getStoreId(), $this->storeLocation->getLocationId());
 		$this->assertIdentical($this->storeLocation->getStoreId(), $mysqlStoreLocation->getStoreId());
 		$this->assertIdentical($this->storeLocation->getLocationId(), $mysqlStoreLocation->getLocationId());
-// second, delete the StoreLocation from mySQL and re-grab it from mySQL and assert it does not exist
+		// second, delete the StoreLocation from mySQL and re-grab it from mySQL and assert it does not exist
 		$this->storeLocation->delete($this->mysqli);
 		$mysqlStoreLocation = StoreLocation::getStoreLocationByStoreIdAndLocationId($this->mysqli, $this->storeLocation->getStoreId(), $this->storeLocation->getLocationId());
 		$this->assertNull($mysqlStoreLocation);
-// third, set the StoreLocation to null to prevent tearDown() from deleting a StoreLocation that has already been deleted
+		// third, set the StoreLocation to null to prevent tearDown() from deleting a StoreLocation that has already been deleted
 		$this->storeLocation = null;
 	}
 	/**
@@ -141,11 +141,11 @@ class StoreLocationTest extends UnitTestCase {
 	public function testGetStoreLocationByValidStoreIdAndValidLocationId() {
 		$this->assertNotNull($this->storeLocation);
 		$this->assertNotNull($this->mysqli);
-// first, insert the StoreLocation into mySQL
+		// first, insert the StoreLocation into mySQL
 		$this->storeLocation->insert($this->mysqli);
-// second, grab the StoreLocation from mySQL
+		// second, grab the StoreLocation from mySQL
 		$mysqlStoreLocations = StoreLocation::getStoreLocationByStoreIdAndLocationId($this->mysqli, $this->storeLocation->getStoreId(), $this->storeLocation->getLocationId());
-// third, assert the StoreLocation we have created and mySQL's StoreLocation are the same object
+		// third, assert the StoreLocation we have created and mySQL's StoreLocation are the same object
 		foreach($mysqlStoreLocations as $mysqlStoreLocation) {
 			$this->assertNotNull($mysqlStoreLocation->getStoreId());
 			$this->assertTrue($mysqlStoreLocation->getStoreId() > 0);

@@ -141,25 +141,25 @@ class Store {
 	 * @throws RangeException if $newCreationDate is a date that does not exist
 	 **/
 	public function setCreationDate($newCreationDate) {
-// base case: if the date is null, use the current date and time
+		// base case: if the date is null, use the current date and time
 		if($newCreationDate === null) {
 			$this->creationDate = new DateTime();
 			return;
 		}
 
-// base case: if the date is a DateTime object, there's no work to be done
+		// base case: if the date is a DateTime object, there's no work to be done
 		if(is_object($newCreationDate) === true && get_class($newCreationDate) === "DateTime") {
 			$this->creationDate = $newCreationDate;
 			return;
 		}
 
-// treat the date as a mySQL date string: Y-m-d H:i:s
+		// treat the date as a mySQL date string: Y-m-d H:i:s
 		$newCreationDate = trim($newCreationDate);
 		if((preg_match("/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/", $newCreationDate, $matches)) !== 1) {
 			throw(new InvalidArgumentException("creation date is not a valid date"));
 		}
 
-// verify the date is really a valid calendar date
+		// verify the date is really a valid calendar date
 		$year = intval($matches[1]);
 		$month = intval($matches[2]);
 		$day = intval($matches[3]);
@@ -170,12 +170,12 @@ class Store {
 			throw(new RangeException("creation date $newCreationDate is not a Gregorian date"));
 		}
 
-// verify the time is really a valid wall clock time
+		// verify the time is really a valid wall clock time
 		if($hour < 0 || $hour >= 24 || $minute < 0 || $minute >= 60 || $second < 0 || $second >= 60) {
 			throw(new RangeException("creation date $newCreationDate is not a valid time"));
 		}
 
-// store the creation date
+		// store the creation date
 		$newCreationDate = DateTime::createFromFormat("Y-m-d H:i:s", $newCreationDate);
 		$this->creationDate = $newCreationDate;
 	}
@@ -197,19 +197,19 @@ class Store {
 	 * @throws RangeException if $newStoreName is > 100 characters
 	 **/
 	public function setStoreName($newStoreName) {
-// verify that the store name is secure
+		// verify that the store name is secure
 		$newStoreName = trim($newStoreName);
 		$newStoreName = filter_var($newStoreName, FILTER_SANITIZE_STRING);
 		if(empty($newStoreName) === true) {
 			throw(new InvalidArgumentException("store name is empty or insecure"));
 		}
 
-// verify the store name will fit in the database
+		// verify the store name will fit in the database
 		if(strlen($newStoreName) > 100) {
 			throw(new RangeException("store name too large"));
 		}
 
-// store the store name
+		// store the store name
 		$this->storeName = $newStoreName;
 	}
 
@@ -230,19 +230,19 @@ class Store {
 	 * @throws RangeException if $newImagePath is > 100 characters
 	 **/
 	public function setImagePath($newImagePath) {
-// verify that the image path is secure
+		// verify that the image path is secure
 		$newImagePath = trim($newImagePath);
 		$newImagePath = filter_var($newImagePath, FILTER_SANITIZE_STRING);
 		if(empty($newImagePath) === true) {
 			throw(new InvalidArgumentException("image path is empty or insecure"));
 		}
 
-// verify the image path will fit in the database
+		// verify the image path will fit in the database
 		if(strlen($newImagePath) > 255) {
 			throw(new RangeException("image path too large"));
 		}
 
-// store the image path
+		// store the image path
 		$this->imagePath = $newImagePath;
 	}
 
@@ -275,7 +275,7 @@ class Store {
 		}
 		// execute the statement
 		if($statement->execute() === false) {
-			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
+			throw(new mysqli_sql_exception("unable to execute mySQL statement " . $statement->error));
 		}
 		// update the null storeId with what mysql just gave us
 		$this->storeId = $mysqli->insert_id;
@@ -311,7 +311,7 @@ class Store {
 		}
 		// execute the statement
 		if($statement->execute() === false) {
-			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
+			throw(new mysqli_sql_exception("unable to execute mySQL statement " . $statement->error));
 		}
 		// clean up the statement
 		$statement->close();
@@ -361,12 +361,12 @@ class Store {
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 **/
 	public static function getStoreByStoreId(&$mysqli, $storeId) {
-// handle degenerate cases
+		// handle degenerate cases
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 
-// sanitize the storeId before searching
+		// sanitize the storeId before searching
 		$storeId = filter_var($storeId, FILTER_VALIDATE_INT);
 		if($storeId === false) {
 			throw(new mysqli_sql_exception("store id is not an integer"));
@@ -375,31 +375,31 @@ class Store {
 			throw(new mysqli_sql_exception("store id is not positive"));
 		}
 
-// create query template
+		// create query template
 		$query = "SELECT storeId, profileId, creationDate, storeName, imagePath FROM store WHERE storeId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-// bind the store id to the place holder in the template
+		// bind the store id to the place holder in the template
 		$wasClean = $statement->bind_param("i", $storeId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
 
-// execute the statement
+		// execute the statement
 		if($statement->execute() === false) {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
 		}
 
-// get result from the SELECT query
+		// get result from the SELECT query
 		$result = $statement->get_result();
 		if($result === false) {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
 
-// grab the store from mySQL
+		// grab the store from mySQL
 		try {
 			$store = null;
 			$row = $result->fetch_assoc();
@@ -407,11 +407,11 @@ class Store {
 				$store = new Store($row["storeId"], $row["profileId"], $row["storeName"], $row["imagePath"], $row["creationDate"]);
 			}
 		} catch(Exception $exception) {
-// if the row couldn't be converted, rethrow it
+			// if the row couldn't be converted, rethrow it
 			throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 		}
 
-// free up memory and return the result
+		// free up memory and return the result
 		$result->free();
 		$statement->close();
 		return ($store);

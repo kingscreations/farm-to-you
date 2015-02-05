@@ -33,9 +33,6 @@ class CategoryProductTest extends UnitTestCase {
 	private $categoryProduct = null;
 
 	// this section contains member variables with constants needed for creating a new category
-	/**
-	 * category name of the test category
-	 **/
 
 	private $category = null;
 	private $product = null;
@@ -52,7 +49,7 @@ class CategoryProductTest extends UnitTestCase {
 		$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 		$this->mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-		// second create an instance of the object under scrutiny
+		// second create an instance of the objects under scrutiny
 		$this->user = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
 		$this->user->insert($this->mysqli);
 		$this->profile = new Profile(null, "Test", "Test2", "5555555555", "m", "012345", "http://www.cats.com/cat.jpg", $this->user->getUserId());
@@ -62,7 +59,7 @@ class CategoryProductTest extends UnitTestCase {
 		$this->category = new Category(null, "category");
 		$this->category->insert($this->mysqli);
 
-
+		// main object created here
 		$this->categoryProduct = new CategoryProduct($this->category->getCategoryId(), $this->product->getProductId());
 	}
 
@@ -90,12 +87,10 @@ class CategoryProductTest extends UnitTestCase {
 			$this->profile = null;
 		}
 
-
 		if($this->user !== null) {
 			$this->user->delete($this->mysqli);
 			$this->user = null;
 		}
-
 
 		// disconnect from mySQL
 		if($this->mysqli !== null) {
@@ -103,8 +98,6 @@ class CategoryProductTest extends UnitTestCase {
 			$this->mysqli = null;
 		}
 	}
-
-
 
 	/**
 	 * test inserting a valid category into mySQL
@@ -121,11 +114,9 @@ class CategoryProductTest extends UnitTestCase {
 		$mysqlCategoryProduct = CategoryProduct::getCategoryProductByCategoryIdAndProductId($this->mysqli, $this->categoryProduct->getCategoryId(),
 			$this->categoryProduct->getProductId());
 
-
 		// third, assert the categoryproduct we have created and mySQL's category are the same object
 		$this->assertIdentical($this->categoryProduct->getCategoryId(), $mysqlCategoryProduct->getCategoryId());
 		$this->assertIdentical($this->categoryProduct->getProductId(), $mysqlCategoryProduct->getProductId());
-
 	}
 
 	/**
@@ -173,5 +164,4 @@ class CategoryProductTest extends UnitTestCase {
 		$this->categoryProduct = null;
 	}
 }
-
 ?>

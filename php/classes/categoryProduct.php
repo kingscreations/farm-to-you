@@ -2,6 +2,9 @@
 /**
  * This is the class for the categoryProduct function of farmtoyou
  *
+ * This encompasses the intersection between the category and product classes that are used in
+ * farmtoyou.
+ *
  * @author Jay Renteria <jay@jayrenteria.com>
  **/
 
@@ -37,7 +40,6 @@ class CategoryProduct {
 		}
 	}
 
-
 	/**
 	 * accessor method for the category Id
 	 *
@@ -45,7 +47,6 @@ class CategoryProduct {
 	 **/
 	public function getCategoryId() {
 		return ($this->categoryId);
-
 	}
 
 	/**
@@ -77,7 +78,6 @@ class CategoryProduct {
 	public function getProductId() {
 		return ($this->productId);
 	}
-
 
 	/**
 	 * mutator method for this product Id
@@ -122,6 +122,7 @@ class CategoryProduct {
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
+
 		// bind the member variables to the place holders in the template
 		$wasClean = $statement->bind_param("ii", $this->categoryId, $this->productId);
 		if($wasClean === false) {
@@ -132,6 +133,7 @@ class CategoryProduct {
 		if($statement->execute() === false) {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
 		}
+
 		// clean up the statement
 		$statement->close();
 	}
@@ -147,6 +149,7 @@ class CategoryProduct {
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
+
 		// enforce the categoryId and productId is not null (i.e., dont delete a categoryProduct that has not been inserted)
 		if($this->categoryId === null) {
 			throw(new mysqli_sql_exception("unable to delete a category that does not exist"));
@@ -154,21 +157,25 @@ class CategoryProduct {
 		if($this->productId === null) {
 			throw(new mysqli_sql_exception("unable to delete a category that does not exist"));
 		}
+
 		// create query template
 		$query = "DELETE FROM categoryProduct WHERE categoryId = ? AND productId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
+
 		// bind the member variables to the place holder in the template
 		$wasClean = $statement->bind_param("ii", $this->categoryId, $this->productId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
+
 		// execute the statement
 		if($statement->execute() === false) {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
 		}
+
 		// clean up the statement
 		$statement->close();
 	}
@@ -186,6 +193,7 @@ class CategoryProduct {
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
+
 		// sanitize the description before searching
 		$categoryId = trim($categoryId);
 		$categoryId = filter_var($categoryId, FILTER_VALIDATE_INT);
@@ -195,20 +203,24 @@ class CategoryProduct {
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
+
 		// bind the category id to the place holder in the template
 		$wasClean = $statement->bind_param("i", $categoryId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
+
 		// execute the statement
 		if($statement->execute() === false) {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
 		}
+
 		// get result from the SELECT query
 		$result = $statement->get_result();
 		if($result === false) {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
+
 		// build an array of categories
 		$categories = array();
 		while(($row = $result->fetch_assoc()) !== null) {
@@ -235,19 +247,19 @@ class CategoryProduct {
 	}
 
 	/**
-	 * gets the categoryProduct by categoryId
+	 * gets the categoryProduct by productId
 	 *
 	 * @param resource $mysqli pointer to mysql connection, by reference
 	 * @param int $productId product id to search for
 	 * @return mixed array of products found, or null if not found
 	 * @throws mysqli_sql_exception when mysql related errors occur
 	 **/
-
 	public static function getProductByProductId(&$mysqli, $productId) {
 		// handle degenerate cases
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
+
 		// sanitize the description before searching
 		$productId = trim($productId);
 		$productId = filter_var($productId, FILTER_VALIDATE_INT);
@@ -257,20 +269,24 @@ class CategoryProduct {
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
+
 		// bind the product id to the place holder in the template
 		$wasClean = $statement->bind_param("i", $productId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
+
 		// execute the statement
 		if($statement->execute() === false) {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
 		}
+
 		// get result from the SELECT query
 		$result = $statement->get_result();
 		if($result === false) {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
+
 		// build an array of categorys
 		$products = array();
 		while(($row = $result->fetch_assoc()) !== null) {
@@ -282,6 +298,7 @@ class CategoryProduct {
 				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 			}
 		}
+
 		// count the results in the array and return:
 		// 1) null if 0 results
 		// 2) a single object if 1 result
@@ -305,19 +322,18 @@ class CategoryProduct {
 	 * @return mixed array of categories and products found, or null if not found
 	 * @throws mysqli_sql_exception when mysql related errors occur
 	 **/
-
 	public static function getCategoryProductByCategoryIdAndProductId(&$mysqli, $categoryId, $productId) {
 //		var_dump($categoryId);var_dump($productId);
 		// handle degenerate cases
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
+
 		// sanitize the description before searching
 		$categoryId = filter_var($categoryId, FILTER_VALIDATE_INT);
 		if($categoryId === false) {
 			throw(new mysqli_sql_exception("category id is not an integer"));
 		}
-
 		if($categoryId <= 0) {
 			throw(new mysqli_sql_exception("category id is not positive"));
 		}
@@ -329,21 +345,25 @@ class CategoryProduct {
 		if($productId <= 0) {
 			throw(new mysqli_sql_exception("product id is not positive"));
 		}
+
 		// create query template
 		$query = "SELECT categoryId, productId FROM categoryProduct WHERE categoryId = ? AND productId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
+
 		// bind the product id to the place holder in the template
 		$wasClean = $statement->bind_param("ii", $categoryId, $productId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
+
 		// execute the statement
 		if($statement->execute() === false) {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
 		}
+
 		// get result from the SELECT query
 		$result = $statement->get_result();
 		if($result === false) {
@@ -367,4 +387,4 @@ class CategoryProduct {
 			return ($categoryProduct);
 		}
 	}
-
+?>

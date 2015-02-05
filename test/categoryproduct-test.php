@@ -173,4 +173,5 @@ class CategoryProductTest extends UnitTestCase {
 		$this->categoryProduct = null;
 	}
 }
+
 ?>

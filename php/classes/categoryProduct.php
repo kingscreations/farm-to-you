@@ -78,6 +78,7 @@ class CategoryProduct {
 		return ($this->productId);
 	}
 
+
 	/**
 	 * mutator method for this product Id
 	 *

@@ -162,11 +162,11 @@ class Order {
 		$minute = intval($matches[5]);
 		$second = intval($matches[6]);
 		if(checkdate($month, $day, $year) === false) {
-			throw(new RangeException("order date $date is not a Gregorian date"));
+			throw(new RangeException("order date date is not a Gregorian date"));
 		}
 		// verify the time is really a valid wall clock time
 		if($hour < 0 || $hour >= 24 || $minute < 0 || $minute >= 60 || $second < 0 || $second >= 60) {
-			throw(new RangeException("order date $date is not a valid time"));
+			throw(new RangeException("order date date is not a valid time"));
 		}
 
 		return DateTime::createFromFormat("Y-m-d H:i:s", $date);
@@ -287,9 +287,8 @@ class Order {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 
-		$orderDate = trim($orderDate);
-		$orderDate = filter_var($orderDate, FILTER_SANITIZE_STRING);
-
+		$orderDate = self::sanitizeDate($orderDate);
+		$orderDate = $orderDate->format("Y-m-d H:i:s");
 		$query	 = "SELECT orderId, profileId, orderDate FROM `order` WHERE orderDate = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {

@@ -190,9 +190,9 @@ class Store {
 	}
 
 	/**
-	 * mutator method for tweet content
+	 * mutator method for store name
 	 *
-	 * @param string $newStoreName new value of tweet content
+	 * @param string $newStoreName new value of store name
 	 * @throws InvalidArgumentException if $newStoreName is not a string or insecure
 	 * @throws RangeException if $newStoreName is > 100 characters
 	 **/
@@ -225,7 +225,7 @@ class Store {
 	/**
 	 * mutator method for image path
 	 *
-	 * @param string $newImagePath new value of tweet content
+	 * @param string $newImagePath new value of imagePath
 	 * @throws InvalidArgumentException if $newImagePath is not a string or insecure
 	 * @throws RangeException if $newImagePath is > 100 characters
 	 **/
@@ -257,7 +257,7 @@ class Store {
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
-		// enforce the storeId is null (i.e., don't insert a category that already exists)
+		// enforce the storeId is null (i.e., don't insert a store that already exists)
 		if($this->storeId !== null) {
 			throw(new mysqli_sql_exception("this store already exists"));
 		}
@@ -318,7 +318,7 @@ class Store {
 	}
 
 	/**
-	 * updates the category in mySQL
+	 * updates the store in mySQL
 	 *
 	 * @param resource $mysqli pointer to mysql connection, by reference
 	 * @throws mysqli_sql_exception when mysql related errors occur

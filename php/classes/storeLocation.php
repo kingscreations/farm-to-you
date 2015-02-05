@@ -16,7 +16,7 @@ class StoreLocation {
 	 */
 	private $locationId;
 	/**
-	 * constructor of this orderProduct
+	 * constructor of this storeLocation
 	 *
 	 * @param int $newStoreId id of the store
 	 * @param int $newLocationId id of the location

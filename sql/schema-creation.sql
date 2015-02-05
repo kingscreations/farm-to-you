@@ -24,7 +24,7 @@ CREATE TABLE profile (
 	firstName VARCHAR(45),
 	lastName VARCHAR(45),
 	phone VARCHAR(20),
-	profileType VARCHAR(10),
+	profileType CHAR(1),
 	customerToken VARCHAR(50),
 	imagePath VARCHAR(255),
 	userId INT UNSIGNED NOT NULL,

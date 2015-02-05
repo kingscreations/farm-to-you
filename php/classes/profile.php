@@ -52,7 +52,7 @@ class Profile {
 	 * @throws InvalidArgumentException if data types are not valid
 	 * @throws RangeException if data values are out of bounds (e.g., strings too lo
 	 **/
-	public function __construct($newProfileId, $newFirstName, $newLastName, $newPhone, $newProfileType, $newCustomerToken, $newImagePath, $newUserId = null) {
+	public function __construct($newProfileId, $newFirstName, $newLastName, $newPhone, $newProfileType, $newCustomerToken, $newImagePath, $newUserId) {
 		try {
 			$this->setProfileId($newProfileId);
 			$this->setFirstName($newFirstName);
@@ -219,7 +219,8 @@ class Profile {
 			throw(new RangeException("profile type content too large"));
 		}
 		// verify profileType is either M or C
-		if(($newProfileType)!== "m"||"c") {
+		$allowedLetters = ['m', 'c'];
+		if(in_array($newProfileType, $allowedLetters) === false) {
 			throw(new RangeException("profile type must be m or c"));
 		}
 

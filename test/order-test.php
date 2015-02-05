@@ -2,7 +2,9 @@
 // first, require the SimpleTest framework <http://www.simpletest.org/>
 require_once("/usr/lib/php5/simpletest/autorun.php");
 
-// the class to test
+// the classes to test
+require_once("../php/classes/user.php");
+require_once("../php/classes/profile.php");
 require_once("../php/classes/order.php");
 
 // require the encrypted configuration functions
@@ -50,7 +52,10 @@ class OrderTest extends UnitTestCase {
 		$this->mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 			$configArray["database"]);
 
-		// instance of order
+		//instances used
+		$this->user  = new User(null, '092843750234985ab092843750234985ab092843750234985a0928437502349850928433750234985ababb092843750234985ab092843750234985ab79324234', '092843750234985ab0928437502349ab', '09284375023498af');
+		$userId = $this->user->insert($this->mysqli);
+		$this->profile = new Profile(null, 'toto', 'sinatra', '986700798', '', $userId)
 		$this->orderDate = new DateTime();
 		$this->order = new Order(null, $this->profileId, $this->orderDate);
 	}

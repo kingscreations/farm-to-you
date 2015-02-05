@@ -45,11 +45,13 @@ class Location {
 	/**
 	 * constructor for this location class
 	 *
-	 * @param int $newStoreId id of the location
-	 * @param int $newProfileId id of the profile associated with the location
-	 * @param mixed $newCreationDate date and time location was created or null if set to current date and time
-	 * @param string $newStoreName name of the location
-	 * @param string $newImagePath path of image associated with the location or null if none
+	 * @param int $newLocationId id of the location
+	 * @param mixed $newCountry country of the location or null if no input
+	 * @param string $newState state of the location
+	 * @param string $newCity city of the location
+	 * @param string $newZipCode zip code of the location
+	 * @param string $newAddress1 first line of the address of the location
+	 * @param string $newAddress2 second line of the address of the location
 	 * @throws InvalidArgumentException it data types are not valid
 	 * @throws RangeException if data values are out of bounds (e.g. strings too long, negative integers)
 	 **/
@@ -70,218 +72,216 @@ class Location {
 			throw(new RangeException($range->getMessage(), 0, $range));
 		}
 	}
-
 	/**
-	 * accessor method for the storeId
+	 * accessor method for the locationId
 	 *
-	 * @return int value of storeId
+	 * @return int value of locationId
 	 **/
 	public function getLocationId() {
 		return ($this->locationId);
 	}
 
 	/**
-	 * mutator method for storeId
+	 * mutator method for locationId
 	 *
-	 * @param int $newStoreId new value of $storeId
-	 * @throws InvalidArgumentException if the $storeId is not an integer
-	 * @throws RangeException if the $storeId is not positive
+	 * @param int $newLocationId new value of $storeId
+	 * @throws InvalidArgumentException if the $newLocationId is not an integer
+	 * @throws RangeException if the $newLocationId is not positive
 	 **/
 	public function setLocationId($newLocationId) {
-		// verify the store id is valid
+		// base case: if the location id is null, this a new location without a mySQL assigned id (yet)
 		if($newLocationId === null) {
 			$this->locationId = null;
 			return;
 		}
-
+		// verify the location id is valid
 		$newLocationId = filter_var($newLocationId, FILTER_VALIDATE_INT);
-
 		if($newLocationId === false) {
 			throw(new InvalidArgumentException("location id is not a valid integer"));
 		}
-		// verify the store id is positive
+		// verify the location id is positive
 		if($newLocationId <= 0) {
 			throw(new RangeException("location id is not positive"));
 		}
-		// convert and store the user id
+		// convert and store the location id
 		$this->locationId = intval($newLocationId);
 	}
 	/**
-	 * accessor method for store name
+	 * accessor method for location country
 	 *
-	 * @return string value of store name
+	 * @return string value of location country
 	 **/
 	public function getCountry() {
 		return ($this->country);
 	}
 
 	/**
-	 * mutator method for tweet content
+	 * mutator method for location country
 	 *
-	 * @param string $newStoreName new value of tweet content
-	 * @throws InvalidArgumentException if $newStoreName is not a string or insecure
-	 * @throws RangeException if $newStoreName is > 100 characters
+	 * @param string $newCountry new value of location country
+	 * @throws InvalidArgumentException if $newCountry is not a string or insecure
+	 * @throws RangeException if $newCountry is > 2 characters
 	 **/
 	public function setCountry($newCountry) {
-// verify that the store name is secure
+// verify that the location country is secure
 		$newCountry = trim($newCountry);
 		$newCountry = filter_var($newCountry, FILTER_SANITIZE_STRING);
 		if(empty($newCountry) === true) {
 			throw(new InvalidArgumentException("country name is empty or insecure"));
 		}
 
-// verify the store name will fit in the database
+// verify the location country will fit in the database
 		if(strlen($newCountry) > 2) {
 			throw(new RangeException("country name too large"));
 		}
 
-// store the store name
+// store the location country
 		$this->country = $newCountry;
 	}
 	/**
-	 * accessor method for store name
+	 * accessor method for location state
 	 *
-	 * @return string value of store name
+	 * @return string value of location state
 	 **/
 	public function getState() {
 		return ($this->state);
 	}
 
 	/**
-	 * mutator method for tweet content
+	 * mutator method for location state
 	 *
-	 * @param string $newStoreName new value of tweet content
-	 * @throws InvalidArgumentException if $newStoreName is not a string or insecure
-	 * @throws RangeException if $newStoreName is > 100 characters
+	 * @param string $newState new value of location state
+	 * @throws InvalidArgumentException if $newState is not a string or insecure
+	 * @throws RangeException if $newState is > 2 characters
 	 **/
 	public function setState($newState) {
-// verify that the store name is secure
+// verify that the location state is secure
 		$newState = trim($newState);
 		$newState = filter_var($newState, FILTER_SANITIZE_STRING);
 		if(empty($newState) === true) {
 			throw(new InvalidArgumentException("state name is empty or insecure"));
 		}
 
-// verify the store name will fit in the database
+// verify the location state will fit in the database
 		if(strlen($newState) > 2) {
 			throw(new RangeException("state name too large"));
 		}
 
-// store the store name
+// store the location state
 		$this->state = $newState;
 	}
 
 	/**
-	 * accessor method for store name
+	 * accessor method for location city
 	 *
-	 * @return string value of store name
+	 * @return string value of location city
 	 **/
 	public function getCity() {
 		return ($this->city);
 	}
 
 	/**
-	 * mutator method for tweet content
+	 * mutator method for location city
 	 *
-	 * @param string $newStoreName new value of tweet content
-	 * @throws InvalidArgumentException if $newStoreName is not a string or insecure
-	 * @throws RangeException if $newStoreName is > 100 characters
+	 * @param string $newCity new value of location city
+	 * @throws InvalidArgumentException if $newCity is not a string or insecure
+	 * @throws RangeException if $newCity is > 100 characters
 	 **/
 	public function setCity($newCity) {
-// verify that the store name is secure
+// verify that the location city is secure
 		$newCity = trim($newCity);
 		$newCity = filter_var($newCity, FILTER_SANITIZE_STRING);
 		if(empty($newCity) === true) {
 			throw(new InvalidArgumentException("city name is empty or insecure"));
 		}
-// verify the store name will fit in the database
+// verify the location city will fit in the database
 		if(strlen($newCity) > 100) {
 			throw(new RangeException("city name too large"));
 		}
 
-// store the store name
+// store the location city
 		$this->city = $newCity;
 	}
 
 	/**
-	 * accessor method for store name
+	 * accessor method for location zip code
 	 *
-	 * @return string value of store name
+	 * @return string value of location zip code
 	 **/
 	public function getZipCode() {
 		return ($this->zipCode);
 	}
 
 	/**
-	 * mutator method for tweet content
+	 * mutator method for location zip code
 	 *
-	 * @param string $newStoreName new value of tweet content
-	 * @throws InvalidArgumentException if $newStoreName is not a string or insecure
-	 * @throws RangeException if $newStoreName is > 100 characters
+	 * @param string $newZipCode new value of location zip code
+	 * @throws InvalidArgumentException if $newZipCode is not a string or insecure
+	 * @throws RangeException if $newZipCode is > 10 characters
 	 **/
 	public function setZipCode($newZipCode) {
-// verify that the store name is secure
+// verify that the location zip code is secure
 		$newZipCode = trim($newZipCode);
 		$newZipCode = filter_var($newZipCode, FILTER_SANITIZE_STRING);
 		if(empty($newZipCode) === true) {
 			throw(new InvalidArgumentException("zip code is empty or insecure"));
 		}
 
-// verify the store name will fit in the database
+// verify the location zip code will fit in the database
 		if(strlen($newZipCode) > 10) {
 			throw(new RangeException("zip code too large"));
 		}
 
-// store the store name
+// store the location zip code
 		$this->zipCode = $newZipCode;
 	}
 	/**
-	 * accessor method for store name
+	 * accessor method for location address line 1
 	 *
-	 * @return string value of store name
+	 * @return string value of location address line 1
 	 **/
 	public function getAddress1() {
 		return ($this->address1);
 	}
 
 	/**
-	 * mutator method for tweet content
+	 * mutator method for location address line 1
 	 *
-	 * @param string $newStoreName new value of tweet content
-	 * @throws InvalidArgumentException if $newStoreName is not a string or insecure
-	 * @throws RangeException if $newStoreName is > 100 characters
+	 * @param string $newAddress1 new value of location address line 1
+	 * @throws InvalidArgumentException if $newAddress1 is not a string or insecure
+	 * @throws RangeException if $newAddress1 is > 150 characters
 	 **/
 	public function setAddress1($newAddress1) {
-// verify that the store name is secure
+// verify that the location address line 1 is secure
 		$newAddress1 = trim($newAddress1);
 		$newAddress1 = filter_var($newAddress1, FILTER_SANITIZE_STRING);
 		if(empty($newAddress1) === true) {
 			throw(new InvalidArgumentException("address 1 is empty or insecure"));
 		}
 
-// verify the store name will fit in the database
+// verify the location address line 1 will fit in the database
 		if(strlen($newAddress1) > 150) {
 			throw(new RangeException("address 1 too large"));
 		}
 
-// store the store name
+// store the location address line 1
 		$this->address1 = $newAddress1;
 	}
 	/**
-	 * accessor method for store name
+	 * accessor method for location address line 2
 	 *
-	 * @return string value of store name
+	 * @return string value of location address line 2
 	 **/
 	public function getAddress2() {
 		return ($this->address2);
 	}
 
 	/**
-	 * mutator method for tweet content
+	 * mutator method for location address line 2
 	 *
-	 * @param string $newStoreName new value of tweet content
-	 * @throws InvalidArgumentException if $newStoreName is not a string or insecure
-	 * @throws RangeException if $newStoreName is > 100 characters
+	 * @param string $newAddress2 new value of location address line 2
+	 * @throws InvalidArgumentException if $newAddress2 is not a string or insecure
+	 * @throws RangeException if $newAddress2 is > 150 characters
 	 **/
 	public function setAddress2($newAddress2) {
 		if($newAddress2 === null) {
@@ -290,23 +290,23 @@ class Location {
 		}
 
 
-// verify that the store name is secure
+// verify that the location address line 2 is secure
 		$newAddress2 = trim($newAddress2);
 		$newAddress2 = filter_var($newAddress2, FILTER_SANITIZE_STRING);
 		if(empty($newAddress2) === true) {
 			throw(new InvalidArgumentException("address 2 is empty or insecure"));
 		}
 
-// verify the store name will fit in the database
+// verify the location address line 2 will fit in the database
 		if(strlen($newAddress2) > 150) {
 			throw(new RangeException("address 2 too large"));
 		}
 
-// store the store name
+// store the location address line 2
 		$this->address2 = $newAddress2;
 	}
 	/**
-	 * inserts this store into mySQL
+	 * inserts this location into mySQL
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
 	 * @throws mysqli_sql_exception when mySQL related errors occur
@@ -316,7 +316,7 @@ class Location {
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
-		// enforce the storeId is null (i.e., don't insert a category that already exists)
+		// enforce the locationId is null (i.e., don't insert a location that already exists)
 		if($this->locationId !== null) {
 			throw(new mysqli_sql_exception("this location already exists"));
 		}
@@ -335,14 +335,14 @@ class Location {
 		if($statement->execute() === false) {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
 		}
-		// update the null storeId with what mysql just gave us
+		// update the null locationId with what mysql just gave us
 		$this->locationId = $mysqli->insert_id;
 		// clean up the statement
 		$statement->close();
 	}
 
 	/**
-	 * deletes this store from mysql
+	 * deletes this location from mysql
 	 *
 	 * @param resource $mysqli pointer to mysql connection, by reference
 	 * @throws mysqli_sql_exception when mySQL related errors occur
@@ -352,7 +352,7 @@ class Location {
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
-		// enforce the storeId is not null (i.e., don't delete a store that has not been inserted)
+		// enforce the locationId is not null (i.e., don't delete a location that has not been inserted)
 		if($this->locationId === null) {
 			throw(new mysqli_sql_exception("unable to delete a location that does not exist"));
 		}
@@ -376,7 +376,7 @@ class Location {
 	}
 
 	/**
-	 * updates the category in mySQL
+	 * updates the location in mySQL
 	 *
 	 * @param resource $mysqli pointer to mysql connection, by reference
 	 * @throws mysqli_sql_exception when mysql related errors occur
@@ -386,7 +386,7 @@ class Location {
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
-		// enforce the storeId is not null (i.e., don't update a store that hasn't been inserted)
+		// enforce the locationId is not null (i.e., don't update a location that hasn't been inserted)
 		if($this->locationId === null) {
 			throw(new mysqli_sql_exception("unable to update a location that does not exist"));
 		}
@@ -410,11 +410,11 @@ class Location {
 	}
 
 	/**
-	 * gets the store by storeId
+	 * gets the location by locationId
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
-	 * @param int $storeId store id to search for
-	 * @return mixed Store found or null if not found
+	 * @param int $locationId location id to search for
+	 * @return mixed Location found or null if not found
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 **/
 	public static function getLocationByLocationId(&$mysqli, $locationId) {
@@ -423,7 +423,7 @@ class Location {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 
-// sanitize the storeId before searching
+// sanitize the locationId before searching
 		$locationId = filter_var($locationId, FILTER_VALIDATE_INT);
 		if($locationId === false) {
 			throw(new mysqli_sql_exception("location id is not an integer"));
@@ -439,7 +439,7 @@ class Location {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-// bind the store id to the place holder in the template
+// bind the location id to the place holder in the template
 		$wasClean = $statement->bind_param("i", $locationId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
@@ -456,7 +456,7 @@ class Location {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
 
-// grab the store from mySQL
+// grab the location from mySQL
 		try {
 			$location = null;
 			$row = $result->fetch_assoc();
@@ -474,11 +474,11 @@ class Location {
 		return ($location);
 	}
 	/**
-	 * gets the Tweet by content
+	 * gets the location by city
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
-	 * @param string $tweetContent tweet content to search for
-	 * @return mixed array of Tweets found, Tweets found, or null if not found
+	 * @param string $city city to search for
+	 * @return mixed array of Locations found, Location found, or null if not found
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 **/
 	public static function getLocationByCity(&$mysqli, $city) {
@@ -487,7 +487,7 @@ class Location {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 
-		// sanitize the description before searching
+		// sanitize the city before searching
 		$city = trim($city);
 		$city = filter_var($city, FILTER_SANITIZE_STRING);
 
@@ -498,7 +498,7 @@ class Location {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-		// bind the tweet content to the place holder in the template
+		// bind the city to the place holder in the template
 		$city = "%$city%";
 		$wasClean = $statement->bind_param("s", $city);
 		if($wasClean === false) {
@@ -516,7 +516,7 @@ class Location {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
 
-		// build an array of tweet
+		// build an array of location
 		$locations = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
@@ -543,11 +543,11 @@ class Location {
 		}
 	}
 	/**
-	 * gets the Tweet by content
+	 * gets the Location by zip code
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
-	 * @param string $tweetContent tweet content to search for
-	 * @return mixed array of Tweets found, Tweets found, or null if not found
+	 * @param string $zipCode zip code to search for
+	 * @return mixed array of Locations found, Location found, or null if not found
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 **/
 	public static function getLocationByZipCode(&$mysqli, $zipCode) {
@@ -556,7 +556,7 @@ class Location {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 
-		// sanitize the description before searching
+		// sanitize the zip code before searching
 		$zipCode = trim($zipCode);
 		$zipCode = filter_var($zipCode, FILTER_SANITIZE_STRING);
 
@@ -567,7 +567,7 @@ class Location {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-		// bind the tweet content to the place holder in the template
+		// bind the zip code to the place holder in the template
 		$wasClean = $statement->bind_param("s", $zipCode);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
@@ -584,7 +584,7 @@ class Location {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
 
-		// build an array of tweet
+		// build an array of location
 		$locations = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
@@ -611,11 +611,11 @@ class Location {
 		}
 	}
 	/**
-	 * gets the Tweet by content
+	 * gets the Location by address line 1
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
-	 * @param string $tweetContent tweet content to search for
-	 * @return mixed array of Tweets found, Tweets found, or null if not found
+	 * @param string $address1 address line 1 to search for
+	 * @return mixed array of Locations found, Location found, or null if not found
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 **/
 	public static function getLocationByAddress1(&$mysqli, $address1) {
@@ -624,7 +624,7 @@ class Location {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 
-		// sanitize the description before searching
+		// sanitize address line 1 before searching
 		$address1 = trim($address1);
 		$address1 = filter_var($address1, FILTER_SANITIZE_STRING);
 
@@ -635,7 +635,7 @@ class Location {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-		// bind the tweet content to the place holder in the template
+		// bind address line 1 to the place holder in the template
 		$address1 = "%$address1%";
 		$wasClean = $statement->bind_param("s", $address1);
 		if($wasClean === false) {
@@ -653,7 +653,7 @@ class Location {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
 
-		// build an array of tweet
+		// build an array of location
 		$locations = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {

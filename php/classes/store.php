@@ -474,13 +474,10 @@ class Store {
 
 		// count the results in the array and return:
 		// 1) null if 0 results
-		// 2) a single object if 1 result
-		// 3) the entire array if > 1 result
+		// 2) the entire array if >= 1 result
 		$numberOfStores = count($stores);
 		if($numberOfStores === 0) {
 			return(null);
-		} else if($numberOfStores === 1) {
-			return($stores[0]);
 		} else {
 			return($stores);
 		}

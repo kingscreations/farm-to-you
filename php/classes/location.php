@@ -531,13 +531,10 @@ class Location {
 
 		// count the results in the array and return:
 		// 1) null if 0 results
-		// 2) a single object if 1 result
-		// 3) the entire array if > 1 result
+		// 2) the entire array if >= 1 result
 		$numberOfLocations = count($locations);
 		if($numberOfLocations === 0) {
 			return(null);
-		} else if($numberOfLocations === 1) {
-			return($locations[0]);
 		} else {
 			return($locations);
 		}
@@ -599,13 +596,10 @@ class Location {
 
 		// count the results in the array and return:
 		// 1) null if 0 results
-		// 2) a single object if 1 result
-		// 3) the entire array if > 1 result
+		// 2) the entire array if >= 1 result
 		$numberOfLocations = count($locations);
 		if($numberOfLocations === 0) {
 			return(null);
-		} else if($numberOfLocations === 1) {
-			return($locations[0]);
 		} else {
 			return($locations);
 		}
@@ -668,13 +662,10 @@ class Location {
 
 		// count the results in the array and return:
 		// 1) null if 0 results
-		// 2) a single object if 1 result
-		// 3) the entire array if > 1 result
+		// 2) the entire array if >= 1 result
 		$numberOfLocations = count($locations);
 		if($numberOfLocations === 0) {
 			return(null);
-		} else if($numberOfLocations === 1) {
-			return($locations[0]);
 		} else {
 			return($locations);
 		}

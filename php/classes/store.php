@@ -425,41 +425,41 @@ class Store {
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 **/
 	public static function getStoreByStoreName(&$mysqli, $storeName) {
-// handle degenerate cases
+		// handle degenerate cases
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 
-// sanitize the description before searching
+		// sanitize store name before searching
 		$storeName = trim($storeName);
 		$storeName = filter_var($storeName, FILTER_SANITIZE_STRING);
 
-// create query template
-		$query = "SELECT storeId, profileId, creationDate, storeName, imagePath FROM store WHERE storeName = ?";
+		// create query template
+		$query = "SELECT storeId, profileId, storeName, imagePath, creationDate FROM store WHERE storeName LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-// bind the store name to the place holder in the template
+		// bind store name to the place holder in the template
 		$storeName = "%$storeName%";
 		$wasClean = $statement->bind_param("s", $storeName);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
 
-// execute the statement
+		// execute the statement
 		if($statement->execute() === false) {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
 		}
 
-// get result from the SELECT query
+		// get result from the SELECT query
 		$result = $statement->get_result();
 		if($result === false) {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
 
-// build an array of store
+		// build an array of store
 		$stores = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
@@ -467,15 +467,15 @@ class Store {
 				$stores[] = $store;
 			}
 			catch(Exception $exception) {
-// if the row couldn't be converted, rethrow it
+				// if the row couldn't be converted, rethrow it
 				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 			}
 		}
 
-// count the results in the array and return:
-// 1) null if 0 results
-// 2) a single object if 1 result
-// 3) the entire array if > 1 result
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) a single object if 1 result
+		// 3) the entire array if > 1 result
 		$numberOfStores = count($stores);
 		if($numberOfStores === 0) {
 			return(null);

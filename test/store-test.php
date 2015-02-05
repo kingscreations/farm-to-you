@@ -258,10 +258,8 @@ class StoreTest extends UnitTestCase {
 // first, insert the Location into mySQL
 		$this->store->insert($this->mysqli);
 		$this->store2->insert($this->mysqli);
-
 // second, grab the Locations from mySQL
 		$mysqlStores = Store::getStoreByStoreName($this->mysqli, $this->storeName);
-var_dump($mysqlStores);
 // third, assert the Locations we have created and mySQL's Locations are the same object
 		foreach($mysqlStores as $mysqlStore) {
 			$this->assertNotNull($mysqlStore->getStoreId());
@@ -297,5 +295,6 @@ var_dump($mysqlStores);
 // third, assert results array is null
 		$this->assertNull($mysqlStores);
 	}
+
 }
 ?>

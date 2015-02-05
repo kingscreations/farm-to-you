@@ -306,13 +306,29 @@ class ProductTest extends UnitTestCase {
 		}
 	}
 
-//	/**
-//	 * test get invalid product by product type
-//	 */
-//	public function testGetInvalidProductByProductType() {
-//
-//	}
-//
+	/**
+	 * test get invalid product by product type
+	 */
+	public function testGetInvalidProductByProductType() {
+		// create the second object to test
+		$this->product2 = new Product(null, $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
+			$this->productType, $this->productWeight);
+
+		// zeroth, ensure the Location and mySQL class are sane
+		$this->assertNotNull($this->product);
+		$this->assertNotNull($this->product2);
+		$this->assertNotNull($this->mysqli);
+
+		// second, insert the Location into mySQL
+		$this->product->insert($this->mysqli);
+		$this->product2->insert($this->mysqli);
+
+		// third, grab the Locations from mySQL
+		$mysqlProducts = Product::getProductByProductType($this->mysqli, "wrong product");
+
+		$this->assertNull($mysqlProducts);
+	}
+
 //	/**
 //	 * test get valid product by product id
 //	 */

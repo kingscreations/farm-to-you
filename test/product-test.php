@@ -291,6 +291,7 @@ class ProductTest extends UnitTestCase {
 	 */
 	public function testGetValidProductByProductName() {
 		// zeroth, ensure the Location and mySQL class are sane
+
 		$this->assertNotNull($this->product);
 		$this->assertNotNull($this->product2);
 		$this->assertNotNull($this->mysqli);

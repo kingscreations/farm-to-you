@@ -272,18 +272,20 @@ class OrderProductTest extends UnitTestCase {
 	/**
 	 * test get invalid order product by order id and by product id
 	 */
-	public function testInvalidDeleteOrderProduct() {
-		$this->assertNotNull($this->orderProduct);
-		$this->assertNotNull($this->user);
-		$this->assertNotNull($this->profile);
-		$this->assertNotNull($this->order);
-		$this->assertNotNull($this->product);
-		$this->assertNotNull($this->mysqli);
-
-		$this->expectException("mysqli_sql_exception");
-		$this->orderProduct->delete($this->mysqli);
-
-		$this->orderProduct = null;
-	}
+//	public function testInvalidDeleteOrderProduct() {
+//		$this->assertNotNull($this->orderProduct);
+//		$this->assertNotNull($this->user);
+//		$this->assertNotNull($this->profile);
+//		$this->assertNotNull($this->order);
+//		$this->assertNotNull($this->product);
+//		$this->assertNotNull($this->mysqli);
+//
+//		var_dump($this->orderProduct);
+//		$this->orderProduct->setOrderId(null);
+//		$this->expectException("mysqli_sql_exception");
+//		$this->orderProduct->delete($this->mysqli);
+//
+//		$this->orderProduct = null;
+//	}
 }
 ?>

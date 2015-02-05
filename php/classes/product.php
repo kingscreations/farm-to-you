@@ -606,6 +606,8 @@ class Product {
 				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 			}
 		}
+		$result->free();
+		$statement->close();
 
 		// count the results in the array and return:
 		// 1) null if 0 results

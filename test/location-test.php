@@ -12,10 +12,10 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 /**
  * Unit test for the Location class
  *
- * This is a SimpleTest test case for the CRUD methods of the Store class.
+ * This is a SimpleTest test case for the CRUD methods of the Location class.
  *
  * @see Location
- * @author Alonso Indacochea <aindaco1@hotmail.com>
+ * @author Alonso Indacochea <alonso@hermesdevelopment.com>
  **/
 class LocationTest extends UnitTestCase {
 	/**

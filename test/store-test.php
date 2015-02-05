@@ -15,8 +15,8 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
  *
  * This is a SimpleTest test case for the CRUD methods of the Store class.
  *
- * @see Tweet
- * @author Dylan McDonald <dmcdonald21@cnm.edu>
+ * @see Store
+ * @author Alonso Indacochea <alonso@hermesdevelopment.com>
  **/
 class StoreTest extends UnitTestCase {
 	/**

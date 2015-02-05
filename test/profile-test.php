@@ -1,12 +1,14 @@
 <?php
 // first, require the SimpleTest framework <http://www.simpletest.org/>
-// this path is *NOT* universal, but deployed on the bootcamp-coders server
 require_once("/usr/lib/php5/simpletest/autorun.php");
 
-// next, require the class from the project under scrutiny
+// the classes to test
+require_once("../php/classes/user.php");
 require_once("../php/classes/profile.php");
 
+// require the encrypted configuration functions
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+
 
 /**
  * unit test for the Profile class
@@ -27,12 +29,10 @@ class ProfileTest extends UnitTestCase {
 	 * instance of the object we are testing with
 	 **/
 	private $profile = null;
-
-	// this section contains member variables with constants needed for creating a new profile
 	/**
-	 * profile id of the person who is inserting the test Profile
-	 * @deprecated a parent class of type Profile should be used here instead
+	 * first user's auto generated id#. this is a foreign key.
 	 **/
+	private $userId = null;
 	/**
 	 * first name of the test user
 	 **/
@@ -57,10 +57,7 @@ class ProfileTest extends UnitTestCase {
 	 * picture file of the test user
 	 **/
 	private $imagePath = "picture.jpg";
-	/**
-	 * user Id of the test user
-	 **/
-	private $userId = 1;
+
 	/**
 	 * sets up the mySQL connection for this test
 	 **/
@@ -69,6 +66,7 @@ class ProfileTest extends UnitTestCase {
 		mysqli_report(MYSQLI_REPORT_STRICT);
 		$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 		$this->mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
+
 
 		// second, create an instance of the object under scrutiny
 		$this->profile = new Profile(null, $this->firstName, $this->lastName, $this->phone, $this->profileType, $this->customerToken, $this->imagePath, $this->userId);

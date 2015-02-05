@@ -1,20 +1,15 @@
 <?php
 // first, require the SimpleTest framework <http://www.simpletest.org/>
 require_once("/usr/lib/php5/simpletest/autorun.php");
-
 // the class to test
 require_once("../php/classes/storeLocation.php");
-
 // the classes required for foreign key access
 require_once ("../php/classes/user.php");
 require_once ("../php/classes/profile.php");
 require_once ("../php/classes/store.php");
 require_once ("../php/classes/location.php");
-
 // require the encrypted configuration functions
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-
-
 /**
  * Unit test for the storeLocation class
  *
@@ -28,7 +23,6 @@ class StoreLocationTest extends UnitTestCase {
 	 * mysqli object shared amongst all tests
 	 **/
 	private $mysqli = null;
-
 	/**
 	 * instance of the objects we are testing with
 	 **/
@@ -37,7 +31,6 @@ class StoreLocationTest extends UnitTestCase {
 	private $profile = null;
 	private $store = null;
 	private $location = null;
-
 	/**
 	 * sets up the mySQL connection for this test
 	 **/
@@ -45,12 +38,10 @@ class StoreLocationTest extends UnitTestCase {
 		// get the credentials information from the server
 		$configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 		$configArray = readConfig($configFile);
-
 		// connection
 		mysqli_report(MYSQLI_REPORT_STRICT);
 		$this->mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 			$configArray["database"]);
-
 		// instance of objects under scrutiny
 		$date = new DateTime();
 		$this->user = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
@@ -63,7 +54,6 @@ class StoreLocationTest extends UnitTestCase {
 		$this->location->insert($this->mysqli);
 		$this->storeLocation = new StoreLocation($this->store->getStoreId(),$this->location->getLocationId());
 	}
-
 	/**
 	 * tears down the connection to mySQL and deletes the test instance object
 	 **/
@@ -89,7 +79,6 @@ class StoreLocationTest extends UnitTestCase {
 			$this->user->delete($this->mysqli);
 			$this->user = null;
 		}
-
 		// disconnect from mySQL
 		if($this->mysqli !== null) {
 			$this->mysqli->close();
@@ -103,18 +92,14 @@ class StoreLocationTest extends UnitTestCase {
 // zeroth, ensure the StoreLocation and mySQL class are sane
 		$this->assertNotNull($this->storeLocation);
 		$this->assertNotNull($this->mysqli);
-
 // first, insert the StoreLocation into mySQL
 		$this->storeLocation->insert($this->mysqli);
-
 // second, grab a StoreLocation from mySQL
 		$mysqlStoreLocation = StoreLocation::getStoreLocationByStoreIdAndLocationId($this->mysqli, $this->storeLocation->getStoreId(), $this->storeLocation->getLocationId());
-
 // third, assert the StoreLocation we have created and mySQL's StoreLocation are the same object
 		$this->assertIdentical($this->storeLocation->getStoreId(), $mysqlStoreLocation->getStoreId());
 		$this->assertIdentical($this->storeLocation->getLocationId(), $mysqlStoreLocation->getLocationId());
 	}
-
 	/**
 	 * test inserting an invalid StoreLocation into mySQL
 	 **/
@@ -122,19 +107,15 @@ class StoreLocationTest extends UnitTestCase {
 // zeroth, ensure the StoreLocation and mySQL class are sane
 		$this->assertNotNull($this->storeLocation);
 		$this->assertNotNull($this->mysqli);
-
 // first, set the store id and location id to an invented value that should never insert in the first place
 		$this->storeLocation->setStoreId(42);
 		$this->storeLocation->setLocationId(42);
-
 // second, try to insert the StoreLocation and ensure the exception is thrown
 		$this->expectException("mysqli_sql_exception");
 		$this->storeLocation->insert($this->mysqli);
-
 // third, set the StoreLocation to null to prevent tearDown() from deleting a StoreLocation that never existed
 		$this->storeLocation = null;
 	}
-
 	/**
 	 * test deleting a StoreLocation from mySQL
 	 **/
@@ -142,22 +123,18 @@ class StoreLocationTest extends UnitTestCase {
 // zeroth, ensure the StoreLocation and mySQL class are sane
 		$this->assertNotNull($this->storeLocation);
 		$this->assertNotNull($this->mysqli);
-
 // first, assert the StoreLocation is inserted into mySQL by grabbing it from mySQL and asserting the primary key
 		$this->storeLocation->insert($this->mysqli);
 		$mysqlStoreLocation = StoreLocation::getStoreLocationByStoreIdAndLocationId($this->mysqli, $this->storeLocation->getStoreId(), $this->storeLocation->getLocationId());
 		$this->assertIdentical($this->storeLocation->getStoreId(), $mysqlStoreLocation->getStoreId());
 		$this->assertIdentical($this->storeLocation->getLocationId(), $mysqlStoreLocation->getLocationId());
-
 // second, delete the StoreLocation from mySQL and re-grab it from mySQL and assert it does not exist
 		$this->storeLocation->delete($this->mysqli);
 		$mysqlStoreLocation = StoreLocation::getStoreLocationByStoreIdAndLocationId($this->mysqli, $this->storeLocation->getStoreId(), $this->storeLocation->getLocationId());
 		$this->assertNull($mysqlStoreLocation);
-
 // third, set the StoreLocation to null to prevent tearDown() from deleting a StoreLocation that has already been deleted
 		$this->storeLocation = null;
 	}
-
 	/**
 	 * test deleting a StoreLocation from mySQL that does not exist
 	 **/
@@ -165,14 +142,12 @@ class StoreLocationTest extends UnitTestCase {
 // zeroth, ensure the StoreLocation and mySQL class are sane
 		$this->assertNotNull($this->storeLocation);
 		$this->assertNotNull($this->mysqli);
-var_dump($this->storeLocation);
-var_dump($this->mysqli);
-
+		var_dump($this->storeLocation);
+		var_dump($this->mysqli);
 // first, try to delete the StoreLocation before inserting it and ensure the exception is thrown
 		$this->expectException("mysqli_sql_exception");
 		var_dump($this->mysqli);
 		$this->storeLocation->delete($this->mysqli);
-
 // second, set the StoreLocation to null to prevent tearDown() from deleting a StoreLocation that has already been deleted
 		$this->storeLocation = null;
 	}
@@ -182,13 +157,10 @@ var_dump($this->mysqli);
 	public function testGetStoreLocationByValidStoreIdAndValidLocationId() {
 		$this->assertNotNull($this->storeLocation);
 		$this->assertNotNull($this->mysqli);
-
 // first, insert the StoreLocation into mySQL
 		$this->storeLocation->insert($this->mysqli);
-
 // second, grab the StoreLocation from mySQL
 		$mysqlStoreLocations = StoreLocation::getStoreLocationByStoreIdAndLocationId($this->mysqli, $this->storeLocation->getStoreId(), $this->storeLocation->getLocationId());
-
 // third, assert the StoreLocation we have created and mySQL's StoreLocation are the same object
 		foreach($mysqlStoreLocations as $mysqlStoreLocation) {
 			$this->assertNotNull($mysqlStoreLocation->getStoreId());

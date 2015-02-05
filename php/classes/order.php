@@ -359,7 +359,6 @@ class Order {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
 		}
 
-		// get result from the SELECT query
 		$result = $statement->get_result();
 		if($result === false) {
 			throw(new mysqli_sql_exception("unable to get result set"));
@@ -377,8 +376,9 @@ class Order {
 			throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 		}
 
-		// free up memory and return the result
+		// free up memory
 		$result->free();
+
 		$statement->close();
 		return($order);
 	}

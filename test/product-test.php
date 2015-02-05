@@ -27,6 +27,11 @@ class ProductTest extends UnitTestCase {
 	 **/
 	private $product = null;
 
+	/**
+	 * instance of the second object we are testing with
+	 */
+	private $product2 = null;
+
 	// this section contains member variables with constants needed for creating a new product
 	/**
 	 * @var int $profileId id for the profile. This is a foreign key to the profile entity.
@@ -84,6 +89,11 @@ class ProductTest extends UnitTestCase {
 		if($this->product !== null) {
 			$this->product->delete($this->mysqli);
 			$this->product = null;
+		}
+
+		if($this->product2 !== null) {
+			$this->product2->delete($this->mysqli);
+			$this->product2 = null;
 		}
 
 		// disconnect from mySQL
@@ -214,5 +224,107 @@ class ProductTest extends UnitTestCase {
 		// second, set the Product to null to prevent tearDown() from deleting a Product that has already been deleted
 		$this->product = null;
 	}
+
+	/**
+	 * test get valid product by product name
+	 */
+	public function testGetValidProductByProductName() {
+		// create the second object to test
+		$this->product2 = new Product(null, $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
+			$this->productType, $this->productWeight);
+
+		// zeroth, ensure the Location and mySQL class are sane
+		$this->assertNotNull($this->product);
+		$this->assertNotNull($this->product2);
+		$this->assertNotNull($this->mysqli);
+
+		// first, insert the Location into mySQL
+		$this->product->insert($this->mysqli);
+		$this->product2->insert($this->mysqli);
+
+		// second, grab the Locations from mySQL
+		$mysqlProducts = Product::getProductByProductName($this->mysqli, $this->productName);
+
+		// third, assert the Locations we have created and mySQL's Locations are the same object
+		foreach($mysqlProducts as $mysqlProduct) {
+			$this->assertNotNull($mysqlProduct->getProductId());
+			$this->assertTrue($mysqlProduct->getProductId() > 0);
+			$this->assertIdentical($this->product->getProductName(), $mysqlProduct->getProductName());
+			$this->assertIdentical($this->product2->getProductName(), $mysqlProduct->getProductName());
+		}
+	}
+
+	/**
+	 * test get invalid product by product name
+	 */
+	public function testGetInvalidProductByProductName() {
+		// create the second object to test
+		$this->product2 = new Product(null, $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
+			$this->productType, $this->productWeight);
+
+		// zeroth, ensure the Location and mySQL class are sane
+		$this->assertNotNull($this->product);
+		$this->assertNotNull($this->product2);
+		$this->assertNotNull($this->mysqli);
+
+		// second, insert the Location into mySQL
+		$this->product->insert($this->mysqli);
+		$this->product2->insert($this->mysqli);
+
+		// third, grab the Locations from mySQL
+		$mysqlProducts = Product::getProductByProductName($this->mysqli, "wrong product");
+
+		$this->assertNull($mysqlProducts);
+	}
+
+	/**
+	 * test get valid product by product type
+	 */
+	public function testGetValidProductByProductType() {
+		// create the second object to test
+		$this->product2 = new Product(null, $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
+			$this->productType, $this->productWeight);
+
+		// zeroth, ensure the Location and mySQL class are sane
+		$this->assertNotNull($this->product);
+		$this->assertNotNull($this->product2);
+		$this->assertNotNull($this->mysqli);
+
+		// first, insert the Location into mySQL
+		$this->product->insert($this->mysqli);
+		$this->product2->insert($this->mysqli);
+
+		// second, grab the Locations from mySQL
+		$mysqlProducts = Product::getProductByProductType($this->mysqli, $this->productType);
+
+		// third, assert the Locations we have created and mySQL's Locations are the same object
+		foreach($mysqlProducts as $mysqlProduct) {
+			$this->assertNotNull($mysqlProduct->getProductId());
+			$this->assertTrue($mysqlProduct->getProductId() > 0);
+			$this->assertIdentical($this->product->getProductType(), $mysqlProduct->getProductType());
+			$this->assertIdentical($this->product2->getProductType(), $mysqlProduct->getProductType());
+		}
+	}
+
+//	/**
+//	 * test get invalid product by product type
+//	 */
+//	public function testGetInvalidProductByProductType() {
+//
+//	}
+//
+//	/**
+//	 * test get valid product by product id
+//	 */
+//	public function testGetValidProductByProduct() {
+//
+//	}
+//
+//	/**
+//	 * test get invalid product by product id
+//	 */
+//	public function testGetInvalidProductByProduct() {
+//
+//	}
 }
 ?>

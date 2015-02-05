@@ -159,7 +159,7 @@ class Product {
 		$newImagePath = trim($newImagePath);
 		$newImagePath = filter_var($newImagePath, FILTER_SANITIZE_STRING);
 
-		if(strlen($newImagePath) > 45) {
+		if(strlen($newImagePath) > 255) {
 			throw(new RangeException("image path is too large"));
 		}
 
@@ -423,7 +423,7 @@ class Product {
 		$products = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$product	= new Product(null, $row["profileId"], $row["imagePath"], $row["productName"], $row["productPrice"],
+				$product	= new Product($row["productId"], $row["profileId"], $row["imagePath"], $row["productName"], $row["productPrice"],
 					$row["productType"], $row["productWeight"]);
 				$products[] = $product;
 			}
@@ -459,7 +459,7 @@ class Product {
 		$productType = trim($productType);
 		$productType = filter_var($productType, FILTER_SANITIZE_STRING);
 
-		$query	 = "SELECT productId, profileId, imagePath, productType, productPrice, productType, productWeight FROM product WHERE productType LIKE ?";
+		$query	 = "SELECT productId, profileId, imagePath, productName, productPrice, productType, productWeight FROM product WHERE productType LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -485,8 +485,9 @@ class Product {
 		$products = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$product	= new Product(null, $row["profileId"], $row["imagePath"], $row["productName"], $row["productPrice"],
+				$product	= new Product($row["productId"], $row["profileId"], $row["imagePath"], $row["productName"], $row["productPrice"],
 					$row["productType"], $row["productWeight"]);
+				$products[] = $product;
 			}
 			catch(Exception $exception) {
 				// if the row couldn't be converted, rethrow it

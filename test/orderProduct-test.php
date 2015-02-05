@@ -31,17 +31,17 @@ class OrderProductTest extends UnitTestCase {
 	/**
 	 * @var int $orderId the id of the order. Foreign Key to the order entity
 	 */
-	private $orderId;
+	private $orderId = 1;
 
 	/**
 	 * @var int $productId the id of the product. Foreign Key to the product entity
 	 */
-	private $productId;
+	private $productId = 1;
 
 	/**
 	 * @var int $productQuantity how many products for this order
 	 */
-	private $productQuantity;
+	private $productQuantity = 5;
 
 	/**
 	 * sets up the mySQL connection for this test
@@ -58,7 +58,7 @@ class OrderProductTest extends UnitTestCase {
 
 		// instance of orderProduct
 		$this->orderProductDate = new DateTime();
-		$this->orderProduct = new OrderProduct(null, $this->profileId, $this->orderProductDate);
+		$this->orderProduct = new OrderProduct($this->orderId, $this->productId, $this->productQuantity);
 	}
 
 	/**
@@ -78,6 +78,21 @@ class OrderProductTest extends UnitTestCase {
 		}
 	}
 
+	/**
+	 * test insert valid order product
+	 */
+	public function testInsertValidOrderProduct() {
+		$this->assertNotNull($this->orderProduct);
+		$this->assertNotNull($this->mysqli);
 
+		// first, insert the Order into mySQL
+		$this->orderProduct->insert($this->mysqli);
+
+		// second, grab a Order from mySQL
+		$mysqlOrderProduct = OrderProduct::getOrderProductByProductId($this->mysqli, $this->orderProduct->getProductId());
+
+		// third, assert the Order we have created and mySQL's Order are the same object
+		$this->assertIdentical($this->orderProduct->getProductId(), $mysqlOrderProduct->getProductId());
+	}
 }
 ?>

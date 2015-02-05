@@ -25,9 +25,9 @@ class Order {
 	/**
 	 * constructor of this order
 	 *
-	 * @param int $newOrderId
-	 * @param int $newProfileId
-	 * @param string $newOrderDate
+	 * @param int $newOrderId This is the primary key of the order entity.
+	 * @param int $newProfileId This is a foreign key to the profile entity.
+	 * @param string $newOrderDate image path of the order
 	 *
 	 * @throws InvalidArgumentException if data types are not valid
 	 * @throws RangeException if data values are out of bounds

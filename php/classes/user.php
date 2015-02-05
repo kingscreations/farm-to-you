@@ -59,7 +59,7 @@ class User {
 	 * @return mixed value of user id
 	 **/
 	public function getUserId() {
-		return($this->userId);
+		return ($this->userId);
 	}
 
 	/**
@@ -97,7 +97,7 @@ class User {
 	 * @return string value of email
 	 */
 	public function getEmail() {
-		return($this->email);
+		return ($this->email);
 	}
 
 	/**
@@ -131,7 +131,7 @@ class User {
 	 * @return string value of password hash
 	 **/
 	public function getHash() {
-		return($this->hash);
+		return ($this->hash);
 	}
 
 	/**
@@ -162,7 +162,7 @@ class User {
 	 * @return salt value
 	 **/
 	public function getSalt() {
-		return($this->salt);
+		return ($this->salt);
 	}
 
 	/**
@@ -185,13 +185,14 @@ class User {
 
 		$this->salt = $newSalt;
 	}
+
 	/**
 	 * accessor method for activation
 	 *
 	 * @return string value for activation
 	 */
 	public function getActivation() {
-		return($this->activation);
+		return ($this->activation);
 	}
 
 	/**
@@ -200,7 +201,7 @@ class User {
 	 * @param string $activation
 	 * @throws InvalidArgumentException if $activation is not a hexadecimal digit
 	 * @throws RangeException if $activation is !=== 16 characters
-	 */  
+	 */
 	public function setActivation($newActivation) {
 		// verify the activation is a hexadecimal digit
 		$newActivation = trim($newActivation);
@@ -234,7 +235,7 @@ class User {
 		}
 
 		// create query template
-		$query	 = "INSERT INTO user(email, hash, salt, activation) VALUES(?, ?, ?, ?)";
+		$query = "INSERT INTO user(email, hash, salt, activation) VALUES(?, ?, ?, ?)";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -277,7 +278,7 @@ class User {
 		}
 
 		// create query template
-		$query	 = "DELETE FROM user WHERE userId = ?";
+		$query = "DELETE FROM user WHERE userId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -316,14 +317,14 @@ class User {
 		}
 
 		// create query template
-		$query	 = "UPDATE user SET email = ?, hash = ?, salt = ?, activation = ? WHERE userId = ?";
+		$query = "UPDATE user SET email = ?, hash = ?, salt = ?, activation = ? WHERE userId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
 		// bind the member variables to the place holders in the template
-		$wasClean = $statement->bind_param("ssssi", $this->email, $this->hash, $this->salt, $this->activation,$this->userId);
+		$wasClean = $statement->bind_param("ssssi", $this->email, $this->hash, $this->salt, $this->activation, $this->userId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -336,6 +337,7 @@ class User {
 		// clean up the statement
 		$statement->close();
 	}
+
 	/**
 	 * gets the User by userId
 	 *
@@ -391,7 +393,7 @@ class User {
 		// free up memory and return the result
 		$result->free();
 		$statement->close();
-		return($user);
+		return ($user);
 	}
 
 	/**
@@ -411,7 +413,7 @@ class User {
 		$email = trim($email);
 		$email = filter_var($email, FILTER_SANITIZE_STRING);
 		// create query template
-		$query	 = "SELECT UserId, lastName, email, hash, salt, activation FROM user WHERE email LIKE ?";
+		$query = "SELECT userId, email, hash, salt, activation FROM user WHERE email LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -431,30 +433,21 @@ class User {
 		if($result === false) {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
-		// build an array of User
-		$user = array();
-		while(($row = $result->fetch_assoc()) !== null) {
-			try {
-				$user	= new User($row["userId"], $row["email"], $row["hash"], $row["salt"], $row["activation"]);
-				$users[] = $user;
+		// grab the user from mySQL
+		try {
+			$user = null;
+			$row = $result->fetch_assoc();
+			if($row !== null) {
+				$user = new User($row["userId"], $row["email"], $row["hash"], $row["salt"], $row["activation"]);
 			}
-			catch(Exception $exception) {
-				// if the row couldn't be converted, rethrow it
-				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
-			}
+		} catch(Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 		}
-		// count the results in the array and return:
-		// 1) null if 0 results
-		// 2) a single object if 1 result
-		// 3) the entire array if > 1 result
-		$numberOfUsers = count($users);
-		if($numberOfUsers === 0) {
-			return(null);
-		} else if($numberOfUsers === 1) {
-			return($users[0]);
-		} else {
-			return($users);
-		}
+		// free up memory and return the result
+		$result->free();
+		$statement->close();
+		return ($user);
 	}
 //get user by activation
 	/**
@@ -474,7 +467,7 @@ class User {
 		$activation = trim($activation);
 		$activation = filter_var($activation, FILTER_SANITIZE_STRING);
 		// create query template
-		$query	 = "SELECT userId, email, hash, salt, FROM user WHERE activation LIKE ?";
+		$query = "SELECT userId, email, hash, salt, activation FROM user WHERE activation LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -494,30 +487,21 @@ class User {
 		if($result === false) {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
-		// build an array of user
-		$user = array();
-		while(($row = $result->fetch_assoc()) !== null) {
-			try {
-				$user	= new User($row["userId"], $row["email"], $row["hash"], $row["salt"], $row["activation"]);
-				$users[] = $user;
+		// grab the user from mySQL
+		try {
+			$user = null;
+			$row = $result->fetch_assoc();
+			if($row !== null) {
+				$user = new User($row["userId"], $row["email"], $row["hash"], $row["salt"], $row["activation"]);
 			}
-			catch(Exception $exception) {
-				// if the row couldn't be converted, rethrow it
-				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
-			}
+		} catch(Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 		}
-		// count the results in the array and return:
-		// 1) null if 0 results
-		// 2) a single object if 1 result
-		// 3) the entire array if > 1 result
-		$numberOfUsers = count($users);
-		if($numberOfUsers === 0) {
-			return(null);
-		} else if($numberOfUsers === 1) {
-			return($users[0]);
-		} else {
-			return($users);
-		}
+		// free up memory and return the result
+		$result->free();
+		$statement->close();
+		return ($user);
 	}
 }
 ?>

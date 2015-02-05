@@ -219,7 +219,7 @@ class Order {
 		}
 
 		if($this->orderId === null) {
-			throw(new mysqli_sql_exception("unable to delete a order that does not exist"));
+			throw(new mysqli_sql_exception("unable to delete an order that does not exist"));
 		}
 
 		$query	 = "DELETE FROM `order` WHERE orderId = ?";

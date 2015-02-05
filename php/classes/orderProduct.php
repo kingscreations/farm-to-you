@@ -160,6 +160,40 @@ class OrderProduct {
 	}
 
 	/**
+	 * deletes this orderProduct from mySQL
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+	public function delete(&$mysqli) {
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+
+		if($this->orderId === null || $this->productId === null) {
+			throw(new mysqli_sql_exception("unable to delete a orderProduct that does not exist"));
+		}
+
+		$query	 = "DELETE FROM orderProduct WHERE orderId = ? AND productId = ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		$wasClean = $statement->bind_param("ii", $this->orderId, $this->productId);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+
+		$statement->close();
+//		echo 'end of orderProduct delete<br>';
+	}
+
+	/**
 	 * get the order product by the product id
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
@@ -223,6 +257,61 @@ class OrderProduct {
 		$result->free();
 		$statement->close();
 		return($orderProduct);
+	}
+
+	/**
+	 * gets all OrderProducts
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @return mixed array of OrderProducts found or null if not found
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+	public static function getAllOrderProducts(&$mysqli) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+
+		// create query template
+		$query	 = "SELECT orderId, productId, productQuantity FROM orderProduct";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+
+		// build an array of orderProduct
+		$orderProducts = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$orderProduct	= new OrderProduct($row["orderId"], $row["productId"], $row["productQuantity"]);
+				$orderProducts[] = $orderProduct;
+			}
+			catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+		}
+
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) the entire array if >= 1 result
+		$numberOfOrderProducts = count($orderProducts);
+		if($numberOfOrderProducts === 0) {
+			return(null);
+		} else {
+			return($orderProducts);
+		}
 	}
 }
 ?>

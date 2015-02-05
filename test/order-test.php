@@ -26,9 +26,34 @@ class OrderTest extends UnitTestCase {
 	private $mysqli = null;
 
 	/**
-	 * instance of the object we are testing with
+	 * instance of the first user (profile foreign key)
+	 **/
+	private $user = null;
+
+	/**
+	 * instance of the first profile (order foreign key)
+	 **/
+	private $profile = null;
+
+	/**
+	 * instance of the first order
 	 **/
 	private $order = null;
+
+	/**
+	 * instance of the second user (profile foreign key)
+	 **/
+	private $user2 = null;
+
+	/**
+	 * instance of the second profile (order foreign key)
+	 **/
+	private $profile2 = null;
+
+	/**
+	 * instance of the second order
+	 **/
+	private $order2 = null;
 
 	/**
 	 * @var int $profileId id for the profile. This is a foreign key to the profile entity.
@@ -51,23 +76,70 @@ class OrderTest extends UnitTestCase {
 		mysqli_report(MYSQLI_REPORT_STRICT);
 		$this->mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 			$configArray["database"]);
+		//instances for the foreign keys
+		$this->user = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
+		$this->user->insert($this->mysqli);
 
-		//instances used
-		$this->user  = new User(null, '092843750234985ab092843750234985ab092843750234985a0928437502349850928433750234985ababb092843750234985ab092843750234985ab79324234', '092843750234985ab0928437502349ab', '09284375023498af');
-		$userId = $this->user->insert($this->mysqli);
-		$this->profile = new Profile(null, 'toto', 'sinatra', '986700798', '', $userId)
+		$this->profile = new Profile(null, 'toto', 'sinatra', '505 986700798', 'm', 'kj', 'images/toto.jpg',
+			$this->user->getUserId());
+		$this->profile->insert($this->mysqli);
+
+		// finally the order instance
 		$this->orderDate = new DateTime();
-		$this->order = new Order(null, $this->profileId, $this->orderDate);
+		$this->order = new Order(null, $this->profile->getProfileId(), $this->orderDate);
+
+		// same for a second order
+		$this->user2 = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
+		$this->user2->insert($this->mysqli);
+
+		$this->profile2 = new Profile(null, $this->profile->getFirstName(), $this->profile->getLastName(),
+			$this->profile->getPhone(), $this->profile->getProfileType(), $this->profile->getCustomerToken(),
+			$this->profile->getImagePath(), $this->user2->getUserId());
+		$this->profile2->insert($this->mysqli);
+
+		$this->order2 = new Order(null, $this->profile2->getProfileId(), $this->order->getOrderDate());
+
+		$this->assertNotNull($this->user2);
+		$this->assertNotNull($this->profile2);
+		$this->assertNotNull($this->order2);
+		$this->assertNotNull($this->user);
+		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->mysqli);
 	}
 
 	/**
 	 * tears down the connection to mySQL and deletes the test instance object
 	 **/
 	public function tearDown() {
-		// destroy the object if it was created
-		if($this->order !== null) {
+//		echo '<br>tearDown start<br>';
+		if($this->order2 !== null && $this->order2->getOrderId() !== null) {
+			$this->order2->delete($this->mysqli);
+			$this->order2 = null;
+		}
+
+		if($this->order !== null && $this->order->getOrderId() !== null) {
 			$this->order->delete($this->mysqli);
 			$this->order = null;
+		}
+
+		if($this->profile2 !== null && $this->profile2->getProfileId() !== null) {
+			$this->profile2->delete($this->mysqli);
+			$this->profile2 = null;
+		}
+
+		if($this->profile !== null && $this->profile->getProfileId() !== null) {
+			$this->profile->delete($this->mysqli);
+			$this->profile = null;
+		}
+
+		if($this->user2 !== null && $this->user2->getUserId() !== null) {
+			$this->user2->delete($this->mysqli);
+			$this->user2 = null;
+		}
+
+		if($this->user !== null && $this->user->getUserId() !== null) {
+			$this->user->delete($this->mysqli);
+			$this->user = null;
 		}
 
 		// disconnect from mySQL
@@ -75,6 +147,7 @@ class OrderTest extends UnitTestCase {
 			$this->mysqli->close();
 			$this->mysqli = null;
 		}
+//		echo '<br>tearDown end<br>';
 	}
 
 	/**
@@ -154,8 +227,6 @@ class OrderTest extends UnitTestCase {
 	 * test updating a Order from mySQL
 	 **/
 	public function testUpdateValidOrder() {
-		$this->assertNotNull($this->order);
-		$this->assertNotNull($this->mysqli);
 
 		$this->order->insert($this->mysqli);
 		$mysqlOrder = Order::getOrderByOrderId($this->mysqli, $this->order->getOrderId());
@@ -199,9 +270,14 @@ class OrderTest extends UnitTestCase {
 
 		$this->order->insert($this->mysqli);
 		$formattedDate = $this->order->getOrderDate()->format("Y-m-d H:i:s");
-		$mysqlOrder = Order::getOrderByOrderDate($this->mysqli, $formattedDate);
+		$mysqlOrders = Order::getOrderByOrderDate($this->mysqli, $formattedDate);
 
-		$this->assertIdentical($this->order->getOrderId(), $mysqlOrder->getOrderId());
+		foreach($mysqlOrders as $mysqlOrder) {
+			$this->assertNotNull($mysqlOrder->getOrderId());
+			$this->assertTrue($mysqlOrder->getOrderId() > 0);
+			$this->assertIdentical($this->order->getOrderId(), $mysqlOrder->getOrderId());
+			$this->assertIdentical($this->order2->getOrderId(), $mysqlOrder->getOrderId());
+		}
 	}
 
 	/**
@@ -212,9 +288,8 @@ class OrderTest extends UnitTestCase {
 		$this->assertNotNull($this->mysqli);
 
 		$this->order->insert($this->mysqli);
-		$formattedDate = $this->order->getOrderDate()->format("Y-m-s H:i:s");
+		$formattedDate = "2015-02-05 12:38:34";
 		$mysqlOrder = Order::getOrderByOrderDate($this->mysqli, $formattedDate);
-
 		$this->assertNull($mysqlOrder);
 	}
 

@@ -2,7 +2,11 @@
 // first, require the SimpleTest framework <http://www.simpletest.org/>
 require_once("/usr/lib/php5/simpletest/autorun.php");
 
-// the class to test
+// the classes to test
+require_once("../php/classes/user.php");
+require_once("../php/classes/profile.php");
+require_once("../php/classes/product.php");
+require_once("../php/classes/order.php");
 require_once("../php/classes/orderProduct.php");
 
 // require the encrypted configuration functions
@@ -29,19 +33,59 @@ class OrderProductTest extends UnitTestCase {
 	private $orderProduct = null;
 
 	/**
-	 * @var int $orderId the id of the order. Foreign Key to the order entity
-	 */
-	private $orderId = 1;
+	 * instance of the first user (profile foreign key)
+	 **/
+	private $user = null;
 
 	/**
-	 * @var int $productId the id of the product. Foreign Key to the product entity
+	 * instance of the first profile (order foreign key)
+	 **/
+	private $profile = null;
+
+	/**
+	 * instance of the object we are testing with
+	 **/
+	private $product = null;
+
+	/**
+	 * instance of the object we are testing with
 	 */
-	private $productId = 1;
+	private $order = null;
 
 	/**
 	 * @var int $productQuantity how many products for this order
 	 */
 	private $productQuantity = 5;
+
+	/**
+	 * @var string $imagePath image path of the product
+	 */
+	private $imagePath = "images/tomato.jpg";
+
+	/**
+	 * @var string $productName name of the product
+	 */
+	private $productName = "cherry tomatoes";
+
+	/**
+	 * @var float $productPrice price of the product
+	 */
+	private $productPrice = 5.6;
+
+	/**
+	 * @var string $productType type of the product
+	 */
+	private $productType = "vegetable";
+
+	/**
+	 * @var float $productWeight weight of the product
+	 */
+	private $productWeight = 1.2;
+
+	/**
+	 * @var string $orderDate name of the order
+	 */
+	private $orderDate = null;
 
 	/**
 	 * sets up the mySQL connection for this test
@@ -56,9 +100,25 @@ class OrderProductTest extends UnitTestCase {
 		$this->mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 			$configArray["database"]);
 
+		// instances for the foreign keys
+		$this->user = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
+		$this->user->insert($this->mysqli);
+
+		$this->profile = new Profile(null, 'toto', 'sinatra', '505 986700798', 'm', 'kj', 'images/toto.jpg',
+			$this->user->getUserId());
+		$this->profile->insert($this->mysqli);
+
+		$this->product = new Product(null, $this->profile->getProfileId(), $this->imagePath, $this->productName, $this->productPrice,
+			$this->productType, $this->productWeight);
+		$this->product->insert($this->mysqli);
+
+		$this->orderDate = new DateTime();
+		$this->order = new Order(null, $this->profile->getProfileId(), $this->orderDate);
+		$this->order->insert($this->mysqli);
+
 		// instance of orderProduct
 		$this->orderProductDate = new DateTime();
-		$this->orderProduct = new OrderProduct($this->orderId, $this->productId, $this->productQuantity);
+		$this->orderProduct = new OrderProduct($this->order->getOrderId(), $this->product->getProductId(), $this->productQuantity);
 	}
 
 	/**
@@ -66,9 +126,29 @@ class OrderProductTest extends UnitTestCase {
 	 **/
 	public function tearDown() {
 		// destroy the object if it was created
-		if($this->orderProduct !== null) {
+		if($this->orderProduct !== null && $this->orderProduct->getProductId() !== null) {
 			$this->orderProduct->delete($this->mysqli);
 			$this->orderProduct = null;
+		}
+
+		if($this->order !== null && $this->order->getOrderId() !== null) {
+			$this->order->delete($this->mysqli);
+			$this->order = null;
+		}
+
+		if($this->product !== null && $this->product->getProductId() !== null) {
+			$this->product->delete($this->mysqli);
+			$this->product = null;
+		}
+
+		if($this->profile !== null && $this->profile->getProfileId() !== null) {
+			$this->profile->delete($this->mysqli);
+			$this->profile = null;
+		}
+
+		if($this->user !== null && $this->user->getUserId() !== null) {
+			$this->user->delete($this->mysqli);
+			$this->user = null;
 		}
 
 		// disconnect from mySQL
@@ -79,21 +159,131 @@ class OrderProductTest extends UnitTestCase {
 	}
 
 	/**
-	 * test insert valid order product
+	 * test get valid order product by order id and by product id
 	 */
-	public function testInsertValidOrderProduct() {
+	public function testGetValidOrderProductByOrderIdAndProductId() {
 		$this->assertNotNull($this->orderProduct);
+		$this->assertNotNull($this->user);
+		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->order);
+		$this->assertNotNull($this->product);
 		$this->assertNotNull($this->mysqli);
 
 		// first, insert the Order into mySQL
 		$this->orderProduct->insert($this->mysqli);
 
 		// second, grab a Order from mySQL
-		$mysqlOrderProduct = OrderProduct::getOrderProductByOrderIdAndProductId($this->mysqli, $this->orderId,
-			$this->productId);
+		$mysqlOrderProduct = OrderProduct::getOrderProductByOrderIdAndProductId($this->mysqli, $this->order->getOrderId(),
+			$this->product->getProductId());
 
 		// third, assert the Order we have created and mySQL's Order are the same object
 		$this->assertIdentical($this->orderProduct->getProductId(), $mysqlOrderProduct->getProductId());
+	}
+
+	/**
+	 * test get invalid order product by order id and by product id
+	 */
+	public function testGetInvalidOrderProductByOrderIdAndProductId() {
+		$this->assertNotNull($this->orderProduct);
+		$this->assertNotNull($this->user);
+		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->order);
+		$this->assertNotNull($this->product);
+		$this->assertNotNull($this->mysqli);
+
+		// first, insert the Order into mySQL
+		$this->orderProduct->insert($this->mysqli);
+
+		// second, grab a Order from mySQL
+		$mysqlOrderProduct = OrderProduct::getOrderProductByOrderIdAndProductId($this->mysqli, 56,
+			$this->product->getProductId());
+
+		// third, assert the Order we have created and mySQL's Order are the same object
+		$this->assertNull($mysqlOrderProduct);
+	}
+
+	/**
+	 * test get invalid order product by order id and by product id
+	 */
+	public function testValidInsertOrderProduct() {
+		$this->assertNotNull($this->orderProduct);
+		$this->assertNotNull($this->user);
+		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->order);
+		$this->assertNotNull($this->product);
+		$this->assertNotNull($this->mysqli);
+
+		$this->orderProduct->insert($this->mysqli);
+
+		$mysqlOrderProduct = OrderProduct::getOrderProductByOrderIdAndProductId($this->mysqli, $this->order->getOrderId(),
+			$this->product->getProductId());
+
+		$this->assertIdentical($this->order->getOrderId(), $mysqlOrderProduct->getOrderId());
+		$this->assertIdentical($this->product->getProductId(), $mysqlOrderProduct->getProductId());
+	}
+
+	/**
+	 * test get invalid order product by order id and by product id
+	 */
+	public function testInvalidInsertOrderProduct() {
+		$this->assertNotNull($this->orderProduct);
+		$this->assertNotNull($this->user);
+		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->order);
+		$this->assertNotNull($this->product);
+		$this->assertNotNull($this->mysqli);
+
+		$this->orderProduct->insert($this->mysqli);
+
+		$mysqlOrderProduct = OrderProduct::getOrderProductByOrderIdAndProductId($this->mysqli, 56,
+			$this->product->getProductId());
+
+		$this->assertNull($mysqlOrderProduct);
+	}
+
+	/**
+	 * test get invalid order product by order id and by product id
+	 */
+	public function testValidDeleteOrderProduct() {
+		$this->assertNotNull($this->orderProduct);
+		$this->assertNotNull($this->user);
+		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->order);
+		$this->assertNotNull($this->product);
+		$this->assertNotNull($this->mysqli);
+
+		// first, assert the Product is inserted into mySQL by grabbing it from mySQL and asserting the primary key
+		$this->orderProduct->insert($this->mysqli);
+		$mysqlOrderProduct = OrderProduct::getOrderProductByOrderIdAndProductId($this->mysqli,
+			$this->order->getOrderId(), $this->product->getProductId());
+
+		$this->assertIdentical($this->orderProduct->getProductId(), $mysqlOrderProduct->getProductId());
+
+		// second, delete the OrderProduct from mySQL and re-grab it from mySQL and assert it does not exist
+		$this->orderProduct->delete($this->mysqli);
+		$mysqlOrderProduct = OrderProduct::getOrderProductByOrderIdAndProductId($this->mysqli,
+			$this->order->getOrderId(), $this->product->getProductId());
+		$this->assertNull($mysqlOrderProduct);
+
+		// third, set the Product to null to prevent tearDown() from deleting a Product that has already been deleted
+		$this->orderProduct = null;
+	}
+
+	/**
+	 * test get invalid order product by order id and by product id
+	 */
+	public function testInvalidDeleteOrderProduct() {
+		$this->assertNotNull($this->orderProduct);
+		$this->assertNotNull($this->user);
+		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->order);
+		$this->assertNotNull($this->product);
+		$this->assertNotNull($this->mysqli);
+
+		$this->expectException("mysqli_sql_exception");
+		$this->orderProduct->delete($this->mysqli);
+
+		$this->orderProduct = null;
 	}
 }
 ?>

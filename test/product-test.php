@@ -2,7 +2,9 @@
 // first, require the SimpleTest framework <http://www.simpletest.org/>
 require_once("/usr/lib/php5/simpletest/autorun.php");
 
-// the class to test
+// the classes to test
+require_once("../php/classes/user.php");
+require_once("../php/classes/profile.php");
 require_once("../php/classes/product.php");
 
 // require the encrypted configuration functions
@@ -22,10 +24,31 @@ class ProductTest extends UnitTestCase {
 	 * mysqli object shared amongst all tests
 	 **/
 	private $mysqli = null;
+
+	/**
+	 * instance of the first user (profile foreign key)
+	 **/
+	private $user = null;
+
+	/**
+	 * instance of the first profile (order foreign key)
+	 **/
+	private $profile = null;
+
 	/**
 	 * instance of the object we are testing with
 	 **/
 	private $product = null;
+
+	/**
+	 * instance of the second user (profile foreign key)
+	 **/
+	private $user2 = null;
+
+	/**
+	 * instance of the second profile (order foreign key)
+	 **/
+	private $profile2 = null;
 
 	/**
 	 * instance of the second object we are testing with
@@ -76,8 +99,26 @@ class ProductTest extends UnitTestCase {
 		$this->mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 			$configArray["database"]);
 
-		// instance of product
-		$this->product = new Product(null, $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
+		// instance of the first product
+		$this->user = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
+		$this->user->insert($this->mysqli);
+
+		$this->profile = new Profile(null, 'toto', 'sinatra', '505 986700798', 'm', 'kj', 'images/toto.jpg',
+			$this->user->getUserId());
+		$this->profile->insert($this->mysqli);
+
+		$this->product = new Product(null, $this->profile->getProfileId(), $this->imagePath, $this->productName, $this->productPrice,
+			$this->productType, $this->productWeight);
+
+		// instance of the second product
+		$this->user2 = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
+		$this->user2->insert($this->mysqli);
+
+		$this->profile2 = new Profile(null, 'toto', 'sinatra', '505 986700798', 'm', 'kj', 'images/toto.jpg',
+			$this->user2->getUserId());
+		$this->profile2->insert($this->mysqli);
+
+		$this->product2 = new Product(null, $this->profile2->getProfileId(), $this->imagePath, $this->productName, $this->productPrice,
 			$this->productType, $this->productWeight);
 	}
 
@@ -86,14 +127,34 @@ class ProductTest extends UnitTestCase {
 	 **/
 	public function tearDown() {
 		// destroy the object if it was created
-		if($this->product !== null) {
+		if($this->product !== null && $this->product->getProductId() !== null) {
 			$this->product->delete($this->mysqli);
 			$this->product = null;
 		}
 
-		if($this->product2 !== null) {
+		if($this->product2 !== null && $this->product2->getProductId() !== null) {
 			$this->product2->delete($this->mysqli);
 			$this->product2 = null;
+		}
+
+		if($this->profile2 !== null && $this->profile2->getProfileId() !== null) {
+			$this->profile2->delete($this->mysqli);
+			$this->profile2 = null;
+		}
+
+		if($this->profile !== null && $this->profile->getProfileId() !== null) {
+			$this->profile->delete($this->mysqli);
+			$this->profile = null;
+		}
+
+		if($this->user2 !== null && $this->user2->getUserId() !== null) {
+			$this->user2->delete($this->mysqli);
+			$this->user2 = null;
+		}
+
+		if($this->user !== null && $this->user->getUserId() !== null) {
+			$this->user->delete($this->mysqli);
+			$this->user = null;
 		}
 
 		// disconnect from mySQL
@@ -229,10 +290,6 @@ class ProductTest extends UnitTestCase {
 	 * test get valid product by product name
 	 */
 	public function testGetValidProductByProductName() {
-		// create the second object to test
-		$this->product2 = new Product(null, $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
-			$this->productType, $this->productWeight);
-
 		// zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->product);
 		$this->assertNotNull($this->product2);
@@ -258,10 +315,6 @@ class ProductTest extends UnitTestCase {
 	 * test get invalid product by product name
 	 */
 	public function testGetInvalidProductByProductName() {
-		// create the second object to test
-		$this->product2 = new Product(null, $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
-			$this->productType, $this->productWeight);
-
 		// zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->product);
 		$this->assertNotNull($this->product2);
@@ -281,10 +334,6 @@ class ProductTest extends UnitTestCase {
 	 * test get valid product by product type
 	 */
 	public function testGetValidProductByProductType() {
-		// create the second object to test
-		$this->product2 = new Product(null, $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
-			$this->productType, $this->productWeight);
-
 		// zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->product);
 		$this->assertNotNull($this->product2);
@@ -310,10 +359,6 @@ class ProductTest extends UnitTestCase {
 	 * test get invalid product by product type
 	 */
 	public function testGetInvalidProductByProductType() {
-		// create the second object to test
-		$this->product2 = new Product(null, $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
-			$this->productType, $this->productWeight);
-
 		// zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->product);
 		$this->assertNotNull($this->product2);

@@ -204,8 +204,9 @@ class Profile {
 	 *
 	 * @param string $newProfileType of users profile
 	 * @throws InvalidArgumentException if $profileType is not a string or insecure
-	 * @throws RangeException if $profileType is > 10 characters
+	 * @throws RangeException if $profileType is > 1 characters
 	 **/
+
 	public function setProfileType($newProfileType) {
 		// verify the profileType content is secure
 		$newProfileType = trim($newProfileType);
@@ -214,10 +215,15 @@ class Profile {
 			throw(new InvalidArgumentException("profile type content is empty or insecure"));
 		}
 		// verify the profileType content will fit in the database
-		if(strlen($newProfileType) > 10) {
+		if(strlen($newProfileType) > 1) {
 			throw(new RangeException("profile type content too large"));
 		}
-		// store the first name content
+		// verify profileType is either M or C
+		if(($newProfileType)!== "m"||"c") {
+			throw(new RangeException("profile type must be m or c"));
+		}
+
+		// store the profileType content
 		$this->profileType = $newProfileType;
 	}
 	/**
@@ -262,7 +268,7 @@ class Profile {
 	 *
 	 * @param string $imagePath
 	 * @throws InvalidArgumentException if $imagePath is not a string or insecure
-	 * @throws RangeException if $newImagePath is > 100 characters
+	 * @throws RangeException if $newImagePath is > 255 characters
 	 **/
 	public function setImagePath($newImagePath) {
 		// verify the image path content is secure
@@ -272,7 +278,7 @@ class Profile {
 			throw(new InvalidArgumentException("image path content is empty or insecure"));
 		}
 		// verify the image path content will fit in the database
-		if(strlen($newImagePath) > 100) {
+		if(strlen($newImagePath) > 255) {
 			throw(new RangeException("image path content too large"));
 		}
 		// store the image path content

@@ -140,7 +140,7 @@ class User {
 	 *
 	 * @param string $hash new value
 	 * @throws InvalidArgumentException if $hash is not a hexadecimal digit
-	 * @throws RangeException if $hash is !=== 128 characters
+	 * @throws RangeException if $hash is !== 128 characters
 	 *
 	 **/
 	public function setHash($newHash) {
@@ -169,7 +169,7 @@ class User {
 	 *
 	 * @param string $salt new value
 	 * @throws InvalidArgumentException if $salt is not a hexadecimal digit
-	 * @throws RangeException if $salt is !=== 32 characters
+	 * @throws RangeException if $salt is !== 32 characters
 	 */
 	public function setSalt($newSalt) {
 		// verify the salt is a hexadecimal digit

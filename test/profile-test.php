@@ -48,7 +48,7 @@ class ProfileTest extends UnitTestCase {
 	/**
 	 * user type of the test user
 	 **/
-	private $profileType = "farmer";
+	private $profileType = "m";
 	/**
 	 * strype issued token of the test user
 	 **/
@@ -158,7 +158,7 @@ class ProfileTest extends UnitTestCase {
 	}
 
 	/**
-	 * test deleting a Profile from mySQL that does not exist
+	 * test deleting a non existent Profile from mySQL
 	 **/
 	public function testDeleteInvalidProfile() {
 		// zeroth, ensure the Profile and mySQL class are sane
@@ -207,7 +207,7 @@ class ProfileTest extends UnitTestCase {
 	}
 
 	/**
-	 * test updating a Profile from mySQL that does not exist
+	 * test updating a non existent Profile from mySQL
 	 **/
 	public function testUpdateInvalidProfile() {
 		// zeroth, ensure the Profile and mySQL class are sane
@@ -221,5 +221,30 @@ class ProfileTest extends UnitTestCase {
 		// second, set the Profile to null to prevent tearDown() from deleting a Profile that has already been deleted
 		$this->profile = null;
 	}
+	/**
+	 *test getting a valid profile by profileId
+	 **/
+	 	// first, ensure the profile and mysql class are sane
+		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->mysqli);
+	 	// populate database with temporary profile
+
+			// get profile, compare for identical
+
+		// Finally, set the profile to null to prevent tearDown() from deleting a profile that has already been deleted
+
+
+	/**
+	 * test getting a valid profile by profileId
+	**/
+		// first, ensure the profile and mysql class are sane
+		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->mysqli);
+		// populate database with temporary profile
+
+		// try to get non existent profile by using Id
+
+		// Finally, set the profile to null to prevent tearDown() from deleting a profile that has already been deleted
+
 }
 ?>

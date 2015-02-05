@@ -137,9 +137,21 @@ class Order {
 			$this->orderDate = $newOrderDate;
 			return;
 		}
+
+		$this->orderDate = self::sanitizeDate($newOrderDate);
+	}
+
+	/**
+	 *	static method that sanitizes a date
+	 *
+	 * @param mixed $date date to be sanitized
+	 * @throws InvalidArgumentException if $date is not a valid object or string
+	 * @throws RangeException if $date is a date that does not exist
+	 */
+	public static function sanitizeDate($date) {
 		// treat the date as a mySQL date string: Y-m-d H:i:s
-		$newOrderDate = trim($newOrderDate);
-		if((preg_match("/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/", $newOrderDate, $matches)) !== 1) {
+		$date = trim($date);
+		if((preg_match("/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/", $date, $matches)) !== 1) {
 			throw(new InvalidArgumentException("order date is not a valid date"));
 		}
 		// verify the date is a valid calendar date
@@ -150,15 +162,14 @@ class Order {
 		$minute = intval($matches[5]);
 		$second = intval($matches[6]);
 		if(checkdate($month, $day, $year) === false) {
-			throw(new RangeException("order date $newOrderDate is not a Gregorian date"));
+			throw(new RangeException("order date $date is not a Gregorian date"));
 		}
 		// verify the time is really a valid wall clock time
 		if($hour < 0 || $hour >= 24 || $minute < 0 || $minute >= 60 || $second < 0 || $second >= 60) {
-			throw(new RangeException("order date $newOrderDate is not a valid time"));
+			throw(new RangeException("order date $date is not a valid time"));
 		}
-		// store the order date
-		$newOrderDate = DateTime::createFromFormat("Y-m-d H:i:s", $newOrderDate);
-		$this->orderDate = $newOrderDate;
+
+		return DateTime::createFromFormat("Y-m-d H:i:s", $date);
 	}
 
 	/**

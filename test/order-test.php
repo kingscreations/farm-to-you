@@ -28,12 +28,6 @@ class OrderTest extends UnitTestCase {
 	 **/
 	private $order = null;
 
-	// this section contains member variables with constants needed for creating a new order
-	/**
-	 * @var int $profileId id for the profile. This is a foreign key to the profile entity.
-	 */
-	private $orderId = 1;
-
 	/**
 	 * @var int $profileId id for the profile. This is a foreign key to the profile entity.
 	 */

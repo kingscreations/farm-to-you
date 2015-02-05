@@ -132,8 +132,8 @@ class StoreLocation {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 
-// enforce that the store id and location id is not null (i.e., don't delete a tweet that hasn't been inserted)
-		if($this->storeId && $this->locationId === null) {
+// enforce that the store id and location id is not null (i.e., don't delete a storeLocation that hasn't been inserted)
+		if($this->storeId === null || $this->locationId === null) {
 			throw(new mysqli_sql_exception("unable to delete a store location that does not exist"));
 		}
 

@@ -344,8 +344,13 @@ class ProductTest extends UnitTestCase {
 	/**
 	 * test get invalid product by product id
 	 */
-//	public function testGetInvalidProductByProduct() {
-//
-//	}
+	public function testGetInvalidProductByProduct() {
+		$this->assertNotNull($this->product);
+		$this->assertNotNull($this->mysqli);
+
+		$this->product->insert($this->mysqli);
+		$mysqlProduct = Product::getProductByProductId($this->mysqli, 4);
+		$this->assertNull($mysqlProduct);
+	}
 }
 ?>

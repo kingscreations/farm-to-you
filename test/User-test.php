@@ -173,8 +173,8 @@ class UserTest extends UnitTestCase {
 		$this->assertIdentical($this->user->getUserId(), $mysqlUser->getUserId());
 
 		// second, change the User, update it mySQL
-		$newContent = "My unit tests updated everything!";
-		$this->user->setUserContent($newContent);
+		$newEmail = "chuckieCheese@rocks.com";
+		$this->user->setEmail($newEmail);
 		$this->user->update($this->mysqli);
 
 		// third, re-grab the User from mySQL
@@ -203,6 +203,75 @@ class UserTest extends UnitTestCase {
 
 		// second, set the User to null to prevent tearDown() from deleting a User that has already been deleted
 		$this->user = null;
+	}
+	/**
+	 *test getting a valid user by userId
+	 **/
+	public function testGetValidUserByUserId() {
+		$this->assertNotNull($this->user);
+		$this->assertNotNull($this->mysqli);
+
+		$this->user->insert($this->mysqli);
+		$mysqlUser = User::getUserByUserId($this->mysqli, $this->user->getUserId());
+		$this->assertIdentical($this->user->getUserId(), $mysqlUser->getUserId());
+	}
+
+	/**
+	 * test getting a valid user by using an invalid userId
+	 **/
+	public function testGetInvalidUserByUserId() {
+		$this->assertNotNull($this->user);
+		$this->assertNotNull($this->mysqli);
+
+		$this->user->insert($this->mysqli);
+		$mysqlUser = User::getUserByUserId($this->mysqli, 99);
+		$this->assertNull($mysqlUser);
+	}
+	/**
+	 *test getting a valid user by email
+	 **/
+	public function testGetValidUserByEmail() {
+		$this->assertNotNull($this->user);
+		$this->assertNotNull($this->mysqli);
+
+		$this->user->insert($this->mysqli);
+		$mysqlUser = User::getUserByEmail($this->mysqli, $this->user->getEmail());
+		$this->assertIdentical($this->user->getEmail(), $mysqlUser->getEmail());
+	}
+
+	/**
+	 * test getting a valid user by using an invalid email
+	 **/
+	public function testGetInvalidUserByEmail() {
+		$this->assertNotNull($this->user);
+		$this->assertNotNull($this->mysqli);
+
+		$this->user->insert($this->mysqli);
+		$mysqlUser = User::getUserByEmail($this->mysqli, "ImaBlackHat@hacker.com");
+		$this->assertNull($mysqlUser);
+	}
+	/**
+	 *test getting a valid user by activation code
+	 **/
+	public function testGetValidUserByActivation() {
+		$this->assertNotNull($this->user);
+		$this->assertNotNull($this->mysqli);
+
+		$this->user->insert($this->mysqli);
+		$mysqlUser = User::getUserByActivation($this->mysqli, $this->user->getActivation());
+		$this->assertIdentical($this->user->getActivation(), $mysqlUser->getActivation());
+	}
+
+	/**
+	 * test getting a valid user by using an invalid activation code
+	 **/
+	public function testGetInvalidUserByActivation() {
+		$this->assertNotNull($this->user);
+		$this->assertNotNull($this->mysqli);
+
+		$this->user->insert($this->mysqli);
+		$mysqlUser = User::getUserByActivation($this->mysqli, 9234567812345678);
+		$this->assertNull($mysqlUser);
 	}
 }
 ?>

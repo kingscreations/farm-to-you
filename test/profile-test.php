@@ -229,12 +229,12 @@ class ProfileTest extends UnitTestCase {
 		$this->assertNotNull($this->mysqli);
 
 		$this->profile->insert($this->mysqli);
-		$mysqlProfile = Profile::getProfileId($this->mysqli, $this->profile->getProfileId());
+		$mysqlProfile = Profile::getProfileByProfileId($this->mysqli, $this->profile->getProfileId());
 		$this->assertIdentical($this->profile->getProfileId(), $mysqlProfile->getProfileId());
 		}
 
 	/**
-	 * test getting a valid profile by profileId
+	 * test getting a valid profile by using an invalid profileId
 	**/
 	public function testGetInvalidProfileByProfileId() {
 		$this->assertNotNull($this->profile);
@@ -242,6 +242,29 @@ class ProfileTest extends UnitTestCase {
 
 		$this->profile->insert($this->mysqli);
 		$mysqlProfile = Profile::getProfileByProfileId($this->mysqli, 12);
+		$this->assertNull($mysqlProfile);
+	}
+	/**
+	 *test getting a valid profile by lastName
+	 **/
+	public function testGetValidProfileByLastName() {
+		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->mysqli);
+
+		$this->profile->insert($this->mysqli);
+		$mysqlProfile = Profile::getProfileByLastName($this->mysqli, $this->profile->getLastName());
+		$this->assertIdentical($this->profile->getLastName(), $mysqlProfile->getLastName());
+	}
+
+	/**
+	 * test getting a valid profile by using an invalid lastName
+	 **/
+	public function testGetInvalidProfileByLastName() {
+		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->mysqli);
+
+		$this->profile->insert($this->mysqli);
+		$mysqlProfile = Profile::getProfileByLastName($this->mysqli, ImaBlackHatHacker);
 		$this->assertNull($mysqlProfile);
 	}
 }

@@ -219,5 +219,59 @@ class StoreLocation {
 		$statement->close();
 		return($storeLocation);
 	}
+	/**
+	 * gets all Store Locations
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @return mixed array of Store Locations found or null if not found
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+	public static function getAllStoreLocations(&$mysqli) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+
+		// create query template
+		$query	 = "SELECT storeId, locationId FROM storeLocation";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+
+		// build an array of storeLocation
+		$storeLocations = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$storeLocation	= new StoreLocation($row["storeId"], $row["locationId"]);
+				$storeLocations[] = $storeLocation;
+			}
+			catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+		}
+
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) the entire array if >= 1 result
+		$numberOfStoreLocations = count($storeLocations);
+		if($numberOfStoreLocations === 0) {
+			return(null);
+		} else {
+			return($storeLocations);
+		}
+	}
 }
 ?>

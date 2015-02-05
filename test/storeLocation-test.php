@@ -170,6 +170,7 @@ var_dump($this->mysqli);
 
 // first, try to delete the StoreLocation before inserting it and ensure the exception is thrown
 		$this->expectException("mysqli_sql_exception");
+		var_dump($this->mysqli);
 		$this->storeLocation->delete($this->mysqli);
 
 // second, set the StoreLocation to null to prevent tearDown() from deleting a StoreLocation that has already been deleted

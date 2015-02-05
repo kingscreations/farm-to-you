@@ -679,6 +679,59 @@ class Location {
 			return($locations);
 		}
 	}
+	/**
+	 * gets all Locations
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @return mixed array of Locations found or null if not found
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+	public static function getAllLocations(&$mysqli) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
 
+		// create query template
+		$query	 = "SELECT locationId, country, state, city, zipCode, address1, address2 FROM location";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+
+		// build an array of location
+		$locations = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$location	= new Location($row["locationId"], $row["country"], $row["state"], $row["city"], $row["zipCode"],$row["address1"], $row["address2"]);
+				$locations[] = $location;
+			}
+			catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+		}
+
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) the entire array if >= 1 result
+		$numberOfLocations = count($locations);
+		if($numberOfLocations === 0) {
+			return(null);
+		} else {
+			return($locations);
+		}
+	}
 }
 ?>

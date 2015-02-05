@@ -5,7 +5,8 @@
 require_once ("/usr/lib/php5/simpletest/autorun.php");
 
 // next, require the class from the project under scrutiny
-
+require_once ("../php/classes/user.php");
+require_once ("../php/classes/profile.php");
 require_once ("../php/classes/store.php");
 
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
@@ -25,7 +26,16 @@ class StoreTest extends UnitTestCase {
 	/**
 	 * instance of the object we are testing with
 	 **/
+	private $user = null;
+	private $user2 = null;
+	private $profile = null;
+	private $profile2 = null;
+
 	private $store = null;
+	/**
+	 * instance of the second object we are testing with
+	 **/
+	private $store2 = null;
 
 // this section contains member variables with constants needed for creating a new tweet
 	/**
@@ -58,7 +68,12 @@ class StoreTest extends UnitTestCase {
 
 // second, create an instance of the object under scrutiny
 		$this->creationDate = new DateTime();
-		$this->store = new Store(null, $this->profileId, $this->storeName, $this->imagePath, $this->creationDate);
+		$this->user = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
+		$this->user->insert($this->mysqli);
+		$this->profile = new Profile(null, "Test", "Test2", "5555555555", "m", "012345", "http://www.cats.com/cat.jpg", $this->user->getUserId());
+		$this->profile->insert($this->mysqli);
+
+		$this->store = new Store(null, $this->profile->getProfileId(), $this->storeName, $this->imagePath, $this->creationDate);
 	}
 
 	/**
@@ -69,6 +84,26 @@ class StoreTest extends UnitTestCase {
 		if($this->store !== null) {
 			$this->store->delete($this->mysqli);
 			$this->store = null;
+		}
+		if($this->store2 !== null) {
+			$this->store2->delete($this->mysqli);
+			$this->store2 = null;
+		}
+		if($this->profile !== null) {
+			$this->profile->delete($this->mysqli);
+			$this->profile = null;
+		}
+		if($this->profile2 !== null) {
+			$this->profile2->delete($this->mysqli);
+			$this->profile2 = null;
+		}
+		if($this->user !== null) {
+			$this->user->delete($this->mysqli);
+			$this->user = null;
+		}
+		if($this->user2 !== null) {
+			$this->user2->delete($this->mysqli);
+			$this->user2 = null;
 		}
 
 // disconnect from mySQL
@@ -202,6 +237,65 @@ class StoreTest extends UnitTestCase {
 
 // second, set the Tweet to null to prevent tearDown() from deleting a Tweet that has already been deleted
 		$this->store = null;
+	}
+	/**
+	 * test getStoreByValidStoreName by inserting two identical Stores into mySQL, calling them with getStoreByStoreName,
+	 * and asserting mySQL Stores and original Stores are identical
+	 **/
+	public function testGetStoreByValidStoreName() {
+// zeroth, create second Location
+		$this->user2 = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
+		$this->user2->insert($this->mysqli);
+		$this->profile2 = new Profile(null, "Test", "Test2", "5555555555", "m", "012345", "http://www.cats.com/cat.jpg", $this->user2->getUserId());
+		$this->profile2->insert($this->mysqli);
+		$this->store2 = new Store(null, $this->profile2->getProfileId(), $this->storeName, $this->imagePath, $this->creationDate);
+
+// zeroth #2, ensure the Location and mySQL class are sane
+		$this->assertNotNull($this->store);
+		$this->assertNotNull($this->store2);
+		$this->assertNotNull($this->mysqli);
+
+// first, insert the Location into mySQL
+		$this->store->insert($this->mysqli);
+		$this->store2->insert($this->mysqli);
+
+// second, grab the Locations from mySQL
+		$mysqlStores = Store::getStoreByStoreName($this->mysqli, $this->storeName);
+var_dump($mysqlStores);
+// third, assert the Locations we have created and mySQL's Locations are the same object
+		foreach($mysqlStores as $mysqlStore) {
+			$this->assertNotNull($mysqlStore->getStoreId());
+			$this->assertTrue($mysqlStore->getStoreId() > 0);
+			$this->assertIdentical($this->store->getStoreName(), $mysqlStore->getStoreName());
+			$this->assertIdentical($this->store2->getStoreName(), $mysqlStore->getStoreName());
+		}
+	}
+	/**
+	 * test getStoreByInvalidStoreName by inserting two identical Stores into mySQL, searching for a different store
+	 * name, and asserting that the result is null
+	 **/
+	public function testGetStoreByInvalidStoreName() {
+// zeroth, create second Location
+		$this->user2 = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
+		$this->user2->insert($this->mysqli);
+		$this->profile2 = new Profile(null, "Test", "Test2", "5555555555", "m", "012345", "http://www.cats.com/cat.jpg", $this->user2->getUserId());
+		$this->profile2->insert($this->mysqli);
+		$this->store2 = new Store(null, $this->profile2->getProfileId(), $this->storeName, $this->imagePath, $this->creationDate);
+
+// zeroth #2, ensure the Location and mySQL class are sane
+		$this->assertNotNull($this->store);
+		$this->assertNotNull($this->store2);
+		$this->assertNotNull($this->mysqli);
+
+// first, insert the Location into mySQL
+		$this->store->insert($this->mysqli);
+		$this->store2->insert($this->mysqli);
+
+// second, grab the Locations from mySQL
+		$mysqlStores = Store::getStoreByStoreName($this->mysqli, "Test Farms");
+
+// third, assert results array is null
+		$this->assertNull($mysqlStores);
 	}
 }
 ?>

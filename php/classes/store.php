@@ -430,15 +430,9 @@ class Store {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 
-// sanitize the storeName before searching
+// sanitize the description before searching
 		$storeName = trim($storeName);
 		$storeName = filter_var($storeName, FILTER_SANITIZE_STRING);
-		if(empty($storeName) === true) {
-			throw(new mysqli_sql_exception("store name is empty or insecure"));
-		}
-		if(strlen($storeName) > 100) {
-			throw(new mysqli_sql_exception("store name too large"));
-		}
 
 // create query template
 		$query = "SELECT storeId, profileId, creationDate, storeName, imagePath FROM store WHERE storeName = ?";
@@ -447,7 +441,8 @@ class Store {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-// bind the store id to the place holder in the template
+// bind the store name to the place holder in the template
+		$storeName = "%$storeName%";
 		$wasClean = $statement->bind_param("s", $storeName);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
@@ -464,21 +459,30 @@ class Store {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
 
-// grab the store from mySQL
-		try {
-			$store = null;
-			$row = $result->fetch_assoc();
-			if($row !== null) {
-				$store = new Store($row["storeId"], $row["profileId"], $row["storeName"], $row["imagePath"], $row["creationDate"]);
+// build an array of store
+		$stores = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$store	= new Store($row["storeId"], $row["profileId"], $row["storeName"], $row["imagePath"], $row["creationDate"]);
+				$stores[] = $store;
 			}
-		} catch(Exception $exception) {
+			catch(Exception $exception) {
 // if the row couldn't be converted, rethrow it
-			throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
 		}
 
-// free up memory and return the result
-		$result->free();
-		$statement->close();
-		return ($store);
+// count the results in the array and return:
+// 1) null if 0 results
+// 2) a single object if 1 result
+// 3) the entire array if > 1 result
+		$numberOfStores = count($stores);
+		if($numberOfStores === 0) {
+			return(null);
+		} else if($numberOfStores === 1) {
+			return($stores[0]);
+		} else {
+			return($stores);
+		}
 	}
 }

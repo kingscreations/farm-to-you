@@ -24,35 +24,26 @@ class StoreTest extends UnitTestCase {
 	 **/
 	private $mysqli = null;
 	/**
-	 * instance of the object we are testing with
+	 * instance of the objects we are testing with
 	 **/
 	private $user = null;
 	private $user2 = null;
 	private $profile = null;
 	private $profile2 = null;
-
 	private $store = null;
-	/**
-	 * instance of the second object we are testing with
-	 **/
 	private $store2 = null;
 
-// this section contains member variables with constants needed for creating a new tweet
+// this section contains member variables with constants needed for creating a new store
 	/**
-	 * profile id of the person who is inserting the test Tweet
-	 * @deprecated a parent class of type Profile should be used here instead
-	 **/
-	private $profileId = 1;
-	/**
-	 * date the Tweet was created
+	 * date the Store was created
 	 **/
 	private $creationDate = null;
 	/**
-	 * content of the test Tweet
+	 * name of the test Store
 	 **/
 	private $storeName = "Pass Farms";
 	/**
-	 * content of the test Tweet
+	 * path of the Store image
 	 **/
 	private $imagePath = "http://www.google.com";
 
@@ -66,13 +57,12 @@ class StoreTest extends UnitTestCase {
 		$configArray = readConfig($configFile);
 		$this->mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"], $configArray["database"]);
 
-// second, create an instance of the object under scrutiny
+// second, create an instance of the objects under scrutiny
 		$this->creationDate = new DateTime();
 		$this->user = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
 		$this->user->insert($this->mysqli);
 		$this->profile = new Profile(null, "Test", "Test2", "5555555555", "m", "012345", "http://www.cats.com/cat.jpg", $this->user->getUserId());
 		$this->profile->insert($this->mysqli);
-
 		$this->store = new Store(null, $this->profile->getProfileId(), $this->storeName, $this->imagePath, $this->creationDate);
 	}
 
@@ -80,7 +70,7 @@ class StoreTest extends UnitTestCase {
 	 * tears down the connection to mySQL and deletes the test instance object
 	 **/
 	public function tearDown() {
-// destroy the object if it was created
+// destroy the objects if they were created
 		if($this->store !== null) {
 			$this->store->delete($this->mysqli);
 			$this->store = null;

@@ -329,16 +329,21 @@ class ProductTest extends UnitTestCase {
 		$this->assertNull($mysqlProducts);
 	}
 
-//	/**
-//	 * test get valid product by product id
-//	 */
-//	public function testGetValidProductByProduct() {
-//
-//	}
-//
-//	/**
-//	 * test get invalid product by product id
-//	 */
+	/**
+	 * test get valid product by product id
+	 */
+	public function testGetValidProductByProduct() {
+		$this->assertNotNull($this->product);
+		$this->assertNotNull($this->mysqli);
+
+		$this->product->insert($this->mysqli);
+		$mysqlProduct = Product::getProductByProductId($this->mysqli, $this->product->getProductId());
+		$this->assertIdentical($this->product->getProductId(), $mysqlProduct->getProductId());
+	}
+
+	/**
+	 * test get invalid product by product id
+	 */
 //	public function testGetInvalidProductByProduct() {
 //
 //	}

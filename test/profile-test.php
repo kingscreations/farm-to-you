@@ -224,27 +224,25 @@ class ProfileTest extends UnitTestCase {
 	/**
 	 *test getting a valid profile by profileId
 	 **/
-	 	// first, ensure the profile and mysql class are sane
+	public function testGetValidProfileByProfileId() {
 		$this->assertNotNull($this->profile);
 		$this->assertNotNull($this->mysqli);
-	 	// populate database with temporary profile
 
-			// get profile, compare for identical
-
-		// Finally, set the profile to null to prevent tearDown() from deleting a profile that has already been deleted
-
+		$this->profile->insert($this->mysqli);
+		$mysqlProfile = Profile::getProfileId($this->mysqli, $this->profile->getProfileId());
+		$this->assertIdentical($this->profile->getProfileId(), $mysqlProfile->getProfileId());
+		}
 
 	/**
 	 * test getting a valid profile by profileId
 	**/
-		// first, ensure the profile and mysql class are sane
+	public function testGetInvalidProfileByProfileId() {
 		$this->assertNotNull($this->profile);
 		$this->assertNotNull($this->mysqli);
-		// populate database with temporary profile
 
-		// try to get non existent profile by using Id
-
-		// Finally, set the profile to null to prevent tearDown() from deleting a profile that has already been deleted
-
+		$this->profile->insert($this->mysqli);
+		$mysqlProfile = Profile::getProfileByProfileId($this->mysqli, 12);
+		$this->assertNull($mysqlProfile);
+	}
 }
 ?>

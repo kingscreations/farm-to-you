@@ -205,6 +205,7 @@ class Profile {
 	 * @param string $newProfileType of users profile
 	 * @throws InvalidArgumentException if $profileType is not a string or insecure
 	 * @throws RangeException if $profileType is > 1 characters
+	 * @throws RangeException if $profileType is not 'm' for merchant or 'c' for customer
 	 **/
 
 	public function setProfileType($newProfileType) {

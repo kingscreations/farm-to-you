@@ -413,7 +413,7 @@ class User {
 		$email = trim($email);
 		$email = filter_var($email, FILTER_SANITIZE_STRING);
 		// create query template
-		$query = "SELECT userId, email, hash, salt, activation FROM user WHERE email =?";
+		$query = "SELECT userId, email, hash, salt, activation FROM user WHERE email = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));

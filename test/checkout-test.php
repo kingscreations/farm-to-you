@@ -65,6 +65,7 @@ class CheckoutTest extends UnitTestCase {
 
 		$this->orderDate = new DateTime();
 		$this->order = new Order(null, $this->profile->getProfileId(), $this->orderDate);
+		$this->order->insert($this->mysqli);
 
 		$this->checkout = new Checkout(null, $this->order->getOrderId(), $this->checkoutDate);
 	}
@@ -110,7 +111,6 @@ class CheckoutTest extends UnitTestCase {
 		$this->assertNotNull($this->mysqli);
 
 		// first, insert the checkout into mySQL
-		var_dump($this->order);
 		$this->checkout->insert($this->mysqli);
 
 		// second, grab a checkout from mySQL

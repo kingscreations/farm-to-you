@@ -328,7 +328,7 @@ public function tearDown() {
 		$this->profile2->insert($this->mysqli);
 
 		// grab an array of Profiles from mySQL and assert we have an array
-		$myLittlePony = "unit tests";
+		$myLittlePony = "Rainbows";
 		$profiles = Profile::getProfileByLastName($this->mysqli, $myLittlePony);
 		$this->assertIsA($profiles, "array");
 		$this->assertIdentical(count($profiles), 2);

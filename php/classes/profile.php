@@ -434,7 +434,7 @@ class Profile {
 		$lastName = trim($lastName);
 		$lastName = filter_var($lastName, FILTER_SANITIZE_STRING);
 		// create query template
-		$query	 = "SELECT firstName, lastName, phone, profileType, customerToken, imagePath, userId FROM profile WHERE lastName LIKE ?";
+		$query	 = "SELECT profileId, firstName, lastName, phone, profileType, customerToken, imagePath, userId FROM profile WHERE lastName LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -454,13 +454,11 @@ class Profile {
 		if($result === false) {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
-		var_dump($result->fetch_assoc());
-		// build an array of profile
 		$profiles = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
+				var_dump($row);
 				$profile	= new Profile($row["profileId"], $row["firstName"], $row["lastName"], $row["phone"], $row["profileType"], $row["customerToken"], $row["imagePath"], $row["userId"]);
-				var_dump($profile);
 				$profiles[] = $profile;
 			}
 			catch(Exception $exception) {
@@ -468,7 +466,6 @@ class Profile {
 				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 			}
 		}
-		var_dump($profiles);
 		// count the results in the array and return:
 		// null if 0 results
 		// the entire array if > 1 result

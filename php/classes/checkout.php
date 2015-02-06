@@ -341,30 +341,22 @@ class Checkout {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
 
-		// build an array of checkouts
-		$checkouts = array();
-		while(($row = $result->fetch_assoc()) !== null) {
-			try {
-				$checkout = new checkout($row["checkoutId"], $row["orderId"], $row["checkoutDate"]);
-				$checkouts[] = $checkout;
-			} catch(Exception $exception) {
-				// if the row couldnt be converted, rethrow it
-				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+		// grab the checkout from mySQL
+		try {
+			$checkout = null;
+			$row = $result->fetch_assoc();
+			if($row !== null) {
+				$checkout = new Checkout($row["checkoutId"], $row["orderId"], $row["checkoutDate"]);
 			}
+		} catch(Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 		}
 
-		// count the results in the array and return:
-		// 1) null if 0 results
-		// 2) a single object if 1 result
-		// 3) the entire array if > 1 result
-		$numberOfCheckouts = count($checkouts);
-		if($numberOfCheckouts === 0) {
-			return (null);
-		} else if($numberOfCheckouts === 1) {
-			return ($checkouts[0]);
-		} else {
-			return ($checkouts);
-		}
+		// free up memory and return the result
+		$result->free();
+		$statement->close();
+		return ($checkout);
 	}
 
 	/**

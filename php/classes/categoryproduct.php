@@ -239,8 +239,6 @@ class CategoryProduct {
 		$numberOfCategories = count($categories);
 		if($numberOfCategories === 0) {
 			return (null);
-		} else if($numberOfCategories === 1) {
-			return ($categories[0]);
 		} else {
 			return ($categories);
 		}
@@ -306,8 +304,6 @@ class CategoryProduct {
 		$numberOfProducts = count($products);
 		if($numberOfProducts === 0) {
 			return (null);
-		} else if($numberOfProducts === 1) {
-			return ($products[0]);
 		} else {
 			return ($products);
 		}

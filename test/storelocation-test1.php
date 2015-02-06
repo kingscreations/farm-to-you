@@ -2,7 +2,7 @@
 // first, require the SimpleTest framework <http://www.simpletest.org/>
 require_once("/usr/lib/php5/simpletest/autorun.php");
 // the class to test
-require_once("../php/classes/storeLocation.php");
+require_once("../php/classes/storelocation1.php");
 // the classes required for foreign key access
 require_once ("../php/classes/user.php");
 require_once ("../php/classes/profile.php");

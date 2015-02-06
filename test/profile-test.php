@@ -332,7 +332,6 @@ public function tearDown() {
 		$profiles = Profile::getProfileByLastName($this->mysqli, $myLittlePony);
 		$this->assertIsA($profiles, "array");
 		$this->assertIdentical(count($profiles), 2);
-
 		//finally, verify each profile by asserting the primary key and the select criteria
 		foreach($profiles as $profile) {
 			$this->assertTrue($profile->getProfileId() > 0);
@@ -357,5 +356,47 @@ public function tearDown() {
 		$profiles = Profile::getProfileByLastName($this->mysqli, $myLittlePony);
 		$this->assertNull($profiles);
 	}
+	/**
+	 * test getting multiple profiles from mySQL by profileType
+	 **/
+	public function testGetValidProfileByProfileType() {
+		$this->assertNotNull($this->profile1);
+		$this->assertNotNull($this->profile2);
+		$this->assertNotNull($this->mysqli);
+
+		// then insert both profiles
+		$this->profile1->insert($this->mysqli);
+		$this->profile2->insert($this->mysqli);
+
+		// grab an array of Profiles from mySQL and assert we have an array
+		$myLittlePony = "m";
+		$profiles = Profile::getProfileByProfileType($this->mysqli, $myLittlePony);
+		$this->assertIsA($profiles, "array");
+		$this->assertIdentical(count($profiles), 2);
+		//finally, verify each profile by asserting the primary key and the select criteria
+		foreach($profiles as $profile) {
+			$this->assertTrue($profile->getProfileId() > 0);
+			$this->assertTrue(strpos($profile->getProfileType(), $myLittlePony) >= 0);
+		}
+	}
+	/**
+	 * test grabbing no profiles from mySQL by a non existent profile type
+	 **/
+	public function testSelectInvalidProfileByProfileType() {
+		// zeroth, ensure the Profile and mySQL class are sane
+		$this->assertNotNull($this->profile1);
+		$this->assertNotNull($this->profile2);
+		$this->assertNotNull($this->mysqli);
+
+		// first, insert the two test profiles
+		$this->profile1->insert($this->mysqli);
+		$this->profile2->insert($this->mysqli);
+
+		// second, try to grab an array of Profiles from mySQL and assert null
+		$myLittlePony = "z";
+		$profiles = Profile::getProfileByLastName($this->mysqli, $myLittlePony);
+		$this->assertNull($profiles);
+	}
+
 }
 ?>

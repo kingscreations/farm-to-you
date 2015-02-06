@@ -473,6 +473,10 @@ class Profile {
 			return(null);
 		} else {
 			return($profiles);
+			// free up memory and return the result
+			$result->free();
+			$statement->close();
+			return($profile);
 		}
 	}
 	/**

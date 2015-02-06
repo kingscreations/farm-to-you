@@ -21,6 +21,7 @@ class CheckoutTest extends UnitTestCase {
 	 * mysqli object shared amongst all tests
 	 **/
 	private $mysqli = null;
+
 	/**
 	 * instance of the object we are testing with
 	 **/

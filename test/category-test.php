@@ -11,7 +11,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 /**
  * unit test for the Category class
  *
- * This is a simpletest test case for the CRUD methods of the Category class
+ * This is a simpletest test case for the CRUD methods of the Category class pushing
  *
  * @see category
  * @author Jay Renteria <jay@jayrenteria.com>

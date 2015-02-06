@@ -1,6 +1,7 @@
 <?php
 /**
- * This is the class for the storeLocation weak entity of farmtoyou
+ * This class represents a store's pick-up locations. This is a weak entity (the strong entities are store
+ * and location).
  *
  * @author <alonso@hermesdevelopment.com>
  */

@@ -1,6 +1,7 @@
 <?php
 /**
- * This is the class for the location function of farmtoyou
+ * This class represents a pick-up location that a merchant user would create for their stores in order get
+ * their products to clients.
  *
  * @author Alonso Indacochea <alonso@hermesdevelopment.com>
  **/
@@ -45,7 +46,7 @@ class Location {
 	/**
 	 * constructor for this location class
 	 *
-	 * @param int $newLocationId id of the location
+	 * @param mixed $newLocationId id of the location
 	 * @param mixed $newCountry country of the location or null if no input
 	 * @param string $newState state of the location
 	 * @param string $newCity city of the location
@@ -75,7 +76,7 @@ class Location {
 	/**
 	 * accessor method for the locationId
 	 *
-	 * @return int value of locationId
+	 * @return mixed value of locationId
 	 **/
 	public function getLocationId() {
 		return ($this->locationId);
@@ -84,7 +85,7 @@ class Location {
 	/**
 	 * mutator method for locationId
 	 *
-	 * @param int $newLocationId new value of $locationId
+	 * @param mixed $newLocationId new value of $locationId
 	 * @throws InvalidArgumentException if the $newLocationId is not an integer
 	 * @throws RangeException if the $newLocationId is not positive
 	 **/

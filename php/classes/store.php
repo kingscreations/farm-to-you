@@ -1,6 +1,6 @@
 <?php
 /**
- * This is the class for the store function of farmtoyou
+ * This class represents a store (farm) that a merchant user would create in order to sell their products.
  *
  * @author Alonso Indacochea <alonso@hermesdevelopment.com>
  **/
@@ -35,7 +35,7 @@ class Store {
 	/**
 	 * constructor for this store class
 	 *
-	 * @param int $newStoreId id of the store
+	 * @param mixed $newStoreId id of the store
 	 * @param int $newProfileId id of the profile associated with the store
 	 * @param mixed $newCreationDate date and time store was created or null if set to current date and time
 	 * @param string $newStoreName name of the store
@@ -62,7 +62,7 @@ class Store {
 	/**
 	 * accessor method for the storeId
 	 *
-	 * @return int value of storeId
+	 * @return mixed value of storeId
 	 **/
 	public function getStoreId() {
 		return ($this->storeId);
@@ -71,7 +71,7 @@ class Store {
 	/**
 	 * mutator method for storeId
 	 *
-	 * @param int $newStoreId new value of $storeId
+	 * @param mixed $newStoreId new value of $storeId
 	 * @throws InvalidArgumentException if the $storeId is not an integer
 	 * @throws RangeException if the $storeId is not positive
 	 **/
@@ -97,7 +97,7 @@ class Store {
 	/**
 	 * accessor method for the profile id
 	 *
-	 * @return int value of profile id
+	 * @return mixed value of profile id
 	 **/
 	public function getProfileId() {
 		return ($this->profileId);
@@ -106,7 +106,7 @@ class Store {
 	/**
 	 * mutator method for the profile id
 	 *
-	 * @param int $newProfileId new value of $profileId
+	 * @param mixed $newProfileId new value of $profileId
 	 * @throws InvalidArgumentException if the $profileId is not an integer
 	 * @throws RangeException if the $profileId is not positive
 	 **/
@@ -227,7 +227,7 @@ class Store {
 	 *
 	 * @param string $newImagePath new value of imagePath
 	 * @throws InvalidArgumentException if $newImagePath is not a string or insecure
-	 * @throws RangeException if $newImagePath is > 100 characters
+	 * @throws RangeException if $newImagePath is > 255 characters
 	 **/
 	public function setImagePath($newImagePath) {
 		// verify that the image path is secure

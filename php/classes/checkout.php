@@ -101,7 +101,12 @@ class Checkout {
 	 * @throws RangeException if the $orderId is not positive
 	 **/
 	public function setOrderId($newOrderId) {
-		// verify the order id is valid
+		if($newOrderId === null) {
+			$this->orderId = null;
+			return;
+		}
+
+			// verify the order id is valid
 		$newOrderId = filter_var($newOrderId, FILTER_VALIDATE_INT);
 		if($newOrderId === false) {
 			throw(new InvalidArgumentException("order id is not a valid integer"));
@@ -205,7 +210,7 @@ class Checkout {
 
 		// execute the statement
 		if($statement->execute() === false) {
-			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
+			throw(new mysqli_sql_exception("unable to execute mySQL statement" . $statement->error));
 		}
 
 		// update the null checkoutId with what mysql just gave us

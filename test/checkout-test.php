@@ -3,8 +3,11 @@
 // this path is *NOT* universal, but deployed on the bootcamp-coders server
 require_once("/usr/lib/php5/simpletest/autorun.php");
 
-// next, require the class from the project under scrutiny
+// next, require the classes need to test the project under scrutiny
 require_once("../php/classes/checkout.php");
+require_once("../php/classes/user.php");
+require_once("../php/classes/profile.php");
+require_once("../php/classes/order.php");
 
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
@@ -32,7 +35,10 @@ class CheckoutTest extends UnitTestCase {
 	 * order id of the test check out
 
 	 **/
-	private $orderId = 1;
+	private $order = null;
+	private $orderDate = null;
+	private $profile = null;
+	private $user = null;
 	/**
 	 * date the checkout was created
 	 **/
@@ -48,8 +54,19 @@ class CheckoutTest extends UnitTestCase {
 		$this->mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 		// second, create an instance of the object under scrutiny
+		//NEED TO BUILD AN INSTANCE OF THIS OBJECT
 		$this->checkoutDate = new DateTime();
-		$this->checkout = new Checkout(null, $this->orderId, $this->checkoutDate);
+
+		$this->user = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
+		$this->user->insert($this->mysqli);
+
+		$this->profile = new Profile(null, 'toto', 'sinatra', '505 986700798', 'm', 'kj', 'images/toto.jpg', $this->user->getUserId());
+		$this->profile->insert($this->mysqli);
+
+		$this->orderDate = new DateTime();
+		$this->order = new Order(null, $this->profile->getProfileId(), $this->orderDate);
+
+		$this->checkout = new Checkout(null, $this->order->getOrderId(), $this->checkoutDate);
 	}
 
 	/**
@@ -60,6 +77,21 @@ class CheckoutTest extends UnitTestCase {
 		if($this->checkout !== null) {
 			$this->checkout->delete($this->mysqli);
 			$this->checkout = null;
+		}
+
+		if($this->order !== null && $this->order->getOrderId() !== null) {
+			$this->order->delete($this->mysqli);
+			$this->order = null;
+		}
+
+		if($this->profile !== null && $this->profile->getProfileId() !== null) {
+			$this->profile->delete($this->mysqli);
+			$this->profile = null;
+		}
+
+		if($this->user !== null && $this->user->getUserId() !== null) {
+			$this->user->delete($this->mysqli);
+			$this->user = null;
 		}
 
 		// disconnect from mySQL
@@ -78,6 +110,7 @@ class CheckoutTest extends UnitTestCase {
 		$this->assertNotNull($this->mysqli);
 
 		// first, insert the checkout into mySQL
+		var_dump($this->order);
 		$this->checkout->insert($this->mysqli);
 
 		// second, grab a checkout from mySQL

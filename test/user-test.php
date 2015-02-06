@@ -67,7 +67,7 @@ class UserTest extends UnitTestCase {
 	 **/
 	public function tearDown() {
 		// destroy the object if it was created
-		if($this->user !== null) {
+		if($this->user !== null && $this->user->getUserId() !== null) {
 			$this->user->delete($this->mysqli);
 			$this->user = null;
 		}
@@ -235,7 +235,7 @@ class UserTest extends UnitTestCase {
 		$this->assertNotNull($this->mysqli);
 
 		$this->user->insert($this->mysqli);
-		$mysqlUser = User::getUserByEmail($this->mysqli, $this->user->getEmail());
+		$mysqlUser = User::getUserByEmail($this->mysqli, $this->email);
 		$this->assertIdentical($this->user->getEmail(), $mysqlUser->getEmail());
 	}
 
@@ -247,7 +247,7 @@ class UserTest extends UnitTestCase {
 		$this->assertNotNull($this->mysqli);
 
 		$this->user->insert($this->mysqli);
-		$mysqlUser = User::getUserByEmail($this->mysqli, "ImaBlackHat@hacker.com");
+		$mysqlUser = User::getUserByEmail($this->mysqli, "Billy2JoBob@suspender.com");
 		$this->assertNull($mysqlUser);
 	}
 	/**

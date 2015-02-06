@@ -419,7 +419,6 @@ class User {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the user content to the place holder in the template
-		$email = "%$email%";
 		$wasClean = $statement->bind_param("s", $email);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
@@ -473,7 +472,6 @@ class User {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the user content to the place holder in the template
-		$activation = "%$activation%";
 		$wasClean = $statement->bind_param("s", $activation);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));

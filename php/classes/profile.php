@@ -533,6 +533,64 @@ class Profile {
 		return($profile);
 	}
 	/**
+	 * gets the Profile by profileType
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @param string $profileType profile content to search for
+	 * @return mixed array of Profiles found, Profile found, or null if not found
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+	public static function getProfileByProfileType(&$mysqli, $profileType) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+		// sanitize the description before searching
+		$profileType = trim($profileType);
+		$profileType = filter_var($profileType, FILTER_SANITIZE_STRING);
+		// create query template
+		$query	 = "SELECT profileId, firstName, lastName, phone, profileType, customerToken, imagePath, userId FROM profile WHERE profileType LIKE ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+		// bind the profile content to the place holder in the template
+		$profileType = "%$profileType%";
+		$wasClean = $statement->bind_param("s", $profileType);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+		$profiles = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$profile	= new Profile($row["profileId"], $row["firstName"], $row["lastName"], $row["phone"], $row["profileType"], $row["customerToken"], $row["imagePath"], $row["userId"]);
+				$profiles[] = $profile;
+			}
+			catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+		}
+		// count the results in the array and return:
+		// null if 0 results
+		// the entire array if > 1 result
+		$numberOfProfiles = count($profiles);
+		if($numberOfProfiles === 0) {
+			return(null);
+		} else {
+			return($profiles);
+		}
+	}
+	/**
 	 * gets all Profiles
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference

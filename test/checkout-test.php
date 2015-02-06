@@ -30,7 +30,7 @@ class CheckoutTest extends UnitTestCase {
 	// this section contains member variables with constants needed for creating a new checkout
 	/**
 	 * order id of the test check out
-	 * @deprecated a parent class of type Profile should be used here instead
+
 	 **/
 	private $orderId = 1;
 	/**

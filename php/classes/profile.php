@@ -457,7 +457,6 @@ class Profile {
 		$profiles = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				var_dump($row);
 				$profile	= new Profile($row["profileId"], $row["firstName"], $row["lastName"], $row["phone"], $row["profileType"], $row["customerToken"], $row["imagePath"], $row["userId"]);
 				$profiles[] = $profile;
 			}
@@ -582,4 +581,6 @@ class Profile {
 			return($profiles);
 		}
 	}
+
+
 }

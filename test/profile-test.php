@@ -328,7 +328,7 @@ public function tearDown() {
 		$this->profile2->insert($this->mysqli);
 
 		// grab an array of Profiles from mySQL and assert we have an array
-		$myLittlePony = "Rainbows";
+		$myLittlePony = "JoBob";
 		$profiles = Profile::getProfileByLastName($this->mysqli, $myLittlePony);
 		$this->assertIsA($profiles, "array");
 		$this->assertIdentical(count($profiles), 2);
@@ -339,23 +339,23 @@ public function tearDown() {
 			$this->assertTrue(strpos($profile->getLastName(), $myLittlePony) >= 0);
 		}
 	}
-//	/**
-//	 * test grabbing no profiles from mySQL by a non existent last name
-//	 **/
-//	public function testSelectInvalidProfileByLastName() {
-//	// zeroth, ensure the Profile and mySQL class are sane
-//		$this->assertNotNull($this->profile1);
-//		$this->assertNotNull($this->profile2);
-//		$this->assertNotNull($this->mysqli);
-//
-//	// first, insert the two test profiles
-//		$this->profile1->insert($this->mysqli);
-//		$this->profile2->insert($this->mysqli);
-//
-//	// second, try to grab an array of Profiles from mySQL and assert null
-//		$myLittlePony = "ImaBlackHatHacker";
-//		$profiles = Profile::getProfileByLastName($this->mysqli, $myLittlePony);
-//		$this->assertNull($profiles);
-//	}
+	/**
+	 * test grabbing no profiles from mySQL by a non existent last name
+	 **/
+	public function testSelectInvalidProfileByLastName() {
+	// zeroth, ensure the Profile and mySQL class are sane
+		$this->assertNotNull($this->profile1);
+		$this->assertNotNull($this->profile2);
+		$this->assertNotNull($this->mysqli);
+
+	// first, insert the two test profiles
+		$this->profile1->insert($this->mysqli);
+		$this->profile2->insert($this->mysqli);
+
+	// second, try to grab an array of Profiles from mySQL and assert null
+		$myLittlePony = "ImaBlackHatHacker";
+		$profiles = Profile::getProfileByLastName($this->mysqli, $myLittlePony);
+		$this->assertNull($profiles);
+	}
 }
 ?>

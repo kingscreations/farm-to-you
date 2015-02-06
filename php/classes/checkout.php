@@ -257,6 +257,7 @@ class Checkout {
 
 		// clean up the statement
 		$statement->close();
+		var_dump($mysqli);
 	}
 
 	/**

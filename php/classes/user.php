@@ -409,7 +409,7 @@ class User {
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
-		// sanitize the description before searching
+		//sanitize the description before searching
 		$email = trim($email);
 		$email = filter_var($email, FILTER_SANITIZE_STRING);
 		// create query template

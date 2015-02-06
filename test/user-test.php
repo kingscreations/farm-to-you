@@ -251,7 +251,7 @@ class UserTest extends UnitTestCase {
 		$this->assertNull($mysqlUser);
 	}
 	/**
-	 *test getting a valid user by activation code
+	*test getting a valid user by activation code
 	 **/
 	public function testGetValidUserByActivation() {
 		$this->assertNotNull($this->user);

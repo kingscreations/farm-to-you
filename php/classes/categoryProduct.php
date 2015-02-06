@@ -1,6 +1,6 @@
 <?php
 /**
- * This is the class for the categoryProduct function of farmtoyou
+ * This is the class for the CategoryProduct function of farmtoyou
  *
  * This encompasses the intersection between the category and product classes that are used in
  * farmtoyou.

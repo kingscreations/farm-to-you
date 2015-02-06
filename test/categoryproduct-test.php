@@ -4,7 +4,7 @@
 require_once("/usr/lib/php5/simpletest/autorun.php");
 
 // next, require the class from the project under scrutiny
-require_once("../php/classes/categoryproduct.php");
+require_once("../php/classes/renametest.php");
 require_once ("../php/classes/user.php");
 require_once ("../php/classes/profile.php");
 require_once ("../php/classes/product.php");

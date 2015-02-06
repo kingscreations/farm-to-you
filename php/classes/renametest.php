@@ -382,9 +382,9 @@ class CategoryProduct {
 			throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 		}
 
-			$result->free();
-			$statement->close();
-			return ($categoryProduct);
-		}
+		$result->free();
+		$statement->close();
+		return ($categoryProduct);
 	}
+}
 ?>

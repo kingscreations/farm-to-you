@@ -454,11 +454,13 @@ class Profile {
 		if($result === false) {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
+		var_dump($result->fetch_assoc());
 		// build an array of profile
-		$profile = array();
+		$profiles = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
 				$profile	= new Profile($row["profileId"], $row["firstName"], $row["lastName"], $row["phone"], $row["profileType"], $row["customerToken"], $row["imagePath"], $row["userId"]);
+				var_dump($profile);
 				$profiles[] = $profile;
 			}
 			catch(Exception $exception) {
@@ -466,15 +468,13 @@ class Profile {
 				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 			}
 		}
+		var_dump($profiles);
 		// count the results in the array and return:
-		// 1) null if 0 results
-		// 2) a single object if 1 result
-		// 3) the entire array if > 1 result
+		// null if 0 results
+		// the entire array if > 1 result
 		$numberOfProfiles = count($profiles);
 		if($numberOfProfiles === 0) {
 			return(null);
-		} else if($numberOfProfiles === 1) {
-			return($profiles[0]);
 		} else {
 			return($profiles);
 		}

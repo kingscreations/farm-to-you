@@ -26,6 +26,37 @@ class ProfileTest extends UnitTestCase {
 	 * mysqli object shared amongst all tests
 	 **/
 	private $mysqli = null;
+
+	/**
+	 * first instance of the object we are testing with
+	 **/
+	private $user1 = null;
+
+	/**
+	 * second instance of the object we are testing with
+	 **/
+	private $user2 = null;
+
+	/**
+	 * email of user
+	 **/
+	private $email = "test@test.com";
+
+	/**
+	 * hash of user password
+	 **/
+	private $hash = "AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010";
+
+	/**
+	 * salted hash value
+	 **/
+	private $salt = "99AB10BC99AB10BC99AB10BC99AB10BC";
+
+	/**
+	 * activation to lock account when not yet activated, or user forgot password
+	 **/
+	private $activation = "99AB10BC99AB10BC";
+
 	/**
 	 * first instance of the object we are testing with
 	 **/
@@ -35,56 +66,35 @@ class ProfileTest extends UnitTestCase {
 	 **/
 	private $profile2 = null;
 
-// this section contains member variables with constants needed for creating a new profile
-	private $firstName1 = "Ronald";
 	/**
-	 * first name of the second test user
+	 * users first name
 	 **/
-	private $firstName2 = "Dylan";
+	private $firstName = "Billy";
+
 	/**
-	 * last name of the first test user
+	 * users last name
 	 **/
-	private $lastName1 = "McDonald";
+	private $lastName = "JoBob";
+
 	/**
-	 * last name of the second test user
+	 * users phone number
 	 **/
-	private $lastName2 = "McDonald";
+	private $phone = "(505)123-4567";
+
 	/**
-	 * phone number of the first test user
+	 * users profile type, buyer or seller
 	 **/
-	private $phone1 = "(505)123-4567";
+	private $profileType = "m";
+
 	/**
-	 * phone number of the second test user
+	 * users customer token from Stripe
 	 **/
-	private $phone2 = "(505) 246-8100";
+	private $customerToken = "2";
+
 	/**
-	 * profile type of the first test user
+	 * seller's image path
 	 **/
-	private $profileType1 = "c";
-	/**
-	 * profile type of the second test user
-	 **/
-	private $profileType2 = "m";
-	/**
-	 * Strype issued customer token for first test user
-	 **/
-	private $customerToken1 = "111";
-	/**
-	 * Strype issued customer token for the second test user
-	 **/
-	private $customerToken2 = "222";
-	/**
-	 * image file for the first test user
-	 **/
-	private $imagePath1 = "clown1.img";
-	/**
-	 * image file for the second test user
-	 **/
-	private $imagePath2 = "clown2.img";
-	/**
-	 * @var int user id for the first test user. This is a foreign key.
-	 **/
-	private $userId = 1;
+	private $imagePath = "clown.jpg";
 
 	/**
 	 * sets up the mySQL connection for this test
@@ -94,16 +104,37 @@ class ProfileTest extends UnitTestCase {
 		$configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 		$configArray = readConfig($configFile);
 
+		// connection
+		mysqli_report(MYSQLI_REPORT_STRICT);
+		$this->mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
+			$configArray["database"]);
+
+		// first, create an instance of the first user
+		$this->user1 = new User(null, $this->email, $this->hash, $this->salt, $this->activation);
+
+		// insert this user into database
+		$this->user1->insert($this->mysqli);
+
+		// create instance of first profile
+		$this->profile1 = new Profile(null, $this->firstName, $this->lastName, $this->phone, $this->profileType, $this->customerToken, $this->imagePath, $this->user1->getUserId());
+
 		// second, create an instance of the object under scrutiny
-		$this->profile1 = new Profile(null, $this->firstName1, $this->lastName1, $this->phone1, $this->profileType1, $this->customerToken1, $this->imagePath1, $this->userId);
-		$this->profile2 = new Profile(null, $this->firstName2, $this->lastName2, $this->phone2, $this->profileType2, $this->customerToken2, $this->imagePath2, $this->userId);
+
+		// first, create an instance of the first user
+		$this->user2 = new User(null, $this->email, $this->hash, $this->salt, $this->activation);
+
+		// insert this user into database
+		$this->user2->insert($this->mysqli);
+
+
+		$this->profile2 = new Profile(null, $this->firstName, $this->lastName, $this->phone, $this->profileType, $this->customerToken, $this->imagePath, $this->user2->getUserId());
 	}
 
 	/**
 	 * tears down the connection to mySQL and deletes the test instance object
 	 **/
 public function tearDown() {
-// destroy the object if it was created
+	// destroy the object if it was created
 	if($this->profile1 !== null && $this->profile1->getProfileId() !== null) {
 		$this->profile1->delete($this->mysqli);
 		$this->profile1 = null;
@@ -114,7 +145,17 @@ public function tearDown() {
 		$this->profile2 = null;
 	}
 
-// disconnect from mySQL
+	// destroy the object if it was created
+	if($this->user1 !== null && $this->user1->getUserId() !== null) {
+		$this->user1->delete($this->mysqli);
+		$this->user1 = null;
+	}
+
+	if($this->user2 !== null && $this->user2->getUserId() !== null) {
+		$this->user2->delete($this->mysqli);
+		$this->user2 = null;
+	}
+	// disconnect from mySQL
 	if($this->mysqli !== null) {
 		$this->mysqli->close();
 		$this->mysqli = null;
@@ -216,7 +257,7 @@ public function tearDown() {
 		$this->assertIdentical($this->profile1->getProfileId(), $mysqlProfile->getProfileId());
 
 		// second, change the Profile, update it mySQL
-		$newLastName = "O'Unit Tests";
+		$newLastName = "Rainbows";
 		$this->profile1->setLastName($newLastName);
 		$this->profile1->update($this->mysqli);
 
@@ -264,8 +305,8 @@ public function tearDown() {
 		}
 
 	/**
-	 * test getting a valid profile by using an invalid profileId
-	**/
+ * test getting a valid profile by using an invalid profileId
+ **/
 	public function testGetInvalidProfileByProfileId() {
 		// first, assert the mySQL class is sane
 		$this->assertNotNull($this->mysqli);
@@ -298,23 +339,23 @@ public function tearDown() {
 			$this->assertTrue(strpos($profile->getLastName(), $myLittlePony) >= 0);
 		}
 	}
-	/**
-	 * test grabbing no profiles from mySQL by a non existent last name
-	 **/
-	public function testSelectInvalidProfileByLastName() {
-	// zeroth, ensure the Profile and mySQL class are sane
-		$this->assertNotNull($this->profile1);
-		$this->assertNotNull($this->profile2);
-		$this->assertNotNull($this->mysqli);
-
-	// first, insert the two test profiles
-		$this->profile1->insert($this->mysqli);
-		$this->profile2->insert($this->mysqli);
-
-	// second, try to grab an array of Profiles from mySQL and assert null
-		$myLittlePony = "ImaBlackHatHacker";
-		$profiles = Profile::getProfileByLastName($this->mysqli, $myLittlePony);
-		$this->assertNull($profiles);
-	}
+//	/**
+//	 * test grabbing no profiles from mySQL by a non existent last name
+//	 **/
+//	public function testSelectInvalidProfileByLastName() {
+//	// zeroth, ensure the Profile and mySQL class are sane
+//		$this->assertNotNull($this->profile1);
+//		$this->assertNotNull($this->profile2);
+//		$this->assertNotNull($this->mysqli);
+//
+//	// first, insert the two test profiles
+//		$this->profile1->insert($this->mysqli);
+//		$this->profile2->insert($this->mysqli);
+//
+//	// second, try to grab an array of Profiles from mySQL and assert null
+//		$myLittlePony = "ImaBlackHatHacker";
+//		$profiles = Profile::getProfileByLastName($this->mysqli, $myLittlePony);
+//		$this->assertNull($profiles);
+//	}
 }
 ?>

@@ -427,7 +427,7 @@ class Checkout {
 	}
 
 	/**
-	 * gets all checkouts
+	 * gets all Checkouts
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
 	 * @return mixed array of checkouts found or null if not found

@@ -81,8 +81,7 @@ class OrderTest extends UnitTestCase {
 		$this->user = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
 		$this->user->insert($this->mysqli);
 
-		$this->profile = new Profile(null, 'toto', 'sinatra', '505 986700798', 'm', 'kj', 'images/toto.jpg',
-			$this->user->getUserId());
+		$this->profile = new Profile(null, 'toto', 'sinatra', '505 986700798', 'm', 'kj', 'images/toto.jpg', $this->user->getUserId());
 		$this->profile->insert($this->mysqli);
 
 		$this->orderDate = new DateTime();

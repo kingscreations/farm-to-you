@@ -245,7 +245,7 @@ class Product {
 			throw(new RangeException("product price is too large"));
 		}
 
-		$this->productPrice = intval($newProductPrice);
+		$this->productPrice = floatval($newProductPrice);
 	}
 
 	/**
@@ -275,7 +275,7 @@ class Product {
 			throw(new RangeException("product weight is too large"));
 		}
 
-		$this->productWeight = intval($newProductWeight);
+		$this->productWeight = floatval($newProductWeight);
 	}
 
 	/**

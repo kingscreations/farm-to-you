@@ -2,7 +2,7 @@
 /**
  * This is the class for the category function of farmtoyou
  *
- * This will be used to store the different categories and can be expanded upon as the site grows.
+ * This will be used to store the different categories and can be expanded upon as the site grows. Pushing
  *
  * @author Jay Renteria <jay@jayrenteria.com>
  **/

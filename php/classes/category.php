@@ -2,6 +2,8 @@
 /**
  * This is the class for the category function of farmtoyou
  *
+ * This will be used to store the different categories and can be expanded upon as the site grows.
+ *
  * @author Jay Renteria <jay@jayrenteria.com>
  **/
 
@@ -115,6 +117,7 @@ class Category {
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
+
 		// enforce the categoryId is null (i.e., dont insert a category that already exists)
 		if($this->categoryId !== null) {
 			throw(new mysqli_sql_exception("this category already exists"));
@@ -126,20 +129,22 @@ class Category {
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
+
 		// bind the member variables to the place holders in the template
 		$wasClean = $statement->bind_param("s",$this->categoryName);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters:"));
 		}
+
 		// execute the statement
 		if($statement->execute() === false) {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
 		}
+
 		// update the null categoryId with what mysql just gave us
 		$this->categoryId = $mysqli->insert_id;
 		// clean up the statement
 		$statement->close();
-
 	}
 
 	/**
@@ -153,25 +158,30 @@ class Category {
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
+
 		// enforce the categoryId is not null (i.e., dont delete a category that has not been inserted)
 		if($this->categoryId === null) {
 			throw(new mysqli_sql_exception("unable to delete a category that does not exist"));
 		}
+
 		// create query template
 		$query = "DELETE FROM category WHERE categoryId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
+
 		// bind the member variables to the place holder in the template
 		$wasClean = $statement->bind_param("i", $this->categoryId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
+
 		// execute the statement
 		if($statement->execute() === false) {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
 		}
+
 		// clean up the statement
 		$statement->close();
 	}
@@ -187,29 +197,33 @@ class Category {
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
+
 		// enforce the categoryId is not null (i.e., dont update a category that hasnt been inserted)
 		if($this->categoryId === null) {
 			throw(new mysqli_sql_exception("unable to update a category that does not exist"));
 		}
+
 		// create a query template
 		$query = "UPDATE category SET categoryName = ? WHERE categoryId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
+
 		// bind the member variables to the place holders in the template
 		$wasClean = $statement->bind_param("si", $this->categoryName, $this->categoryId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
+
 		// execute the statement
 		if($statement->execute() === false) {
 			throw(new mysqli_sql_exception("unable to execute mysql statement: " . $statement->error));
 		}
+
 		// clean up the statement
 		$statement->close();
 	}
-
 
 	/**
 	 * gets the category by categoryId
@@ -224,6 +238,7 @@ class Category {
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
+
 		// sanitize the description before searching
 		$categoryId = trim($categoryId);
 		$categoryId = filter_var($categoryId, FILTER_VALIDATE_INT);
@@ -233,20 +248,24 @@ class Category {
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
+
 		// bind the category id to the place holder in the template
 		$wasClean = $statement->bind_param("i", $categoryId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
+
 		// execute the statement
 		if($statement->execute() === false) {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
 		}
+
 		// get result from the SELECT query
 		$result = $statement->get_result();
 		if($result === false) {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
+
 		// build an array of categories
 		$categories = array();
 		while(($row = $result->fetch_assoc()) !== null) {
@@ -258,6 +277,7 @@ class Category {
 				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 			}
 		}
+
 		// count the results in the array and return:
 		// 1) null if 0 results
 		// 2) a single object if 1 result
@@ -323,7 +343,6 @@ class Category {
 				// if the row couldnt be converted, rethrow it
 				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 			}
-
 		}
 
 		// count the results in the array and return:

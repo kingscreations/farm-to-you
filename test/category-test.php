@@ -23,6 +23,7 @@ class CategoryTest extends UnitTestCase {
 	 * mysqli object shared amongst all tests
 	 **/
 	private $mysqli = null;
+
 	/**
 	 * instance of the object we are testing with
 	 **/
@@ -201,8 +202,6 @@ class CategoryTest extends UnitTestCase {
 		$mysqlCategories = Category::getCategoryByCategoryName($this->mysqli, $this->category->getCategoryName());
 
 		// third, assert the category we have created and mySQL's category are the same object
-//		var_dump($mysqlCategory);
-//		var_dump($this->category);
 		foreach($mysqlCategories as $mysqlCategory) {
 
 			$this->assertIdentical($this->category->getCategoryName(), $mysqlCategory->getCategoryName());

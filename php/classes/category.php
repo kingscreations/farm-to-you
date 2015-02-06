@@ -331,6 +331,7 @@ class Category {
 		$result = $statement->get_result();
 		if($result === false) {
 			throw(new mysqli_sql_exception("unable to get result set"));
+			var_dump($mysqli);
 		}
 
 		// build an array of categories

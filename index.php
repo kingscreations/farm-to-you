@@ -1,7 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jason
- * Date: 1/30/2015
- * Time: 4:13 PM
- */
+
+require_once('php/lib/header.php');
+
+require_once('new-user.php');
+
+require_once('php/lib/footer.php');
+
+?>

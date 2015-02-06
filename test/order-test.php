@@ -76,6 +76,7 @@ class OrderTest extends UnitTestCase {
 		mysqli_report(MYSQLI_REPORT_STRICT);
 		$this->mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 			$configArray["database"]);
+
 		//instances for the foreign keys
 		$this->user = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
 		$this->user->insert($this->mysqli);
@@ -84,7 +85,6 @@ class OrderTest extends UnitTestCase {
 			$this->user->getUserId());
 		$this->profile->insert($this->mysqli);
 
-		// finally the order instance
 		$this->orderDate = new DateTime();
 		$this->order = new Order(null, $this->profile->getProfileId(), $this->orderDate);
 

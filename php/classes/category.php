@@ -360,10 +360,10 @@ class Category {
 	}
 
 	/**
-	 * gets all Stores
+	 * gets all categories
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
-	 * @return mixed array of Stores found or null if not found
+	 * @return mixed array of categories found or null if not found
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 **/
 	public static function getAllCategories(&$mysqli) {

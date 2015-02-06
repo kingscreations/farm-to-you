@@ -401,7 +401,7 @@ class User {
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
 	 * @param string $email profile content to search for
-	 * @return mixed array of Emails found, Email found, or null if not found
+	 * @return Email found, or null if not found
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 **/
 	public static function getUserByEmail(&$mysqli, $email) {
@@ -449,13 +449,13 @@ class User {
 		$statement->close();
 		return ($user);
 	}
-//get user by activation
+
 	/**
 	 * gets the User by activation
 	 *
 	 * @param resource $mysqli pointer to mySQL connection, by reference
 	 * @param string $activation content to search for
-	 * @return mixed array of activations found, Activation found, or null if not found
+	 * @return activation found, or null if not found
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 **/
 	public static function getUserByActivation(&$mysqli, $activation) {

@@ -2,12 +2,13 @@
 // first, require the SimpleTest framework <http://www.simpletest.org/>
 require_once("/usr/lib/php5/simpletest/autorun.php");
 
+// require the encrypted configuration functions
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+
 // the classes to test
 require_once("../php/classes/user.php");
 require_once("../php/classes/profile.php");
 
-// require the encrypted configuration functions
-require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 
 /**

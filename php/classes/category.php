@@ -328,28 +328,22 @@ class Category {
 			throw(new mysqli_sql_exception("unable to get result set"));
 		}
 
-		// build an array of categories
-		$categories = array();
-		while(($row = $result->fetch_assoc()) !== null) {
-			try {
-				$category = new category($row["categoryId"], $row["categoryName"]);
-				$categories[] = $category;
-			} catch(Exception $exception) {
-				// if the row couldnt be converted, rethrow it
-				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+		// grab the store from mySQL
+		try {
+			$category = null;
+			$row = $result->fetch_assoc();
+			if($row !== null) {
+				$category = new Category($row["categoryId"], $row["categoryName"]);
 			}
+		} catch(Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 		}
 
-		// count the results in the array and return:
-		// 1) null if 0 results
-		// 2) a single object if 1 result
-		// 3) the entire array if > 1 result
-		$numberOfCategories = count($categories);
-		if($numberOfCategories === 0) {
-			return (null);
-		} else {
-			return ($categories);
-		}
+		// free up memory and return the result
+		$result->free();
+		$statement->close();
+		return ($category);
 	}
 
 	/**

@@ -7,7 +7,7 @@ require_once("../php/classes/user.php");
 require_once("../php/classes/profile.php");
 require_once("../php/classes/product.php");
 require_once("../php/classes/order.php");
-require_once("../php/classes/orderProduct.php");
+require_once("../php/classes/orderproduct1.php");
 
 // require the encrypted configuration functions
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");

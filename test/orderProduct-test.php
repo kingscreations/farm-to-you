@@ -269,9 +269,10 @@ class OrderProductTest extends UnitTestCase {
 		$this->orderProduct = null;
 	}
 
-	/**
-	 * test get invalid order product by order id and by product id
-	 */
+//	/**
+//	 * test get invalid order product by order id and by product id
+//	 * keep this wrong method for education purpose
+//	 */
 //	public function testInvalidDeleteOrderProduct() {
 //		$this->assertNotNull($this->orderProduct);
 //		$this->assertNotNull($this->user);

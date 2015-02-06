@@ -111,7 +111,6 @@ class OrderTest extends UnitTestCase {
 	 * tears down the connection to mySQL and deletes the test instance object
 	 **/
 	public function tearDown() {
-//		echo '<br>tearDown start<br>';
 		if($this->order2 !== null && $this->order2->getOrderId() !== null) {
 			$this->order2->delete($this->mysqli);
 			$this->order2 = null;
@@ -147,7 +146,6 @@ class OrderTest extends UnitTestCase {
 			$this->mysqli->close();
 			$this->mysqli = null;
 		}
-//		echo '<br>tearDown end<br>';
 	}
 
 	/**

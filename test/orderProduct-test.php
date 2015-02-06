@@ -19,7 +19,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
  * This is a SimpleTest test case for the CRUD methods of the OrderProduct class.
  *
  * @see OrderProduct
- * @author Dylan McDonald <dmcdonald21@cnm.edu>
+ * @author Florian Goussin <fgoussin@cnm.edu>
  **/
 class OrderProductTest extends UnitTestCase {
 	/**

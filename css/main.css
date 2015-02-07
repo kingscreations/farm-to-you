@@ -1,4 +1,31 @@
 /**
+ * placeholder colors and others
+ */
+footer,
+#main-menu {
+	background-color: darkgrey;
+	color: white;
+}
+
+footer {
+	border-top: 1px solid black;
+}
+
+#main-menu {
+	border-bottom: 1px solid black;
+}
+
+footer a,
+#main-menu a {
+	color: white;
+}
+
+footer p {
+	margin-top: 30px;
+	text-align: center;
+}
+
+/**
  *	Sticky footer plugin: http://mystrd.at/modern-clean-css-sticky-footer/
  */
 html {
@@ -35,16 +62,11 @@ footer {
 	width: 100%;
 	padding-left: 5%;
 	padding-right: 5%;
-	background-color: black;
-	color: white;
 }
 
 /**
  * top main-menu
  */
-#main-menu a {
-	color: white;
-}
 
 #main-menu li {
 	float: right;

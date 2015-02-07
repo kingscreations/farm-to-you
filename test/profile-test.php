@@ -121,7 +121,7 @@ class ProfileTest extends UnitTestCase {
 		// second, create an instance of the object under scrutiny
 
 		// first, create an instance of the first user
-		$this->user2 = new User(null, $this->email, $this->hash, $this->salt, $this->activation);
+		$this->user2 = new User(null, "test2@test.com", 'Aa10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99Aa10BC99AB10BC99AB10BC99AB10BC', '99Aa10BC99AB10BC');
 
 		// insert this user into database
 		$this->user2->insert($this->mysqli);

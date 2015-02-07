@@ -88,7 +88,7 @@ class OrderTest extends UnitTestCase {
 		$this->order = new Order(null, $this->profile->getProfileId(), $this->orderDate);
 
 		// same for a second order
-		$this->user2 = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
+		$this->user2 = new User(null, "test2@test.com", 'Aa10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99Aa10BC99AB10BC99AB10BC99AB10BC', '99Aa10BC99AB10BC');
 		$this->user2->insert($this->mysqli);
 
 		$this->profile2 = new Profile(null, $this->profile->getFirstName(), $this->profile->getLastName(),

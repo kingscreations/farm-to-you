@@ -64,6 +64,12 @@ class StoreTest extends UnitTestCase {
 		$this->profile = new Profile(null, "Test", "Test2", "5555555555", "m", "012345", "http://www.cats.com/cat.jpg", $this->user->getUserId());
 		$this->profile->insert($this->mysqli);
 		$this->store = new Store(null, $this->profile->getProfileId(), $this->storeName, $this->imagePath, $this->creationDate);
+
+		$this->user2 = new User(null, "test2@test.com", 'Aa10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99Aa10BC99AB10BC99AB10BC99AB10BC', '99Aa10BC99AB10BC');
+		$this->user2->insert($this->mysqli);
+		$this->profile2 = new Profile(null, "Test", "Test2", "5555555555", "m", "012345", "http://www.cats.com/cat.jpg", $this->user2->getUserId());
+		$this->profile2->insert($this->mysqli);
+		$this->store2 = new Store(null, $this->profile2->getProfileId(), $this->storeName, $this->imagePath, $this->creationDate);
 	}
 
 	/**
@@ -233,14 +239,7 @@ class StoreTest extends UnitTestCase {
 	 * and asserting mySQL Stores and original Stores are identical
 	 **/
 	public function testGetStoreByValidStoreName() {
-		// zeroth, create second Location
-		$this->user2 = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
-		$this->user2->insert($this->mysqli);
-		$this->profile2 = new Profile(null, "Test", "Test2", "5555555555", "m", "012345", "http://www.cats.com/cat.jpg", $this->user2->getUserId());
-		$this->profile2->insert($this->mysqli);
-		$this->store2 = new Store(null, $this->profile2->getProfileId(), $this->storeName, $this->imagePath, $this->creationDate);
-
-		// zeroth #2, ensure the Stores and mySQL class are sane
+		// zeroth, ensure the Stores and mySQL class are sane
 		$this->assertNotNull($this->store);
 		$this->assertNotNull($this->store2);
 		$this->assertNotNull($this->mysqli);
@@ -264,14 +263,7 @@ class StoreTest extends UnitTestCase {
 	 * name, and asserting that the result is null
 	 **/
 	public function testGetStoreByInvalidStoreName() {
-		// zeroth, create second Store
-		$this->user2 = new User(null, "test@test.com", 'AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99AB10BC99AB10BC99AB10BC99AB10BC', '99AB10BC99AB10BC');
-		$this->user2->insert($this->mysqli);
-		$this->profile2 = new Profile(null, "Test", "Test2", "5555555555", "m", "012345", "http://www.cats.com/cat.jpg", $this->user2->getUserId());
-		$this->profile2->insert($this->mysqli);
-		$this->store2 = new Store(null, $this->profile2->getProfileId(), $this->storeName, $this->imagePath, $this->creationDate);
-
-		// zeroth #2, ensure the Stores and mySQL class are sane
+		// zeroth, ensure the Stores and mySQL class are sane
 		$this->assertNotNull($this->store);
 		$this->assertNotNull($this->store2);
 		$this->assertNotNull($this->mysqli);

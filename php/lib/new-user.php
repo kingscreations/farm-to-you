@@ -6,6 +6,6 @@
  */
 ?>
 
-<div class="row-fluid">
-
+<div class="row-fluid" id="main-search">
+	<?php require_once "main-search.php" ?>
 </div><!-- end row-fluid -->

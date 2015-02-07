@@ -37,10 +37,10 @@
 		<!-- start of global container -->
 		<div class="container-fluid">
 			<div class="row-fluid clearfix" id="main-menu">
-				<div class="col-sm-8">
-					<h1 class="no-margin">logo-placeholder-farm-to-you</h1>
+				<div class="col-xs-6">
+					<h1 class="no-margin">farm-to-you</h1>
 				</div>
-				<div class="col-sm-4">
+				<div class="col-xs-6">
 					<ul class="nav nav-pills" role="tablist">
 						<li role="presentation" class="dropdown">
 							<a id="drop6" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">

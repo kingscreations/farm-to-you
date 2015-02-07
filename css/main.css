@@ -25,6 +25,9 @@ footer p {
 	text-align: center;
 }
 
+
+
+
 /**
  *	Sticky footer plugin: http://mystrd.at/modern-clean-css-sticky-footer/
  */
@@ -39,8 +42,37 @@ footer {
 	position: absolute;
 	left: 0;
 	bottom: 0;
-	height: 100px;
+	min-height: 100px;
 	width: 100%;
+}
+
+/**
+ * forms
+ */
+input[type=text] {
+	padding: 0.3em;
+	padding-left: 1em;
+	border: 2px solid lightgray;
+	border-radius: 12px;
+}
+
+input[type=text]:focus {
+	outline: none;
+}
+
+#main-search {
+	width: 60%;
+}
+
+#main-search input,
+#main-search button {
+	width: 100%;
+}
+
+#main-search button {
+	width: 30px;
+	height: 30px;
+	padding: 0;
 }
 
 /**
@@ -77,6 +109,10 @@ footer {
  */
 .no-margin {
 	margin: 0 !important;
+}
+
+.top-spacer {
+	margin-top: 60px;
 }
 
 /*

@@ -6,4 +6,6 @@
  */
 ?>
 
-<div class="container-fluid">
+<div class="row-fluid">
+
+</div><!-- end row-fluid -->

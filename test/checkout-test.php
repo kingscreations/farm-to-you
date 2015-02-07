@@ -80,7 +80,7 @@ class CheckoutTest extends UnitTestCase {
 			$this->checkout = null;
 		}
 
-		if($this->order !== null && $this->order->getOrderId() !== null) {
+		if($this->order !== null) {
 			$this->order->delete($this->mysqli);
 			$this->order = null;
 		}

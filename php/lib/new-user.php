@@ -6,6 +6,9 @@
  */
 ?>
 
-<div class="row-fluid" id="main-search">
+<div class="container-fluid" id="main-search">
+	<div class="top-spacer"></div>
+
 	<?php require_once "main-search.php" ?>
-</div><!-- end row-fluid -->
+
+</div><!-- end container-fluid -->

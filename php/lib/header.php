@@ -57,3 +57,4 @@
 					</ul> <!-- end pills -->
 				</div>
 			</div><!-- end row-fluid main-menu -->
+		</div><!-- end container-fluid -->

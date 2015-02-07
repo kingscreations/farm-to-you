@@ -245,7 +245,8 @@ class CheckoutTest extends UnitTestCase {
 		$this->assertNotNull($this->mysqli);
 
 		$this->checkout->insert($this->mysqli);
-		$formattedDate = $this->checkout->getCheckoutDate()->format("Y-m-s H:i:s");
+		$formattedDate = "2015-02-05 12:38:34";
+//		$formattedDate = $this->checkout->getCheckoutDate()->format("Y-m-s H:i:s");
 		$mysqlCheckout = Checkout::getCheckoutByCheckoutDate($this->mysqli, $formattedDate);
 
 		$this->assertNull($mysqlCheckout);

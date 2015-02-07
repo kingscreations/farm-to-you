@@ -54,8 +54,8 @@ class CategoryTest extends UnitTestCase {
 	public function tearDown() {
 		if($this->category !== null && $this->category->getCategoryId() !== null) {
 			$this->category->delete($this->mysqli);
-			$this->category = null;
 		}
+		$this->category = null;
 
 		// disconnect from mySQL
 		if($this->mysqli !== null) {

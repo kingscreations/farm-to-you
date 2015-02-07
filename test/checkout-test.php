@@ -77,8 +77,8 @@ class CheckoutTest extends UnitTestCase {
 		// destroy the object if it was created
 		if($this->checkout !== null && $this->checkout->getCheckoutId() !== null) {
 			$this->checkout->delete($this->mysqli);
-			$this->checkout = null;
 		}
+		$this->checkout = null;
 
 		if($this->order !== null) {
 			$this->order->delete($this->mysqli);

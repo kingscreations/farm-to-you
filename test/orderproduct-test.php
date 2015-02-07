@@ -127,8 +127,8 @@ class OrderProductTest extends UnitTestCase {
 	public function tearDown() {
 		if($this->orderProduct !== null) {
 			$this->orderProduct->delete($this->mysqli);
-			$this->orderProduct = null;
 		}
+		$this->orderProduct = null;
 
 		if($this->order !== null) {
 			$this->order->delete($this->mysqli);

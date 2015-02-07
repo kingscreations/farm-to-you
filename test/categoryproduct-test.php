@@ -69,8 +69,8 @@ class CategoryProductTest extends UnitTestCase {
 	public function tearDown() {
 		if($this->categoryProduct !== null) {
 			$this->categoryProduct->delete($this->mysqli);
-			$this->categoryProduct = null;
 		}
+		$this->categoryProduct = null;
 
 		if($this->category !== null) {
 			$this->category->delete($this->mysqli);

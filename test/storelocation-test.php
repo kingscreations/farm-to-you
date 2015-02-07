@@ -61,24 +61,29 @@ class StoreLocationTest extends UnitTestCase {
 		// destroy the objects if they were created
 		if($this->storeLocation !== null) {
 			$this->storeLocation->delete($this->mysqli);
-			$this->storeLocation = null;
 		}
+		$this->storeLocation = null;
+
 		if($this->location !== null) {
 			$this->location->delete($this->mysqli);
 			$this->location = null;
 		}
+
 		if($this->store !== null) {
 			$this->store->delete($this->mysqli);
 			$this->store = null;
 		}
+
 		if($this->profile !== null) {
 			$this->profile->delete($this->mysqli);
 			$this->profile = null;
 		}
+
 		if($this->user !== null) {
 			$this->user->delete($this->mysqli);
 			$this->user = null;
 		}
+
 		// disconnect from mySQL
 		if($this->mysqli !== null) {
 			$this->mysqli->close();

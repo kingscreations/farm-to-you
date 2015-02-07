@@ -69,8 +69,8 @@ class UserTest extends UnitTestCase {
 		// destroy the object if it was created
 		if($this->user !== null && $this->user->getUserId() !== null) {
 			$this->user->delete($this->mysqli);
-			$this->user = null;
 		}
+		$this->user = null;
 
 		// disconnect from mySQL
 		if($this->mysqli !== null) {

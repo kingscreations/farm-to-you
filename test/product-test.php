@@ -129,13 +129,13 @@ class ProductTest extends UnitTestCase {
 		// destroy the object if it was created
 		if($this->product !== null && $this->product->getProductId() !== null) {
 			$this->product->delete($this->mysqli);
-			$this->product = null;
 		}
+		$this->product = null;
 
 		if($this->product2 !== null && $this->product2->getProductId() !== null) {
 			$this->product2->delete($this->mysqli);
-			$this->product2 = null;
 		}
+		$this->product2 = null;
 
 		if($this->profile2 !== null) {
 			$this->profile2->delete($this->mysqli);

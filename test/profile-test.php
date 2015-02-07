@@ -137,13 +137,13 @@ public function tearDown() {
 	// destroy the object if it was created
 	if($this->profile1 !== null && $this->profile1->getProfileId() !== null) {
 		$this->profile1->delete($this->mysqli);
-		$this->profile1 = null;
 	}
+	$this->profile1 = null;
 
 	if($this->profile2 !== null && $this->profile2->getProfileId() !== null) {
 		$this->profile2->delete($this->mysqli);
-		$this->profile2 = null;
 	}
+	$this->profile2 = null;
 
 	// destroy the object if it was created
 	if($this->user1 !== null) {

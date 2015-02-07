@@ -71,27 +71,27 @@ class StoreTest extends UnitTestCase {
 	 **/
 	public function tearDown() {
 		// destroy the objects if they were created
-		if($this->store !== null) {
+		if($this->store !== null && $this->store->getStoreId() !== null) {
 			$this->store->delete($this->mysqli);
 			$this->store = null;
 		}
-		if($this->store2 !== null) {
+		if($this->store2 !== null && $this->store2->getStoreId() !== null) {
 			$this->store2->delete($this->mysqli);
 			$this->store2 = null;
 		}
-		if($this->profile !== null) {
+		if($this->profile !== null && $this->profile->getProfileId() !== null) {
 			$this->profile->delete($this->mysqli);
 			$this->profile = null;
 		}
-		if($this->profile2 !== null) {
+		if($this->profile2 !== null && $this->profile2->getProfileId() !== null) {
 			$this->profile2->delete($this->mysqli);
 			$this->profile2 = null;
 		}
-		if($this->user !== null) {
+		if($this->user !== null && $this->user->getUserId() !== null) {
 			$this->user->delete($this->mysqli);
 			$this->user = null;
 		}
-		if($this->user2 !== null) {
+		if($this->user2 !== null && $this->user2->getUserId() !== null) {
 			$this->user2->delete($this->mysqli);
 			$this->user2 = null;
 		}

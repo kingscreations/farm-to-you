@@ -67,7 +67,7 @@ class CategoryProductTest extends UnitTestCase {
 	 * tears down the connection to mysql and deletes the test instance object
 	 **/
 	public function tearDown() {
-		if($this->categoryProduct !== null) {
+		if($this->categoryProduct !== null && $this->categoryProduct->isInserted()) {
 			$this->categoryProduct->delete($this->mysqli);
 		}
 		$this->categoryProduct = null;

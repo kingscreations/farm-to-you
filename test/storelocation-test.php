@@ -59,7 +59,7 @@ class StoreLocationTest extends UnitTestCase {
 	 **/
 	public function tearDown() {
 		// destroy the objects if they were created
-		if($this->storeLocation !== null) {
+		if($this->storeLocation !== null && $this->storeLocation->isInserted()) {
 			$this->storeLocation->delete($this->mysqli);
 		}
 		$this->storeLocation = null;

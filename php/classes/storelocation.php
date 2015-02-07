@@ -16,6 +16,12 @@ class StoreLocation {
 	 * @var int $locationId the id of the location. Foreign Key to the location entity
 	 */
 	private $locationId;
+
+	/**
+	 * @var boolean $inserted becomes true if inserted into the database
+	 */
+	private $inserted = false;
+
 	/**
 	 * constructor of this storeLocation
 	 *
@@ -119,8 +125,19 @@ class StoreLocation {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
 		}
 
+		$this->inserted = true;
 		$statement->close();
 	}
+
+	/**
+	 * check if the order product has been inserted
+	 *
+	 * @return true if the order product has been inserted
+	 */
+	public function isInserted() {
+		return $this->inserted;
+	}
+
 	/**
 	 * deletes this StoreLocation from mySQL
 	 *

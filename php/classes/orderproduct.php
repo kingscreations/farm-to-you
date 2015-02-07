@@ -22,6 +22,11 @@ class OrderProduct {
 	private $productQuantity;
 
 	/**
+	 * @var boolean $inserted becomes true if inserted into the database
+	 */
+	private $inserted = false;
+
+	/**
 	 * constructor of this orderProduct
 	 *
 	 * @param int $newOrderId
@@ -156,7 +161,17 @@ class OrderProduct {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
 		}
 
+		$this->inserted = true;
 		$statement->close();
+	}
+
+	/**
+	 * check if the order product has been inserted
+	 *
+	 * @return true if the order product has been inserted
+	 */
+	public function isInserted() {
+		return $this->inserted;
 	}
 
 	/**

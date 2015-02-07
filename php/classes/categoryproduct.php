@@ -20,6 +20,10 @@ class CategoryProduct {
 	private $productId;
 
 	/**
+	 * @var boolean $inserted becomes true if inserted into the database
+	 */
+	private $inserted = false;
+	/**
 	 * constructor for this category product class
 	 *
 	 * @param int $newCategoryId id of the category
@@ -134,8 +138,18 @@ class CategoryProduct {
 			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
 		}
 
+		$this->inserted = true;
 		// clean up the statement
 		$statement->close();
+	}
+
+	/**
+	 * check if the category product has been inserted
+	 *
+	 * @return true if the category product has been inserted
+	 */
+	public function isInserted() {
+		return $this->inserted;
 	}
 
 	/**

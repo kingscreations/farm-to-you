@@ -146,12 +146,12 @@ public function tearDown() {
 	}
 
 	// destroy the object if it was created
-	if($this->user1 !== null && $this->user1->getUserId() !== null) {
+	if($this->user1 !== null) {
 		$this->user1->delete($this->mysqli);
 		$this->user1 = null;
 	}
 
-	if($this->user2 !== null && $this->user2->getUserId() !== null) {
+	if($this->user2 !== null) {
 		$this->user2->delete($this->mysqli);
 		$this->user2 = null;
 	}

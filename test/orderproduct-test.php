@@ -125,27 +125,27 @@ class OrderProductTest extends UnitTestCase {
 	 * tears down the connection to mySQL and deletes the test instance object
 	 **/
 	public function tearDown() {
-		if($this->orderProduct !== null && $this->orderProduct->getProductId() !== null) {
+		if($this->orderProduct !== null) {
 			$this->orderProduct->delete($this->mysqli);
 			$this->orderProduct = null;
 		}
 
-		if($this->order !== null && $this->order->getOrderId() !== null) {
+		if($this->order !== null) {
 			$this->order->delete($this->mysqli);
 			$this->order = null;
 		}
 
-		if($this->product !== null && $this->product->getProductId() !== null) {
+		if($this->product !== null) {
 			$this->product->delete($this->mysqli);
 			$this->product = null;
 		}
 
-		if($this->profile !== null && $this->profile->getProfileId() !== null) {
+		if($this->profile !== null) {
 			$this->profile->delete($this->mysqli);
 			$this->profile = null;
 		}
 
-		if($this->user !== null && $this->user->getUserId() !== null) {
+		if($this->user !== null) {
 			$this->user->delete($this->mysqli);
 			$this->user = null;
 		}

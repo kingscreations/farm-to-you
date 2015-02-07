@@ -85,12 +85,12 @@ class CheckoutTest extends UnitTestCase {
 			$this->order = null;
 		}
 
-		if($this->profile !== null && $this->profile->getProfileId() !== null) {
+		if($this->profile !== null) {
 			$this->profile->delete($this->mysqli);
 			$this->profile = null;
 		}
 
-		if($this->user !== null && $this->user->getUserId() !== null) {
+		if($this->user !== null) {
 			$this->user->delete($this->mysqli);
 			$this->user = null;
 		}

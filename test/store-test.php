@@ -79,19 +79,19 @@ class StoreTest extends UnitTestCase {
 			$this->store2->delete($this->mysqli);
 			$this->store2 = null;
 		}
-		if($this->profile !== null && $this->profile->getProfileId() !== null) {
+		if($this->profile !== null) {
 			$this->profile->delete($this->mysqli);
 			$this->profile = null;
 		}
-		if($this->profile2 !== null && $this->profile2->getProfileId() !== null) {
+		if($this->profile2 !== null) {
 			$this->profile2->delete($this->mysqli);
 			$this->profile2 = null;
 		}
-		if($this->user !== null && $this->user->getUserId() !== null) {
+		if($this->user !== null) {
 			$this->user->delete($this->mysqli);
 			$this->user = null;
 		}
-		if($this->user2 !== null && $this->user2->getUserId() !== null) {
+		if($this->user2 !== null) {
 			$this->user2->delete($this->mysqli);
 			$this->user2 = null;
 		}

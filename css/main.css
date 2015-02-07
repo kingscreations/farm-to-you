@@ -1,0 +1,66 @@
+/**
+ *	Sticky footer plugin: http://mystrd.at/modern-clean-css-sticky-footer/
+ */
+html {
+	position: relative;
+	min-height: 100%;
+}
+body {
+	margin: 0 0 100px; /* bottom = footer height */
+}
+footer {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 100px;
+	width: 100%;
+}
+
+/**
+ *	bootstrap elements setup
+ */
+.container-fluid {
+	width: 100% !important;
+	margin: 0 !important;
+	padding: 0;
+}
+
+.row-fluid {
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#main-menu {
+	width: 100%;
+	padding-left: 5%;
+	padding-right: 5%;
+	background-color: black;
+	color: white;
+}
+
+/**
+ * top main-menu
+ */
+#main-menu a {
+	color: white;
+}
+
+#main-menu li {
+	float: right;
+}
+
+/*
+ * useful classes
+ */
+.no-margin {
+	margin: 0 !important;
+}
+
+/*
+ * head titles
+ */
+h1 {
+	font-size: 1em;
+	padding: 10px 0;
+}

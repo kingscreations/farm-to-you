@@ -34,4 +34,26 @@
 		<title>Farm To You</title>
 	</head>
 	<body>
-		<div class="container-fluid"><!-- start of global container -->
+		<!-- start of global container -->
+		<div class="container-fluid">
+			<div class="row-fluid clearfix" id="main-menu">
+				<div class="col-sm-8">
+					<h1 class="no-margin">logo-placeholder-farm-to-you</h1>
+				</div>
+				<div class="col-sm-4">
+					<ul class="nav nav-pills" role="tablist">
+						<li role="presentation" class="dropdown">
+							<a id="drop6" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+								My Account
+								<span class="caret"></span>
+							</a>
+							<ul id="menu3" class="dropdown-menu" role="menu" aria-labelledby="drop6">
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="">Settings</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="">Order history</a></li>
+								<li role="presentation" class="divider"></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="">Sign out</a></li>
+							</ul>
+						</li>
+					</ul> <!-- end pills -->
+				</div>
+			</div><!-- end row-fluid main-menu -->

@@ -46,6 +46,10 @@ class StoreTest extends UnitTestCase {
 	 * path of the Store image
 	 **/
 	private $imagePath = "http://www.google.com";
+	/**
+	 * description of the Store
+	 **/
+	private $storeDescription = "Best Farm Ever";
 
 	/**
 	 * sets up the mySQL connection for this test
@@ -63,13 +67,13 @@ class StoreTest extends UnitTestCase {
 		$this->user->insert($this->mysqli);
 		$this->profile = new Profile(null, "Test", "Test2", "5555555555", "m", "012345", "http://www.cats.com/cat.jpg", $this->user->getUserId());
 		$this->profile->insert($this->mysqli);
-		$this->store = new Store(null, $this->profile->getProfileId(), $this->storeName, $this->imagePath, $this->creationDate);
+		$this->store = new Store(null, $this->profile->getProfileId(), $this->storeName, $this->imagePath, $this->creationDate, $this->storeDescription);
 
 		$this->user2 = new User(null, "test2@test.com", 'Aa10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99Aa10BC99AB10BC99AB10BC99AB10BC', '99Aa10BC99AB10BC');
 		$this->user2->insert($this->mysqli);
 		$this->profile2 = new Profile(null, "Test", "Test2", "5555555555", "m", "012345", "http://www.cats.com/cat.jpg", $this->user2->getUserId());
 		$this->profile2->insert($this->mysqli);
-		$this->store2 = new Store(null, $this->profile2->getProfileId(), $this->storeName, $this->imagePath, $this->creationDate);
+		$this->store2 = new Store(null, $this->profile2->getProfileId(), $this->storeName, $this->imagePath, $this->creationDate, $this->storeDescription);
 	}
 
 	/**
@@ -134,6 +138,8 @@ class StoreTest extends UnitTestCase {
 		$this->assertIdentical($this->store->getCreationDate(), $mysqlStore->getCreationDate());
 		$this->assertIdentical($this->store->getStoreName(), $mysqlStore->getStoreName());
 		$this->assertIdentical($this->store->getImagePath(), $mysqlStore->getImagePath());
+		$this->assertIdentical($this->store->getStoreDescription(), $mysqlStore->getStoreDescription());
+
 
 	}
 
@@ -222,6 +228,8 @@ class StoreTest extends UnitTestCase {
 		$this->assertIdentical($this->store->getCreationDate(), $mysqlStore->getCreationDate());
 		$this->assertIdentical($this->store->getStoreName(), $mysqlStore->getStoreName());
 		$this->assertIdentical($this->store->getImagePath(), $mysqlStore->getImagePath());
+		$this->assertIdentical($this->store->getStoreDescription(), $mysqlStore->getStoreDescription());
+
 	}
 
 	/**

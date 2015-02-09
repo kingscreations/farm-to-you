@@ -38,6 +38,7 @@ CREATE TABLE store (
 	creationDate DATETIME NOT NULL,
 	storeName VARCHAR(100),
 	imagePath VARCHAR(255),
+	storeDescription TEXT,
 	profileId INT UNSIGNED NOT NULL,
 	INDEX(profileId),
 	FOREIGN KEY(profileId) REFERENCES profile(profileId),

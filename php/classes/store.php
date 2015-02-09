@@ -31,6 +31,11 @@ class Store {
 	 **/
 	private $creationDate;
 
+	/**
+	 * description of the store
+	 **/
+	private $storeDescription;
+
 
 	/**
 	 * constructor for this store class
@@ -40,16 +45,19 @@ class Store {
 	 * @param mixed $newCreationDate date and time store was created or null if set to current date and time
 	 * @param string $newStoreName name of the store
 	 * @param string $newImagePath path of image associated with the store or null if none
+	 * @param string $newStoreDescription description of store or null if none
 	 * @throws InvalidArgumentException it data types are not valid
 	 * @throws RangeException if data values are out of bounds (e.g. strings too long, negative integers)
 	 **/
-	public function __construct($newStoreId, $newProfileId, $newStoreName, $newImagePath = null, $newCreationDate = null) {
+	public function __construct($newStoreId, $newProfileId, $newStoreName, $newImagePath = null, $newCreationDate = null, $newStoreDescription = null) {
 		try {
 			$this->setStoreId($newStoreId);
 			$this->setProfileId($newProfileId);
 			$this->setCreationDate($newCreationDate);
 			$this->setStoreName($newStoreName);
 			$this->setImagePath($newImagePath);
+			$this->setStoreDescription($newStoreDescription);
+
 		} catch(InvalidArgumentException $invalidArgument) {
 			// rethrow the exception to the caller
 			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
@@ -230,11 +238,12 @@ class Store {
 	 * @throws RangeException if $newImagePath is > 255 characters
 	 **/
 	public function setImagePath($newImagePath) {
+
 		// verify that the image path is secure
 		$newImagePath = trim($newImagePath);
-		$newImagePath = filter_var($newImagePath, FILTER_SANITIZE_STRING);
+		$newImagePath = filter_var($newImagePath, FILTER_VALIDATE_URL);
 		if(empty($newImagePath) === true) {
-			throw(new InvalidArgumentException("image path is empty or insecure"));
+			throw(new InvalidArgumentException("image path is empty or not a url"));
 		}
 
 		// verify the image path will fit in the database
@@ -244,6 +253,32 @@ class Store {
 
 		// store the image path
 		$this->imagePath = $newImagePath;
+	}
+	/**
+	 * accessor method for store description
+	 *
+	 * @return string value of store description
+	 **/
+	public function getStoreDescription() {
+		return ($this->storeDescription);
+	}
+
+	/**
+	 * mutator method for store description
+	 *
+	 * @param string $newStoreDescription new value of store description
+	 * @throws InvalidArgumentException if $newStoreDescription is not a string or insecure
+	 **/
+	public function setStoreDescription($newStoreDescription) {
+		// verify that the store name is secure
+		$newStoreDescription = trim($newStoreDescription);
+		$newStoreDescription = filter_var($newStoreDescription, FILTER_SANITIZE_STRING);
+		if(empty($newStoreDescription) === true) {
+			throw(new InvalidArgumentException("store description is empty or insecure"));
+		}
+
+		// store the store name
+		$this->storeDescription = $newStoreDescription;
 	}
 
 	/**
@@ -262,14 +297,14 @@ class Store {
 			throw(new mysqli_sql_exception("this store already exists"));
 		}
 		// create query template
-		$query = "INSERT INTO store(profileId, creationDate, storeName, imagePath) VALUES (?, ?, ?, ?)";
+		$query = "INSERT INTO store(profileId, creationDate, storeName, imagePath, storeDescription) VALUES (?, ?, ?, ?, ?)";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the member variables to the place holders in the template
 		$formattedDate = $this->creationDate->format("Y-m-d H:i:s");
-		$wasClean = $statement->bind_param("isss", $this->profileId, $formattedDate, $this->storeName, $this->imagePath);
+		$wasClean = $statement->bind_param("issss", $this->profileId, $formattedDate, $this->storeName, $this->imagePath, $this->storeDescription);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters:"));
 		}
@@ -333,14 +368,14 @@ class Store {
 			throw(new mysqli_sql_exception("unable to update a store that does not exist"));
 		}
 		// create a query template
-		$query = "UPDATE store SET profileId = ?, creationDate = ?, storeName = ?, imagePath = ? WHERE storeId = ?";
+		$query = "UPDATE store SET profileId = ?, creationDate = ?, storeName = ?, imagePath = ?, storeDescription = ? WHERE storeId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the member variables to the place holders in the template
 		$formattedDate = $this->creationDate->format("Y-m-d H:i:s");
-		$wasClean = $statement->bind_param("isssi", $this->profileId, $formattedDate, $this->storeName, $this->imagePath, $this->storeId);
+		$wasClean = $statement->bind_param("issssi", $this->profileId, $formattedDate, $this->storeName, $this->imagePath, $this->storeDescription, $this->storeId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -376,7 +411,7 @@ class Store {
 		}
 
 		// create query template
-		$query = "SELECT storeId, profileId, creationDate, storeName, imagePath FROM store WHERE storeId = ?";
+		$query = "SELECT storeId, profileId, storeName, imagePath, creationDate, storeDescription FROM store WHERE storeId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -404,7 +439,7 @@ class Store {
 			$store = null;
 			$row = $result->fetch_assoc();
 			if($row !== null) {
-				$store = new Store($row["storeId"], $row["profileId"], $row["storeName"], $row["imagePath"], $row["creationDate"]);
+				$store = new Store($row["storeId"], $row["profileId"], $row["storeName"], $row["imagePath"], $row["creationDate"], $row["storeDescription"]);
 			}
 		} catch(Exception $exception) {
 			// if the row couldn't be converted, rethrow it
@@ -435,7 +470,7 @@ class Store {
 		$storeName = filter_var($storeName, FILTER_SANITIZE_STRING);
 
 		// create query template
-		$query = "SELECT storeId, profileId, storeName, imagePath, creationDate FROM store WHERE storeName LIKE ?";
+		$query = "SELECT storeId, profileId, storeName, imagePath, creationDate, storeDescription FROM store WHERE storeName LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -463,7 +498,7 @@ class Store {
 		$stores = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$store	= new Store($row["storeId"], $row["profileId"], $row["storeName"], $row["imagePath"], $row["creationDate"]);
+				$store	= new Store($row["storeId"], $row["profileId"], $row["storeName"], $row["imagePath"], $row["creationDate"], $row["storeDescription"]);
 				$stores[] = $store;
 			}
 			catch(Exception $exception) {
@@ -496,7 +531,7 @@ class Store {
 		}
 
 		// create query template
-		$query	 = "SELECT storeId, profileId, storeName, imagePath, creationDate FROM store";
+		$query	 = "SELECT storeId, profileId, storeName, imagePath, creationDate, storeDescription FROM store";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -517,7 +552,7 @@ class Store {
 		$stores = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$store	= new Store($row["storeId"], $row["profileId"], $row["storeName"], $row["imagePath"], $row["creationDate"]);
+				$store	= new Store($row["storeId"], $row["profileId"], $row["storeName"], $row["imagePath"], $row["creationDate"], $row["storeDescription"]);
 				$stores[] = $store;
 			}
 			catch(Exception $exception) {

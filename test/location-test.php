@@ -31,7 +31,7 @@ class LocationTest extends UnitTestCase {
 	 **/
 	private $location2 = null;
 
-// this section contains member variables with constants needed for creating a new location
+	// this section contains member variables with constants needed for creating a new location
 	/**
 	 * country of location
 	 **/
@@ -117,9 +117,9 @@ class LocationTest extends UnitTestCase {
 
 	}
 
-//	/**
-//	 * test inserting an invalid Location into mySQL
-//	 **/
+	/**
+	 * test inserting an invalid Location into mySQL
+	 **/
 	public function testInsertInvalidLocation() {
 		// zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);
@@ -136,9 +136,9 @@ class LocationTest extends UnitTestCase {
 		$this->location = null;
 	}
 
-//	/**
-//	 * test deleting a Location from mySQL
-//	 **/
+	/**
+	 * test deleting a Location from mySQL
+	 **/
 	public function testDeleteValidLocation() {
 		// zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);
@@ -158,9 +158,9 @@ class LocationTest extends UnitTestCase {
 		$this->location = null;
 	}
 
-//	/**
-//	 * test deleting a Location from mySQL that does not exist
-//	 **/
+	/**
+	 * test deleting a Location from mySQL that does not exist
+	 **/
 	public function testDeleteInvalidLocation() {
 		// zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);
@@ -174,9 +174,9 @@ class LocationTest extends UnitTestCase {
 		$this->location = null;
 	}
 
-//	/**
-//	 * test updating a Location from mySQL
-//	 **/
+	/**
+	 * test updating a Location from mySQL
+	 **/
 	public function testUpdateValidLocation() {
 		// zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);
@@ -206,9 +206,9 @@ class LocationTest extends UnitTestCase {
 		$this->assertIdentical($this->location->getAddress2(), $mysqlLocation->getAddress2());
 	}
 
-//	/**
-//	 * test updating a Location from mySQL that does not exist
-//	 **/
+	/**
+	 * test updating a Location from mySQL that does not exist
+	 **/
 	public function testUpdateInvalidLocation() {
 		//// zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);

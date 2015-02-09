@@ -99,6 +99,9 @@ input[type=text]:focus {
 }
 
 li[role=presentation] a:hover,
+li[role=presentation] a:visited,
+li[role=presentation] a:active,
+li[role=presentation] a:focus,
 li[role=presentation].open a {
 	background-color: transparent !important;
 }
@@ -110,7 +113,7 @@ li[role=presentation].open a {
 /**
  * top main-menu
  */
-#main-menu li {
+#main-menu ul.nav.nav-pills > li {
 	float: right;
 }
 

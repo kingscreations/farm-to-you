@@ -157,4 +157,25 @@
 
 	<div class="vertical-spacer-60"></div>
 
+	<div class="row-fluid">
+		<div class="col-sm-2 col-xs-4">
+			<a href="">category</a>
+		</div>
+		<div class="col-sm-2 col-xs-4">
+			<a href="">category</a>
+		</div>
+		<div class="col-sm-2 col-xs-4">
+			<a href="">category</a>
+		</div>
+		<div class="col-sm-2 col-xs-4">
+			<a href="">category</a>
+		</div>
+		<div class="col-sm-2 col-xs-4">
+			<a href="">category</a>
+		</div>
+		<div class="col-sm-2 col-xs-4">
+			<a href="">category</a>
+		</div>
+	</div><!-- end row-fluid -->
+
 </div><!-- end container-fluid -->

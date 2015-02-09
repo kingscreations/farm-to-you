@@ -266,7 +266,7 @@ class CategoryProduct {
 	 * @return mixed array of products found, or null if not found
 	 * @throws mysqli_sql_exception when mysql related errors occur
 	 **/
-	public static function getProductByProductId(&$mysqli, $productId) {
+	public static function getCategoryProductByProductId(&$mysqli, $productId) {
 		// handle degenerate cases
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));

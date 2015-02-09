@@ -61,10 +61,12 @@ input[type=text]:focus {
 }
 
 #main-search {
-	width: 60%;
+	width: 80% !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
 }
 
-#main-search input,
+#main-search input[type=text],
 #main-search button {
 	width: 100%;
 }
@@ -122,7 +124,18 @@ input[type=text]:focus {
 /*
  * head titles
  */
-h1 {
-	font-size: 1em;
+h1, h2 {
 	padding: 10px 0;
 }
+
+h1 {
+	font-size: 1em;
+}
+h2 {
+	font-size: 1.2em;
+}
+
+
+/**
+ * Horizontal thumbnail
+ */

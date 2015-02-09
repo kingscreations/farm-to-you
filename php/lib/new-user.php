@@ -11,4 +11,14 @@
 
 	<?php require_once "main-search.php" ?>
 
+	<br/>
+
+	<h2>Farmers in your area</h2>
+
+
+
+	<br/>
+
+	<h2>Highest rated farmers</h2>
+
 </div><!-- end container-fluid -->

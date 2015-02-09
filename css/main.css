@@ -98,6 +98,15 @@ input[type=text]:focus {
 	padding-right: 5%;
 }
 
+li[role=presentation] a:hover,
+li[role=presentation].open a {
+	background-color: transparent !important;
+}
+
+#my-account-dropdown-menu {
+	background-color: darkgrey;
+}
+
 /**
  * top main-menu
  */

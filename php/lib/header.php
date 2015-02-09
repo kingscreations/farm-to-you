@@ -49,7 +49,7 @@
 								My Account
 								<span class="caret"></span>
 							</a>
-							<ul id="menu3" class="dropdown-menu" role="menu" aria-labelledby="drop6">
+							<ul id="my-account-dropdown-menu" class="dropdown-menu" role="menu" aria-labelledby="drop6">
 								<li role="presentation"><a role="menuitem" tabindex="-1" href="">Settings</a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1" href="">Order history</a></li>
 								<li role="presentation" class="divider"></li>

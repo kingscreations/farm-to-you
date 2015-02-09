@@ -95,7 +95,7 @@
 					<img src="images/star-trek-to-you/star-trek-next-generation-05.jpg" alt="some star trek image placeholder"/>
 				</li>
 				<li>
-					<img src="images/star-trek-to-you/star-trek-next-generation-01.jpg" alt="some star trek image placeholder"/>
+					<img src="images/star-trek-to-you/starwars-intrude.jpg" alt="some star trek image placeholder"/>
 				</li>
 				<li>
 					<img src="images/star-trek-to-you/star-trek-next-generation-02.jpg" alt="some star trek image placeholder"/>

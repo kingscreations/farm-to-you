@@ -265,6 +265,11 @@ class Product {
 	 * @throws RangeException if $newProductWeight is less than 0
 	 */
 	public function setProductWeight($newProductWeight) {
+		if($newProductWeight === null) {
+			$this->productWeight = null;
+			return;
+		}
+
 		$newProductWeight = filter_var($newProductWeight, FILTER_VALIDATE_FLOAT);
 		if($newProductWeight === false) {
 			throw(new InvalidArgumentException("product id is not a valid float"));
@@ -495,11 +500,12 @@ class Product {
 			}
 		}
 
+		$result->free();
+		$statement->close();
+
 		$numberOfProducts = count($products);
 		if($numberOfProducts === 0) {
 			return(null);
-		} else if($numberOfProducts === 1) {
-			return($products[0]);
 		} else {
 			return($products);
 		}

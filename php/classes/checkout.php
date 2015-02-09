@@ -464,8 +464,6 @@ class Checkout {
 		$numberOfCheckouts = count($checkouts);
 		if($numberOfCheckouts === 0) {
 			return (null);
-		} else if($numberOfCheckouts === 1) {
-			return ($checkouts[0]);
 		} else {
 			return ($checkouts);
 		}

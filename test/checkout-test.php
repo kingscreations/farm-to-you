@@ -29,8 +29,9 @@ class CheckoutTest extends UnitTestCase {
 	 * instance of the object we are testing with
 	 **/
 	private $checkout = null;
+	private $checkout2 = null;
 
-	// this section contains member variables with constants needed for creating a new checkout
+		// this section contains member variables with constants needed for creating a new checkout
 	/**
 	 * order id of the test check out
 
@@ -39,6 +40,11 @@ class CheckoutTest extends UnitTestCase {
 	private $orderDate = null;
 	private $profile = null;
 	private $user = null;
+
+	private $order2 = null;
+	private $profile2 = null;
+	private $user2 = null;
+
 	/**
 	 * date the checkout was created
 	 **/
@@ -68,6 +74,27 @@ class CheckoutTest extends UnitTestCase {
 		$this->order->insert($this->mysqli);
 
 		$this->checkout = new Checkout(null, $this->order->getOrderId(), $this->checkoutDate);
+
+		$this->user2 = new User(null, "test2@test.com", 'Aa10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99Aa10BC99AB10BC99AB10BC99AB10BC', '99Aa10BC99AB10BC');
+		$this->user2->insert($this->mysqli);
+
+		$this->profile2 = new Profile(null, $this->profile->getFirstName(), $this->profile->getLastName(),
+			$this->profile->getPhone(), $this->profile->getProfileType(), $this->profile->getCustomerToken(),
+			$this->profile->getImagePath(), $this->user2->getUserId());
+		$this->profile2->insert($this->mysqli);
+
+		$this->order2 = new Order(null, $this->profile2->getProfileId(), $this->order->getOrderDate());
+		$this->order2->insert($this->mysqli);
+
+		$this->checkout2 = new Checkout(null, $this->order2->getOrderId(), $this->checkout->getCheckoutDate());
+
+		$this->assertNotNull($this->user2);
+		$this->assertNotNull($this->profile2);
+		$this->assertNotNull($this->order2);
+		$this->assertNotNull($this->checkout2);
+		$this->assertNotNull($this->user);
+		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->mysqli);
 	}
 
 	/**
@@ -75,19 +102,39 @@ class CheckoutTest extends UnitTestCase {
 	 **/
 	public function tearDown() {
 		// destroy the object if it was created
+		if($this->checkout2 !== null && $this->checkout2->getCheckoutId() !== null) {
+			$this->checkout2->delete($this->mysqli);
+		}
+		$this->checkout2 = null;
+
 		if($this->checkout !== null && $this->checkout->getCheckoutId() !== null) {
 			$this->checkout->delete($this->mysqli);
 		}
 		$this->checkout = null;
+
+		if($this->order2 !== null) {
+			$this->order2->delete($this->mysqli);
+			$this->order2 = null;
+		}
 
 		if($this->order !== null) {
 			$this->order->delete($this->mysqli);
 			$this->order = null;
 		}
 
+		if($this->profile2 !== null) {
+			$this->profile2->delete($this->mysqli);
+			$this->profile2 = null;
+		}
+
 		if($this->profile !== null) {
 			$this->profile->delete($this->mysqli);
 			$this->profile = null;
+		}
+
+		if($this->user2 !== null) {
+			$this->user2->delete($this->mysqli);
+			$this->user2 = null;
 		}
 
 		if($this->user !== null) {
@@ -232,9 +279,14 @@ class CheckoutTest extends UnitTestCase {
 
 		$this->checkout->insert($this->mysqli);
 		$formattedDate = $this->checkout->getCheckoutDate()->format("Y-m-d H:i:s");
-		$mysqlCheckout = Checkout::getCheckoutByCheckoutDate($this->mysqli, $formattedDate);
+		$mysqlCheckouts = Checkout::getCheckoutByCheckoutDate($this->mysqli, $formattedDate);
 
-		$this->assertIdentical($this->checkout->getCheckoutId(), $mysqlCheckout->getCheckoutId());
+		foreach($mysqlCheckouts as $mysqlCheckout) {
+			$this->assertNotNull($mysqlCheckout->getOrderId());
+			$this->assertTrue($mysqlCheckout->getOrderId() > 0);
+			$this->assertIdentical($this->checkout->getCheckoutId(), $mysqlCheckout->getCheckoutId());
+			$this->assertIdentical($this->checkout2->getCheckoutId(), $mysqlCheckout->getCheckoutId());
+		}
 	}
 
 	/**
@@ -246,7 +298,6 @@ class CheckoutTest extends UnitTestCase {
 
 		$this->checkout->insert($this->mysqli);
 		$formattedDate = "2015-02-05 12:38:34";
-//		$formattedDate = $this->checkout->getCheckoutDate()->format("Y-m-s H:i:s");
 		$mysqlCheckout = Checkout::getCheckoutByCheckoutDate($this->mysqli, $formattedDate);
 
 		$this->assertNull($mysqlCheckout);

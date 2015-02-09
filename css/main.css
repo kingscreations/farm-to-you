@@ -184,6 +184,11 @@ h2 {
 	border: 1px solid black;
 }
 
+#scroller li > img {
+	width: 160px;
+	height: 160px;
+}
+
 #scroller li:last-child {
 	margin-right: 0;
 }

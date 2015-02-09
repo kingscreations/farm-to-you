@@ -210,15 +210,15 @@ class LocationTest extends UnitTestCase {
 	 * test updating a Location from mySQL that does not exist
 	 **/
 	public function testUpdateInvalidLocation() {
-		//// zeroth, ensure the Location and mySQL class are sane
+		// zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);
 		$this->assertNotNull($this->mysqli);
 
-		//// first, try to update the Location before inserting it and ensure the exception is thrown
+		// first, try to update the Location before inserting it and ensure the exception is thrown
 		$this->expectException("mysqli_sql_exception");
 		$this->location->update($this->mysqli);
 
-		//// second, set the Location to null to prevent tearDown() from deleting a Location that has already been deleted
+		// second, set the Location to null to prevent tearDown() from deleting a Location that has already been deleted
 		$this->location = null;
 	}
 	/**

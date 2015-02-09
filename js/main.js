@@ -10,58 +10,15 @@
 
 	$(document).ready(function() {
 
-		var showcase=$('.showcase').swiper({
-			slidesPerView: 'auto',
-			keyboardControl: true,
-			centeredSlides: true,
-			watchActiveIndex: true
-		})
+		var myScroll;
 
-		$('.showcase .left').click(function(){
-			showcase.swipePrev();
-		})
+		function loaded () {
+			myScroll = new IScroll('#wrapper', { scrollX: true, scrollY: false, mouseWheel: true });
+		}
 
-		$('.showcase .right').click(function(){
-			showcase.swipeNext();
-		})
-
-		$('.more-examples span').click(function(){
-			showcase.swipeTo(1);
-		})
-
-		//Main Slider
-		var mainDevice = $('.swiper-main-device .swiper-container').swiper({
-			loop: true,
-			grabCursor: true,
-			paginationClickable: true,pagination:'.swiper-main-device .pagination'
-		})
-
-		$('.swiper-main-device .swiper-container').on('touchstart mousedown',function(e){
-			e.stopPropagation()
-		})
-
-		$('.arrow-left').click(function(e){
-			mainDevice.swipePrev()});
-
-		$('.arrow-right').click(function(e){
-			mainDevice.swipeNext()});
-
-		$('a.changelog').click(function(e){
+		document.addEventListener('touchmove', function (e) {
 			e.preventDefault();
-			$('div.changelog').slideDown(600);
-		});
-
-		$('.showcase').addClass('initialized');
-
-
-		var mySwiper = new Swiper('.swiper-container',{
-			pagination: '.pagination',
-			paginationClickable: true,
-			centeredSlides: true,
-			slidesPerView: 3,
-			watchActiveIndex: true
-		})
-
+		}, false);
 
 	});
 

@@ -61,7 +61,7 @@ input[type=text]:focus {
 }
 
 #main-search {
-	width: 80% !important;
+	width: 90% !important;
 	margin-left: auto !important;
 	margin-right: auto !important;
 }
@@ -101,7 +101,6 @@ input[type=text]:focus {
 /**
  * top main-menu
  */
-
 #main-menu li {
 	float: right;
 }
@@ -113,7 +112,7 @@ input[type=text]:focus {
 	margin: 0 !important;
 }
 
-.top-spacer {
+.vertical-spacer-60 {
 	margin-top: 60px;
 }
 
@@ -139,3 +138,52 @@ h2 {
 /**
  * Horizontal thumbnail
  */
+#wrapper {
+	position: relative;
+	z-index: 1;
+	overflow: scroll;
+}
+
+#scroller {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	width: 3770px; /* 20 list item of 160px width and a margin-right of 30px: 20 * (160 + 30) - 30 */
+	height: 100%;
+	-webkit-transform: translateZ(0);
+	   -moz-transform: translateZ(0);
+	    -ms-transform: translateZ(0);
+	     -o-transform: translateZ(0);
+	        transform: translateZ(0);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
+	-webkit-text-size-adjust: none;
+	   -moz-text-size-adjust: none;
+	    -ms-text-size-adjust: none;
+	     -o-text-size-adjust: none;
+	        text-size-adjust: none;
+}
+
+#scroller ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	max-height: 100%;
+	text-align: center;
+}
+
+#scroller li {
+	display: block;
+	float: left;
+	width: 160px;
+	height: 160px;
+	font-size: 14px;
+	margin-right: 30px;
+	border: 1px solid black;
+}
+
+#scroller li:last-child {
+	margin-right: 0;
+}

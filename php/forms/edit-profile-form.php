@@ -40,7 +40,7 @@
 
 		<div class="form-group">
 			<label for="InputImage">Profile Image</label>
-			<input type="file" class="form-control" id="InputImage" name="InputImage">
+			<input type="file" class="form-control" id="InputImage" name="InputImage" value="">
 		</div>
 
 		<br>

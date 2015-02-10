@@ -277,8 +277,9 @@ class Profile {
 		$newImagePath = trim($newImagePath);
 		$newImagePath = filter_var($newImagePath, FILTER_SANITIZE_STRING);
 		if(empty($newImagePath) === true) {
-			throw(new InvalidArgumentException("image path content is empty or insecure"));
+			$this->imagePath = null;
 		}
+
 		// verify the image path content will fit in the database
 		if(strlen($newImagePath) > 255) {
 			throw(new RangeException("image path content too large"));

@@ -15,6 +15,7 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 	if(@isset($_POST["InputImage"])) {
+		// the 17 and 25 are holders for profile id of 17 and user id of 25
 		$profile = new Profile(17, $_POST["InputFirstname"], $_POST["InputLastname"], $_POST["InputPhone"], $_POST["InputType"], "012345", $_POST["InputImage"], 25);
 	} else {
 		$profile = new Profile(17, $_POST["InputFirstname"], $_POST["InputLastname"], $_POST["InputPhone"], $_POST["InputType"], "012345", null, 25);

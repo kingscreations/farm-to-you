@@ -41,6 +41,11 @@ class Product {
 	 */
 	private $productWeight;
 
+	/**
+	 * @var int $stockLimit maximum number of this product the merchant can or want to sell
+	 */
+	private $stockLimit;
+
 
 	/**
 	 * constructor of this product
@@ -52,11 +57,12 @@ class Product {
 	 * @param string $newProductPrice
 	 * @param string $newProductType
 	 * @param float $newProductWeight
+	 * @param int $stockLimit
 	 *
 	 * @throws InvalidArgumentException if data types are not valid
 	 * @throws RangeException if data values are out of bounds
 	 */
-	public function __construct($newProductId, $newProfileId, $newImagePath, $newProductName, $newProductPrice, $newProductType, $newProductWeight) {
+	public function __construct($newProductId, $newProfileId, $newImagePath, $newProductName, $newProductPrice, $newProductType, $newProductWeight, $newStockLimit=null) {
 		try {
 			$this->setProductId($newProductId);
 			$this->setProfileId($newProfileId);
@@ -65,6 +71,7 @@ class Product {
 			$this->setProductPrice($newProductPrice);
 			$this->setProductType($newProductType);
 			$this->setProductWeight($newProductWeight);
+			$this->setStockLimit($newStockLimit);
 		} catch(InvalidArgumentException $invalidArgument) {
 			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 		} catch(RangeException $range) {
@@ -118,7 +125,7 @@ class Product {
 	/**
 	 * mutator for the profile id
 	 *
-	 * @param int $newProductId for the product id
+	 * @param int $newProfileId for the product id
 	 * @throws InvalidArgumentException if data types are not valid
 	 * @throws RangeException if $newProfileId is less than 0
 	 */
@@ -281,6 +288,40 @@ class Product {
 		}
 
 		$this->productWeight = floatval($newProductWeight);
+	}
+
+	/**
+	 * accessor for the stockLimit
+	 *
+	 * @return int value for the stockLimit
+	 */
+	public function getStockLimit() {
+		return $this->stockLimit;
+	}
+
+	/**
+	 * mutator for the stockLimit
+	 *
+	 * @param int $newStockLimitId for the product
+	 * @throws InvalidArgumentException if data types are not valid
+	 * @throws RangeException if $newStockLimit is less than 0
+	 */
+	public function setStockLimit($newStockLimit) {
+		if($newStockLimit === null) {
+			$this->stockLimit = null;
+			return;
+		}
+
+		$newStockLimit = filter_var($newStockLimit, FILTER_VALIDATE_INT);
+		if($newStockLimit === false) {
+			throw(new InvalidArgumentException("product id is not a valid integer"));
+		}
+
+		if($newStockLimit <= 0) {
+			throw(new RangeException("product id must be positive"));
+		}
+
+		$this->stockLimit = intval($newStockLimit);
 	}
 
 	/**

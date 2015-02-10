@@ -328,5 +328,63 @@ class OrderProduct {
 			return($orderProducts);
 		}
 	}
+	// TODO do we really need getAllOrderProductsWithProductInformation?
+	/**
+	 * gets all order products with product information
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @return mixed array of OrderProducts found or null if not found
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+//	public static function getAllOrderProductsWithProductInformation(&$mysqli) {
+//		// handle degenerate cases
+//		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+//			throw(new mysqli_sql_exception("input is not a mysqli object"));
+//		}
+//
+//		// create query template
+//		$query	 = "SELECT orderId, product.productId, productQuantity, productPrice
+//							FROM orderProduct
+//							JOIN product
+//							ON orderProduct.productId = product.productId";
+//		$statement = $mysqli->prepare($query);
+//		if($statement === false) {
+//			throw(new mysqli_sql_exception("unable to prepare statement"));
+//		}
+//
+//		// execute the statement
+//		if($statement->execute() === false) {
+//			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+//		}
+//
+//		// get result from the SELECT query
+//		$result = $statement->get_result();
+//		if($result === false) {
+//			throw(new mysqli_sql_exception("unable to get result set"));
+//		}
+//
+//		// build an array of orderProduct
+//		$orderProducts = array();
+//		while(($row = $result->fetch_assoc()) !== null) {
+//			try {
+//				$orderProduct	= new OrderProduct($row["orderId"], $row["productId"], $row["productQuantity"]);
+//				$orderProducts[] = $orderProduct;
+//			}
+//			catch(Exception $exception) {
+//				// if the row couldn't be converted, rethrow it
+//				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+//			}
+//		}
+//
+//		// count the results in the array and return:
+//		// 1) null if 0 results
+//		// 2) the entire array if >= 1 result
+//		$numberOfOrderProducts = count($orderProducts);
+//		if($numberOfOrderProducts === 0) {
+//			return(null);
+//		} else {
+//			return($orderProducts);
+//		}
+//	}
 }
 ?>

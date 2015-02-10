@@ -79,6 +79,7 @@ CREATE TABLE checkout (
 	checkoutId INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	orderId INT UNSIGNED NOT NULL,
 	checkoutDate DATETIME NOT NULL,
+	finalPrice DECIMAL(9, 2) NOT NULL,
 	INDEX(orderId),
 	FOREIGN KEY(orderId) REFERENCES `order`(orderId),
 	PRIMARY KEY(checkoutId)
@@ -91,6 +92,7 @@ CREATE TABLE product (
 	productType VARCHAR(40) NOT NULL,
 	productWeight DECIMAL(8, 4),
 	imagePath VARCHAR(255),
+	stockLimit INT,
 	profileId INT UNSIGNED NOT NULL,
 	INDEX(profileId),
 	FOREIGN KEY(profileId) REFERENCES profile(profileId),

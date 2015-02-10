@@ -204,3 +204,10 @@ h2 {
 #scroller li:last-child {
 	margin-right: 0;
 }
+
+/**
+* form changes
+**/
+.form-group {
+	margin-top: 20px
+}

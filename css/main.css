@@ -81,8 +81,9 @@ input[type=text]:focus {
  *	bootstrap elements setup
  */
 .container-fluid {
-	width: 100% !important;
-	margin: 0 !important;
+	width: 90% !important;
+	margin-left: auto;
+	margin-right: auto;
 	padding: 0;
 }
 

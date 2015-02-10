@@ -1,0 +1,1 @@
+<?php $rootPath = dirname(__FILE__); ?>

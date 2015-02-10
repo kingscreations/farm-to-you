@@ -14,7 +14,7 @@
 	<br/>
 </div><!-- end main-search -->
 
-<div class="container-fluid" id="main-search">
+<div class="container-fluid" id="">
 	<h2>Farmers in your area</h2>
 
 	<div id="wrapper">

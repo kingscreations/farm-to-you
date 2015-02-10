@@ -4,6 +4,13 @@
  *
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
+
+// Get the relative path
+$currentDepth = substr_count($currentDir, "/");
+$rootDepth = substr_count($rootPath, "/");
+$depthDifference = $currentDepth - $rootDepth;
+$prefix = str_repeat("../", $depthDifference);
+
 ?>
 
 <!doctype HTML>
@@ -15,7 +22,7 @@
 
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/2.7.5/idangerous.swiper.min.css"/>
-		<link rel="stylesheet" href="css/main.css"/>
+		<link rel="stylesheet" href="<?php echo $prefix; ?>css/main.css"/>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -28,7 +35,8 @@
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
 		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
 		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/additional-methods.min.js"></script>
-		<script src="js/iscroll.js"></script>
+		<script src="<?php echo $prefix; ?>js/iscroll.js"></script>
+		<script src="<?php echo $prefix; ?>js/main.js"></script>
 
 		<!-- Latest compiled and minified Bootstrap JavaScript, all compiled plugins included -->
 		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>

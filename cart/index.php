@@ -28,9 +28,10 @@ try {
 		$configArray["database"]);
 
 	$products = Product::getAllProducts($mysqli);
+	$orders = Order::getAllOrders($mysqli);
 	$orderProducts = OrderProduct::getAllOrderProducts($mysqli);
 	$mysqli->close();
-//var_dump($products);
+
 } catch(Exception $exception) {
 	echo "Exception: " . $exception->getMessage() . "<br/>";
 	echo $exception->getFile() .":" . $exception->getLine();
@@ -53,12 +54,29 @@ try {
 			</thead>
 			<tbody>
 				<?php
-				foreach($orderProducts as $orderProduct) {
+				for($i = 0; $i < sizeof($orderProducts); $i++) {
+					$productId = $orderProducts[$i]->getProductId();
+					$product = null;
+					for($j = 0; $i < sizeof($products); $j++) {
+						if($products[$j]->getProductId() === $productId) {
+							$product = $products[$j];
+							break;
+						}
+					}
+					$orderId = $orderProducts[$i]->getOrderId();
+					$order = null;
+					for($j = 0; $i < sizeof($orders); $j++) {
+						if($orders[$j]->getOrderId() === $orderId) {
+							$order = $orders[$j];
+							break;
+						}
+					}
+
 					echo '<tr>';
-					echo '<td>' . 'photo' . '</td>';
-					echo '<td>' . 'description' . '</td>';
-					echo '<td>' . 'price' . '</td>';
-					echo '<td>' . $orderProduct->getProductQuantity() . '</td>';
+					echo '<td>' . $product->getImagePath() . '</td>';
+					echo '<td>' . $product->getProductName() . '</td>';
+					echo '<td>' . $product->getProductPrice() . '</td>';
+					echo '<td>' . $orderProducts[$i]->getProductQuantity() . '</td>';
 					echo '</tr>';
 				}
 

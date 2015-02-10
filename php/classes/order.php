@@ -428,7 +428,7 @@ class Order {
 		$orders = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$order	= new Order($row["productId"], $row["profileId"], $row["orderDate"]);
+				$order	= new Order($row["orderId"], $row["profileId"], $row["orderDate"]);
 				$orders[] = $order;
 			}
 			catch(Exception $exception) {

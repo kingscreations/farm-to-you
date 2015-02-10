@@ -1,11 +1,15 @@
-<?php require_once("../lib/header.php"); ?>
+<?php
+require_once("../lib/header.php");
+$currentDir = dirname(__FILE__);
+require_once '../root-path.php';
+?>
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/2.7.5/idangerous.swiper.min.css"/>
 <link rel="stylesheet" href="../../css/main.css"/>
 
 <div class="container">
-	<h2>Edit Profile</h2>
+	<h2>Create Profile</h2>
 
 	<form class="form-inline" method="post" action="../../edit-profile/add-profile-controller.php">
 

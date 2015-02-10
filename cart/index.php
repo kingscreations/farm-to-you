@@ -43,46 +43,68 @@ try {
 	<div class="col-sm-12">
 		<h2>Shopping cart</h2>
 
-		<table class="table">
-			<thead>
-				<tr>
-					<th></th>
-					<th>product description</th>
-					<th>price</th>
-					<th>quantity</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-				for($i = 0; $i < sizeof($orderProducts); $i++) {
-					$productId = $orderProducts[$i]->getProductId();
-					$product = null;
-					for($j = 0; $i < sizeof($products); $j++) {
-						if($products[$j]->getProductId() === $productId) {
-							$product = $products[$j];
-							break;
+		<form action="../php/forms/cart-controller.php" method="post">
+			<table class="table">
+				<thead>
+					<tr>
+						<th></th>
+						<th></th>
+						<th>price</th>
+						<th>quantity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					for($i = 0; $i < sizeof($orderProducts); $i++) {
+						$productId = $orderProducts[$i]->getProductId();
+						$product = null;
+						for($j = 0; $i < sizeof($products); $j++) {
+							if($products[$j]->getProductId() === $productId) {
+								$product = $products[$j];
+								break;
+							}
 						}
-					}
-					$orderId = $orderProducts[$i]->getOrderId();
-					$order = null;
-					for($j = 0; $i < sizeof($orders); $j++) {
-						if($orders[$j]->getOrderId() === $orderId) {
-							$order = $orders[$j];
-							break;
+						$orderId = $orderProducts[$i]->getOrderId();
+						$order = null;
+						for($j = 0; $i < sizeof($orders); $j++) {
+							if($orders[$j]->getOrderId() === $orderId) {
+								$order = $orders[$j];
+								break;
+							}
 						}
+
+						echo '<tr>';
+						echo '<td><img src="' . $product->getImagePath() . '"></td>';
+						echo '<td>' . $product->getProductName() . '</td>';
+						echo '<td>' . $product->getProductPrice() . '</td>';
+						echo '
+								<td>
+									<select>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+										<option>6</option>
+										<option>7</option>
+										<option>8</option>
+										<option>9</option>
+										<option>10</option>
+										<option>11</option>
+										<option>12</option>
+										<option>13</option>
+										<option>14</option>
+										<option>15</option>
+									</select>
+								</td>';
+						echo '</tr>';
 					}
 
-					echo '<tr>';
-					echo '<td>' . $product->getImagePath() . '</td>';
-					echo '<td>' . $product->getProductName() . '</td>';
-					echo '<td>' . $product->getProductPrice() . '</td>';
-					echo '<td>' . $orderProducts[$i]->getProductQuantity() . '</td>';
-					echo '</tr>';
-				}
-
-				?>
-			</tbody>
-		</table>
+					?>
+				</tbody>
+			</table>
+			<button type="submit" value="" class="btn btn-default" id="cart-validate-button">Validate your cart</button>
+		</form>
 	</div><!-- end col-sm-12 -->
 </div><!-- end row-fluid -->
 

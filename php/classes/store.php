@@ -266,14 +266,13 @@ class Store {
 	 * mutator method for store description
 	 *
 	 * @param string $newStoreDescription new value of store description
-	 * @throws InvalidArgumentException if $newStoreDescription is not a string or insecure
 	 **/
 	public function setStoreDescription($newStoreDescription) {
 		// verify that the store name is secure
 		$newStoreDescription = trim($newStoreDescription);
 		$newStoreDescription = filter_var($newStoreDescription, FILTER_SANITIZE_STRING);
 		if(empty($newStoreDescription) === true) {
-			throw(new InvalidArgumentException("store description is empty or insecure"));
+			$this->storeDescription = null;
 		}
 
 		// store the store name

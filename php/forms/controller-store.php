@@ -1,4 +1,7 @@
 <?php
+//$currentDir = dirname(__FILE__);
+//require_once '../../root-path.php';
+//require_once '../lib/header.php';
 require_once("../../store/index.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../classes/store.php");
@@ -7,7 +10,7 @@ require_once("../classes/user.php");
 
 
 // verify the form values have been submitted
-if(@isset($_POST["storeName"]) === false || @isset($_POST["storeDescription"]) === false || @isset($_POST["InputImage"]) === false) {
+if(@isset($_POST["storeName"]) === false) {
 	echo "<p class=\"alert alert-danger\">Form values not complete. Verify the form and try again.</p>";
 }
 
@@ -17,9 +20,7 @@ function getRandomWord($len = 10) {
 	return substr(implode($word), 0, $len);
 }
 $randActivation = bin2hex(openssl_random_pseudo_bytes(8));
-
 $randSalt = bin2hex(openssl_random_pseudo_bytes(16));
-
 $randHash = bin2hex(openssl_random_pseudo_bytes(64));
 
 try {
@@ -33,10 +34,21 @@ try {
 	$profile = new Profile(null, "Test", "Test2", "5555555555", "m", "012345", "http://www.cats.com/cat.jpg", $user->getUserId());
 	$profile->insert($mysqli);
 
-	$store = new Store(null, $profile->getProfileId(), $_POST["storeName"], $_POST["InputImage"], null, $_POST["storeDescription"]);
+	if(@isset($_POST["InputImage"]) && ($_POST["storeDescription"])) {
+		$store = new Store(null, $profile->getProfileId(), $_POST["storeName"], $_POST["InputImage"], null, $_POST["storeDescription"]);
+	} else if(@isset($_POST["InputImage"])) {
+		$store = new Store(null, $profile->getProfileId(), $_POST["storeName"], $_POST["InputImage"], null, null);
+	} else if(@isset($_POST["storeDescription"])) {
+		$store = new Store(null, $profile->getProfileId(), $_POST["storeName"], null, null, $_POST["storeDescription"]);
+	} else {
+		$store = new Store(null, $profile->getProfileId(), $_POST["storeName"], null, null, null);
+	}
+
 	$store->insert($mysqli);
-	echo "<p class=\"alert alert-success\">(" . $store->getStoreName() . ") added!</p>";
+	echo "<p class=\"alert alert-success\">" . $store->getStoreName() . " added!</p>";
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
-?> 
+?>
+
+<?php //require_once "../php/lib/footer.php"; ?>

@@ -582,7 +582,7 @@ class Product {
 		}
 
 		// create query template
-		$query	 = "SELECT productId, profileId, productContent, productDate FROM product";
+		$query	 = "SELECT productId, profileId, imagePath, productName, productPrice, productType, productWeight FROM product";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));

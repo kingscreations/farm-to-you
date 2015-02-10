@@ -234,16 +234,15 @@ class Store {
 	 * mutator method for image path
 	 *
 	 * @param string $newImagePath new value of imagePath
-	 * @throws InvalidArgumentException if $newImagePath is not a string or insecure
 	 * @throws RangeException if $newImagePath is > 255 characters
 	 **/
 	public function setImagePath($newImagePath) {
 
 		// verify that the image path is secure
 		$newImagePath = trim($newImagePath);
-		$newImagePath = filter_var($newImagePath, FILTER_VALIDATE_URL);
+		$newImagePath = filter_var($newImagePath, FILTER_SANITIZE_STRING);
 		if(empty($newImagePath) === true) {
-			throw(new InvalidArgumentException("image path is empty or not a url"));
+			$this->imagePath = null;
 		}
 
 		// verify the image path will fit in the database

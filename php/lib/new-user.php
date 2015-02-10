@@ -6,17 +6,13 @@
  */
 ?>
 
-<div class="container-fluid" id="main-search">
+<div id="main-search">
 	<div class="vertical-spacer-60"></div>
-
 	<?php require_once "main-search.php" ?>
-
 	<br/>
-</div><!-- end main-search -->
-
-<div class="container-fluid" id="">
+</div>
+<div class="row-fluid">
 	<h2>Farmers in your area</h2>
-
 	<div id="wrapper">
 		<div id="scroller">
 			<ul>
@@ -83,11 +79,10 @@
 			</ul>
 		</div>
 	</div>
-
-	<br/>
-
+</div><!-- end row fluid -->
+<br/>
+<div class="row-fluid">
 	<h2>Highest rated farmers</h2>
-
 	<div id="wrapper">
 		<div id="scroller">
 			<ul>
@@ -154,30 +149,27 @@
 			</ul>
 		</div>
 	</div>
+</div><!-- end row fluid -->
+<br/><br/>
+<div class="row-fluid">
+	<div class="col-sm-2 col-xs-4">
+		<a href="">category</a>
+	</div>
+	<div class="col-sm-2 col-xs-4">
+		<a href="">category</a>
+	</div>
+	<div class="col-sm-2 col-xs-4">
+		<a href="">category</a>
+	</div>
+	<div class="col-sm-2 col-xs-4">
+		<a href="">category</a>
+	</div>
+	<div class="col-sm-2 col-xs-4">
+		<a href="">category</a>
+	</div>
+	<div class="col-sm-2 col-xs-4">
+		<a href="">category</a>
+	</div>
+</div><!-- end row-fluid -->
 
-	<br/><br/>
-
-	<div class="row-fluid">
-		<div class="col-sm-2 col-xs-4">
-			<a href="">category</a>
-		</div>
-		<div class="col-sm-2 col-xs-4">
-			<a href="">category</a>
-		</div>
-		<div class="col-sm-2 col-xs-4">
-			<a href="">category</a>
-		</div>
-		<div class="col-sm-2 col-xs-4">
-			<a href="">category</a>
-		</div>
-		<div class="col-sm-2 col-xs-4">
-			<a href="">category</a>
-		</div>
-		<div class="col-sm-2 col-xs-4">
-			<a href="">category</a>
-		</div>
-	</div><!-- end row-fluid -->
-
-	<br/><br/><br/>
-
-</div><!-- end container-fluid -->
+<br/><br/><br/>

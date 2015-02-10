@@ -60,12 +60,6 @@ input[type=text]:focus {
 	outline: none;
 }
 
-#main-search {
-	width: 90% !important;
-	margin-left: auto !important;
-	margin-right: auto !important;
-}
-
 #main-search input[type=text],
 #main-search button {
 	width: 100%;
@@ -81,9 +75,8 @@ input[type=text]:focus {
  *	bootstrap elements setup
  */
 .container-fluid {
-	width: 90% !important;
-	margin-left: auto;
-	margin-right: auto;
+	width: 100% !important;
+	margin: 0 !important;
 	padding: 0;
 }
 

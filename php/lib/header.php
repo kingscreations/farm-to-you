@@ -12,7 +12,6 @@ $depthDifference = $currentDepth - $rootDepth;
 $prefix = str_repeat("../", $depthDifference);
 
 ?>
-
 <!doctype HTML>
 <html lang="en">
 	<head>
@@ -67,4 +66,3 @@ $prefix = str_repeat("../", $depthDifference);
 					</ul> <!-- end pills -->
 				</div>
 			</div><!-- end row-fluid main-menu -->
-		</div><!-- end container-fluid -->

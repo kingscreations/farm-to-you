@@ -7,7 +7,7 @@
 <div class="container">
 	<h2>Edit Profile</h2>
 
-	<form class="form-inline" method="post" action="../../edit-profile/edit-profile-controller.php">
+	<form class="form-inline" method="post" action="../../edit-profile/add-profile-controller.php">
 
 		<div class="form-group">
 			<label for="InputFirstname">First Name:</label>

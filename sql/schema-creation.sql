@@ -92,7 +92,7 @@ CREATE TABLE product (
 	productType VARCHAR(40) NOT NULL,
 	productWeight DECIMAL(8, 4),
 	imagePath VARCHAR(255),
-	stockLimit INT,
+	stockLimit INT UNSIGNED,
 	profileId INT UNSIGNED NOT NULL,
 	INDEX(profileId),
 	FOREIGN KEY(profileId) REFERENCES profile(profileId),

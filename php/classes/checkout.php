@@ -10,19 +10,24 @@
 
 class Checkout {
 	/**
-	 * id for the checkout, this is the primary key
+	 * @var mixed $checkoutId id for the checkout, this is the primary key
 	 */
 	private $checkoutId;
 
 	/**
-	 * id for the order, this is a foreign key
+	 * @var int $orderId id for the order, this is a foreign key
 	 **/
 	private $orderId;
 
 	/**
-	 * date for the checkout
+	 * @var mixed $checkoutDate date for the checkout
 	 **/
 	private $checkoutDate;
+
+	/**
+	 * @var $finalPrice
+	 */
+	private $finalPrice;
 
 	/**
 	 * constructor for this checkout class
@@ -175,6 +180,36 @@ class Checkout {
 		// store the checkout date
 		$newCheckoutDate = DateTime::createFromFormat("Y-m-d H:i:s", $newCheckoutDate);
 		$this->checkoutDate = $newCheckoutDate;
+	}
+
+	/**
+	 * accessor for the final price
+	 *
+	 * @return float value for the final price
+	 */
+	public function getFinalPrice() {
+		return $this->finalPrice;
+	}
+
+	/**
+	 * mutator for the final price
+	 *
+	 * @param float value for the final price
+	 * @throws InvalidArgumentException if data types are not valid
+	 * @throws RangeException if $newFinalPrice is less than 0
+	 */
+	public function setFinalPrice($newFinalPrice) {
+		$newFinalPrice = filter_var($newFinalPrice, FILTER_VALIDATE_FLOAT);
+		if($newFinalPrice === false) {
+			throw(new InvalidArgumentException("final price is not a valid float"));
+		}
+
+		$newFinalPrice = round($newFinalPrice, 4);
+		if($newFinalPrice > 9999.9999) {
+			throw(new RangeException("final price is too large"));
+		}
+
+		$this->finalPrice = floatval($newFinalPrice);
 	}
 
 	/**

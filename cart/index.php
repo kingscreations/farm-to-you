@@ -3,6 +3,8 @@
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
 
+//session_start();
+
 // header
 $currentDir = dirname(__FILE__);
 require_once '../root-path.php';
@@ -16,7 +18,8 @@ require_once '../php/classes/order.php';
 require_once '../php/classes/profile.php';
 require_once '../php/classes/user.php';
 
-$session_product = array(
+
+$_SESSION['products'] = array(
 	array(
 		'productName' => 'tomato',
 		'productPrice' => 4.0,
@@ -76,7 +79,7 @@ try {
 				</thead>
 				<tbody>
 					<?php
-					foreach($session_product as $product) {
+					foreach($_SESSION['products'] as $product) {
 						echo '<tr>';
 						echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product['imagePath'] . '"></td>';
 						echo '<td>' . $product['productName'] . '</td>';

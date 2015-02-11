@@ -94,7 +94,7 @@ try {
 					?>
 				</tbody>
 			</table>
-			<button type="submit" value="" class="btn btn-default" id="cart-validate-button">Validate your cart</button>
+			<input type="submit" value="" class="btn btn-default" id="cart-validate-button">Validate your cart</button>
 		</form>
 	</div><!-- end col-sm-12 -->
 </div><!-- end row-fluid -->

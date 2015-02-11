@@ -115,6 +115,7 @@ class ProfileTest extends UnitTestCase {
 		// insert this user into database
 		$this->user1->insert($this->mysqli);
 
+//		echo '<br>debug<br>';
 		// create instance of first profile
 		$this->profile1 = new Profile(null, $this->firstName, $this->lastName, $this->phone, $this->profileType, $this->customerToken, $this->imagePath, $this->user1->getUserId());
 
@@ -125,8 +126,6 @@ class ProfileTest extends UnitTestCase {
 
 		// insert this user into database
 		$this->user2->insert($this->mysqli);
-
-
 		$this->profile2 = new Profile(null, $this->firstName, $this->lastName, $this->phone, $this->profileType, $this->customerToken, $this->imagePath, $this->user2->getUserId());
 	}
 
@@ -134,6 +133,7 @@ class ProfileTest extends UnitTestCase {
 	 * tears down the connection to mySQL and deletes the test instance object
 	 **/
 public function tearDown() {
+//	echo '<br>tearDown start<br>';
 	// destroy the object if it was created
 	if($this->profile1 !== null && $this->profile1->getProfileId() !== null) {
 		$this->profile1->delete($this->mysqli);
@@ -160,6 +160,7 @@ public function tearDown() {
 		$this->mysqli->close();
 		$this->mysqli = null;
 	}
+//	echo '<br>tearDown end<br>';
 }
 	/**
 	 * test inserting a valid Profile into mySQL

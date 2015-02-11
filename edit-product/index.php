@@ -8,7 +8,7 @@ require_once("../php/lib/header.php");
 <div class="container">
 	<h2>Edit Product</h2>
 
-	<form class="form-inline" method="post" action="../php/forms/add-product-controller.php">
+	<form class="form-inline" method="post" action="../php/forms/edit-product-controller.php">
 
 		<div class="form-group">
 			<label for="inputProductName">Product Name:</label>
@@ -39,8 +39,21 @@ require_once("../php/lib/header.php");
 		<br>
 
 		<div class="form-group">
+			<label for="inputStockLimit">Current Stock Amount:</label>
+			<input type="number" class="form-control" name="inputStockLimit" id="inputStockLimit" step="1">
+		</div>
+
+		<br>
+
+		<div class="form-group">
 			<label for="inputProductImage">Product Image:</label>
 			<input type="file" class="form-control" name="inputProductImage" id="inputProductImage" value="">
+		</div>
+
+		<br>
+
+		<div class="form-group">
+			<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit">
 		</div>
 
 	</form>

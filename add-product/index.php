@@ -39,8 +39,21 @@ require_once("../php/lib/header.php");
 		<br>
 
 		<div class="form-group">
+			<label for="inputStockLimit">Current Stock Amount:</label>
+			<input type="number" class="form-control" name="inputStockLimit" id="inputStockLimit" step="1">
+		</div>
+
+		<br>
+
+		<div class="form-group">
 			<label for="inputProductImage">Product Image:</label>
 			<input type="file" class="form-control" name="inputProductImage" id="inputProductImage" value="">
+		</div>
+
+		<br>
+
+		<div class="form-group">
+			<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit">
 		</div>
 
 	</form>

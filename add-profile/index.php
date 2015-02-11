@@ -4,18 +4,15 @@ require_once '../root-path.php';
 require_once("../php/lib/header.php");
 ?>
 
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/2.7.5/idangerous.swiper.min.css"/>
-<link rel="stylesheet" href="../css/main.css"/>
 
 <div class="container">
 	<h2>Create Profile</h2>
 
-	<form id="addprofile" class="form-inline" method="post" action="../php/forms/add-profile-controller.php">
+	<form id="addprofile" class="form-inline" method="post" action="../php/forms/add-profile-controller.php" novalidate="novalidate">
 
 		<div class="form-group">
 			<label for="inputFirstname">First Name:</label>
-			<input type="text" class="form-control" id="inputFirstname" name="inputFirstname" placeholder="Enter First Name">
+			<input type="text" maxlength="45" size="45" aria-required="true" aria-invalid ="false" id="inputFirstname" name="inputFirstname" placeholder="Enter First Name">
 		</div>
 
 		<br>
@@ -44,7 +41,7 @@ require_once("../php/lib/header.php");
 
 		<div class="form-group">
 			<label for="inputImage">Profile Image</label>
-			<input type="file" class="form-control" id="InputImage" name="InputImage" value="">
+			<input type="file" class="form-control" id="inputImage" name="inputImage" value="">
 		</div>
 
 		<br>
@@ -54,4 +51,5 @@ require_once("../php/lib/header.php");
 		</div>
 
 	</form>
+	<p id="outputArea" style="display: block;"> </p>
 </div>

@@ -14,24 +14,61 @@ $(document).ready(
 			rules: {
 				// each rule starts with the inputs name (NOT id)
 				inputFirstname: {
-					min: 1,
+
+					maxlength: 45,
 					required: true
 				},
-				tweetContent: {
-					maxlength: 140,
+
+				inputLastname: {
+
+					maxlength: 45,
 					required: true
+				},
+
+				inputType: {
+
+					required: true
+				},
+
+				inputPhone: {
+
+					maxlength: 20,
+					required: true
+				},
+
+				inputImage: {
+
+					maxlength:100,
+					required: false
 				}
 			},
 
 			// error messages to display to the end user
 			messages: {
-				profileId: {
-					min: "Profile id must be positive",
-					required: "Please enter a profile id"
+				inputFirstname: {
+
+					maxlength: "First Name is too long!",
+					required: "Please enter your first name."
 				},
-				tweetContent: {
-					maxlength: "Tweet is too long.",
-					required: "What's on your mind?"
+
+				inputLastname: {
+					maxlength: "Last Name is too long!",
+					required: "Please enter your last name."
+				},
+
+				inputType: {
+					required: "Please select account type."
+				},
+
+				inputPhone: {
+					maxlength: "Phone number is too long!",
+					required: "Please enter a phone number."
+				},
+
+				inputImage: {
+
+					maxlength: "Image directory is too long!"
+
 				}
 			},
 
@@ -41,7 +78,7 @@ $(document).ready(
 					// GET or POST
 					type: "POST",
 					// where to submit data
-					url: "../../week3/mvc/controller-post.php",
+					url: "../php/forms/add-profile-controller.php",
 					// TL; DR: reformat POST data
 					data: $(form).serialize(),
 					// success is an event that happens when the server replies

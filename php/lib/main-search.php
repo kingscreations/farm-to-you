@@ -7,9 +7,9 @@
 ?>
 
 <div class="row-fluid clearfix">
-	<form action="">
+	<form action="../forms/search-controller.php" id="inputSearch" method="post">
 		<div class="col-xs-10 col-sm-11 no-padding-right">
-			<input type="text" name="main-search-input" placeholder="startrek?" />
+			<input type="text" name="inputSearch" placeholder="startrek?" />
 		</div>
 		<div class="col-xs-2 col-sm-1">
 			<button type="button" class="btn btn-default">

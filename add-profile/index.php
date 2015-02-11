@@ -4,10 +4,14 @@ require_once '../root-path.php';
 require_once("../php/lib/header.php");
 ?>
 
-<div class="container">
-	<h2>Edit Profile</h2>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/2.7.5/idangerous.swiper.min.css"/>
+<link rel="stylesheet" href="../css/main.css"/>
 
-	<form class="form-inline" method="post" action="edit-profile-controller.php">
+<div class="container">
+	<h2>Create Profile</h2>
+
+	<form class="form-inline" method="post" action="../php/forms/add-profile-controller.php">
 
 		<div class="form-group">
 			<label for="InputFirstname">First Name:</label>

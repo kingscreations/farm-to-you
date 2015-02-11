@@ -5,8 +5,8 @@ require_once("../classes/user.php");
 
 
 // verify the form values have been submitted
-if(@isset($_POST["InputFirstname"]) === false || @isset($_POST["InputLastname"]) === false
-	|| @isset($_POST["InputType"]) === false || @isset($_POST["InputPhone"]) === false)  {
+if(@isset($_POST["inputFirstname"]) === false || @isset($_POST["inputLastname"]) === false
+	|| @isset($_POST["inputType"]) === false || @isset($_POST["inputPhone"]) === false)  {
 	echo "<p class=\"alert alert-danger\">Form values not complete. Verify the form and try again.</p>";
 }
 
@@ -30,10 +30,10 @@ try {
 	$user = new User(null, getRandomWord() . "@test.com", $randHash, $randSalt, $randActivation);
 	$user->insert($mysqli);
 
-	if(@isset($_POST["InputImage"])) {
-		$profile = new Profile(null, $_POST["InputFirstname"], $_POST["InputLastname"], $_POST["InputPhone"], $_POST["InputType"], "012345", $_POST["InputImage"], $user->getUserId());
+	if(@isset($_POST["inputImage"])) {
+		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", $_POST["inputImage"], $user->getUserId());
 	} else {
-		$profile = new Profile(null, $_POST["InputFirstname"], $_POST["InputLastname"], $_POST["InputPhone"], $_POST["InputType"], "012345", null, $user->getUserId());
+		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", null, $user->getUserId());
 
 	}
 	$profile->insert($mysqli);

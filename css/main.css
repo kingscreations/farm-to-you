@@ -104,6 +104,11 @@ li[role=presentation].open a {
 	background-color: darkgrey;
 }
 
+.tiny-thumbnail {
+	width: 60px;
+	height: 60px;
+}
+
 /**
  * top main-menu
  */

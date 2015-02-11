@@ -16,6 +16,27 @@ require_once '../php/classes/order.php';
 require_once '../php/classes/profile.php';
 require_once '../php/classes/user.php';
 
+$session_product = array(
+	array(
+		'productName' => 'tomato',
+		'productPrice' => 4.0,
+		'productType' => 'red grappe tomato',
+		'productWeight' => 0.3, // lb
+		'stockLimit' => '56',
+		'imagePath' => '../images/veggies/tomato.jpg',
+		'productQuantity' => '7'
+	),
+	array(
+		'productName' => 'banana',
+		'productPrice' => 0.29,
+		'productType' => 'green banana',
+		'productWeight' => 0.24, // lb
+		'stockLimit' => '1435',
+		'imagePath' => '../images/fruits/banana.jpg',
+		'productQuantity' => '7'
+	)
+);
+
 try {
 	mysqli_report(MYSQLI_REPORT_STRICT);
 
@@ -55,48 +76,18 @@ try {
 				</thead>
 				<tbody>
 					<?php
-					for($i = 0; $i < sizeof($orderProducts); $i++) {
-						$productId = $orderProducts[$i]->getProductId();
-						$product = null;
-						for($j = 0; $i < sizeof($products); $j++) {
-							if($products[$j]->getProductId() === $productId) {
-								$product = $products[$j];
-								break;
-							}
-						}
-						$orderId = $orderProducts[$i]->getOrderId();
-						$order = null;
-						for($j = 0; $i < sizeof($orders); $j++) {
-							if($orders[$j]->getOrderId() === $orderId) {
-								$order = $orders[$j];
-								break;
-							}
-						}
-
+					foreach($session_product as $product) {
 						echo '<tr>';
-						echo '<td><img src="' . $product->getImagePath() . '"></td>';
-						echo '<td>' . $product->getProductName() . '</td>';
-						echo '<td>' . $product->getProductPrice() . '</td>';
-						echo '
-								<td>
-									<select>
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
-										<option>6</option>
-										<option>7</option>
-										<option>8</option>
-										<option>9</option>
-										<option>10</option>
-										<option>11</option>
-										<option>12</option>
-										<option>13</option>
-										<option>14</option>
-										<option>15</option>
-									</select>
-								</td>';
+						echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product['imagePath'] . '"></td>';
+						echo '<td>' . $product['productName'] . '</td>';
+						echo '<td>' . $product['productPrice'] . '</td>';
+						echo '<td><select>';
+						$stockLimit = $product['stockLimit'];
+						$quantityLimit = ($stockLimit < 15) ? $stockLimit : 15;
+						for($i = 0; $i < $quantityLimit; $i++) {
+							echo '<option>' . ($i + 1) . '</option>';
+						}
+						echo '</select></td>';
 						echo '</tr>';
 					}
 

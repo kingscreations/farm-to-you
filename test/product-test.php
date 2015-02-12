@@ -84,7 +84,7 @@ class ProductTest extends UnitTestCase {
 	/**
 	 * @var string $productType type of the product
 	 */
-	private $productPriceType = "w";
+	private $productPriceType = 'w';
 
 	/**
 	 * @var float $productWeight weight of the product
@@ -113,7 +113,7 @@ class ProductTest extends UnitTestCase {
 		$this->profile->insert($this->mysqli);
 
 		$this->product = new Product(null, $this->profile->getProfileId(), $this->imagePath, $this->productName, $this->productPrice,
-			$this->productType, $this->productPriceType, $this->productWeight);
+			$this->productType, 'w', $this->productWeight);
 
 		// instance of the second product
 		$this->user2 = new User(null, "test2@test.com", 'Aa10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99Aa10BC99AB10BC99AB10BC99AB10BC', '99Aa10BC99AB10BC');
@@ -124,7 +124,7 @@ class ProductTest extends UnitTestCase {
 		$this->profile2->insert($this->mysqli);
 
 		$this->product2 = new Product(null, $this->profile2->getProfileId(), $this->imagePath, $this->productName, $this->productPrice,
-			$this->productType, $this->productPriceType, $this->productWeight);
+			$this->productType, 'w', $this->productWeight);
 	}
 
 	/**
@@ -257,7 +257,7 @@ class ProductTest extends UnitTestCase {
 		$mysqlProduct = Product::getProductByProductId($this->mysqli, $this->product->getProductId());
 
 		$this->assertIdentical($this->product->getProductId(), $mysqlProduct->getProductId());
-//
+
 		// second, change the Product, update it mySQL
 		$newName = "new product name!";
 		$this->product->setProductName($newName);

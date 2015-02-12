@@ -250,7 +250,7 @@ class Product {
 	public function setProductPriceType($newProductPriceType) {
 		$newProductPriceType = trim($newProductPriceType);
 		$newProductPriceType = filter_var($newProductPriceType, FILTER_SANITIZE_STRING);
-
+//var_dump($newProductPriceType);
 		if(strlen($newProductPriceType) !== 1) {
 			throw(new RangeException("product price type length must equal 1"));
 		}
@@ -260,7 +260,7 @@ class Product {
 		if(in_array($newProductPriceType, $allowedLetters) === false) {
 			throw(new RangeException("profile type must be w or u"));
 		}
-
+//		var_dump($newProductPriceType);
 		$this->productPriceType = $newProductPriceType;
 	}
 
@@ -318,7 +318,7 @@ class Product {
 
 		$newProductWeight = filter_var($newProductWeight, FILTER_VALIDATE_FLOAT);
 		if($newProductWeight === false) {
-			throw(new InvalidArgumentException("product id is not a valid float"));
+			throw(new InvalidArgumentException("the weight is not a valid float"));
 		}
 
 		$newProductWeight = round($newProductWeight, 4);
@@ -378,14 +378,14 @@ class Product {
 			throw(new mysqli_sql_exception("not a new product"));
 		}
 
-		$query	 = "INSERT INTO product(profileId, imagePath, productName, productPrice, productType, productWeight) VALUES(?, ?, ?, ?, ?, ?)";
+		$query	 = "INSERT INTO product(profileId, imagePath, productName, productPrice, productType, productPriceType, productWeight) VALUES(?, ?, ?, ?, ?, ?, ?)";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-		$wasClean	  = $statement->bind_param("issdsd", $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
-			$this->productType, $this->productWeight);
+		$wasClean	  = $statement->bind_param("issdssd", $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
+			$this->productType, $this->productPriceType, $this->productWeight);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}

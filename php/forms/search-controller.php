@@ -7,7 +7,7 @@ require_once("../classes/categoryproduct.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 // check if search was entered or not
-if(@isset($_POST["inputSubmit"]) && (@isset($_POST["inputSearch"]) != "")) {
+if(@isset($_POST["inputSearch"]) === false) {
 	echo "<p class=\"alert alert-danger\">Form values not complete. Verify the form and try again.</p>";
 }
 
@@ -20,11 +20,11 @@ if(@isset($_POST["inputSubmit"]) && (@isset($_POST["inputSearch"]) != "")) {
 	$searchq = preg_replace("#[^0-9a-z]#i", "", $searchq);
 
 // query the database. The amount of columns have to match as it currently is. Need more from product and location though
-	$result = mysqli_query($mysqli, "SELECT productName, productPrice FROM product WHERE productName LIKE '%$searchq%' OR productDescription LIKE '%$searchq%'
+	$result = mysqli_query($mysqli, "SELECT productName, productPrice, productDescription FROM product WHERE productName LIKE '%$searchq%' OR productDescription LIKE '%$searchq%'
 											UNION
-												SELECT storeName, imagePath  FROM store WHERE storeName LIKE '%$searchq%'
+												SELECT storeName, imagePath, storeDescription  FROM store WHERE storeName LIKE '%$searchq%'
 													UNION
-														SELECT locationName, address1 FROM location WHERE locationName LIKE '%$searchq%'");
+														SELECT locationName, address1, city FROM location WHERE locationName LIKE '%$searchq%'");
 
 // check for errors in the search
 if (!$result) {
@@ -33,21 +33,25 @@ if (!$result) {
 }
 
 // print results
-print_r(mysqli_fetch_array($result));
-while($row = mysqli_fetch_array($result)){
-	echo "{$row['productName']}";
-}
+//print_r(mysqli_fetch_array($result));
+//while($row = mysqli_fetch_array($result)){
+//	echo "{$row['productName']}";
+//}
 
 // try to print a table
-var_dump($result);
-//	print '<table border="1">';
-//	while($row = $results->fetch_assoc()) {
-//		print '<tr>';
+	print '<table border="1">';
+	while($row = mysqli_fetch_array($result)) {
+		print '<tr>';
+		print '<th>Product</th>';
+		print '<th>Description</th>';
+		print '<th>Price</th>';
+		print '</tr>';
+		print '<tr>';
 //		print '<td>'.$row["id"].'</td>';
 //		print '<td>'.$row["product_code"].'</td>';
-//		print '<td>'.$row["product_name"].'</td>';
-//		print '<td>'.$row["product_desc"].'</td>';
-//		print '<td>'.$row["price"].'</td>';
-//		print '</tr>';
-//	}
-//	print '</table>';
+		print '<td>'.$row["productName"].'</td>';
+		print '<td>'.$row["productDescription"].'</td>';
+		print '<td>'.$row["productPrice"].'</td>';
+		print '</tr>';
+	}
+	print '</table>';

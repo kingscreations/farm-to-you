@@ -41,14 +41,14 @@ try {
 	$user->insert($mysqli);
 
 	$_SESSION['users'] = array(
-		'id1' => $user->getUserId()
+		$user->getUserId()
 	);
 
 	$profile = new Profile(null, randomString(5), randomString(7), randomString(10), 'm', randomString(1), randomString(19), $user->getUserId());
 	$profile->insert($mysqli);
 
 	$_SESSION['profiles'] = array(
-		'id1' => $profile->getProfileId()
+		$profile->getProfileId()
 	);
 
 	$mysqli->close();

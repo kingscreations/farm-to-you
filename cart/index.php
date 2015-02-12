@@ -20,7 +20,7 @@ require_once '../php/lib/header.php';
 require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 
 // for test purpose
-require_once '../php/lib/dummy-session.php';
+require_once '../dummy-session.php';
 
 $_SESSION['products'] = array(
 	array(
@@ -47,8 +47,6 @@ $_SESSION['products'] = array(
 	)
 );
 
-$sessionProducts = $_SESSION['products'];
-$sessionProfiles = $_SESSION['profiles'];
 $maxQuantity = 15;
 
 ?>
@@ -73,7 +71,7 @@ $maxQuantity = 15;
 						$productQuantities = [];
 						$counter = 1;
 
-						foreach($sessionProducts as $sessionProduct) {
+						foreach($_SESSION['products'] as $sessionProduct) {
 							try {
 								mysqli_report(MYSQLI_REPORT_STRICT);
 
@@ -90,7 +88,7 @@ $maxQuantity = 15;
 								// user, profile and product
 								// TODO delete this as soon as possible -> for test purpose
 								///////////////////////////////////
-								$product = new Product(null, $sessionProfiles['id'], $product['productName'],
+								$product = new Product(null, $_SESSION['profiles'], $product['productName'],
 									$product['productPrice'], $product['productPrice'], $product['productDescription'], $product['productPriceType'],
 									$product['productWeight']);
 								$product->insert($mysqli);

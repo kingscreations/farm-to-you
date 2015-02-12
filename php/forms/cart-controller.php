@@ -1,9 +1,15 @@
 <?php
+
+session_start();
+
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../classes/order.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
 
+
+
+var_dump($_SESSION);
 var_dump($_POST);
 
 // verify the form values have been submitted

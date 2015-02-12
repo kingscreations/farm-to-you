@@ -1,7 +1,15 @@
 <?php
 
-require_once("../php/classes/user.php");
-require_once("../php/classes/profile.php");
+$dummyPath = dirname(__FILE__);
+
+// Get the relative path
+$currentDepth = substr_count($currentDir, "/");
+$dummyDepth = substr_count($dummyPath, "/");
+$depthDifference = $currentDepth - $dummyDepth;
+$prefix = str_repeat("../", $depthDifference);
+require_once($prefix.'php/classes/user.php');
+require_once($prefix.'php/classes/profile.php');
+
 require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 
 function randomString($length = 6) {
@@ -44,7 +52,6 @@ try {
 	);
 
 	$mysqli->close();
-	echo "success to connect to the database";
 
 } catch(Exception $exception) {
 	echo "fail to connect to the database";

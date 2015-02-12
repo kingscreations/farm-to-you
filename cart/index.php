@@ -10,8 +10,9 @@ require_once("../php/classes/product.php");
 require_once("../php/classes/user.php");
 require_once("../php/classes/profile.php");
 
-// header
 $currentDir = dirname(__FILE__);
+
+// header
 require_once '../root-path.php';
 require_once '../php/lib/header.php';
 
@@ -47,6 +48,7 @@ $_SESSION['products'] = array(
 );
 
 $sessionProducts = $_SESSION['products'];
+$sessionProfiles = $_SESSION['profiles'];
 $maxQuantity = 15;
 
 ?>
@@ -83,10 +85,12 @@ $maxQuantity = 15;
 								$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 									$configArray["database"]);
 
+								Product::getAllProducts()
+
 								// user, profile and product
 								// TODO delete this as soon as possible -> for test purpose
 								///////////////////////////////////
-								$product = new Product(null, $profile['id'], $product['productName'],
+								$product = new Product(null, $sessionProfiles['id'], $product['productName'],
 									$product['productPrice'], $product['productPrice'], $product['productDescription'], $product['productPriceType'],
 									$product['productWeight']);
 								$product->insert($mysqli);

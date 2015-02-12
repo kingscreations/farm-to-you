@@ -88,6 +88,7 @@ $maxQuantity = 15;
 					</thead>
 					<tbody>
 						<?php
+						$productQuantities = [];
 						$counter = 1;
 						foreach($_SESSION['products'] as $product) {
 							echo '<tr>';

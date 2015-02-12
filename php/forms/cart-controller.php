@@ -10,14 +10,13 @@ require_once("../classes/user.php");
 echo 'test';
 
 
-//var_dump($_SESSION);
-//var_dump($_POST);
-
 // verify the form values have been submitted
-//if(@isset($_POST["profileId"]) === false || @isset($_POST["tweetContent"]) === false) {
-//	echo "<p class=\"alert alert-danger\">form values not complete. Verify the form and try again.</p>";
-//}
-//
+for($i = 0; $i < count($_POST); $i++) {
+	if(@isset($_POST['product'. ($i + 1) .'Quantity']) === false) {
+		echo "<p class=\"alert alert-danger\">form values not complete. Verify the form and try again.</p>";
+	}
+}
+
 //try {
 //	//
 //	mysqli_report(MYSQLI_REPORT_STRICT);

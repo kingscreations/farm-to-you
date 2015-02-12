@@ -16,9 +16,9 @@ try {
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 	// 1 and 59 are place holders for product id and profile id that already exists
 	if(@isset($_POST["inputProductImage"])) {
-		$product = new Product(1, 59, $_POST["inputProductImage"], $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductType"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
+		$product = new Product(1, 25, $_POST["inputProductImage"], $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductType"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
 	} else {
-		$product = new Product(1, 59, null, $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductType"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
+		$product = new Product(1, 25, null, $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductType"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
 	}
 
 	$product->update($mysqli);

@@ -50,7 +50,7 @@ class StoreLocationTest extends UnitTestCase {
 		$this->profile->insert($this->mysqli);
 		$this->store = new Store(null, $this->profile->getProfileId(), "Pass Farms", "http://www.store.com/store.jpg", $date);
 		$this->store->insert($this->mysqli);
-		$this->location = new Location(null, "US", "NM", "Albuquerque", "87112", "2200 Camino de los Artesanos", null);
+		$this->location = new Location(null, "Home", "US", "NM", "Albuquerque", "87112", "2200 Camino de los Artesanos", null);
 		$this->location->insert($this->mysqli);
 		$this->storeLocation = new StoreLocation($this->store->getStoreId(),$this->location->getLocationId());
 	}

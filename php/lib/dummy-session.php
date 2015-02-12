@@ -1,5 +1,9 @@
 <?php
 
+require_once("../php/classes/user.php");
+require_once("../php/classes/profile.php");
+require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
+
 function randomString($length = 6) {
 	$str = "";
 	$characters = array_merge(range('A','Z'), range('a','z'), range('0','9'));

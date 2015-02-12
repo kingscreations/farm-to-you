@@ -86,7 +86,7 @@ $maxQuantity = 15;
 								// user, profile and product
 								// TODO delete this as soon as possible -> for test purpose
 								///////////////////////////////////
-								$product = new Product(null, $profile->getProfileId(), $product['productName'],
+								$product = new Product(null, $profile['id'], $product['productName'],
 									$product['productPrice'], $product['productPrice'], $product['productDescription'], $product['productPriceType'],
 									$product['productWeight']);
 								$product->insert($mysqli);

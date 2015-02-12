@@ -16,6 +16,8 @@ for($i = 0; $i < count($_POST); $i++) {
 	}
 }
 
+$users    = $_SESSION['users'];
+$profiles = $_SESSION['profiles'];
 $products = $_SESSION['products'];
 
 try {

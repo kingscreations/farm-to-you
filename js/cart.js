@@ -10,29 +10,15 @@
 		errorLabelContainer: "#outputArea",
 		wrapper: "li",
 
-		rules: {
-			productQuantity: {
-				min: 1,
-				max: maxQuantity
-			}
-		},
-
-		// error messages to display to the end user
-		messages: {
-			profileId: {
-				min: "Product quantity must be positive",
-				min: "Product quantity must be less than "+ maxQuantity
-			}
-		},
+		rules: {}, // no js validation rules to apply to the select/option input
+		messages: {},
 
 		submitHandler: function(form) {
 			$(form).ajaxSubmit({
 				type: "POST",
 				url: "../php/forms/cart-controller.php",
-				data: $(form).serialize(),
+				data: $(form),
 				success: function(ajaxOutput) {
-					console.log(ajaxOutput);
-					// clear the output area's formatting
 					$("#outputArea").css("display", "block");
 					$("#outputArea").html(ajaxOutput);
 

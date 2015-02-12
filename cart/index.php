@@ -15,12 +15,6 @@ require_once '../php/lib/header.php';
 
 // model
 require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
-require_once '../php/classes/orderproduct.php';
-require_once '../php/classes/product.php';
-require_once '../php/classes/order.php';
-require_once '../php/classes/profile.php';
-require_once '../php/classes/user.php';
-
 
 $_SESSION['products'] = array(
 	array(
@@ -58,9 +52,6 @@ try {
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
-	$products = Product::getAllProducts($mysqli);
-	$orders = Order::getAllOrders($mysqli);
-	$orderProducts = OrderProduct::getAllOrderProducts($mysqli);
 	$mysqli->close();
 
 } catch(Exception $exception) {
@@ -69,6 +60,7 @@ try {
 }
 
 $maxQuantity = 15;
+$products = $_SESSION['products'];
 
 ?>
 
@@ -88,13 +80,16 @@ $maxQuantity = 15;
 					</thead>
 					<tbody>
 						<?php
+
 						$productQuantities = [];
 						$counter = 1;
-						foreach($_SESSION['products'] as $product) {
+
+						foreach($products as $product) {
 							echo '<tr>';
 							echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product['imagePath'] . '"></td>';
 							echo '<td>' . $product['productName'] . '</td>';
 							echo '<td>' . $product['productPrice'] . '</td>';
+//							echo 'product'. $counter .'Quantity';
 							echo '<td><select id="product'. $counter .'Quantity" name="product'. $counter .'Quantity">';
 							$stockLimit = $product['stockLimit'];
 							$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;

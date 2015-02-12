@@ -7,9 +7,8 @@ require_once("../classes/order.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
 
-echo 'test';
 
-
+var_dump($_POST);
 // verify the form values have been submitted
 for($i = 0; $i < count($_POST); $i++) {
 	if(@isset($_POST['product'. ($i + 1) .'Quantity']) === false) {

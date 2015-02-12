@@ -5,5 +5,5 @@ require_once("../classes/categoryproduct.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 if(isset($_POST["inputSearch"]) && $_POST["inputSearch"] != "") {
-
+	echo "<p class=\"alert alert-danger\">Form values not complete. Verify the form and try again.</p>";
 }

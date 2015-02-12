@@ -6,7 +6,9 @@ session_start();
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
 
-require_once("../classes/product.php");
+require_once("../php/classes/product.php");
+require_once("../php/classes/user.php");
+require_once("../php/classes/profile.php");
 
 // header
 $currentDir = dirname(__FILE__);
@@ -41,7 +43,7 @@ $_SESSION['products'] = array(
 	)
 );
 
-$products = $_SESSION['products'];
+$sessionProducts = $_SESSION['products'];
 $maxQuantity = 15;
 
 ?>
@@ -66,7 +68,7 @@ $maxQuantity = 15;
 						$productQuantities = [];
 						$counter = 1;
 
-						foreach($products as $product) {
+						foreach($sessionProducts as $sessionProduct) {
 							try {
 								mysqli_report(MYSQLI_REPORT_STRICT);
 
@@ -81,16 +83,18 @@ $maxQuantity = 15;
 								// user, profile and product
 								// TODO delete this as soon as possible -> for test purpose
 								///////////////////////////////////
-								$this->user = new User(null, "test2@test.com", 'Aa10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99Aa10BC99AB10BC99AB10BC99AB10BC', '99Aa10BC99AB10BC');
-								$this->user->insert($this->mysqli);
+								$user = new User(null, "fgoussin@test.com", 'Aa10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010',
+									'99Aa10BC99AB10BC99AB10BC99AB10BC', '99Aa10BC99AB10BC');
+								$user->insert($mysqli);
 
-								$this->profile = new Profile(null, 'toto', 'sinatra', '505 986700798', 'm', 'kj', 'images/toto.jpg',
-									$this->user->getUserId());
-								$this->profile->insert($this->mysqli);
+								$profile = new Profile(null, 'toto', 'sinatra', '505 986700798', 'm', 'kj', 'images/toto.jpg',
+									$user->getUserId());
+								$profile->insert($mysqli);
 
-								$product = new Product(null, $this->profile->getProfileId(), $product['productName'],
+								$product = new Product(null, $profile->getProfileId(), $product['productName'],
 									$product['productPrice'], $product['productPrice'], $product['productDescription'], $product['productPriceType'],
 									$product['productWeight']);
+								$product->insert($mysqli);
 								////////////////////////////////////
 
 								$mysqli->close();
@@ -102,11 +106,11 @@ $maxQuantity = 15;
 
 
 							echo '<tr>';
-							echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product['imagePath'] . '"></td>';
-							echo '<td>' . $product['productName'] . '</td>';
-							echo '<td>' . $product['productPrice'] . '</td>';
+							echo '<td><img class="thumbnail tiny-thumbnail" src="' . $sessionProduct['imagePath'] . '"></td>';
+							echo '<td>' . $sessionProduct['productName'] . '</td>';
+							echo '<td>' . $sessionProduct['productPrice'] . '</td>';
 							echo '<td><select id="product'. $counter .'Quantity" name="product'. $counter .'Quantity">';
-							$stockLimit = $product['stockLimit'];
+							$stockLimit = $sessionProduct['stockLimit'];
 							$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
 							for($i = 0; $i < $quantityLimit; $i++) {
 								echo '<option>' . ($i + 1) . '</option>';

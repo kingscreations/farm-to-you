@@ -57,28 +57,38 @@ try {
  */
 function clearDatabase($mysqli) {
 	$users = User::getAllUsers($mysqli);
-	foreach($users as $user) {
-		$user->delete($mysqli);
+	if($users !== null) {
+		foreach($users as $user) {
+			$user->delete($mysqli);
+		}
 	}
 
 	$profiles = Profile::getAllUsers($mysqli);
-	foreach($profiles as $profile) {
-		$profile->delete($mysqli);
+	if($profiles !== null) {
+		foreach($profiles as $profile) {
+			$profile->delete($mysqli);
+		}
 	}
 
 	$products = Product::getAllUsers($mysqli);
-	foreach($products as $product) {
-		$product->delete($mysqli);
+	if($products !== null) {
+		foreach($products as $product) {
+			$product->delete($mysqli);
+		}
 	}
 
 	$orders = Order::getAllUsers($mysqli);
-	foreach($orders as $order) {
-		$order->delete($mysqli);
+	if($orders !== null) {
+		foreach($orders as $order) {
+			$order->delete($mysqli);
+		}
 	}
 
 	$orderProducts = OrderProduct::getAllUsers($mysqli);
-	foreach($orderProducts as $orderProduct) {
-		$orderProduct->delete($mysqli);
+	if($orderProducts !== null) {
+		foreach($orderProducts as $orderProduct) {
+			$orderProduct->delete($mysqli);
+		}
 	}
 }
 

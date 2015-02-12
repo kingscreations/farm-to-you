@@ -1,7 +1,9 @@
 <?php
 session_start();
 
-//$currentDir = dirname(__FILE__);
+$currentDir = dirname(__FILE__);
+require_once('../../dummy-session.php');
+
 //require_once '../../root-path.php';
 //require_once '../lib/header.php';
 //require_once("../../store/index.php");
@@ -9,7 +11,6 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../classes/store.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
-require_once('../lib/dummy-session.php');
 
 
 
@@ -47,17 +48,17 @@ try {
 //	$user = new User(null, getRandomWord() . "@test.com", $randHash, $randSalt, $randActivation);
 //	$user->insert($mysqli);
 //	$profile = new Profile(null, "Test", "Test2", "5555555555", "m", "012345", "http://www.cats.com/cat.jpg", $user->getUserId());
-	$profile = $_SESSION['profile'];
-	;
+	$profiles = $_SESSION['profiles'];
+	$profileId = $profiles['id1'];
 
 	if(@isset($_POST["InputImage"]) && ($_POST["storeDescription"])) {
-		$store = new Store(null, $profile->getProfileId(), $_POST["storeName"], $_POST["InputImage"], null, $_POST["storeDescription"]);
+		$store = new Store(null, $profileId, $_POST["storeName"], $_POST["InputImage"], null, $_POST["storeDescription"]);
 	} else if(@isset($_POST["InputImage"])) {
-		$store = new Store(null, $profile->getProfileId(), $_POST["storeName"], $_POST["InputImage"], null, null);
+		$store = new Store(null, $profileId, $_POST["storeName"], $_POST["InputImage"], null, null);
 	} else if(@isset($_POST["storeDescription"])) {
-		$store = new Store(null, $profile->getProfileId(), $_POST["storeName"], null, null, $_POST["storeDescription"]);
+		$store = new Store(null, $profileId, $_POST["storeName"], null, null, $_POST["storeDescription"]);
 	} else {
-		$store = new Store(null, $profile->getProfileId(), $_POST["storeName"], null, null, null);
+		$store = new Store(null, $profileId, $_POST["storeName"], null, null, null);
 	}
 
 	$store->insert($mysqli);

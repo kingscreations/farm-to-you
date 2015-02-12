@@ -73,9 +73,9 @@ class OrderProductTest extends UnitTestCase {
 	private $productPrice = 5.6;
 
 	/**
-	 * @var string $productType type of the product
+	 * @var string $productDescription type of the product
 	 */
-	private $productType = "vegetable";
+	private $productDescription = "vegetable";
 
 	/**
 	 * @var string $productPriceType product price type
@@ -114,7 +114,7 @@ class OrderProductTest extends UnitTestCase {
 		$this->profile->insert($this->mysqli);
 
 		$this->product = new Product(null, $this->profile->getProfileId(), $this->imagePath, $this->productName, $this->productPrice,
-			$this->productType, $this->productPriceType, $this->productWeight);
+			$this->productDescription, $this->productPriceType, $this->productWeight);
 		$this->product->insert($this->mysqli);
 
 		$this->orderDate = new DateTime();

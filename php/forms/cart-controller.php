@@ -3,13 +3,13 @@
 session_start();
 
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+
+
+require_once("../classes/orderproduct.php");
 require_once("../classes/order.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
 
-
-var_dump($_POST);
-// verify the form values have been submitted
 for($i = 0; $i < count($_POST); $i++) {
 	if(@isset($_POST['product'. ($i + 1) .'Quantity']) === false) {
 		echo "<p class=\"alert alert-danger\">form values not complete. Verify the form and try again.</p>";
@@ -48,4 +48,22 @@ try {
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
+
+function deleteAllFromDataBase($mysqli) {
+	$users = User::getAllUsers($mysqli);
+	foreach($users as $user) {
+		$user->delete($mysqli);
+	}
+
+	$profiles = Profile::getAllUsers($mysqli);
+	foreach($profiles as $profile) {
+		$profile->delete($mysqli);
+	}
+
+	$products = Product::getAllUsers($mysqli);
+	foreach($products as $product) {
+		$product->delete($mysqli);
+	}
+}
+
 ?>

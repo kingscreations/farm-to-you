@@ -6,7 +6,7 @@ session_start();
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
 
-
+require_once("../classes/product.php");
 
 // header
 $currentDir = dirname(__FILE__);
@@ -41,26 +41,8 @@ $_SESSION['products'] = array(
 	)
 );
 
-try {
-	mysqli_report(MYSQLI_REPORT_STRICT);
-
-	// get the credentials information from the server
-	$configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
-	$configArray = readConfig($configFile);
-
-	// connection
-	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
-		$configArray["database"]);
-
-	$mysqli->close();
-
-} catch(Exception $exception) {
-	echo "Exception: " . $exception->getMessage() . "<br/>";
-	echo $exception->getFile() .":" . $exception->getLine();
-}
-
-$maxQuantity = 15;
 $products = $_SESSION['products'];
+$maxQuantity = 15;
 
 ?>
 
@@ -85,11 +67,44 @@ $products = $_SESSION['products'];
 						$counter = 1;
 
 						foreach($products as $product) {
+							try {
+								mysqli_report(MYSQLI_REPORT_STRICT);
+
+								// get the credentials information from the server
+								$configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
+								$configArray = readConfig($configFile);
+
+								// connection
+								$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
+									$configArray["database"]);
+
+								// user, profile and product
+								// TODO delete this as soon as possible -> for test purpose
+								///////////////////////////////////
+								$this->user = new User(null, "test2@test.com", 'Aa10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99Aa10BC99AB10BC99AB10BC99AB10BC', '99Aa10BC99AB10BC');
+								$this->user->insert($this->mysqli);
+
+								$this->profile = new Profile(null, 'toto', 'sinatra', '505 986700798', 'm', 'kj', 'images/toto.jpg',
+									$this->user->getUserId());
+								$this->profile->insert($this->mysqli);
+
+								$product = new Product(null, $this->profile->getProfileId(), $product['productName'],
+									$product['productPrice'], $product['productPrice'], $product['productType'], $product['productPriceType'],
+									$product['productWeight']);
+								////////////////////////////////////
+
+								$mysqli->close();
+
+							} catch(Exception $exception) {
+								echo "Exception: " . $exception->getMessage() . "<br/>";
+								echo $exception->getFile() . ":" . $exception->getLine();
+							}
+
+
 							echo '<tr>';
 							echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product['imagePath'] . '"></td>';
 							echo '<td>' . $product['productName'] . '</td>';
 							echo '<td>' . $product['productPrice'] . '</td>';
-//							echo 'product'. $counter .'Quantity';
 							echo '<td><select id="product'. $counter .'Quantity" name="product'. $counter .'Quantity">';
 							$stockLimit = $product['stockLimit'];
 							$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;

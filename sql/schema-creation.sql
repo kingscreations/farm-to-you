@@ -90,6 +90,7 @@ CREATE TABLE product (
 	productName VARCHAR(45) NOT NULL,
 	productPrice DECIMAL(7,2) NOT NULL,
 	productType VARCHAR(40) NOT NULL,
+	productPriceType CHAR(1) NOT NULL, -- w(weight) or u(unit)
 	productWeight DECIMAL(8, 4),
 	imagePath VARCHAR(255),
 	stockLimit INT UNSIGNED,

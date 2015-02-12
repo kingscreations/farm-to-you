@@ -7,7 +7,7 @@
 class Product {
 
 	/**
-	 * @var int $productId id for the product. This is the primary key of the product entity.
+	 * @var mixed $productId id for the product. This is the primary key of the product entity.
 	 */
 	private $productId;
 
@@ -32,6 +32,11 @@ class Product {
 	private $productPrice;
 
 	/**
+	 * @var float $productPriceType product price type
+	 */
+	private $productPriceType;
+
+	/**
 	 * @var string $productType type of the product
 	 */
 	private $productType;
@@ -50,19 +55,20 @@ class Product {
 	/**
 	 * constructor of this product
 	 *
-	 * @param int $newProductId
-	 * @param int $newProfileId
-	 * @param string $newImagePath
-	 * @param string $newProductName
-	 * @param string $newProductPrice
-	 * @param string $newProductType
-	 * @param float $newProductWeight
-	 * @param int $stockLimit
+	 * @param mixed $newProductId id for the product
+	 * @param int $newProfileId id for the profile
+	 * @param string $newImagePath image path of the product
+	 * @param string $newProductName product name
+	 * @param string $newProductPrice product price
+	 * @param string $newProductType product type
+	 * @param string $newProductPriceType product price type
+	 * @param float $newProductWeight product weight
+	 * @param int $stockLimit limit the number of this product
 	 *
 	 * @throws InvalidArgumentException if data types are not valid
 	 * @throws RangeException if data values are out of bounds
 	 */
-	public function __construct($newProductId, $newProfileId, $newImagePath, $newProductName, $newProductPrice, $newProductType, $newProductWeight, $newStockLimit=null) {
+	public function __construct($newProductId, $newProfileId, $newImagePath, $newProductName, $newProductPrice, $newProductType, $newProductPriceType, $newProductWeight, $newStockLimit=null) {
 		try {
 			$this->setProductId($newProductId);
 			$this->setProfileId($newProfileId);
@@ -70,6 +76,7 @@ class Product {
 			$this->setProductName($newProductName);
 			$this->setProductPrice($newProductPrice);
 			$this->setProductType($newProductType);
+			$this->setProductPriceType($newProductPriceType);
 			$this->setProductWeight($newProductWeight);
 			$this->setStockLimit($newStockLimit);
 		} catch(InvalidArgumentException $invalidArgument) {
@@ -219,10 +226,36 @@ class Product {
 		$newProductType = filter_var($newProductType, FILTER_SANITIZE_STRING);
 
 		if(strlen($newProductType) > 45) {
-			throw(new RangeException("product name is too large"));
+			throw(new RangeException("product type is too large"));
 		}
 
 		$this->productType = $newProductType;
+	}
+
+	/**
+	 * accessor for the product price type
+	 *
+	 * @return string value for the product type
+	 */
+	public function getProductPriceType() {
+		return $this->productPriceType;
+	}
+
+	/**
+	 * mutator for the product price type
+	 *
+	 * @param string $newProductPriceType for the product type
+	 * @throws RangeException if the product price type is too large
+	 */
+	public function setProductPriceType($newProductPriceType) {
+		$newProductPriceType = trim($newProductPriceType);
+		$newProductPriceType = filter_var($newProductPriceType, FILTER_SANITIZE_STRING);
+
+		if(strlen($newProductPriceType) > 1) {
+			throw(new RangeException("product price type is too large"));
+		}
+
+		$this->productPriceType = $newProductPriceType;
 	}
 
 	/**
@@ -443,7 +476,8 @@ class Product {
 		$productName = trim($productName);
 		$productName = filter_var($productName, FILTER_SANITIZE_STRING);
 
-		$query	 = "SELECT productId, profileId, imagePath, productName, productPrice, productType, productWeight FROM product WHERE productName LIKE ?";
+		$query	 = "SELECT productId, profileId, imagePath, productName, productPrice, productType, productPriceType,
+ 			productWeight FROM product WHERE productName LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -469,8 +503,8 @@ class Product {
 		$products = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$product	= new Product($row["productId"], $row["profileId"], $row["imagePath"], $row["productName"], $row["productPrice"],
-					$row["productType"], $row["productWeight"]);
+				$product	= new Product($row["productId"], $row["profileId"], $row["imagePath"], $row["productName"],
+					$row["productPrice"], $row["productType"], $row["productPriceType"], $row["productWeight"]);
 				$products[] = $product;
 			}
 			catch(Exception $exception) {
@@ -505,7 +539,8 @@ class Product {
 		$productType = trim($productType);
 		$productType = filter_var($productType, FILTER_SANITIZE_STRING);
 
-		$query	 = "SELECT productId, profileId, imagePath, productName, productPrice, productType, productWeight FROM product WHERE productType LIKE ?";
+		$query	 = "SELECT productId, profileId, imagePath, productName, productPrice, productType, productPriceType,
+			productWeight FROM product WHERE productType LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -532,7 +567,7 @@ class Product {
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
 				$product	= new Product($row["productId"], $row["profileId"], $row["imagePath"], $row["productName"], $row["productPrice"],
-					$row["productType"], $row["productWeight"]);
+					$row["productType"], $row['productPriceType'], $row["productWeight"]);
 				$products[] = $product;
 			}
 			catch(Exception $exception) {
@@ -571,7 +606,8 @@ class Product {
 		if($productId <= 0) {
 			throw(new mysqli_sql_exception("product id is not positive"));
 		}
-		$query	 = "SELECT productId, profileId, imagePath, productName, productPrice, productType, productWeight FROM product WHERE productId = ?";
+		$query	 = "SELECT productId, profileId, imagePath, productName, productPrice, productType, productPriceType,
+ 			productWeight FROM product WHERE productId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -596,8 +632,8 @@ class Product {
 			$product = null;
 			$row   = $result->fetch_assoc();
 			if($row !== null) {
-				$product	= new Product($row["productId"], $row["profileId"], $row["imagePath"], $row["productName"], $row["productPrice"],
-					$row["productType"], $row["productWeight"]);
+				$product	= new Product($row["productId"], $row["profileId"], $row["imagePath"], $row["productName"],
+					$row["productPrice"], $row["productType"], $row['productPriceType'], $row["productWeight"]);
 			}
 		} catch(Exception $exception) {
 			// if the row couldn't be converted, rethrow it
@@ -623,7 +659,8 @@ class Product {
 		}
 
 		// create query template
-		$query	 = "SELECT productId, profileId, imagePath, productName, productPrice, productType, productWeight FROM product";
+		$query	 = "SELECT productId, profileId, imagePath, productName, productPrice, productType, productPriceType,
+ 			productWeight FROM product";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -644,8 +681,8 @@ class Product {
 		$products = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$product	= new Product($row["productId"], $row["profileId"], $row["imagePath"], $row["productName"], $row["productPrice"],
-					$row["productType"], $row["productWeight"]);
+				$product	= new Product($row["productId"], $row["profileId"], $row["imagePath"], $row["productName"],
+					$row["productPrice"], $row["productType"], $row['productPriceType'], $row["productWeight"]);
 				$products[] = $product;
 			}
 			catch(Exception $exception) {

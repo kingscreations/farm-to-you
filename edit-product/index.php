@@ -32,6 +32,14 @@ require_once("../php/lib/header.php");
 		<br>
 
 		<div class="form-group">
+			<label for="inputProductPriceType">Product Price Type:</label>
+			<input type="radio" class="form-control" name="inputProductPriceType" id="inputProductPriceType" value="w">By Weight
+			<input type="radio" class="form-control" name="inputProductPriceType" id="inputProductPriceType" value="u">Per Unit
+		</div>
+
+		<br>
+
+		<div class="form-group">
 			<label for="inputProductWeight">Product Weight:</label>
 			<input type="text" class="form-control" name="inputProductWeight" id="inputProductWeight" placeholder="Weight">
 		</div>

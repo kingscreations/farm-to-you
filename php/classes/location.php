@@ -531,7 +531,7 @@ class Location {
 		$locationName = filter_var($locationName, FILTER_SANITIZE_STRING);
 
 		// create query template
-		$query	 = "SELECT locationId, locationName, country, state, city, zipCode, address1, address2 FROM location WHERE city LIKE ?";
+		$query	 = "SELECT locationId, locationName, country, state, city, zipCode, address1, address2 FROM location WHERE locationName LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));

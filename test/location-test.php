@@ -97,7 +97,6 @@ class LocationTest extends UnitTestCase {
 	 **/
 	public function testInsertValidLocation() {
 		// zeroth, ensure the Location and mySQL class are sane
-		var_dump($this->location);
 
 		$this->assertNotNull($this->location);
 		$this->assertNotNull($this->mysqli);
@@ -110,6 +109,7 @@ class LocationTest extends UnitTestCase {
 
 		// third, assert the Location we have created and mySQL's Location are the same object
 		$this->assertIdentical($this->location->getLocationId(), $mysqlLocation->getLocationId());
+		$this->assertIdentical($this->location->getLocationName(), $mysqlLocation->getLocationName());
 		$this->assertIdentical($this->location->getCountry(), $mysqlLocation->getCountry());
 		$this->assertIdentical($this->location->getState(), $mysqlLocation->getState());
 		$this->assertIdentical($this->location->getCity(), $mysqlLocation->getCity());
@@ -287,11 +287,9 @@ class LocationTest extends UnitTestCase {
 		$this->assertNotNull($this->location);
 		$this->assertNotNull($this->location2);
 		$this->assertNotNull($this->mysqli);
-
 		// first, insert the Location into mySQL
 		$this->location->insert($this->mysqli);
 		$this->location2->insert($this->mysqli);
-
 		// second, grab the Locations from mySQL
 		$mysqlLocations = Location::getLocationByLocationName($this->mysqli, $this->locationName);
 

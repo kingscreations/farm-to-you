@@ -18,6 +18,9 @@ require_once '../php/lib/header.php';
 // model
 require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 
+// for test purpose
+require_once '../php/lib/dummy-session.php';
+
 $_SESSION['products'] = array(
 	array(
 		'productId'        => 11,
@@ -83,9 +86,12 @@ $maxQuantity = 15;
 								// user, profile and product
 								// TODO delete this as soon as possible -> for test purpose
 								///////////////////////////////////
-								$user = new User(null, "fgoussin@test.com", 'Aa10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010',
-									'99Aa10BC99AB10BC99AB10BC99AB10BC', '99Aa10BC99AB10BC');
-								$user->insert($mysqli);
+
+								////////////
+								exit();
+								///////////
+
+
 
 								$profile = new Profile(null, 'toto', 'sinatra', '505 986700798', 'm', 'kj', 'images/toto.jpg',
 									$user->getUserId());

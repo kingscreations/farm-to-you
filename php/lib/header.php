@@ -36,6 +36,7 @@ $prefix = str_repeat("../", $depthDifference);
 		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/additional-methods.min.js"></script>
 		<script src="<?php echo $prefix; ?>js/iscroll.js"></script>
 		<script src="<?php echo $prefix; ?>js/add-profile.js"></script>
+		<script src="<?php echo $prefix; ?>js/cart.js"></script>
 		<script src="<?php echo $prefix; ?>js/main.js"></script>
 
 		<!-- Latest compiled and minified Bootstrap JavaScript, all compiled plugins included -->

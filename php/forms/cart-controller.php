@@ -7,10 +7,11 @@ require_once("../classes/order.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
 
+echo 'test';
 
 
-var_dump($_SESSION);
-var_dump($_POST);
+//var_dump($_SESSION);
+//var_dump($_POST);
 
 // verify the form values have been submitted
 //if(@isset($_POST["profileId"]) === false || @isset($_POST["tweetContent"]) === false) {

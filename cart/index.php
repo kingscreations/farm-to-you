@@ -76,7 +76,7 @@ $maxQuantity = 15;
 		<div class="col-sm-12">
 			<h2>Shopping cart</h2>
 
-			<form action="../php/forms/cart-controller.php" method="post">
+			<form id="cartController" action="../php/forms/cart-controller.php" method="post" novalidate>
 				<table class="table">
 					<thead>
 						<tr>
@@ -94,7 +94,7 @@ $maxQuantity = 15;
 							echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product['imagePath'] . '"></td>';
 							echo '<td>' . $product['productName'] . '</td>';
 							echo '<td>' . $product['productPrice'] . '</td>';
-							echo '<td><select name="product'. $counter .'Quantity">';
+							echo '<td><select id="product'. $counter .'Quantity" name="product'. $counter .'Quantity">';
 							$stockLimit = $product['stockLimit'];
 							$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
 							for($i = 0; $i < $quantityLimit; $i++) {
@@ -102,15 +102,13 @@ $maxQuantity = 15;
 							}
 							echo '</select></td>';
 							echo '</tr>';
-							//echo '<input type="text" value="'. $product['productId'] .'" class="hidden" name="product'. $counter .'Id" />';
-							//echo '<input type="text" value="'. $product['productPrice'] .'" class="hidden" name="product'. $counter .'Price" />';
-							//echo '<input type="text" value="'. $product['productQuantity'] .'" class="hidden" name="product'. $counter .'Quantity" />';
 							$counter++;
 						}
 
 						?>
 					</tbody>
 				</table>
+				<div id="outputArea"></div>
 				<input type="submit" value="Validate your cart" class="btn btn-default" id="cart-validate-button">
 			</form>
 		</div><!-- end col-sm-12 -->

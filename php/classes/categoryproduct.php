@@ -303,14 +303,14 @@ class CategoryProduct {
 		$products = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$product = new category($row["categoryId"], $row["productId"]);
+				$product = new CategoryProduct($row["categoryId"], $row["productId"]);
 				$products[] = $product;
 			} catch(Exception $exception) {
 				// if the row couldnt be converted, rethrow it
 				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 			}
 		}
-
+		var_dump($products);
 		// count the results in the array and return:
 		// 1) null if 0 results
 		// 2) a single object if 1 result

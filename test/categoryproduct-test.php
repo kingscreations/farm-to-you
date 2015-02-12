@@ -207,5 +207,44 @@ class CategoryProductTest extends UnitTestCase {
 		// third, assert the category product we have created and mySQL's category product are the same object
 		$this->assertNull($mysqlCategoryProduct);
 	}
+
+	/**
+	 * test get valid product by product id
+	 */
+	public function testGetCategoryProductByProductId() {
+		$this->assertNotNull($this->categoryProduct);
+		$this->assertNotNull($this->user);
+		$this->assertNotNull($this->category);
+		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->product);
+		$this->assertNotNull($this->mysqli);
+
+		$this->categoryProduct->insert($this->mysqli);
+		$mysqlCategoryProducts = CategoryProduct::getCategoryProductByProductId($this->mysqli, $this->categoryProduct->getProductId());
+//		var_dump($mysqlCategoryProducts);
+//		var_dump($this->categoryProduct);
+
+		foreach($mysqlCategoryProducts as $mysqlCategoryProduct) {
+			var_dump($mysqlCategoryProduct);
+			var_dump($this->categoryProduct);
+			$this->assertIdentical($this->categoryProduct->getProductId(), $mysqlCategoryProduct->getProductId());
+		}
+	}
+
+	/**
+	 * test get invalid category product by product id
+	 */
+	public function testGetInvalidProductByProduct() {
+		$this->assertNotNull($this->categoryProduct);
+		$this->assertNotNull($this->user);
+		$this->assertNotNull($this->category);
+		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->product);
+		$this->assertNotNull($this->mysqli);
+
+		$this->categoryProduct->insert($this->mysqli);
+		$mysqlCategoryProduct = CategoryProduct::getCategoryProductByProductId($this->mysqli, 4);
+		$this->assertNull($mysqlCategoryProduct);
+	}
 }
 ?>

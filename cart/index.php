@@ -22,7 +22,7 @@ $_SESSION['products'] = array(
 		'productName'      => 'tomato',
 		'productPrice'     => 4.0,
 		'productPriceType' => 'w',
-		'productType'      => 'red grappe tomato',
+		'productDescription'      => 'organic red grape tomato',
 		'productWeight'    => 0.3, // lb
 		'stockLimit'       => '56',
 		'imagePath'        => '../images/veggies/tomato.jpg',
@@ -33,7 +33,7 @@ $_SESSION['products'] = array(
 		'productName'      => 'banana',
 		'productPrice'     => 0.29,
 		'productPriceType' => 'w',
-		'productType'      => 'green banana',
+		'productDescription'      => 'super tasty green banana',
 		'productWeight'    => 0.24, // lb
 		'stockLimit'       => '1435',
 		'imagePath'        => '../images/fruits/banana.jpg',
@@ -89,7 +89,7 @@ $maxQuantity = 15;
 								$this->profile->insert($this->mysqli);
 
 								$product = new Product(null, $this->profile->getProfileId(), $product['productName'],
-									$product['productPrice'], $product['productPrice'], $product['productType'], $product['productPriceType'],
+									$product['productPrice'], $product['productPrice'], $product['productDescription'], $product['productPriceType'],
 									$product['productWeight']);
 								////////////////////////////////////
 

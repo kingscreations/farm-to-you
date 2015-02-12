@@ -42,6 +42,7 @@ try {
 		$count++;
 	}
 
+	clearDatabase($mysqli);
 	$mysqli->close();
 	echo "<p class=\"alert alert-success\">Tweet (id = " . $tweet->getTweetId() . ") posted!</p>";
 
@@ -49,7 +50,12 @@ try {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
 
-function deleteAllFromDataBase($mysqli) {
+/**
+ * Temporary function which acts like a tear down method
+ *
+ * @param $mysqli the database connexion
+ */
+function clearDatabase($mysqli) {
 	$users = User::getAllUsers($mysqli);
 	foreach($users as $user) {
 		$user->delete($mysqli);
@@ -63,6 +69,16 @@ function deleteAllFromDataBase($mysqli) {
 	$products = Product::getAllUsers($mysqli);
 	foreach($products as $product) {
 		$product->delete($mysqli);
+	}
+
+	$orders = Order::getAllUsers($mysqli);
+	foreach($orders as $order) {
+		$order->delete($mysqli);
+	}
+
+	$orderProducts = OrderProduct::getAllUsers($mysqli);
+	foreach($orderProducts as $orderProduct) {
+		$orderProduct->delete($mysqli);
 	}
 }
 

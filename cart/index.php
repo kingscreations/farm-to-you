@@ -86,17 +86,6 @@ $maxQuantity = 15;
 								// user, profile and product
 								// TODO delete this as soon as possible -> for test purpose
 								///////////////////////////////////
-
-								////////////
-								exit();
-								///////////
-
-
-
-								$profile = new Profile(null, 'toto', 'sinatra', '505 986700798', 'm', 'kj', 'images/toto.jpg',
-									$user->getUserId());
-								$profile->insert($mysqli);
-
 								$product = new Product(null, $profile->getProfileId(), $product['productName'],
 									$product['productPrice'], $product['productPrice'], $product['productDescription'], $product['productPriceType'],
 									$product['productWeight']);

@@ -251,8 +251,14 @@ class Product {
 		$newProductPriceType = trim($newProductPriceType);
 		$newProductPriceType = filter_var($newProductPriceType, FILTER_SANITIZE_STRING);
 
-		if(strlen($newProductPriceType) > 1) {
-			throw(new RangeException("product price type is too large"));
+		if(strlen($newProductPriceType) !== 1) {
+			throw(new RangeException("product price type length must equal 1"));
+		}
+
+		// product price type must be either w for weight or u for unit
+		$allowedLetters = ['w', 'u'];
+		if(in_array($newProductPriceType, $allowedLetters) === false) {
+			throw(new RangeException("profile type must be w or u"));
 		}
 
 		$this->productPriceType = $newProductPriceType;

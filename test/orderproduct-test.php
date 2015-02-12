@@ -78,6 +78,11 @@ class OrderProductTest extends UnitTestCase {
 	private $productType = "vegetable";
 
 	/**
+	 * @var string $productPriceType product price type
+	 */
+	private $productPriceType = "u";
+
+	/**
 	 * @var float $productWeight weight of the product
 	 */
 	private $productWeight = 1.2;
@@ -109,7 +114,7 @@ class OrderProductTest extends UnitTestCase {
 		$this->profile->insert($this->mysqli);
 
 		$this->product = new Product(null, $this->profile->getProfileId(), $this->imagePath, $this->productName, $this->productPrice,
-			$this->productType, $this->productWeight);
+			$this->productType, $this->productPriceType, $this->productWeight);
 		$this->product->insert($this->mysqli);
 
 		$this->orderDate = new DateTime();

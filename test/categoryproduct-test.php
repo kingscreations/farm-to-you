@@ -54,7 +54,7 @@ class CategoryProductTest extends UnitTestCase {
 		$this->user->insert($this->mysqli);
 		$this->profile = new Profile(null, "Test", "Test2", "5555555555", "m", "012345", "http://www.cats.com/cat.jpg", $this->user->getUserId());
 		$this->profile->insert($this->mysqli);
-		$this->product = new Product(null, $this->profile->getProfileId(), "http://www.cats.com/cat.jpg", "test", "1.20", "test", 1.20 );
+		$this->product = new Product(null, $this->profile->getProfileId(), "http://www.cats.com/cat.jpg", "test", "1.20", "test", 'u', 1.20 );
 		$this->product->insert($this->mysqli);
 		$this->category = new Category(null, "category");
 		$this->category->insert($this->mysqli);

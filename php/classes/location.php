@@ -13,6 +13,11 @@ class Location {
 	private $locationId;
 
 	/**
+	 * name of the location
+	 **/
+	private $locationName;
+
+	/**
 	 * country of the location
 	 **/
 	private $country;
@@ -47,18 +52,20 @@ class Location {
 	 * constructor for this location class
 	 *
 	 * @param mixed $newLocationId id of the location
+	 * @param string $newLocationName name of the location
 	 * @param mixed $newCountry country of the location or null if no input
 	 * @param string $newState state of the location
 	 * @param string $newCity city of the location
 	 * @param string $newZipCode zip code of the location
 	 * @param string $newAddress1 first line of the address of the location
-	 * @param string $newAddress2 second line of the address of the location
+	 * @param mixed $newAddress2 second line of the address of the location or null if no input
 	 * @throws InvalidArgumentException it data types are not valid
 	 * @throws RangeException if data values are out of bounds (e.g. strings too long, negative integers)
 	 **/
-	public function __construct($newLocationId, $newCountry = null, $newState, $newCity, $newZipCode, $newAddress1, $newAddress2 = null) {
+	public function __construct($newLocationId, $newLocationName, $newCountry = null, $newState, $newCity, $newZipCode, $newAddress1, $newAddress2 = null) {
 		try {
 			$this->setLocationId($newLocationId);
+			$this->setLocationName($newLocationName);
 			$this->setCountry($newCountry);
 			$this->setState($newState);
 			$this->setCity($newCity);
@@ -106,6 +113,38 @@ class Location {
 		}
 		// convert and store the location id
 		$this->locationId = intval($newLocationId);
+	}
+	/**
+	 * accessor method for location name
+	 *
+	 * @return string value of location name
+	 **/
+	public function getLocationName() {
+		return ($this->locationName);
+	}
+
+	/**
+	 * mutator method for location name
+	 *
+	 * @param string $newLocationName new value of location name
+	 * @throws InvalidArgumentException if $newLocationName is not a string or insecure
+	 * @throws RangeException if $newLocationName is > 100 characters
+	 **/
+	public function setLocationName($newLocationName) {
+		// verify that the location name is secure
+		$newLocationName = trim($newLocationName);
+		$newLocationName = filter_var($newLocationName, FILTER_SANITIZE_STRING);
+		if(empty($newLocationName) === true) {
+			throw(new InvalidArgumentException("location name is empty or insecure"));
+		}
+
+		// verify the location name will fit in the database
+		if(strlen($newLocationName) > 100) {
+			throw(new RangeException("location name too large"));
+		}
+
+		// store the location name
+		$this->locationName = $newLocationName;
 	}
 	/**
 	 * accessor method for location country
@@ -321,13 +360,13 @@ class Location {
 			throw(new mysqli_sql_exception("this location already exists"));
 		}
 		// create query template
-		$query = "INSERT INTO location(country, state, city, zipCode, address1, address2) VALUES (?, ?, ?, ?, ?, ?)";
+		$query = "INSERT INTO location(locationName, country, state, city, zipCode, address1, address2) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the member variables to the place holders in the template
-		$wasClean = $statement->bind_param("ssssss", $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+		$wasClean = $statement->bind_param("sssssss", $this->locationName, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters:"));
 		}
@@ -391,13 +430,13 @@ class Location {
 			throw(new mysqli_sql_exception("unable to update a location that does not exist"));
 		}
 		// create a query template
-		$query = "UPDATE location SET country = ?, state = ?, city = ?, zipCode = ?, address1 = ?, address2 = ? WHERE locationId = ?";
+		$query = "UPDATE location SET locationName = ?, country = ?, state = ?, city = ?, zipCode = ?, address1 = ?, address2 = ? WHERE locationId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 		// bind the member variables to the place holders in the template
-		$wasClean = $statement->bind_param("ssssssi", $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2, $this->locationId);
+		$wasClean = $statement->bind_param("sssssssi", $this->locationName, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2, $this->locationId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -433,7 +472,7 @@ class Location {
 		}
 
 		// create query template
-		$query = "SELECT locationId, country, state, city, zipCode, address1, address2 FROM location WHERE locationId = ?";
+		$query = "SELECT locationId, locationName, country, state, city, zipCode, address1, address2 FROM location WHERE locationId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -461,7 +500,7 @@ class Location {
 			$location = null;
 			$row = $result->fetch_assoc();
 			if($row !== null) {
-				$location = new Location($row["locationId"], $row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
+				$location = new Location($row["locationId"], $row["locationName"],$row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
 			}
 		} catch(Exception $exception) {
 			// if the row couldn't be converted, rethrow it
@@ -472,6 +511,72 @@ class Location {
 		$result->free();
 		$statement->close();
 		return ($location);
+	}
+	/**
+	 * gets the location by name
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @param string $locationName name to search for
+	 * @return mixed array of Locations found, or null if not found
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+	public static function getLocationByLocationName(&$mysqli, $locationName) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+
+		// sanitize the city before searching
+		$locationName = trim($locationName);
+		$locationName = filter_var($locationName, FILTER_SANITIZE_STRING);
+
+		// create query template
+		$query	 = "SELECT locationId, locationName, country, state, city, zipCode, address1, address2 FROM location WHERE city LIKE ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		// bind the city to the place holder in the template
+		$locationName = "%$locationName%";
+		$wasClean = $statement->bind_param("s", $locationName);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+
+		// build an array of location
+		$locations = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$location = new Location($row["locationId"], $row["locationName"],$row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
+				$locations[] = $location;
+			}
+			catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+		}
+
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) the entire array if >= 1 result
+		$numberOfLocations = count($locations);
+		if($numberOfLocations === 0) {
+			return(null);
+		} else {
+			return($locations);
+		}
 	}
 	/**
 	 * gets the location by city
@@ -492,7 +597,7 @@ class Location {
 		$city = filter_var($city, FILTER_SANITIZE_STRING);
 
 		// create query template
-		$query	 = "SELECT locationId, country, state, city, zipCode, address1, address2 FROM location WHERE city LIKE ?";
+		$query	 = "SELECT locationId, locationName, country, state, city, zipCode, address1, address2 FROM location WHERE city LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -520,7 +625,7 @@ class Location {
 		$locations = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$location	= new Location($row["locationId"], $row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
+				$location = new Location($row["locationId"], $row["locationName"],$row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
 				$locations[] = $location;
 			}
 			catch(Exception $exception) {
@@ -558,7 +663,7 @@ class Location {
 		$zipCode = filter_var($zipCode, FILTER_SANITIZE_STRING);
 
 		// create query template
-		$query	 = "SELECT locationId, country, state, city, zipCode, address1, address2 FROM location WHERE zipCode LIKE ?";
+		$query	 = "SELECT locationId, locationName, country, state, city, zipCode, address1, address2 FROM location WHERE zipCode LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -585,7 +690,7 @@ class Location {
 		$locations = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$location	= new Location($row["locationId"], $row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
+				$location = new Location($row["locationId"], $row["locationName"],$row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
 				$locations[] = $location;
 			}
 			catch(Exception $exception) {
@@ -623,7 +728,7 @@ class Location {
 		$address1 = filter_var($address1, FILTER_SANITIZE_STRING);
 
 		// create query template
-		$query	 = "SELECT locationId, country, state, city, zipCode, address1, address2 FROM location WHERE address1 LIKE ?";
+		$query	 = "SELECT locationId, locationName, country, state, city, zipCode, address1, address2 FROM location WHERE address1 LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -651,7 +756,7 @@ class Location {
 		$locations = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$location	= new Location($row["locationId"], $row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
+				$location = new Location($row["locationId"], $row["locationName"],$row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
 				$locations[] = $location;
 			}
 			catch(Exception $exception) {
@@ -684,7 +789,7 @@ class Location {
 		}
 
 		// create query template
-		$query	 = "SELECT locationId, country, state, city, zipCode, address1, address2 FROM location";
+		$query	 = "SELECT locationId, locationName, country, state, city, zipCode, address1, address2 FROM location";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -705,7 +810,7 @@ class Location {
 		$locations = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$location	= new Location($row["locationId"], $row["country"], $row["state"], $row["city"], $row["zipCode"],$row["address1"], $row["address2"]);
+				$location = new Location($row["locationId"], $row["locationName"],$row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
 				$locations[] = $location;
 			}
 			catch(Exception $exception) {

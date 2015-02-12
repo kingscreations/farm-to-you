@@ -47,6 +47,7 @@ CREATE TABLE store (
 
 CREATE TABLE location (
 	locationId INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	locationName VARCHAR(100),
 	country CHAR(2),
 	state CHAR(2),
 	city VARCHAR(100),

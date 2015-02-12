@@ -32,6 +32,7 @@ class LocationTest extends UnitTestCase {
 	private $location2 = null;
 
 	// this section contains member variables with constants needed for creating a new location
+	private $locationName = "Home";
 	/**
 	 * country of location
 	 **/
@@ -68,8 +69,7 @@ class LocationTest extends UnitTestCase {
 		$this->mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"], $configArray["database"]);
 
 		// second, create an instance of the object under scrutiny
-		$this->location = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
-
+		$this->location = new Location(null, $this->locationName, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
 	}
 
 	/**
@@ -97,6 +97,8 @@ class LocationTest extends UnitTestCase {
 	 **/
 	public function testInsertValidLocation() {
 		// zeroth, ensure the Location and mySQL class are sane
+		var_dump($this->location);
+
 		$this->assertNotNull($this->location);
 		$this->assertNotNull($this->mysqli);
 
@@ -198,6 +200,7 @@ class LocationTest extends UnitTestCase {
 
 		// fourth, assert the Location we have updated and mySQL's Location are the same object
 		$this->assertIdentical($this->location->getLocationId(), $mysqlLocation->getLocationId());
+		$this->assertIdentical($this->location->getLocationName(), $mysqlLocation->getLocationName());
 		$this->assertIdentical($this->location->getCountry(), $mysqlLocation->getCountry());
 		$this->assertIdentical($this->location->getState(), $mysqlLocation->getState());
 		$this->assertIdentical($this->location->getCity(), $mysqlLocation->getCity());
@@ -227,7 +230,7 @@ class LocationTest extends UnitTestCase {
 	 **/
 	public function testGetLocationByValidCity() {
 		// zeroth, create second Location
-		$this->location2 = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+		$this->location2 = new Location(null, $this->locationName, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
 
 		// zeroth #2, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);
@@ -255,7 +258,7 @@ class LocationTest extends UnitTestCase {
 	 **/
 	public function testGetLocationByInvalidCity() {
 		// zeroth, create second Location
-		$this->location2 = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+		$this->location2 = new Location(null, $this->locationName, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
 
 		// zeroth #2, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);
@@ -273,12 +276,63 @@ class LocationTest extends UnitTestCase {
 		$this->assertNull($mysqlLocations);
 	}
 	/**
+	 * test getLocationByValidLocationName by inserting two identical Locations into mySQL, calling them with getLocationByLocationName,
+	 * and asserting mySQL Locations and original Locations are identical
+	 **/
+	public function testGetLocationByValidLocationName() {
+		// zeroth, create second Location
+		$this->location2 = new Location(null, $this->locationName, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+
+		// zeroth #2, ensure the Location and mySQL class are sane
+		$this->assertNotNull($this->location);
+		$this->assertNotNull($this->location2);
+		$this->assertNotNull($this->mysqli);
+
+		// first, insert the Location into mySQL
+		$this->location->insert($this->mysqli);
+		$this->location2->insert($this->mysqli);
+
+		// second, grab the Locations from mySQL
+		$mysqlLocations = Location::getLocationByLocationName($this->mysqli, $this->locationName);
+
+		// third, assert the Locations we have created and mySQL's Locations are the same object
+		foreach($mysqlLocations as $mysqlLocation) {
+			$this->assertNotNull($mysqlLocation->getLocationId());
+			$this->assertTrue($mysqlLocation->getLocationId() > 0);
+			$this->assertIdentical($this->location->getLocationName(), $mysqlLocation->getLocationName());
+			$this->assertIdentical($this->location2->getLocationName(), $mysqlLocation->getLocationName());
+		}
+	}
+	/**
+	 * test getLocationByInvalidLocationName by inserting two identical Locations into mySQL, searching for
+	 * a different location name, and asserting that the result is null
+	 **/
+	public function testGetLocationByInvalidLocationName() {
+		// zeroth, create second Location
+		$this->location2 = new Location(null, $this->locationName, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+
+		// zeroth #2, ensure the Location and mySQL class are sane
+		$this->assertNotNull($this->location);
+		$this->assertNotNull($this->location2);
+		$this->assertNotNull($this->mysqli);
+
+		// first, insert the Location into mySQL
+		$this->location->insert($this->mysqli);
+		$this->location2->insert($this->mysqli);
+
+		// second, grab the Locations from mySQL
+		$mysqlLocations = Location::getLocationByLocationName($this->mysqli, "Away");
+
+		// third, assert results array is null
+		$this->assertNull($mysqlLocations);
+	}
+	/**
 	 * test getLocationByValidZipCode by inserting two identical Locations into mySQL, calling them with getLocationByZipCode,
 	 * and asserting mySQL Locations and original Locations are identical
 	 **/
 	public function testGetLocationByValidZipCode() {
 		// zeroth, create second Location
-		$this->location2 = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+		$this->location2 = new Location(null, $this->locationName, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
 
 		// zeroth #2, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);
@@ -306,7 +360,7 @@ class LocationTest extends UnitTestCase {
 	 **/
 	public function testGetLocationByInvalidZipCode() {
 		// zeroth, create second Location
-		$this->location2 = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+		$this->location2 = new Location(null, $this->locationName, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
 
 		// zeroth #2, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);
@@ -329,7 +383,7 @@ class LocationTest extends UnitTestCase {
 	 **/
 	public function testGetLocationByValidAddress1() {
 		// zeroth, create second Location
-		$this->location2 = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+		$this->location2 = new Location(null, $this->locationName, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
 
 		// zeroth #2, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);
@@ -357,7 +411,7 @@ class LocationTest extends UnitTestCase {
 	 **/
 	public function testGetLocationByInvalidAddress1() {
 		// zeroth, create second Location
-		$this->location2 = new Location(null, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+		$this->location2 = new Location(null, $this->locationName, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
 
 		// zeroth #2, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->location);

@@ -31,7 +31,6 @@
 				<br>
 			</form>
 			<p id="outputArea"></p>
-			</div>
 	</div>
 </div><!-- end row-fluid -->
 

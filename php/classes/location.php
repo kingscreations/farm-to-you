@@ -163,6 +163,11 @@ class Location {
 	 * @throws RangeException if $newCountry is > 2 characters
 	 **/
 	public function setCountry($newCountry) {
+		if($newCountry === null) {
+			$this->country = null;
+			return;
+		}
+
 		// verify that the location country is secure
 		$newCountry = trim($newCountry);
 		$newCountry = filter_var($newCountry, FILTER_SANITIZE_STRING);

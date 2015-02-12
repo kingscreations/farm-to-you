@@ -2,7 +2,7 @@
 //$currentDir = dirname(__FILE__);
 //require_once '../../root-path.php';
 //require_once '../lib/header.php';
-require_once("../../store/index.php");
+//require_once("../../store/index.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../classes/store.php");
 require_once("../classes/profile.php");
@@ -55,39 +55,22 @@ try {
 
 
 	echo "<p class=\"alert alert-success\">" . $store->getStoreName() . " added!</p>";
-} catch(Exception $exception) {
-	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
-
-
-} ?>
-<div class="row-fluid">
+//	$mysqlStore = Store::getStoreByProfileId($mysqli, $profile->getProfileId());
+//	var_dump($mysqlStore);
+//	$listOfStores = (string)$mysqlStore;
+//	echo $listOfStores;
+	?>
+	<div class="row-fluid">
 	<div class="col-sm-12">
-		<h2>Add Location</h2>
-			<form class="form-inline" id="tweetController" method="post" action="../php/forms/location-controller.php">
-				<div class="form-group">
-					<label for="storeName">Location Name</label>
-					<input type="text" id="storeName" name="storeName">
-				</div>
-					<br>
-				<div class="form-group">
-					<label for="storeDescription">Store Description</label>
-					<input type="text" id="storeDescription" name="storeDescription">
-				</div>
-				<br>
+	<h3><strong><?php echo $store->getStoreName() ?></strong></h3>
+	<h2>Add Location</h2>
+	<form class="form-inline" id="locationController" method="post" action="location-controller.php">
 
-				<div class="form-group">
-					<label for="InputImage">Store Image</label>
-					<input type="file" id="InputImage" name="InputImage">
-				</div>
-				<br>
-	<br>
-				<button type="submit">Submit</button>
-				<br>
-			</form>
-			<p id="outputArea"></p>
-			</div>
-	</div>
-</div><!-- end row-fluid -->
-
-
-<?php //require_once "../php/lib/footer.php"; ?>
+	<?php require_once('../../location/index.php') ?>
+<?php
+} catch(Exception $exception) {
+	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";?>
+<form class="form-inline" id="back" method="post" action="../../store/index.php">
+	<button type="submit">Back</button>
+</form>
+<?php } ?>

@@ -2,8 +2,26 @@
 /**
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
+function my_session_start()
+{
+	if (ini_get('session.use_cookies') && isset($_COOKIE['PHPSESSID'])) {
+		$sessid = $_COOKIE['PHPSESSID'];
+	} elseif (!ini_get('session.use_only_cookies') && isset($_GET['PHPSESSID'])) {
+		$sessid = $_GET['PHPSESSID'];
+	} else {
+		session_start();
+		return false;
+	}
 
-//session_start();
+	if (!preg_match('/^[a-z0-9]{32}$/', $sessid)) {
+		return false;
+	}
+	session_start();
+
+	return true;
+}
+my_session_start();
+
 
 // header
 $currentDir = dirname(__FILE__);

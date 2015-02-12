@@ -55,12 +55,6 @@ class ProductTest extends UnitTestCase {
 	 */
 	private $product2 = null;
 
-	// this section contains member variables with constants needed for creating a new product
-	/**
-	 * @var int $profileId id for the profile. This is a foreign key to the profile entity.
-	 */
-	private $profileId = 1;
-
 	/**
 	 * @var string $imagePath image path of the product
 	 */
@@ -80,11 +74,6 @@ class ProductTest extends UnitTestCase {
 	 * @var string $productType type of the product
 	 */
 	private $productType = "vegetable";
-
-	/**
-	 * @var string $productType type of the product
-	 */
-	private $productPriceType = 'w';
 
 	/**
 	 * @var float $productWeight weight of the product
@@ -113,7 +102,7 @@ class ProductTest extends UnitTestCase {
 		$this->profile->insert($this->mysqli);
 
 		$this->product = new Product(null, $this->profile->getProfileId(), $this->imagePath, $this->productName, $this->productPrice,
-			$this->productType, 'w', $this->productWeight);
+			'very tasty organic tomatoes: just an exceptional product', 'w', $this->productWeight);
 
 		// instance of the second product
 		$this->user2 = new User(null, "test2@test.com", 'Aa10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99Aa10BC99AB10BC99AB10BC99AB10BC', '99Aa10BC99AB10BC');
@@ -124,7 +113,7 @@ class ProductTest extends UnitTestCase {
 		$this->profile2->insert($this->mysqli);
 
 		$this->product2 = new Product(null, $this->profile2->getProfileId(), $this->imagePath, $this->productName, $this->productPrice,
-			$this->productType, 'w', $this->productWeight);
+			'very tasty organic tomatoes: just an exceptional product', 'w', $this->productWeight);
 	}
 
 	/**
@@ -189,7 +178,7 @@ class ProductTest extends UnitTestCase {
 		$this->assertIdentical($this->product->getImagePath(), $mysqlProduct->getImagePath());
 		$this->assertIdentical($this->product->getProductName(), $mysqlProduct->getProductName());
 		$this->assertIdentical($this->product->getProductPrice(), $mysqlProduct->getProductPrice());
-		$this->assertIdentical($this->product->getProductType(), $mysqlProduct->getProductType());
+		$this->assertIdentical($this->product->getProductDescription(), $mysqlProduct->getProductDescription());
 		$this->assertIdentical($this->product->getProductWeight(), $mysqlProduct->getProductWeight());
 	}
 
@@ -272,7 +261,7 @@ class ProductTest extends UnitTestCase {
 		$this->assertIdentical($this->product->getImagePath(), $mysqlProduct->getImagePath());
 		$this->assertIdentical($this->product->getProductName(), $mysqlProduct->getProductName());
 		$this->assertIdentical($this->product->getProductPrice(), $mysqlProduct->getProductPrice());
-		$this->assertIdentical($this->product->getProductType(), $mysqlProduct->getProductType());
+		$this->assertIdentical($this->product->getProductDescription(), $mysqlProduct->getProductDescription());
 		$this->assertIdentical($this->product->getProductWeight(), $mysqlProduct->getProductWeight());
 	}
 
@@ -339,7 +328,7 @@ class ProductTest extends UnitTestCase {
 	/**
 	 * test get valid product by product type
 	 */
-	public function testGetValidProductByProductType() {
+	public function testGetValidProductByProductDescription() {
 		// zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->product);
 		$this->assertNotNull($this->product2);
@@ -350,21 +339,21 @@ class ProductTest extends UnitTestCase {
 		$this->product2->insert($this->mysqli);
 
 		// second, grab the Locations from mySQL
-		$mysqlProducts = Product::getProductByProductType($this->mysqli, $this->productType);
+		$mysqlProducts = Product::getProductByProductDescription($this->mysqli, 'just an exceptional');
 
 		// third, assert the Locations we have created and mySQL's Locations are the same object
 		foreach($mysqlProducts as $mysqlProduct) {
 			$this->assertNotNull($mysqlProduct->getProductId());
 			$this->assertTrue($mysqlProduct->getProductId() > 0);
-			$this->assertIdentical($this->product->getProductType(), $mysqlProduct->getProductType());
-			$this->assertIdentical($this->product2->getProductType(), $mysqlProduct->getProductType());
+			$this->assertIdentical($this->product->getProductDescription(), $mysqlProduct->getProductDescription());
+			$this->assertIdentical($this->product2->getProductDescription(), $mysqlProduct->getProductDescription());
 		}
 	}
 
 	/**
 	 * test get invalid product by product type
 	 */
-	public function testGetInvalidProductByProductType() {
+	public function testGetInvalidProductByProductDescription() {
 		// zeroth, ensure the Location and mySQL class are sane
 		$this->assertNotNull($this->product);
 		$this->assertNotNull($this->product2);
@@ -375,7 +364,7 @@ class ProductTest extends UnitTestCase {
 		$this->product2->insert($this->mysqli);
 
 		// third, grab the Locations from mySQL
-		$mysqlProducts = Product::getProductByProductType($this->mysqli, "wrong product");
+		$mysqlProducts = Product::getProductByProductDescription($this->mysqli, "wrong product");
 
 		$this->assertNull($mysqlProducts);
 	}

@@ -83,7 +83,6 @@ $_SESSION['products'] = array(
 					<tbody>
 						<?php
 
-
 						try {
 							mysqli_report(MYSQLI_REPORT_STRICT);
 

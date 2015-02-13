@@ -98,27 +98,28 @@ $_SESSION['products'] = array(
 							$maxQuantity = 15;
 							$counter = 1;
 							foreach($_SESSION['products'] as $productFromSession) {
-								$productId       = $productFromSession['id'];
-								$productQuantity = $productFromSession['quantity'];
 
 								// get the product from the database
-								$product = Product::getProductByProductId($mysqli, $productId);
+								$product = Product::getProductByProductId($mysqli, $productFromSession['id']);
 
 								echo '<tr>';
 								echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product->getImagePath() . '"></td>';
 								echo '<td>' . $product->getProductName() . '</td>';
 								echo '<td>' . $product->getProductPrice() . '</td>';
 								$stockLimit = $product->getStockLimit();
+
+								if($stockLimit === null) {
+									$stockLimit = 15;
+								}
+
 								$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
-								var_dump($quantityLimit);
 								echo '<td><select id="product'. $counter .'Quantity" name="product'. $counter .'Quantity">';
 
 								for($i = 0; $i < $quantityLimit; $i++) {
-									$current = $i + 1;
-									if($current === $productQuantity) {
-										echo '<option selected="selected">' . $current . '</option>';
+									if(($i + 1) === $productFromSession['quantity']) {
+										echo '<option selected="selected">' . ($i + 1) . '</option>';
 									} else {
-										echo '<option>' . $current . '</option>';
+										echo '<option>' . ($i + 1) . '</option>';
 									}
 								}
 								echo '</select></td>';

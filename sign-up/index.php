@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
+ * Sign-up index
  * User: jason
  * Date: 2/11/2015
  * Time: 3:46 PM
@@ -23,7 +23,7 @@ require_once("../php/lib/header.php");
 
 			<div class="form-group">
 				<label for="inputEmail">Email:</label>
-				<input type="text" class="form-control" id="inputEmail" name="inputEmail" placeholder="Please enter your Email">
+				<input type="text" id="inputEmail" name="inputEmail" placeholder="Please enter your Email">
 			</div>
 
 			<br>
@@ -38,19 +38,19 @@ require_once("../php/lib/header.php");
 			<div>
 				<div class="form-group">
 					<label for="password_check">Please re-enter your password: </label>
-					<input type="password" id="password_check" class="password" autocomplete="off" onkeypress="displayCapsWarning(event,'ap_caps_warning', this);" value="" tabindex="7" size="20" maxlength="1024" name="passwordCheck">
+					<input type="password" id="passwordCheck" class="passwordCheck" autocomplete="off" onkeypress="displayCapsWarning(event,'ap_caps_warning', this);" value="" tabindex="7" size="20" maxlength="1024" name="passwordCheck">
 				</div>
 			</div>
+			<br><br>
+			<div class="submit">
+				<button type="submit" id="submit">Let's get started!</button>
+			</div>
 
-			<br>
 
-			<div>
-				<input id="continue-input" type="submit" name="continue" tabindex="10" value="Get Started">
-				<div class="ap_csm_marker" style="display:none;">
-				</div>
-				<br><br>
-				Please open the email we just sent to you and click the link within to finish your registration.<br>
-				Thank you for signing up with Farm-to-you. We will see you at the check-out!
+<!--				<br><br>-->
+<!--				Please open the email we just sent to you and click the link within to finish your registration.<br>-->
+<!--				Thank you for signing up with Farm-to-you. We will see you at the check-out!-->
+
 
 			</div>
 		</form>

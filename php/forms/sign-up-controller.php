@@ -10,7 +10,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 
 // verify the form values have been submitted
-if(@isset($_POST["email"]) === false || @isset($_POST["hash"]) === false) {
+if(@isset($_POST["email"]) === false || @isset($_POST["password"]) === false) {
 	echo "<p class=\"alert alert-danger\">form values not complete. Verify the form and try again.</p>";
 }
 
@@ -23,8 +23,8 @@ try {
 	$user = new User(null, getRandomWord() . "@test.com", $randHash, $randSalt, $randActivation);
 	$user->insert($mysqli);
 
-	if(@isset($_POST["inputImage"])) {
-		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", $_POST["inputImage"], $user->getUserId());
+	if(@isset($_POST["inputEmail"]) && ($_POST["password"])) {
+		$user = new User(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", $_POST["inputImage"], $user->getUserId());
 	} else {
 		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", null, $user->getUserId());
 

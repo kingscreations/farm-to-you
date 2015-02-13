@@ -28,7 +28,7 @@ try {
 	}
 
 	$profile->insert($mysqli);
-	echo "<p class=\"alert alert-success\">User (id = " . $user->getUserId() . ") posted!</p>";
+	echo "<p class=\"success!\">User (id = " . $user->getUserId() . ") posted!</p>";
 } catch(Exception $exception) {
-	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
+	echo "<p class=\"input not posted!\">Exception: " . $exception->getMessage() . "</p>";
 }

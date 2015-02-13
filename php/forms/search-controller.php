@@ -28,7 +28,10 @@ if ($searching =="yes") {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-
+// We preform a bit of filtering
+$searchq = strtoupper($searchq);
+$searchq = strip_tags($searchq);
+$searchq = trim ($searchq);
 
 // query the database. The amount of columns have to match as it currently is. Need more from product and location though
 	$result1 = mysqli_query($mysqli, "SELECT productName, productPrice, productDescription FROM product WHERE productName LIKE '%$searchq%' OR productDescription LIKE '%$searchq%'");

@@ -27,64 +27,9 @@ jQuery(function() {
 			return false;
 		}
 	});
-	//console.echo("Thank you.. Please open the email we just sent to you and click the link within to finish your registration.")
+	console.echo("Thank you.. Please open the email we just sent to you and click the link within to finish your registration.")
 
 	});
-//$(document).ready(
-//	// inner function for the ready() event
-//	function() {
-//
-//		// tell the validator to validate this form
-//		$("#addSignUp").validate({
-//			// setup the formatting for the errors
-//			errorClass: "label-danger",
-//			errorLabelContainer: "#outputArea",
-//			wrapper: "li",
-//
-//			// rules define what is good/bad input
-//			rules: {
-//				// each rule starts with the inputs name (NOT id)
-//				inputEmail: {
-//
-//					maxlength: 100,
-//					required: true
-//				},
-//
-//				inputPassword: {
-//					required: true
-//				},
-//
-//				inputPasswordCheck: {
-//					required: true
-//				},
-//
-//			// error messages to display to the end user
-//			messages: {
-//				inputEmail: {
-//					maxlength: "Email is too long!",
-//					required: "Please enter your email address."
-//				},
-//
-//				inputPassword: {
-//					required: "Please enter a password."
-//				},
-//
-//				inputPasswordCheck: {
-//					required: "Please re-enter your password."
-//				},
-//			}
-//			// verify the two passwords are identical
-//			function prepareEventHandlers() {
-//				document.getElementById("outputArea").onsubmit = function() {
-//					if ("password" !== "passwordCheck"){
-//						console.echo("Your passwords don't match. Please try again.")
-//					return false;
-//					}else("firstPassword" == "secondPassword"){
-//						console.echo("Thank you.. Please open the email we just sent to you and click the link within to finish your registration.")
-//					return true;
-//					}
-//		}
-//	}
 //
 //			// setup an AJAX call to submit the form without reloading
 //			submitHandler: function(form) {

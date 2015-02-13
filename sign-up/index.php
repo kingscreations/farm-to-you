@@ -19,14 +19,8 @@ require_once("../php/lib/header.php");
 	<div class=""col-sm-12">
 		<h3>Sign Up!</h3>
 
-<!--		<form class="form-inline" id="signUp" method="post" action="../php/forms/sign-up-controller.php">-->
-<!---->
-<!--			<div class="form-group">-->
-<!--				<label for="inputEmail">Email:</label>-->
-<!--				<input type="text" id="inputEmail" name="inputEmail" placeholder="Please enter your Email">-->
-<!--			</div>-->
-
 			<br>
+
 		<form method="post" name="signUp" id="signUp" action="">
 			<fieldset>
 				<label>Your email:</label>
@@ -41,33 +35,7 @@ require_once("../php/lib/header.php");
 				<input type="submit" value="Let's get started!" id="submit">
 			</fieldset>
 		</form>
-<!--			<div class="form-group">-->
-<!--				<label for="password">Now type in a password:</label>-->
-<!--					<input type="password" id="password" class="password" autocomplete="off" onkeypress="displayCapsWarning(event,'ap_caps_warning', this);" value="" tabindex="6" size="20" maxlength="1024" name="password">-->
-<!--			</div>-->
-<!---->
-<!--			<br>-->
-<!---->
-<!--			<div>-->
-<!--				<div class="form-group">-->
-<!--					<label for="password_check">Please re-enter your password: </label>-->
-<!--					<input type="password" id="passwordCheck" class="passwordCheck" autocomplete="off" onkeypress="displayCapsWarning(event,'ap_caps_warning', this);" value="" tabindex="7" size="20" maxlength="1024" name="passwordCheck">-->
-<!--				</div>-->
-<!--			</div>-->
-<!--			<br><br>-->
-<!--			<div class="submit">-->
-<!--				<button type="submit" id="submit">Let's get started!</button>-->
-<!--			</div>-->
-
-
-<!--				<br><br>-->
-<!--				Please open the email we just sent to you and click the link within to finish your registration.<br>-->
-<!--				Thank you for signing up with Farm-to-you. We will see you at the check-out!-->
-
-
-			</div>
-		</form>
-		<p id="outputArea"></p>
+	<p id="outputArea"></p>
 	</div>
-
 </div>
+

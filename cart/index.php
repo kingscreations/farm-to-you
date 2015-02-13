@@ -73,8 +73,10 @@ $_SESSION['products'] = array(
 						<tr>
 							<th></th>
 							<th></th>
+							<th>weight</th>
 							<th>price</th>
 							<th>quantity</th>
+							<th>total</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -101,7 +103,19 @@ $_SESSION['products'] = array(
 								echo '<tr>';
 								echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product->getImagePath() . '"></td>';
 								echo '<td>' . $product->getProductName() . '</td>';
-								echo '<td>' . $product->getProductPrice() . '</td>';
+								echo '<td>' . $product->getProductWeight() . '</td>';
+
+								// price
+								echo '<td>$' . $product->getProductPrice();
+
+								$productPriceType = $product->getProductPriceType();
+								if($productPriceType === 'w') {
+									echo '/lb';
+								}
+
+								echo '</td>';
+								// end price
+
 								$stockLimit = $product->getStockLimit();
 
 								if($stockLimit === null) {
@@ -109,7 +123,9 @@ $_SESSION['products'] = array(
 								}
 
 								$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
-								echo '<td><select id="product'. $counter .'Quantity" name="product'. $counter .'Quantity">';
+
+								// select box
+								echo '<td><select class="product-quantity" id="product'. $counter .'Quantity" name="product'. $counter .'Quantity">';
 
 								for($i = 0; $i < $quantityLimit; $i++) {
 									if(($i + 1) === $productFromSession['quantity']) {
@@ -118,10 +134,20 @@ $_SESSION['products'] = array(
 										echo '<option>' . ($i + 1) . '</option>';
 									}
 								}
+
 								echo '</select></td>';
+								// end select box
+
+								// total price
+								echo '<td>';
+
+								echo '</td>';
+								// end total price
+
 								echo '</tr>';
 								$counter++;
 							}
+							echo '<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
 
 							$mysqli->close();
 
@@ -134,7 +160,7 @@ $_SESSION['products'] = array(
 					</tbody>
 				</table>
 				<div id="outputArea"></div>
-				<input type="submit" value="Validate your cart" class="btn btn-default" id="cart-validate-button">
+				<input type="submit" value="C" class="btn btn-default push-right" id="cart-validate-button">
 			</form>
 		</div><!-- end col-sm-12 -->
 	</div><!-- end row-fluid -->

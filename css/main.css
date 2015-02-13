@@ -85,7 +85,7 @@ input[type=password]:focus {
  * Table
  */
 td {
-	vertical-align: middle;
+	vertical-align: middle !important;
 }
 
 
@@ -122,9 +122,24 @@ li[role=presentation].open a {
 	background-color: darkgrey;
 }
 
+
+/**
+ * order page
+ */
 .tiny-thumbnail {
-	width: 100px;
-	height: 60px;
+	width: 50px;
+	height: 30px;
+}
+
+@media screen and (min-width: 768px) {
+	.tiny-thumbnail {
+		width: 100px;
+		height: 60px;
+	}
+}
+
+.product-quantity {
+	max-width: 38px;
 }
 
 /**
@@ -147,6 +162,10 @@ li[role=presentation].open a {
 
 .no-padding-right {
 	padding-right: 0;
+}
+
+.push-right {
+	float: right;
 }
 
 /*

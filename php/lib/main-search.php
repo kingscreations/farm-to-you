@@ -12,6 +12,7 @@
 			<input type="text" id="inputSearch" name="inputSearch" placeholder="startrek?" />
 		</div>
 		<div class="col-xs-2 col-sm-1">
+			<input type="hidden" value="yes" name="searching">
 			<button type="submit" class="btn btn-default" name="inputSubmit" id="inputSubmit">
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 			</button>

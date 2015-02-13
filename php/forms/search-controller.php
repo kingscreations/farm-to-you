@@ -6,9 +6,21 @@ require_once("../classes/location.php");
 require_once("../classes/categoryproduct.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
-// check if search was entered or not
-if(@isset($_POST["inputSearch"]) === false) {
-	echo "<p class=\"alert alert-danger\">Form values not complete. Verify the form and try again.</p>";
+
+
+$searchq = $_POST["inputSearch"];
+$searchq = preg_replace("#[^0-9a-z]#i", "", $searchq);
+$searching = $_POST["searching"];
+
+// this is only displayed if they have submitted the form
+if ($searching =="yes") {
+	echo "<h2>Results</h2><p>";
+
+// if they did not enter a search term we give them an error
+	if($searchq == "") {
+		echo "<p>No search term entered</p>";
+		exit;
+	}
 }
 
 // connect to database and filter search
@@ -16,8 +28,7 @@ if(@isset($_POST["inputSearch"]) === false) {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-	$searchq = $_POST["inputSearch"];
-	$searchq = preg_replace("#[^0-9a-z]#i", "", $searchq);
+
 
 // query the database. The amount of columns have to match as it currently is. Need more from product and location though
 	$result1 = mysqli_query($mysqli, "SELECT productName, productPrice, productDescription FROM product WHERE productName LIKE '%$searchq%' OR productDescription LIKE '%$searchq%'");
@@ -37,12 +48,6 @@ if (!$result3) {
 	printf("Error: %s\n", mysqli_error($mysqli));
 	exit();
 }
-
-// print results
-//print_r(mysqli_fetch_array($result));
-//while($row = mysqli_fetch_array($result)){
-//	echo "{$row['productName']}";
-//}
 
 // try to print a table
 	print '<table border="1">';

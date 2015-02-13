@@ -102,3 +102,14 @@ while($row = mysqli_fetch_array($result3)) {
 	print '</tr>';
 }
 print '</table>';
+
+//This counts the number or results - and if there wasn't any it gives them a little message explaining that
+if (mysqli_num_rows($result1) == 0 && mysqli_num_rows($result2) == 0 && mysqli_num_rows($result3) == 0)
+{
+	echo "Sorry, but we can not find an entry to match your query<br><br>";
+//And we remind them what they searched for
+	echo "<b>Searched For:</b> " .$searchq;
+}
+
+
+?>

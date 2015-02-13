@@ -33,6 +33,9 @@ $searchq = strtoupper($searchq);
 $searchq = strtolower($searchq);
 $searchq = strip_tags($searchq);
 $searchq = trim ($searchq);
+$searchq = filter_var($searchq, FILTER_SANITIZE_STRING);
+$searchq = escapeshellcmd($searchq);
+
 
 // query the database. The amount of columns have to match as it currently is. Need more from product and location though
 	$result1 = mysqli_query($mysqli, "SELECT productName, productPrice, productDescription FROM product WHERE productName LIKE '%$searchq%' OR productDescription LIKE '%$searchq%'");

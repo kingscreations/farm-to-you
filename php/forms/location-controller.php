@@ -1,7 +1,8 @@
 
 
 	<?php
-	//$currentDir = dirname(__FILE__);
+	session_start();
+	$currentDir = dirname(__FILE__);
 	//require_once '../../root-path.php';
 	//require_once '../lib/header.php';
 	//require_once("../../store/index.php");
@@ -43,8 +44,7 @@
 		$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 		$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-		$profiles = $_SESSION['profiles'];
-		$profileId = $profiles[0];
+		$profileId = $_SESSION['profilesId'][0];
 
 		$store = new Store(null, $profile->getProfileId(), 'Home', null, null, null);
 		$store->insert($mysqli);

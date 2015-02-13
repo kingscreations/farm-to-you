@@ -23,9 +23,6 @@ require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 // TODO delete this as soon as possible -> for test purpose
 require_once '../dummy-session.php';
 
-// get the first profile id
-$profileId = $_SESSION['profiles'][0]['id'];
-
 try {
 	mysqli_report(MYSQLI_REPORT_STRICT);
 
@@ -37,10 +34,10 @@ try {
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
-	$product1 = new Product(null, $profileId, '../images/veggies/tomato.jpg', 'tomato', 4.0, 'organic red grape tomato', 'w', 0.3);
+	$product1 = new Product(null, $_SESSION['profile']['id'], '../images/veggies/tomato.jpg', 'tomato', 4.0, 'organic red grape tomato', 'w', 0.3);
 	$product1->insert($mysqli);
 
-	$product2 = new Product(null, $profileId, '../images/fruits/banana.jpg', 'banana', 0.29, 'super tasty green banana', 'w', 0.24);
+	$product2 = new Product(null, $_SESSION['profile']['id'], '../images/fruits/banana.jpg', 'banana', 0.29, 'super tasty green banana', 'w', 0.24);
 	$product2->insert($mysqli);
 
 	$mysqli->close();

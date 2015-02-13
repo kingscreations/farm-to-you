@@ -29,15 +29,13 @@ try {
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
-	$profileId = $_SESSION['profiles'][0]['id'];
 	$count = 1;
 	foreach($_SESSION['products'] as $productFromSession) {
 
 		// get the product from the database
 		$product = Product::getProductByProductId($mysqli, $productFromSession['id']);
 
-		$order = new Order(null, $profileId, new DateTime());
-//		var_dump($order);
+		$order = new Order(null, $_SESSION['profile']['id'], new DateTime());
 		$order->insert($mysqli);
 
 		$orderProduct = new OrderProduct($order->getOrderId(), $product->getProductId(), $_POST['product'. ($count) .'Quantity']);

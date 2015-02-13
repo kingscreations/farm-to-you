@@ -71,7 +71,7 @@ $maxQuantity = 15;
 						$productQuantities = [];
 						$counter = 1;
 
-						foreach($_SESSION['products'] as $sessionProduct) {
+						foreach($_SESSION['products'] as $productId) {
 							try {
 								mysqli_report(MYSQLI_REPORT_STRICT);
 

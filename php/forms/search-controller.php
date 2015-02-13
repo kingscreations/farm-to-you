@@ -9,7 +9,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 
 $searchq = $_POST["inputSearch"];
-$searchq = preg_replace("#[^0-9a-z]#i", "", $searchq);
+//$searchq = preg_replace("#[^0-9a-z]#i", "", $searchq); this is causing spaces to get messed up when searching by address
 $searching = $_POST["searching"];
 
 // this is only displayed if they have submitted the form
@@ -36,7 +36,7 @@ $searchq = trim ($searchq);
 // query the database. The amount of columns have to match as it currently is. Need more from product and location though
 	$result1 = mysqli_query($mysqli, "SELECT productName, productPrice, productDescription FROM product WHERE productName LIKE '%$searchq%' OR productDescription LIKE '%$searchq%'");
 	$result2 = mysqli_query($mysqli,"SELECT storeName, imagePath, storeDescription  FROM store WHERE storeName LIKE '%$searchq%'");
-	$result3 = mysqli_query($mysqli, "SELECT locationName, address1, city FROM location WHERE locationName LIKE '%$searchq%'");
+	$result3 = mysqli_query($mysqli, "SELECT locationName, address1, city FROM location WHERE locationName LIKE '%$searchq%' OR address1 LIKE '%$searchq%'");
 
 // check for errors in the search
 if (!$result1) {

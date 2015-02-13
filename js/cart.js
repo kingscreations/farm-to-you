@@ -5,7 +5,7 @@
  $(document).ready(function() {
 	 var maxQuantity = $("#product1Quantity").children().length;
 
-	 $("#cartController").validate({
+	 $('#cartController').validate({
 		errorClass: "label-danger",
 		errorLabelContainer: "#outputArea",
 		wrapper: "li",
@@ -28,5 +28,18 @@
 				}
 			});
 		}
-	});
+	 });
+
+	 $('.productQuantity').on('change', function() {
+		 var data = {
+			 'newQuantity': $(this).val()
+		 }
+		 $.ajax({
+			 type: 'post',
+			 url: '../php/forms/cart-controller.php',
+			 data: data
+		 }).done(function(ajaxOutput) {
+			 console.log
+		 });
+	 })
 });

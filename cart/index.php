@@ -138,11 +138,7 @@ $_SESSION['products'] = array(
 								echo '</select></td>';
 								// end select box
 
-								// total price
-								echo '<td>';
-
-								echo '</td>';
-								// end total price
+								echo '<td id="totalPrice"></td>';
 
 								echo '</tr>';
 								$counter++;

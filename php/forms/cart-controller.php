@@ -10,13 +10,18 @@ require_once("../classes/product.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
 
+/**
+ * Change the total price according with the new quantity
+ */
+if(@isset($_POST['newQuantity']) === false) {
+
+}
+
 for($i = 0; $i < count($_POST); $i++) {
 	if(@isset($_POST['product'. ($i + 1) .'Quantity']) === false) {
 		echo "<p class=\"alert alert-danger\">form values not complete. Verify the form and try again.</p>";
 	}
 }
-
-//var_dump($_SESSION);
 
 try {
 	mysqli_report(MYSQLI_REPORT_STRICT);

@@ -21,20 +21,37 @@ try {
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
-
-	// TODO we need the quantity, the weight, the price type and the price
 	/**
+	 * select change ajax call
+	 *
 	 * Change the total price according with the new quantity
 	 */
-//	if(@isset($_POST['newQuantity']) !== false) {
-//		foreach($_SESSION['products'] as $productFromSession) {
-//			// get the product from the database
-//			$product = Product::getProductByProductId($mysqli, $productFromSession['id']);
-//
-//			if($product)
-//		}
-//	}
+	if(@isset($_POST['newQuantity']) !== false) {
 
+		$newQuantity      = escapeshellcmd(filter_var($_POST['newQuantity'], FILTER_SANITIZE_NUMBER_INT));
+		$productPrice     = escapeshellcmd(filter_var($_POST['productPrice'], FILTER_SANITIZE_NUMBER_FLOAT));
+		$productPriceType = escapeshellcmd(filter_var($_POST['productPriceType'], FILTER_SANITIZE_STRING));
+		$productWeight    = escapeshellcmd(filter_var($_POST['productWeight'], FILTER_SANITIZE_NUMBER_FLOAT));
+
+
+		if($productPriceType === 'w') {
+			echo $productPrice * $newQuantity * $productWeight;
+		} else if($productPriceType === 'u') {
+			echo $productPrice * $newQuantity;
+		} else {
+			if(strlen($productPriceType) !== 1) {
+				throw(new RangeException("product price type length must equal 1"));
+			} else {
+				throw(new RangeException("product price type must be w or u"));
+			}
+		}
+
+		exit();
+	}
+
+	/**
+	 * submit form call
+	 */
 	for($i = 0; $i < count($_POST); $i++) {
 		if(@isset($_POST['product'. ($i + 1) .'Quantity']) === false) {
 			echo "<p class=\"alert alert-danger\">form values not complete. Verify the form and try again.</p>";

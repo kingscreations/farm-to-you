@@ -30,15 +30,36 @@
 		}
 	 });
 
+	 /**
+	  * select quantity on change ajax call to update the total price of each row
+	  *
+	  */
 	 $('.product-quantity').on('change', function() {
 
 		 if($(this) === null || $(this).length === 0) {
 			 return;
 		 }
+		 //console.log($(this));
+		 //console.log($(this).parents());
 
+		 // get the entire row
+		 $.each($(this).parents(), function() {
+			console.log($(this).prop('tagName'))
+			 if($(this).prop('tagName') === 'TR') {
+
+				 $.each($(this).find('td'), function() {
+					console.log($(this));
+				 });
+
+				 console.log($(this).find('td'));
+				 return false; // you have to return explicitly false to exit the loop
+			 }
+		 })
+
+		 // first step to be able to get the other cell of this product row
 		 var elementId = $(this)[0].id;
 
-		 // get the first part of the id: product#
+		 // get the first part of the id: product# which gives the product number (the row)
 		 var elementIdPart1 = elementId.split('-')[0];
 
 		 var $inputPrice = $('#'+ elementIdPart1 +'-price');
@@ -55,7 +76,7 @@
 		 };
 
 		 var productWeight = $inputWeight.val();
-
+		//console.log($inputWeight);
 		var data = {
 			'newQuantity': $(this).val(),
 			'productPrice': productPrice,
@@ -67,7 +88,6 @@
 			 url: '../php/forms/cart-controller.php',
 			 data: data
 		}).done(function(ajaxOutput) {
-			 console.log('success!');
 			$('#'+ elementIdPart1 +'-total-price').html(ajaxOutput);
 		});
 	 })

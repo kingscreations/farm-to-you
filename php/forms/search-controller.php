@@ -1,11 +1,15 @@
 <?php
+$currentDir = dirname(__FILE__);
+
 require_once("../classes/product.php");
 require_once("../classes/store.php");
 require_once("../classes/category.php");
 require_once("../classes/location.php");
 require_once("../classes/categoryproduct.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-
+require_once '../../root-path.php';
+require_once("../lib/header.php");
+require_once("../lib/footer.php");
 
 
 $searchq = $_POST["inputSearch"];

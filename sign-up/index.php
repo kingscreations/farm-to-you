@@ -30,7 +30,7 @@ require_once("../php/lib/header.php");
 		<form method="post" name="signUp" id="signUp" action="">
 			<fieldset>
 				<label>Your email:</label>
-				<input type=""text" name="inputEmail" id="inputEmail" value="" size="45" />
+				<input type="text" name="inputEmail" id="inputEmail" value="" size="45" />
 				<br><br>
 				<label>Enter a password:</label>
 				<input type="password" name="password" id="password" value="" size="38" />

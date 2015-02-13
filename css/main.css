@@ -60,6 +60,16 @@ input[type=text]:focus {
 	outline: none;
 }
 
+input[type=password] {
+	padding: 0.3em;
+	padding-left: 1em;
+	border: 2px solid lightgray;
+	border-radius: 12px;
+}
+
+input[type=password]:focus {
+	outline: none;
+}
 #main-search input[type=text],
 #main-search button {
 	width: 100%;

@@ -30,6 +30,7 @@ if ($searching =="yes") {
 
 // We preform a bit of filtering
 $searchq = strtoupper($searchq);
+$searchq = strtolower($searchq);
 $searchq = strip_tags($searchq);
 $searchq = trim ($searchq);
 

@@ -40,15 +40,19 @@ try {
 		bin2hex(openssl_random_pseudo_bytes(8)));
 	$user->insert($mysqli);
 
-	$_SESSION['usersId'] = array(
-		$user->getUserId()
+	$_SESSION['users'] = array(
+		array(
+			'id' => $user->getUserId()
+		)
 	);
 
 	$profile = new Profile(null, randomString(5), randomString(7), randomString(10), 'm', randomString(1), randomString(19), $user->getUserId());
 	$profile->insert($mysqli);
 
-	$_SESSION['profilesId'] = array(
-		$profile->getProfileId()
+	$_SESSION['profiles'] = array(
+		array(
+			'id' => $profile->getProfileId()
+		)
 	);
 
 	$mysqli->close();

@@ -19,35 +19,50 @@ require_once '../php/lib/header.php';
 // model
 require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 
-// for test purpose
+/////////////////////////////////////////////////////////////////////////
+// TODO delete this as soon as possible -> for test purpose
 require_once '../dummy-session.php';
+
+// get the first profile id
+$profileId = $_SESSION['profiles'][0]['id'];
+
+try {
+	mysqli_report(MYSQLI_REPORT_STRICT);
+
+	// get the credentials information from the server
+	$configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
+	$configArray = readConfig($configFile);
+
+	// connection
+	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
+		$configArray["database"]);
+
+	$product1 = new Product(null, $profileId, '../images/veggies/tomato.jpg', 'tomato', 4.0, 'organic red grape tomato', 'w', 0.3);
+	$product1->insert($mysqli);
+
+	$product2 = new Product(null, $profileId, '../images/fruits/banana.jpg', 'banana', 0.29, 'super tasty green banana', 'w', 0.24);
+	$product2->insert($mysqli);
+
+	$mysqli->close();
+
+} catch(Exception $exception) {
+	echo "Exception: " . $exception->getMessage() . "<br/>";
+	echo $exception->getFile() . ":" . $exception->getLine();
+}
 
 $_SESSION['products'] = array(
 	array(
-		'productId'        => 11,
-		'productName'      => 'tomato',
-		'productPrice'     => 4.0,
-		'productPriceType' => 'w',
-		'productDescription'      => 'organic red grape tomato',
-		'productWeight'    => 0.3, // lb
-		'stockLimit'       => '56',
-		'imagePath'        => '../images/veggies/tomato.jpg',
-		'productQuantity'  => '7'
+		'id' => $product1->getProductId(),
+		'quantity' => 7
 	),
 	array(
-		'productId'        => 12,
-		'productName'      => 'banana',
-		'productPrice'     => 0.29,
-		'productPriceType' => 'w',
-		'productDescription'      => 'super tasty green banana',
-		'productWeight'    => 0.24, // lb
-		'stockLimit'       => '1435',
-		'imagePath'        => '../images/fruits/banana.jpg',
-		'productQuantity'  => '7'
+		'id' => $product2->getProductId(),
+		'quantity' => 5
 	)
 );
+// productQuantity
 
-$maxQuantity = 15;
+/////////////////////////////////////////////////////////////////////////
 
 ?>
 
@@ -68,53 +83,54 @@ $maxQuantity = 15;
 					<tbody>
 						<?php
 
-						$productQuantities = [];
-						$counter = 1;
 
-						foreach($_SESSION['products'] as $productId) {
-							try {
-								mysqli_report(MYSQLI_REPORT_STRICT);
+						try {
+							mysqli_report(MYSQLI_REPORT_STRICT);
 
-								// get the credentials information from the server
-								$configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
-								$configArray = readConfig($configFile);
+							// get the credentials information from the server
+							$configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
+							$configArray = readConfig($configFile);
 
-								// connection
-								$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
-									$configArray["database"]);
+							// connection
+							$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
+								$configArray["database"]);
 
-								Product::getAllProducts()
+							$maxQuantity = 15;
+							$counter = 1;
+							foreach($_SESSION['products'] as $productFromSession) {
+								$productId       = $productFromSession['id'];
+								$productQuantity = $productFromSession['quantity'];
 
-								// user, profile and product
-								// TODO delete this as soon as possible -> for test purpose
-								///////////////////////////////////
-								$product = new Product(null, $_SESSION['profiles'], $product['productName'],
-									$product['productPrice'], $product['productPrice'], $product['productDescription'], $product['productPriceType'],
-									$product['productWeight']);
-								$product->insert($mysqli);
-								////////////////////////////////////
+								// get the product from the database
+								$product = Product::getProductByProductId($mysqli, $productId);
 
-								$mysqli->close();
+								echo '<tr>';
+								echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product->getImagePath() . '"></td>';
+								echo '<td>' . $product->getProductName() . '</td>';
+								echo '<td>' . $product->getProductPrice() . '</td>';
+								$stockLimit = $product->getStockLimit();
+								$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
+								var_dump($quantityLimit);
+								echo '<td><select id="product'. $counter .'Quantity" name="product'. $counter .'Quantity">';
 
-							} catch(Exception $exception) {
-								echo "Exception: " . $exception->getMessage() . "<br/>";
-								echo $exception->getFile() . ":" . $exception->getLine();
+								for($i = 0; $i < $quantityLimit; $i++) {
+									$current = $i + 1;
+									if($current === $productQuantity) {
+										echo '<option selected="selected">' . $current . '</option>';
+									} else {
+										echo '<option>' . $current . '</option>';
+									}
+								}
+								echo '</select></td>';
+								echo '</tr>';
+								$counter++;
 							}
 
+							$mysqli->close();
 
-							echo '<tr>';
-							echo '<td><img class="thumbnail tiny-thumbnail" src="' . $sessionProduct['imagePath'] . '"></td>';
-							echo '<td>' . $sessionProduct['productName'] . '</td>';
-							echo '<td>' . $sessionProduct['productPrice'] . '</td>';
-							echo '<td><select id="product'. $counter .'Quantity" name="product'. $counter .'Quantity">';
-							$stockLimit = $sessionProduct['stockLimit'];
-							$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
-							for($i = 0; $i < $quantityLimit; $i++) {
-								echo '<option>' . ($i + 1) . '</option>';
-							}
-							echo '</select></td>';
-							echo '</tr>';
-							$counter++;
+						} catch(Exception $exception) {
+							echo "Exception: " . $exception->getMessage() . "<br/>";
+							echo $exception->getFile() . ":" . $exception->getLine();
 						}
 
 						?>

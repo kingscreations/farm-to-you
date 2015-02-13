@@ -68,7 +68,8 @@ class Product {
 	 * @throws InvalidArgumentException if data types are not valid
 	 * @throws RangeException if data values are out of bounds
 	 */
-	public function __construct($newProductId, $newProfileId, $newImagePath, $newProductName, $newProductPrice, $newProductDescription, $newProductPriceType, $newProductWeight, $newStockLimit=null) {
+	public function __construct($newProductId, $newProfileId, $newImagePath, $newProductName, $newProductPrice,
+										 $newProductDescription, $newProductPriceType, $newProductWeight, $newStockLimit=null) {
 		try {
 			$this->setProductId($newProductId);
 			$this->setProfileId($newProfileId);

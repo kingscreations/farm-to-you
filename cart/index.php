@@ -67,7 +67,7 @@ $_SESSION['products'] = array(
 		<div class="col-sm-12">
 			<h2>Shopping cart</h2>
 
-			<form id="cartController" action="../php/forms/cart-controller.php" method="post" novalidate>
+			<form id="cartController" action="../php/forms/cart-controller.php" method="post" onsubmit="event.preventDefault()" novalidate>
 				<table class="table">
 					<thead>
 						<tr>
@@ -103,10 +103,10 @@ $_SESSION['products'] = array(
 								echo '<tr>';
 								echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product->getImagePath() . '"></td>';
 								echo '<td>' . $product->getProductName() . '</td>';
-								echo '<td>' . $product->getProductWeight() . '</td>';
+								echo '<td id="product'. $counter .'-weight">' . $product->getProductWeight() . '</td>';
 
 								// price
-								echo '<td>$' . $product->getProductPrice();
+								echo '<td id="product'. $counter .'-price">$' . $product->getProductPrice();
 
 								$productPriceType = $product->getProductPriceType();
 								if($productPriceType === 'w') {
@@ -125,7 +125,7 @@ $_SESSION['products'] = array(
 								$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
 
 								// select box
-								echo '<td><select class="product-quantity" id="product'. $counter .'Quantity" name="product'. $counter .'Quantity">';
+								echo '<td><select class="product-quantity" id="product'. $counter .'-quantity" name="product'. $counter .'Quantity">';
 
 								for($i = 0; $i < $quantityLimit; $i++) {
 									if(($i + 1) === $productFromSession['quantity']) {
@@ -138,7 +138,7 @@ $_SESSION['products'] = array(
 								echo '</select></td>';
 								// end select box
 
-								echo '<td id="totalPrice"></td>';
+								echo '<td id="product'. $counter .'-total-price"></td>';
 
 								echo '</tr>';
 								$counter++;
@@ -156,7 +156,7 @@ $_SESSION['products'] = array(
 					</tbody>
 				</table>
 				<div id="outputArea"></div>
-				<input type="submit" value="C" class="btn btn-default push-right" id="cart-validate-button">
+				<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="cart-validate-button">
 			</form>
 		</div><!-- end col-sm-12 -->
 	</div><!-- end row-fluid -->

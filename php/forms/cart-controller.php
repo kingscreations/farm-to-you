@@ -10,19 +10,6 @@ require_once("../classes/product.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
 
-/**
- * Change the total price according with the new quantity
- */
-if(@isset($_POST['newQuantity']) === false) {
-
-}
-
-for($i = 0; $i < count($_POST); $i++) {
-	if(@isset($_POST['product'. ($i + 1) .'Quantity']) === false) {
-		echo "<p class=\"alert alert-danger\">form values not complete. Verify the form and try again.</p>";
-	}
-}
-
 try {
 	mysqli_report(MYSQLI_REPORT_STRICT);
 
@@ -33,6 +20,26 @@ try {
 	// connection
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
+
+
+	// TODO we need the quantity, the weight, the price type and the price
+	/**
+	 * Change the total price according with the new quantity
+	 */
+//	if(@isset($_POST['newQuantity']) !== false) {
+//		foreach($_SESSION['products'] as $productFromSession) {
+//			// get the product from the database
+//			$product = Product::getProductByProductId($mysqli, $productFromSession['id']);
+//
+//			if($product)
+//		}
+//	}
+
+	for($i = 0; $i < count($_POST); $i++) {
+		if(@isset($_POST['product'. ($i + 1) .'Quantity']) === false) {
+			echo "<p class=\"alert alert-danger\">form values not complete. Verify the form and try again.</p>";
+		}
+	}
 
 	$count = 1;
 	foreach($_SESSION['products'] as $productFromSession) {

@@ -30,16 +30,45 @@
 		}
 	 });
 
-	 $('.productQuantity').on('change', function() {
-		 var data = {
-			 'newQuantity': $(this).val()
+	 $('.product-quantity').on('change', function() {
+
+		 if($(this) === null || $(this).length === 0) {
+			 return;
 		 }
-		 $.ajax({
+
+		 var elementId = $(this)[0].id;
+
+		 // get the first part of the id: product#
+		 var elementIdPart1 = elementId.split('-')[0];
+
+		 var $inputPrice = $('#'+ elementIdPart1 +'-price');
+		 var $inputWeight = $('#'+ elementIdPart1 +'-weight');
+
+		 // get the price and the product price type
+		 var productPrice = null;
+		 if($inputPrice.val().indexOf('/lb') >= 0) {
+			 var productPriceType = 'w';
+			 productPrice = $inputPrice.split('/lb');
+		 } else {
+			 var productPriceType = 'u';
+			 productPrice = $inputPrice.val();
+		 };
+
+		 var productWeight = $inputWeight.val();
+
+		var data = {
+			'newQuantity': $(this).val(),
+			'productPrice': productPrice,
+			'productPriceType': productPriceType,
+			'productWeight': productWeight
+		}
+		$.ajax({
 			 type: 'post',
 			 url: '../php/forms/cart-controller.php',
 			 data: data
-		 }).done(function(ajaxOutput) {
-			 console.log
-		 });
+		}).done(function(ajaxOutput) {
+			 console.log('success!');
+			$('#'+ elementIdPart1 +'-total-price').html(ajaxOutput);
+		});
 	 })
 });

@@ -40,16 +40,16 @@ if(@isset($_POST["storeName"]) === false) {
 //$randHash = bin2hex(openssl_random_pseudo_bytes(64));
 
 try {
-//
-//	mysqli_report(MYSQLI_REPORT_STRICT);
-//	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
-//	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
+
+	mysqli_report(MYSQLI_REPORT_STRICT);
+	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
+	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 //
 //	$user = new User(null, getRandomWord() . "@test.com", $randHash, $randSalt, $randActivation);
 //	$user->insert($mysqli);
 //	$profile = new Profile(null, "Test", "Test2", "5555555555", "m", "012345", "http://www.cats.com/cat.jpg", $user->getUserId());
-	$profiles = $_SESSION['profiles'];
-	$profileId = $profiles['id1'];
+	$profiles = $_SESSION['profilesId'];
+	$profileId = $profiles[0];
 
 	if(@isset($_POST["InputImage"]) && ($_POST["storeDescription"])) {
 		$store = new Store(null, $profileId, $_POST["storeName"], $_POST["InputImage"], null, $_POST["storeDescription"]);
@@ -62,7 +62,7 @@ try {
 	}
 
 	$store->insert($mysqli);
-
+$_SESSION['stores'][] = $store->getStoreId();
 
 	echo "<p class=\"alert alert-success\">" . $store->getStoreName() . " added!</p>";
 //	$mysqlStore = Store::getStoreByProfileId($mysqli, $profile->getProfileId());

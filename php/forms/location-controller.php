@@ -11,7 +11,7 @@
 	require_once("../classes/storelocation.php");
 	require_once("../classes/profile.php");
 	require_once("../classes/user.php");
-	require_once('../lib/dummysession.php');
+	require_once('../../dummy-session.php');
 
 
 	?>
@@ -43,7 +43,9 @@
 		$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 		$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-		$profile = $_SESSION['profiles'];
+		$profiles = $_SESSION['profiles'];
+		$profileId = $profiles[0];
+
 		$store = new Store(null, $profile->getProfileId(), 'Home', null, null, null);
 		$store->insert($mysqli);
 
@@ -57,7 +59,7 @@
 			$location = new Location(null, $_POST["locationName"], null, $_POST["state"], $_POST["city"], $_POST["zipCode"], $_POST["address1"], null);
 		}
 		$location->insert($mysqli);
-		$storeLocation = new StoreLocation($store->getStoreId(), $location->getLocationId());
+		$storeLocation = new StoreLocation($_SESSION['stores'][0], $location->getLocationId());
 		$storeLocation->insert($mysqli);
 
 

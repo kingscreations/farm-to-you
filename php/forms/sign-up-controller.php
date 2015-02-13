@@ -10,8 +10,8 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 
 // verify the form values have been submitted
-if(@isset($_POST["email"]) === false || @isset($_POST["password"]) === false) {
-	echo "<p class=\"alert alert-danger\">form values not complete. Verify the form and try again.</p>";
+if(@isset($_POST["inputEmail"]) === false || @isset($_POST["password"]) === false) {
+	echo "<p class=\"alert alert-danger\">form values are not complete. Verify the form and try again.</p>";
 }
 
 try {

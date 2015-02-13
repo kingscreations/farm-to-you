@@ -20,17 +20,15 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-	$user = new User(null, getRandomWord() . "@test.com", $randHash, $randSalt, $randActivation);
+	$user = new User(null, "@test.com", $randHash, $randSalt, $randActivation);
 	$user->insert($mysqli);
 
 	if(@isset($_POST["inputEmail"]) && ($_POST["password"])) {
-		$user = new User(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", $_POST["inputImage"], $user->getUserId());
-	} else {
-		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", null, $user->getUserId());
-
+		$user = new User(null, $_POST["inputEmail"], $_POST["inputHash"], $_POST["inputSalt"], $_POST["inputActivation"], $user->getUserId());
 	}
+
 	$profile->insert($mysqli);
-	echo "<p class=\"alert alert-success\">Profile (id = " . $profile->getProfileId() . ") posted!</p>";
+	echo "<p class=\"alert alert-success\">User (id = " . $user->getUserId() . ") posted!</p>";
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }

@@ -30,11 +30,18 @@
 		}
 	 });
 
+	 var $productQuantity = $('.product-quantity');
+
+	 // select quantity on change ajax call to update the total price of each row
+	 $productQuantity.on('change', refreshTotalPrice);
+
+	 // call the refreshTotalPrice when the page load for the first time
+	 $productQuantity.change();
+
 	 /**
-	  * select quantity on change ajax call to update the total price of each row
-	  *
+	  * refresh the total price of a product
 	  */
-	 $('.product-quantity').on('change', function() {
+	 function refreshTotalPrice() {
 
 		 if($(this) === null || $(this).length === 0) {
 			 return;
@@ -49,40 +56,36 @@
 		 var $inputPrice = $('#'+ elementIdPart1 +'-price');
 		 var $inputWeight = $('#'+ elementIdPart1 +'-weight');
 
+		 // get the product weight and the new quantity
 		 var productWeight = parseFloat($inputWeight.text());
-		 var productPrice = null;
 		 var newQuantity = parseFloat($(this).val());
-
-		 console.log(productWeight);
-		 console.log(newQuantity);
+		 var productPrice = $inputPrice.text();
 
 		 // set the total price according to the productPriceType
 		 if($inputPrice.text().indexOf('lb') >= 0) {
-			 productPrice = parseFloat($inputPrice.text().split('/lb')[0].substring(1));
 
-			 var finalPrice = String(Math.round(productPrice * newQuantity * productWeight), 2);
+			 // get rid of the /lb AND the $ (first letter)
+			 productPrice = parseFloat(productPrice.split('/lb')[0].substring(1));
+
+			 // price per pound
+			 var result = productPrice * newQuantity * productWeight;
+
+			 // multiply by 100, round and then divide by 100 to get 2 decimal precision
+			 var finalPrice = String((Math.round(result * 100) / 100), 2);
+
 			 $('#'+ elementIdPart1 +'-total-price').html('$'+finalPrice);
 		 } else {
-			 productPrice = parseFloat($inputPrice.text()[0].substring(1));
 
-			 var finalPrice = String(Math.round(productPrice * newQuantity), 2);
+			 // get just rid of the $ (first letter)
+			 productPrice = parseFloat(productPrice.substring(1));
+
+			 // unit price
+			 var result = productPrice * newQuantity;
+
+			 // multiply by 100, round and then divide by 100 to get 2 decimal precision
+			 var finalPrice = String((Math.round(result * 100) / 100), 2);
+
 			 $('#'+ elementIdPart1 +'-total-price').html('$'+finalPrice);
 		 };
-
-		 //console.log(productPrice);
-		 //console.log($inputWeight);
-		//var data = {
-		//	'newQuantity': $(this).val(),
-		//	'productPrice': productPrice,
-		//	'productPriceType': productPriceType,
-		//	'productWeight': productWeight
-		//}
-		//$.ajax({
-		//	 type: 'post',
-		//	 url: '../php/forms/cart-controller.php',
-		//	 data: data
-		//}).done(function(ajaxOutput) {
-		//	$('#'+ elementIdPart1 +'-total-price').html(ajaxOutput);
-		//});
-	 })
+	 }
 });

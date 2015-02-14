@@ -76,7 +76,7 @@ $_SESSION['products'] = array(
 							<th>weight</th>
 							<th>price</th>
 							<th>quantity</th>
-							<th>total</th>
+							<th>final price</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -138,12 +138,16 @@ $_SESSION['products'] = array(
 								echo '</select></td>';
 								// end select box
 
-								echo '<td id="product'. $counter .'-total-price"></td>';
+								echo '<td id="product'. $counter .'-final-price"></td>';
 
 								echo '</tr>';
 								$counter++;
 							}
-							echo '<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
+
+							// last row
+							echo '<tr><td></td><td></td><td></td><td></td>';
+							echo '<td id="total-price-label">Total:</td>';
+							echo '<td id="total-price-result"></td></tr>';
 
 							$mysqli->close();
 

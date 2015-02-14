@@ -33,22 +33,29 @@
 	 var $productQuantity = $('.product-quantity');
 
 	 // select quantity on change ajax call to update the total price of each row
-	 $productQuantity.on('change', refreshTotalPrice);
+	 $productQuantity.on('change', function() {
+		 refreshFinalPrice(null, $(this));
+		 refreshTotalPrice();
+	 });
 
 	 // call the refreshTotalPrice when the page load for the first time
-	 $productQuantity.change();
+	 //$productQuantity.change();
+
+	 // call the refreshTotalPrice when the page load for the first time for each product
+	 $.each($productQuantity, function() {
+	 	refreshFinalPrice(null, $(this));
+	 });
+	 refreshTotalPrice();
 
 	 /**
-	  * refresh the total price of a product
+	  * refresh the final price of a product
 	  */
-	 function refreshTotalPrice() {
-
-		 if($(this) === null || $(this).length === 0) {
-			 return;
-		 }
+	 function refreshFinalPrice(event, $current) {
+		 // set a default value
+		 $productQuantity = typeof $current === 'undefined' ? $(this) : $current;
 
 		 // first step to be able to get the other cell of this product row
-		 var elementId = $(this)[0].id;
+		 var elementId = $productQuantity[0].id;
 
 		 // get the first part of the id: product# which gives the product number (the row)
 		 var elementIdPart1 = elementId.split('-')[0];
@@ -58,7 +65,7 @@
 
 		 // get the product weight and the new quantity
 		 var productWeight = parseFloat($inputWeight.text());
-		 var newQuantity = parseFloat($(this).val());
+		 var newQuantity = parseFloat($productQuantity.val());
 		 var productPrice = $inputPrice.text();
 
 		 // set the total price according to the productPriceType
@@ -73,7 +80,7 @@
 			 // multiply by 100, round and then divide by 100 to get 2 decimal precision
 			 var finalPrice = String((Math.round(result * 100) / 100), 2);
 
-			 $('#'+ elementIdPart1 +'-total-price').html('$'+finalPrice);
+			 $('#'+ elementIdPart1 +'-final-price').html('$'+finalPrice);
 		 } else {
 
 			 // get just rid of the $ (first letter)
@@ -85,7 +92,25 @@
 			 // multiply by 100, round and then divide by 100 to get 2 decimal precision
 			 var finalPrice = String((Math.round(result * 100) / 100), 2);
 
-			 $('#'+ elementIdPart1 +'-total-price').html('$'+finalPrice);
+			 $('#'+ elementIdPart1 +'-final-price').html('$'+finalPrice);
 		 };
+	 }
+
+	 /**
+	  * refresh the total price for all the products listed in the cart
+	  */
+	 function refreshTotalPrice() {
+		// get all the elements with id finishing by -final-price
+		var $finalPrices = $('table.table tbody tr [id$=-final-price]');
+
+		var totalPrice = 0.0;
+		$.each($finalPrices, function() {
+			 // get rid of the $ (first letter)
+			 var price = parseFloat($(this).text().substring(1));
+			 totalPrice += price;
+		});
+
+		// show the result
+		$('#total-price-result').text(String(totalPrice));
 	 }
 });

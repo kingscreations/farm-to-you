@@ -34,23 +34,28 @@
 
 	 // select quantity on change ajax call to update the total price of each row
 	 $productQuantity.on('change', function() {
-		 refreshFinalPrice(null, $(this));
+		 // we don't want the event to be passed, so we do the call ourselves
+		 refreshFinalPrice($(this));
+
+		 // refresh the total price at the bottom of the page
 		 refreshTotalPrice();
 	 });
 
 	 // call the refreshTotalPrice when the page load for the first time
 	 //$productQuantity.change();
 
-	 // call the refreshTotalPrice when the page load for the first time for each product
+	 // call the refreshFinalPrice for each product, when the page load for the first time
 	 $.each($productQuantity, function() {
-	 	refreshFinalPrice(null, $(this));
+	 	refreshFinalPrice($(this));
 	 });
+
+	 // finally refresh the total price when all the final prices are calculated
 	 refreshTotalPrice();
 
 	 /**
 	  * refresh the final price of a product
 	  */
-	 function refreshFinalPrice(event, $current) {
+	 function refreshFinalPrice($current) {
 		 // set a default value
 		 $productQuantity = typeof $current === 'undefined' ? $(this) : $current;
 

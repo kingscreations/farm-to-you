@@ -22,34 +22,6 @@ try {
 		$configArray["database"]);
 
 	/**
-	 * select change ajax call
-	 *
-	 * Change the total price according with the new quantity
-	 */
-	if(@isset($_POST['newQuantity']) !== false) {
-
-		$newQuantity      = escapeshellcmd(filter_var($_POST['newQuantity'], FILTER_SANITIZE_NUMBER_INT));
-		$productPrice     = escapeshellcmd(filter_var($_POST['productPrice'], FILTER_SANITIZE_NUMBER_FLOAT));
-		$productPriceType = escapeshellcmd(filter_var($_POST['productPriceType'], FILTER_SANITIZE_STRING));
-		$productWeight    = escapeshellcmd(filter_var($_POST['productWeight'], FILTER_SANITIZE_NUMBER_FLOAT));
-
-
-		if($productPriceType === 'w') {
-			echo $productPrice * $newQuantity * $productWeight;
-		} else if($productPriceType === 'u') {
-			echo $productPrice * $newQuantity;
-		} else {
-			if(strlen($productPriceType) !== 1) {
-				throw(new RangeException("product price type length must equal 1"));
-			} else {
-				throw(new RangeException("product price type must be w or u"));
-			}
-		}
-
-		exit();
-	}
-
-	/**
 	 * submit form call
 	 */
 	for($i = 0; $i < count($_POST); $i++) {
@@ -100,7 +72,7 @@ function clearDatabase($mysqli) {
 			$product->delete($mysqli);
 		}
 	}
-//echo 'debug';
+
 	$orders = Order::getAllOrders($mysqli);
 	if($orders !== null) {
 		foreach($orders as $order) {

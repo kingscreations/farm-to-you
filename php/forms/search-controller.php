@@ -12,6 +12,7 @@ require_once("../lib/header.php");
 require_once("../lib/footer.php");
 
 
+
 $searchq = $_POST["inputSearch"];
 //$searchq = preg_replace("#[^0-9a-z]#i", "", $searchq); this is causing spaces to get messed up when searching by address
 $searching = $_POST["searching"];
@@ -61,7 +62,7 @@ if (!$result3) {
 }
 
 // try to print a table
-	print '<table border="1">';
+	print '<table class="table table-responsive">';
 	while($row = mysqli_fetch_array($result1)) {
 		print '<tr>';
 		print '<th>Product</th>';
@@ -78,7 +79,7 @@ if (!$result3) {
 	}
 print '</table>';
 
-	print '<table border="1">';
+	print '<table class="table table-responsive">';
 	while($row = mysqli_fetch_array($result2)) {
 		print '<tr>';
 		print '<th>Store</th>';
@@ -94,7 +95,7 @@ print '</table>';
 	}
 	print '</table>';
 
-print '<table border="1">';
+print '<table class="table table-responsive">';
 while($row = mysqli_fetch_array($result3)) {
 	print '<tr>';
 	print '<th>Location</th>';

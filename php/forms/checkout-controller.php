@@ -7,6 +7,7 @@
 // start session as the first statement
 session_start();
 //var_dump($_SESSION);
+var_dump($_POST);
 
 // credentials
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
@@ -17,6 +18,7 @@ require_once("../classes/orderproduct.php");
 require_once("../classes/product.php");
 require_once("../classes/order.php");
 require_once("../classes/profile.php");
+require_once("../classes/user.php");
 
 
 try {
@@ -78,7 +80,7 @@ try {
 }
 
 // stripe API
-//require_once 'external-libs/autoload.php';
+require_once '../external-libs/stripe-api.php';
 
 Stripe::setApiKey("pk_test_jhr3CTTUfUhZceoZrxs5Hpu0");
 $error = '';

@@ -14,7 +14,7 @@ require_once '../php/lib/header.php';
 
 ?>
 
-<div class="row-fluid">
+<div class="row-fluid" xmlns="http://www.w3.org/1999/html">
 	<div class="col-sm-4 col-sm-offset-4">
 		<form id="payment-form" action="../php/forms/checkout-controller.php" method="post" onsubmit="event.preventDefault()" novalidate>
 			<br/>
@@ -51,8 +51,12 @@ require_once '../php/lib/header.php';
 				<span> / </span>
 				<input type="text" name="cardExpirationYear" size="4" data-stripe="exp-year"/>
 			</div>
-			<br/>
-
+			<div class="form-row center">
+				<label>
+					<input type="checkbox" id="remember-user" />
+					<span>Remember my card information for the next time</span>
+				</label
+			</div>
 			<div class="form-row center">
 				<button id="validate-payment" type="submit"  class="btn btn-success">Submit Payment</button>
 			</div>

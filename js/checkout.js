@@ -80,18 +80,18 @@ $(document).ready(function() {
 
 			// Prevent the form from submitting with the default action
 			//return false;
-
+console.log($('#stripe-token'));
+console.log($('#stripe-token').val());
 			// send the token to the server
 			$.ajax({
 				type: "post",
 				url: "../php/forms/checkout-controller.php",
 				data: {
-					'stripeToken': $('#stripe-token').val()
+					'stripeToken': $('#stripe-token').val(),
+					'rememberUser': $('#remember-user').val()
 				}
 			})
 				.done(function(ajaxOutput) {
-					console.log('ajaxOutput:');
-					console.log(ajaxOutput);
 					$("#outputArea").css('display', '');
 					$("#outputArea").html(ajaxOutput);
 				});

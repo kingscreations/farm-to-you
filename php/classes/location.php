@@ -62,7 +62,7 @@ class Location {
 	 * @throws InvalidArgumentException it data types are not valid
 	 * @throws RangeException if data values are out of bounds (e.g. strings too long, negative integers)
 	 **/
-	public function __construct($newLocationId, $newLocationName, $newCountry = null, $newState, $newCity, $newZipCode, $newAddress1, $newAddress2 = null) {
+	public function __construct($newLocationId, $newLocationName, $newCountry, $newState, $newCity, $newZipCode, $newAddress1, $newAddress2 = null) {
 		try {
 			$this->setLocationId($newLocationId);
 			$this->setLocationName($newLocationName);

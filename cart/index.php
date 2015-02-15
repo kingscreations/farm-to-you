@@ -16,7 +16,7 @@ $currentDir = dirname(__FILE__);
 require_once '../root-path.php';
 require_once '../php/lib/header.php';
 
-// model
+// credentials
 require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 
 /////////////////////////////////////////////////////////////////////////
@@ -159,7 +159,7 @@ $_SESSION['products'] = array(
 						?>
 					</tbody>
 				</table>
-				<div id="outputArea"></div>
+				<p id="outputArea"></p>
 				<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="cart-validate-button">
 			</form>
 		</div><!-- end col-sm-12 -->

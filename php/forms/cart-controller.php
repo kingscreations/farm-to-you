@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+//ob_start();
 
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
@@ -47,11 +48,17 @@ try {
 
 	clearDatabase($mysqli);
 	$mysqli->close();
+
+	// TODO: for test purpose -> get rid of that as soon as possible
 	echo "<p class=\"alert alert-success\">Order (id = " . $order->getOrderId() . ") done!</p>";
+//	header("Location: https://bootcamp-coders.cnm.edu/~fgoussin/farm-to-you/checkout-shipping/");
+//	die();
 
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
+
+//ob_end_flush();
 
 /**
  * Temporary function which acts like a tear down method

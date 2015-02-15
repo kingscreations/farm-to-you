@@ -1,0 +1,46 @@
+{
+  "name": "deep-dive-coding/farm-to-you",
+  "description": "store interface between farmers and clients",
+  "version": "0.0.1",
+  "type": "e commerce website",
+  "homepage": "https://bootcamp-coders.cnm.edu/~fgoussin/farm-to-you",
+  "time": "2015-02-15",
+  "licence": "proprietary",
+  "keywords": ["farm-to-you", "farm", "you", "organic", "healthy", "fair"],
+  "authors": [
+    {
+      "name": "Jason King",
+      "email": "jason@kingscreations.org",
+      "homepage": "http://kingscreations.org",
+      "role": "Developer"
+    },
+    {
+      "name": "Jay Renteria",
+      "email": "jay@jayrenteria.com",
+      "homepage": "http://jayrenteria.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Alonso Indacochea",
+      "email": "alonso@hermesdevelopment.com",
+      "homepage": "http://alonsoindacochea.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Florian Goussin",
+      "email": "florian.goussin@gmail.com",
+      "homepage": "http://floriangoussin.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "stripe/stripe-php": "2.*"
+  },
+  "minimum-stability": "dev",
+  "repositories": [],
+  "config": {
+    "use-include-path": false,
+    "preferred-install": "auto",
+    "vendor-dir": "external-libs"
+  }
+}

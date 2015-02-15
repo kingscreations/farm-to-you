@@ -32,24 +32,24 @@ require_once '../php/lib/header.php';
 			<div class="form-row">
 				<label>
 					<span>Card Number</span>
-					<input type="text" size="20" data-stripe="number"/>
+					<input type="text" name="creditCardNumber" size="20" data-stripe="number"/>
 				</label>
 			</div>
 
 			<div class="form-row">
 				<label>
 					<span>CVC</span>
-					<input type="text" size="4" data-stripe="cvc"/>
+					<input type="text" name="cardSecurityCode" size="4" data-stripe="cvc"/>
 				</label>
 			</div>
 
 			<div class="form-row">
 				<label>
 					<span>Expiration (MM/YYYY)</span>
-					<input type="text" size="2" data-stripe="exp-month"/>
+					<input type="text" name="cardExpirationMonth" size="2" data-stripe="exp-month"/>
 				</label>
 				<span> / </span>
-				<input type="text" size="4" data-stripe="exp-year"/>
+				<input type="text" name="cardExpirationYear" size="4" data-stripe="exp-year"/>
 			</div>
 			<br/>
 

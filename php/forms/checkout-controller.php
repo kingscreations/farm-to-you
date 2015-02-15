@@ -6,31 +6,37 @@
 
 // start session as the first statement
 session_start();
-
+var_dump($_SESSION);
+exit();
 // credentials
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 // model
 
 // stripe API
-require_once('./lib/Stripe.php');
+//require_once './lib/Stripe.php';
+
+
+Stripe::setApiKey("pk_test_jhr3CTTUfUhZceoZrxs5Hpu0");
+$error = '';
+$success = '';
 
 if($_POST) {
-	Stripe::setApiKey("YOUR-API-KEY");
-	$error = '';
-	$success = '';
 
 	if(!@isset($_POST['stripeToken'])) {
 		throw new Exception("The Stripe Token was not generated correctly");
 	}
 
-	Stripe_Charge::create(array("amount" => 1000,
-		"currency" => "usd",
-		"card" => $_POST['stripeToken']));
-} else {
-	echo "<p class=\"alert alert-danger\">Problem with the stripe API</p>";
-}
+	$stripeToken = escapeshellcmd(filter_var($_POST['stripeToken'], FILTER_SANITIZE_STRING));
 
+	Stripe_Charge::create(
+		array(
+			"amount" => 1000,
+			"currency" => "usd",
+			"card" => $stripeToken
+		)
+	);
+}
 try {
 	mysqli_report(MYSQLI_REPORT_STRICT);
 

@@ -15,19 +15,48 @@ require_once '../php/lib/header.php';
 ?>
 
 <div class="row-fluid">
-	<div class="col-sm-12">
-		<form id="checkoutShippingController" action="../php/forms/checkout-shipping-controller.php" method="post" onsubmit="event.preventDefault()" novalidate>
-			<h2>checkout time! ah ah! See a lot of Stripes here...</h2>
+	<div class="col-sm-4 col-sm-offset-4">
+		<form id="payment-form" action="../php/forms/checkout-controller.php" method="post" onsubmit="event.preventDefault()" novalidate>
 			<br/>
-			<p>The chosen location you "have chosen" is:</p>
-			<ul>
-				<li>Grower's Market</li>
-				<li>Robinson Park</li>
-				<li>87102, Albuquerque NM</li>
-			</ul>
+			<div class="basic-information">
+				<p>The chosen location you "have chosen" is:</p>
+				<ul>
+					<li>Grower's Market</li>
+					<li>Robinson Park</li>
+					<li>87102, Albuquerque NM</li>
+				</ul>
+			</div>
 
+			<h2>Secure payment via stripe</h2>
+
+			<div class="form-row">
+				<label>
+					<span>Card Number</span>
+					<input type="text" size="20" data-stripe="number"/>
+				</label>
+			</div>
+
+			<div class="form-row">
+				<label>
+					<span>CVC</span>
+					<input type="text" size="4" data-stripe="cvc"/>
+				</label>
+			</div>
+
+			<div class="form-row">
+				<label>
+					<span>Expiration (MM/YYYY)</span>
+					<input type="text" size="2" data-stripe="exp-month"/>
+				</label>
+				<span> / </span>
+				<input type="text" size="4" data-stripe="exp-year"/>
+			</div>
+			<br/>
+
+			<div class="form-row center">
+				<button id="validate-payment" type="submit"  class="btn btn-success">Submit Payment</button>
+			</div>
 			<p id="outputArea"></p>
-			<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="cart-validate-button">
 		</form>
 	</div>
 </div><!-- end row-fluid -->

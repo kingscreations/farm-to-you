@@ -168,6 +168,10 @@ li[role=presentation].open a {
 	float: right;
 }
 
+.center {
+	text-align: center;
+}
+
 /*
  * head titles
  */
@@ -179,7 +183,7 @@ h1 {
 	font-size: 1em;
 }
 h2 {
-	font-size: 1.2em;
+	font-size: 1.6em;
 }
 
 
@@ -246,4 +250,19 @@ h2 {
 **/
 .form-group {
 	margin-top: 20px
+}
+
+.form-row {
+	margin-top: 20px;
+}
+
+.form-row:not(.center) {
+	margin-left: 1em;
+}
+
+/**
+ * information hierarchy
+ */
+.basic-information {
+	color: #aaa;
 }

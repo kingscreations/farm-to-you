@@ -25,7 +25,7 @@ class Checkout {
 	private $checkoutDate;
 
 	/**
-	 * @var $finalPrice
+	 * @var float $finalPrice the price of the order
 	 */
 	private $finalPrice;
 
@@ -35,14 +35,16 @@ class Checkout {
 	 * @param int $newCheckoutId id of the checkout
 	 * @param int $newOrderId of the order
 	 * @param DateTime $newCheckoutDate for the checkout
+	 * @param float $newFinalPrice the price of the order
 	 * @throws InvalidArgumentException it data types are not valid
 	 * @throws RangeException if data values are out of bounds (e.g. strings too long, negative integers)
 	 **/
-	public function __construct($newCheckoutId, $newOrderId, $newCheckoutDate = null) {
+	public function __construct($newCheckoutId, $newOrderId, $newCheckoutDate, $newFinalPrice) {
 		try {
 			$this->setCheckoutId($newCheckoutId);
 			$this->setOrderId($newOrderId);
 			$this->setCheckoutDate($newCheckoutDate);
+			$this->setFinalPrice($newFinalPrice);
 		} catch(InvalidArgumentException $invalidArgument) {
 			// rethrow the exception to the caller
 			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
@@ -230,7 +232,7 @@ class Checkout {
 		}
 
 		// create query template
-		$query = "INSERT INTO checkout(orderId, checkoutDate) VALUES (?, ?)";
+		$query = "INSERT INTO checkout(orderId, checkoutDate, finalPrice) VALUES (?, ?, ?)";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -238,7 +240,7 @@ class Checkout {
 
 		// bind the member variables to the place holders in the template
 		$formattedDate = $this->checkoutDate->format("Y-m-d H:i:s");
-		$wasClean = $statement->bind_param("is", $this->orderId, $formattedDate);
+		$wasClean = $statement->bind_param("isd", $this->orderId, $formattedDate, $this->finalPrice);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters:"));
 		}
@@ -312,7 +314,7 @@ class Checkout {
 		}
 
 		// create a query template
-		$query = "UPDATE checkout SET checkoutId = ?, orderId = ?, checkoutDate = ? WHERE checkoutId = ?";
+		$query = "UPDATE checkout SET checkoutId = ?, orderId = ?, checkoutDate = ?, finalPrice = ? WHERE checkoutId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -320,7 +322,8 @@ class Checkout {
 
 		// bind the member variables to the place holders in the template
 		$formattedDate = $this->checkoutDate->format("Y-m-d H:i:s");
-		$wasClean = $statement->bind_param("iisi", $this->checkoutId, $this->orderId, $formattedDate, $this->checkoutId);
+		$wasClean = $statement->bind_param("iisdi", $this->checkoutId, $this->orderId, $formattedDate, $this->finalPrice,
+			$this->checkoutId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -353,7 +356,7 @@ class Checkout {
 		$checkoutId = trim($checkoutId);
 		$checkoutId = filter_var($checkoutId, FILTER_VALIDATE_INT);
 		// create query template
-		$query = "SELECT checkoutId, orderId, checkoutDate FROM checkout WHERE checkoutId = ?";
+		$query = "SELECT checkoutId, orderId, checkoutDate, finalPrice FROM checkout WHERE checkoutId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -381,7 +384,7 @@ class Checkout {
 			$checkout = null;
 			$row = $result->fetch_assoc();
 			if($row !== null) {
-				$checkout = new Checkout($row["checkoutId"], $row["orderId"], $row["checkoutDate"]);
+				$checkout = new Checkout($row["checkoutId"], $row["orderId"], $row["checkoutDate"], $row['finalPrice']);
 			}
 		} catch(Exception $exception) {
 			// if the row couldn't be converted, rethrow it
@@ -410,7 +413,7 @@ class Checkout {
 		$checkoutDate = trim($checkoutDate);
 		$checkoutDate = filter_var($checkoutDate, FILTER_SANITIZE_STRING);
 
-		$query = "SELECT checkoutId, orderId, checkoutDate FROM checkout WHERE checkoutDate = ?";
+		$query = "SELECT checkoutId, orderId, checkoutDate, finalPrice FROM checkout WHERE checkoutDate = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -435,7 +438,7 @@ class Checkout {
 		$checkouts = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$checkout = new Checkout($row["checkoutId"], $row["orderId"], $row["checkoutDate"]);
+				$checkout = new Checkout($row["checkoutId"], $row["orderId"], $row["checkoutDate"], $row['finalPrice']);
 				$checkouts[] = $checkout;
 			} catch(Exception $exception) {
 				// if the row couldn't be converted, rethrow it
@@ -465,7 +468,7 @@ class Checkout {
 		}
 
 		// create query template
-		$query = "SELECT checkoutId, orderId, checkoutDate FROM checkout";
+		$query = "SELECT checkoutId, orderId, checkoutDate, finalPrice FROM checkout";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -486,7 +489,7 @@ class Checkout {
 		$checkouts = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$checkout = new Checkout($row["checkoutId"], $row["orderId"], $row["checkoutDate"]);
+				$checkout = new Checkout($row["checkoutId"], $row["orderId"], $row["checkoutDate"], $row['finalPrice']);
 				$checkouts[] = $checkout;
 			} catch(Exception $exception) {
 				// if the row couldn't be converted, rethrow it

@@ -266,14 +266,16 @@ class OrderTest extends UnitTestCase {
 		$this->assertNotNull($this->mysqli);
 
 		$this->order->insert($this->mysqli);
+		$this->order2->insert($this->mysqli);
+
 		$formattedDate = $this->order->getOrderDate()->format("Y-m-d H:i:s");
 		$mysqlOrders = Order::getOrderByOrderDate($this->mysqli, $formattedDate);
-
+		$this->assertIsA($mysqlOrders, "array");
+		$this->assertIdentical(count($mysqlOrders), 2);
 		foreach($mysqlOrders as $mysqlOrder) {
 			$this->assertNotNull($mysqlOrder->getOrderId());
 			$this->assertTrue($mysqlOrder->getOrderId() > 0);
-			$this->assertIdentical($this->order->getOrderId(), $mysqlOrder->getOrderId());
-			$this->assertIdentical($this->order2->getOrderId(), $mysqlOrder->getOrderId());
+			$this->assertTrue(strpos($this->order->getOrderDate()->format("Y-m-d H:i:s"), $formattedDate) >= 0);
 		}
 	}
 

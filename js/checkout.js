@@ -2,10 +2,10 @@
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
 
-// This identifies your website in the createToken call below
-Stripe.setPublishableKey('pk_test_jhr3CTTUfUhZceoZrxs5Hpu0');
-
 $(document).ready(function() {
+
+	// This identifies your website in the createToken call below
+	Stripe.setPublishableKey('pk_test_jhr3CTTUfUhZceoZrxs5Hpu0');
 
 	function stripeResponseHandler(status, response) {
 		var $form = $('#payment-form');
@@ -19,35 +19,15 @@ $(document).ready(function() {
 			var token = response.id;
 			// Insert the token into the form so it gets submitted to the server
 			$form.append($('<input id="stripe-token" type="hidden" />').val(token));
-
-			// send the token to the server
-			$.ajax({
-				type: "post",
-				url: "../php/forms/checkout-controller.php",
-				data: {
-					'stripeToken': $('#stripe-token').val()
-				}
-			})
-				.done(function(ajaxOutput) {
-					$("#outputArea").html(ajaxOutput);
-				});
 		}
 	};
 
-	$('#').submit(function(event) {
-
-	});
-
-	// tell the validator to validate this form
 	$("#payment-form").validate({
-		// setup the formatting for the errors
 		errorClass: "label-danger",
 		errorLabelContainer: "#outputArea",
 		wrapper: "li",
 
-		// rules define what is good/bad input
 		rules: {
-			// each rule starts with the inputs name (NOT id)
 			creditCardNumber: {
 				number: true,
 				rangelength: [12, 19],
@@ -69,8 +49,6 @@ $(document).ready(function() {
 				required: true
 			}
 		},
-
-		// error messages to display to the end user
 		messages: {
 			creditCardNumber: {
 				rangelength: "Your credit card number must be composed at least 12 digits length and at most 19 digits length.",
@@ -90,7 +68,6 @@ $(document).ready(function() {
 			}
 		},
 
-		// setup an AJAX call to submit the form without reloading
 		submitHandler: function(form) {
 			var $form = $(form);
 
@@ -102,7 +79,22 @@ $(document).ready(function() {
 			Stripe.card.createToken($form, stripeResponseHandler);
 
 			// Prevent the form from submitting with the default action
-			return false;
+			//return false;
+
+			// send the token to the server
+			$.ajax({
+				type: "post",
+				url: "../php/forms/checkout-controller.php",
+				data: {
+					'stripeToken': $('#stripe-token').val()
+				}
+			})
+				.done(function(ajaxOutput) {
+					console.log('ajaxOutput:');
+					console.log(ajaxOutput);
+					$("#outputArea").css('display', '');
+					$("#outputArea").html(ajaxOutput);
+				});
 		}
 	});
 

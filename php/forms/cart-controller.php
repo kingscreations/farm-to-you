@@ -7,9 +7,6 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 require_once("../classes/orderproduct.php");
 require_once("../classes/order.php");
-require_once("../classes/product.php");
-require_once("../classes/profile.php");
-require_once("../classes/user.php");
 
 try {
 	mysqli_report(MYSQLI_REPORT_STRICT);

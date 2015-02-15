@@ -326,8 +326,6 @@ class Order {
 		$numberOfOrders = count($orders);
 		if($numberOfOrders === 0) {
 			return(null);
-		} else if($numberOfOrders === 1) {
-			return($orders[0]);
 		} else {
 			return($orders);
 		}

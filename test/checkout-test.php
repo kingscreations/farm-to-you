@@ -73,7 +73,7 @@ class CheckoutTest extends UnitTestCase {
 		$this->order = new Order(null, $this->profile->getProfileId(), $this->orderDate);
 		$this->order->insert($this->mysqli);
 
-		$this->checkout = new Checkout(null, $this->order->getOrderId(), $this->checkoutDate);
+		$this->checkout = new Checkout(null, $this->order->getOrderId(), $this->checkoutDate, 45.56);
 
 		$this->user2 = new User(null, "test2@test.com", 'Aa10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB10BC99AB0BC99AB10BC99AC99AB0BC99AB10BC99AB10BC99AB1010', '99Aa10BC99AB10BC99AB10BC99AB10BC', '99Aa10BC99AB10BC');
 		$this->user2->insert($this->mysqli);
@@ -86,7 +86,7 @@ class CheckoutTest extends UnitTestCase {
 		$this->order2 = new Order(null, $this->profile2->getProfileId(), $this->order->getOrderDate());
 		$this->order2->insert($this->mysqli);
 
-		$this->checkout2 = new Checkout(null, $this->order2->getOrderId(), $this->checkout->getCheckoutDate());
+		$this->checkout2 = new Checkout(null, $this->order2->getOrderId(), $this->checkout->getCheckoutDate(), 45.56);
 
 		$this->assertNotNull($this->user2);
 		$this->assertNotNull($this->profile2);
@@ -167,6 +167,7 @@ class CheckoutTest extends UnitTestCase {
 		$this->assertIdentical($this->checkout->getCheckoutId(), $mysqlCheckout->getCheckoutId());
 		$this->assertIdentical($this->checkout->getOrderId(), $mysqlCheckout->getOrderId());
 		$this->assertIdentical($this->checkout->getCheckoutDate(), $mysqlCheckout->getCheckoutDate());
+		$this->assertIdentical($this->checkout->getFinalPrice(), $mysqlCheckout->getFinalPrice());
 	}
 
 	/**
@@ -252,6 +253,7 @@ class CheckoutTest extends UnitTestCase {
 		$this->assertIdentical($this->checkout->getCheckoutId(), $mysqlCheckout->getCheckoutId());
 		$this->assertIdentical($this->checkout->getOrderId(), $mysqlCheckout->getOrderId());
 		$this->assertIdentical($this->checkout->getCheckoutDate(), $mysqlCheckout->getCheckoutDate());
+		$this->assertIdentical($this->checkout->getFinalPrice(), $mysqlCheckout->getFinalPrice());
 	}
 
 	/**
@@ -278,14 +280,17 @@ class CheckoutTest extends UnitTestCase {
 		$this->assertNotNull($this->mysqli);
 
 		$this->checkout->insert($this->mysqli);
+		$this->checkout2->insert($this->mysqli);
+
 		$formattedDate = $this->checkout->getCheckoutDate()->format("Y-m-d H:i:s");
 		$mysqlCheckouts = Checkout::getCheckoutByCheckoutDate($this->mysqli, $formattedDate);
+		$this->assertIsA($mysqlCheckouts, "array");
+		$this->assertIdentical(count($mysqlCheckouts), 2);
 
 		foreach($mysqlCheckouts as $mysqlCheckout) {
 			$this->assertNotNull($mysqlCheckout->getOrderId());
 			$this->assertTrue($mysqlCheckout->getOrderId() > 0);
-			$this->assertIdentical($this->checkout->getCheckoutId(), $mysqlCheckout->getCheckoutId());
-			$this->assertIdentical($this->checkout2->getCheckoutId(), $mysqlCheckout->getCheckoutId());
+			$this->assertTrue(strpos($this->checkout->getCheckoutDate()->format("Y-m-d H:i:s"), $formattedDate) >= 0);
 		}
 	}
 

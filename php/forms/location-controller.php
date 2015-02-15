@@ -4,7 +4,7 @@
 	session_start();
 	$currentDir = dirname(__FILE__);
 	//require_once '../../root-path.php';
-	//require_once '../lib/header.php';
+	//require_once '../stripe-api/header.php';
 	//require_once("../../store/index.php");
 	require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 	require_once("../classes/store.php");

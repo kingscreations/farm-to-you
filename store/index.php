@@ -5,7 +5,7 @@ $currentDir = dirname(__FILE__);
 require_once('../dummy-session.php');
 
 //require_once '../root-path.php';
-//require_once("../php/lib/header.php");
+//require_once("../php/stripe-api/header.php");
 //?>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/2.7.5/idangerous.swiper.min.css"/>
@@ -38,4 +38,4 @@ require_once('../dummy-session.php');
 	</div>
 </div><!-- end row-fluid -->
 
-<?php //require_once "../php/lib/footer.php"; ?>
+<?php //require_once "../php/stripe-api/footer.php"; ?>

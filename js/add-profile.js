@@ -4,7 +4,7 @@ $(document).ready(
 	function() {
 
 		// tell the validator to validate this form
-		$("#addprofle").validate({
+		$("#addProfle").validate({
 			// setup the formatting for the errors
 			errorClass: "label-danger",
 			errorLabelContainer: "#outputArea",
@@ -80,11 +80,11 @@ $(document).ready(
 					// where to submit data
 					url: "../php/forms/add-profile-controller.php",
 					// TL; DR: reformat POST data
-					data: $(form).serialize(),
+					data: $(form),
 					// success is an event that happens when the server replies
 					success: function(ajaxOutput) {
 						// clear the output area's formatting
-						$("#outputArea").css("display", "");
+						$("#outputArea").css("display", "block");
 						// write the server's reply to the output area
 						$("#outputArea").html(ajaxOutput);
 

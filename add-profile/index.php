@@ -8,7 +8,7 @@ require_once("../php/lib/header.php");
 <div class="container">
 	<h2>Create Profile</h2>
 
-	<form id="addprofile" class="form-inline" method="post" action="../php/forms/add-profile-controller.php" novalidate="novalidate">
+	<form id="addProfile" class="form-inline" method="post" action="../php/forms/add-profile-controller.php" novalidate="novalidate">
 
 		<div class="form-group">
 			<label for="inputFirstname">First Name:</label>
@@ -51,5 +51,5 @@ require_once("../php/lib/header.php");
 		</div>
 
 	</form>
-	<p id="outputArea" style="display: block;"> </p>
+	<p id="outputArea" style=""> </p>
 </div>

@@ -87,7 +87,7 @@
 			 var result = productPrice * newQuantity * productWeight;
 
 			 // multiply by 100, round and then divide by 100 to get 2 decimal precision
-			 var finalPrice = String((Math.round(result * 100) / 100), 2);
+			 var finalPrice = String(Math.round(result * 100) / 100);
 
 			 $('#'+ elementIdPart1 +'-final-price').html('$'+finalPrice);
 		 } else {
@@ -99,7 +99,7 @@
 			 var result = productPrice * newQuantity;
 
 			 // multiply by 100, round and then divide by 100 to get 2 decimal precision
-			 var finalPrice = String((Math.round(result * 100) / 100), 2);
+			 var finalPrice = String(Math.round(result * 100) / 100);
 
 			 $('#'+ elementIdPart1 +'-final-price').html('$'+finalPrice);
 		 };
@@ -120,6 +120,6 @@
 		});
 
 		// show the result
-		$('#total-price-result').text(String(totalPrice));
+		$('#total-price-result').text(String(Math.round(totalPrice * 100) / 100));
 	 }
 });

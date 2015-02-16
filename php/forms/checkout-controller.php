@@ -49,17 +49,17 @@ try {
 	// TODO: only if the customer check the appropriate check box:
 //	$profile->setCustomerToken();
 
+	// create and insert a new order
+	$order = new Order(null, $_SESSION['profile']['id'], new DateTime());
+	$order->insert($mysqli);
+
 	$count = 1;
 	$totalPrice = 0.0;
 	foreach($_SESSION['products'] as $sessionProduct) {
 		$product = Product::getProductByProductId($mysqli, $sessionProduct['id']);
 
-		// create and insert a new order
-		$order = new Order(null, $_SESSION['profile']['id'], new DateTime());
-		$order->insert($mysqli);
-
 		// create and insert a new order product
-		$orderProduct = new OrderProduct($order->getOrderId(), $product->getProductId(), $_POST['product'. ($count) .'Quantity']);
+		$orderProduct = new OrderProduct($order->getOrderId(), $product->getProductId(), $sessionProduct['quantity']);
 		$orderProduct->insert($mysqli);
 
 		// calculate the final price (per product) and the total order price
@@ -94,7 +94,7 @@ try {
 }
 
 // stripe API
-require_once '../external-libs/stripe-api.php';
+require_once '../external-libs/stripe-api/stripe.php';
 
 Stripe::setApiKey("pk_test_jhr3CTTUfUhZceoZrxs5Hpu0");
 $error = '';

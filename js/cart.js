@@ -119,7 +119,10 @@
 			 totalPrice += price;
 		});
 
+		// round the total and put a dollar sign
+		totalPrice = '$'+String(Math.round(totalPrice * 100) / 100);
+
 		// show the result
-		$('#total-price-result').text(String(Math.round(totalPrice * 100) / 100));
+		$('#total-price-result').text(totalPrice);
 	 }
 });

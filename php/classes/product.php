@@ -246,7 +246,7 @@ class Product {
 	public function setProductPriceType($newProductPriceType) {
 		$newProductPriceType = trim($newProductPriceType);
 		$newProductPriceType = filter_var($newProductPriceType, FILTER_SANITIZE_STRING);
-//var_dump($newProductPriceType);
+
 		if(strlen($newProductPriceType) !== 1) {
 			throw(new RangeException("product price type length must equal 1"));
 		}

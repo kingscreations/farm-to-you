@@ -38,7 +38,6 @@ try {
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
-//	var_dump($_SESSION);
 	$user = User::getUserByUserId($mysqli, $_SESSION['user']['id']);
 	$profile = Profile::getProfileByProfileId($mysqli, $_SESSION['profile']['id']);
 
@@ -46,8 +45,7 @@ try {
 		echo '<p class=\"alert alert-danger\">Internal server error.</p>';
 	}
 
-	// TODO: only if the customer check the appropriate check box:
-//	$profile->setCustomerToken();
+	// TODO: change the behavior according if the checkbox is checked or not
 
 	// create and insert a new order
 	$order = new Order(null, $_SESSION['profile']['id'], new DateTime());
@@ -86,7 +84,7 @@ try {
 	$checkout = new Checkout(null, $order->getOrderId(), new DateTime(), $totalPrice);
 	$checkout->insert($mysqli);
 
-	clearDatabase($mysqli);
+//	clearDatabase($mysqli);
 	$mysqli->close();
 
 } catch(Exception $exception) {
@@ -94,9 +92,10 @@ try {
 }
 
 // stripe API
-require_once '../external-libs/stripe-api/stripe.php';
+//require_once '../external-libs/stripe-api/Stripe.php';
+require_once '../../external-libs/autoload.php';
 
-Stripe::setApiKey("pk_test_jhr3CTTUfUhZceoZrxs5Hpu0");
+\Stripe\Stripe::setApiKey("sk_test_6bR9BBZRQppeQHGjgplRV3Bw");
 $error = '';
 $success = '';
 
@@ -104,7 +103,7 @@ $stripeToken = escapeshellcmd(filter_var($_POST['stripeToken'], FILTER_SANITIZE_
 $rememberUser = escapeshellcmd(filter_var($_POST['rememberUser'], FILTER_SANITIZE_STRING));
 
 try {
-	$charge = Stripe_Charge::create(
+	$charge = \Stripe\Charge::create(
 		array(
 			"amount" => $totalPrice, // amount in cents, again
 			"currency" => "usd",
@@ -112,6 +111,8 @@ try {
 			"description" => $user->getEmail()
 		)
 	);
+	echo "<p class=\"alert alert-success\">Payment done.</p>";
+
 } catch(Stripe_CardError $stripeException) {
 	// The card has been declined
 	echo "<p class=\"alert alert-danger\">Exception: " . $stripeException->getMessage() . "</p>";

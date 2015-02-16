@@ -63,12 +63,12 @@ if (!$result3) {
 
 // try to print a table
 	print '<table class="table table-responsive">';
+	print '<tr>';
+	print '<th>Product</th>';
+	print '<th>Description</th>';
+	print '<th>Price</th>';
+	print '</tr>';
 	while($row = mysqli_fetch_array($result1)) {
-		print '<tr>';
-		print '<th>Product</th>';
-		print '<th>Description</th>';
-		print '<th>Price</th>';
-		print '</tr>';
 		print '<tr>';
 //		print '<td>'.$row["id"].'</td>';
 //		print '<td>'.$row["product_code"].'</td>';
@@ -80,12 +80,12 @@ if (!$result3) {
 print '</table>';
 
 	print '<table class="table table-responsive">';
-	while($row = mysqli_fetch_array($result2)) {
-		print '<tr>';
-		print '<th>Store</th>';
-		print '<th>Image</th>';
-		print '<th>Description</th>';
-		print '</tr>';
+	print '<tr>';
+	print '<th>Store</th>';
+	print '<th>Image</th>';
+	print '<th>Description</th>';
+	print '</tr>';
+while($row = mysqli_fetch_array($result2)) {
 		print '<tr>';
 //		print '<td>'.$row["id"].'</td>';
 //		print '<td>'.$row["product_code"].'</td>';
@@ -96,12 +96,12 @@ print '</table>';
 	print '</table>';
 
 print '<table class="table table-responsive">';
-while($row = mysqli_fetch_array($result3)) {
 	print '<tr>';
 	print '<th>Location</th>';
 	print '<th>Address</th>';
 	print '<th>City</th>';
 	print '</tr>';
+while($row = mysqli_fetch_array($result3)) {
 	print '<tr>';
 //		print '<td>'.$row["id"].'</td>';
 //		print '<td>'.$row["product_code"].'</td>';

@@ -53,7 +53,7 @@ require_once '../php/lib/header.php';
 			</div>
 			<div class="form-row center">
 				<label>
-					<input type="checkbox" id="remember-user" />
+					<input type="checkbox" id="remember-user" value="Yes" />
 					<span>Remember my card information for the next time</span>
 				</label
 			</div>

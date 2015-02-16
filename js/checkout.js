@@ -7,21 +7,9 @@ $(document).ready(function() {
 	// This identifies your website in the createToken call below
 	Stripe.setPublishableKey('pk_test_jhr3CTTUfUhZceoZrxs5Hpu0');
 
-	function stripeResponseHandler(status, response) {
-		var $form = $('#payment-form');
-
-		if (response.error) {
-			// Show the errors on the form
-			$form.find('.payment-errors').text(response.error.message);
-			$form.find('button').prop('disabled', false);
-		} else {
-			// response contains id and card, which contains additional card details
-			var token = response.id;
-			// Insert the token into the form so it gets submitted to the server
-			$form.append($('<input id="stripe-token" type="hidden" />').val(token));
-		}
-	};
-
+	/**
+	 * form validation and first call to stripe with the createToken function
+	 */
 	$("#payment-form").validate({
 		errorClass: "label-danger",
 		errorLabelContainer: "#outputArea",
@@ -77,25 +65,51 @@ $(document).ready(function() {
 				.addClass('disabled');
 
 			Stripe.card.createToken($form, stripeResponseHandler);
-
-			// Prevent the form from submitting with the default action
-			//return false;
-console.log($('#stripe-token'));
-console.log($('#stripe-token').val());
-			// send the token to the server
-			$.ajax({
-				type: "post",
-				url: "../php/forms/checkout-controller.php",
-				data: {
-					'stripeToken': $('#stripe-token').val(),
-					'rememberUser': $('#remember-user').val()
-				}
-			})
-				.done(function(ajaxOutput) {
-					$("#outputArea").css('display', '');
-					$("#outputArea").html(ajaxOutput);
-				});
 		}
 	});
+
+	/**
+	 * stripe asynchronous call
+	 *
+	 * @param status
+	 * @param response
+	 */
+	function stripeResponseHandler(status, response) {
+		var $form = $('#payment-form');
+
+		if (response.error) {
+			// Show the errors on the form
+			$form.find('.payment-errors').text(response.error.message);
+			$form.find('button').prop('disabled', false);
+		} else {
+			// response contains id and card, which contains additional card details
+			var token = response.id;
+			// Insert the token into the form so it gets submitted to the server
+			$form.append($('<input id="stripe-token" type="hidden" />').val(token));
+
+			sendFormData();
+		}
+	};
+
+	/**
+	 * send the data to the server
+	 *
+	 * data: stripeToken the token from stripe
+	 * data: rememberUser the state of the checkbox
+	 */
+	function sendFormData() {
+		$.ajax({
+			type: "post",
+			url: "../php/forms/checkout-controller.php",
+			data: {
+				'stripeToken': $('#stripe-token').val(),
+				'rememberUser': $('#remember-user').val()
+			}
+		})
+			.done(function(ajaxOutput) {
+				$("#outputArea").css('display', '');
+				$("#outputArea").html(ajaxOutput);
+			});
+	}
 
 });

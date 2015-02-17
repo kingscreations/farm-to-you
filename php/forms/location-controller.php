@@ -3,16 +3,15 @@
 	<?php
 	session_start();
 	$currentDir = dirname(__FILE__);
-	//require_once '../../root-path.php';
-	//require_once '../stripe-api/header.php';
-	//require_once("../../store/index.php");
+	require_once("../../dummy-session.php");
+	require_once ("../../root-path.php");
+
 	require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 	require_once("../classes/store.php");
 	require_once("../classes/location.php");
 	require_once("../classes/storelocation.php");
 	require_once("../classes/profile.php");
 	require_once("../classes/user.php");
-	require_once('../../dummy-session.php');
 
 
 	?>
@@ -39,15 +38,33 @@
 
 		$storeId = $_SESSION['store']['id'];
 
-		if(@isset($_POST["locationName"]) && ($_POST["address1"]) && ($_POST["address2"]) && ($_POST["zipCode"]) && ($_POST["city"]) && ($_POST["state"]) && ($_POST["country"])) {
-			$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"], $_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
-		} else if(@isset($_POST["locationName"]) && ($_POST["address1"]) && ($_POST["zipCode"]) && ($_POST["city"]) && ($_POST["state"]) && ($_POST["country"])) {
-			$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"], $_POST["zipCode"], $_POST["address1"], null);
-		} else if(@isset($_POST["locationName"]) && ($_POST["address1"]) && ($_POST["address2"]) && ($_POST["zipCode"]) && ($_POST["city"]) && ($_POST["state"])) {
-			$location = new Location(null, $_POST["locationName"], null, $_POST["state"], $_POST["city"], $_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
+		if(!@isset($_POST["locationName"]) || !@isset($_POST["address1"]) ||
+			!@isset($_POST["zipCode"]) || !@isset($_POST["city"]) || !@isset($_POST["state"])) {
+			throw new Exception('missing a required field');
+		}
+
+		if($_POST['address2'] !== '' && $_POST['country'] !== '') {
+			$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
+				$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
+		} else if($_POST['address2'] === '') {
+			$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
+				$_POST["zipCode"], $_POST["address1"], null);
+		} else if($_POST['country'] === '') {
+			$location = new Location(null, $_POST["locationName"], null, $_POST["state"], $_POST["city"], $_POST["zipCode"],
+				$_POST["address1"], $_POST["address2"]);
 		} else {
 			$location = new Location(null, $_POST["locationName"], null, $_POST["state"], $_POST["city"], $_POST["zipCode"], $_POST["address1"], null);
 		}
+
+//		if(@isset($_POST["locationName"]) && ($_POST["address1"]) && ($_POST["address2"]) && ($_POST["zipCode"]) && ($_POST["city"]) && ($_POST["state"]) && ($_POST["country"])) {
+//			$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"], $_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
+//		} else if(@isset($_POST["locationName"]) && ($_POST["address1"]) && ($_POST["zipCode"]) && ($_POST["city"]) && ($_POST["state"]) && ($_POST["country"])) {
+//			$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"], $_POST["zipCode"], $_POST["address1"], null);
+//		} else if(@isset($_POST["locationName"]) && ($_POST["address1"]) && ($_POST["address2"]) && ($_POST["zipCode"]) && ($_POST["city"]) && ($_POST["state"])) {
+//			$location = new Location(null, $_POST["locationName"], null, $_POST["state"], $_POST["city"], $_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
+//		} else {
+//			$location = new Location(null, $_POST["locationName"], null, $_POST["state"], $_POST["city"], $_POST["zipCode"], $_POST["address1"], null);
+//		}
 		$location->insert($mysqli);
 		$locationId = $location->getLocationId();
 		$storeLocation = new StoreLocation($storeId, $locationId);
@@ -58,7 +75,7 @@
 		echo "<p class=\"alert alert-success\">" . $location->getLocationName() . " added!</p>";
 
 	?>
-
+header(')
 	<div class="row-fluid">
 	<div class="col-sm-12">
 	<h3><strong><?php echo $storeName ?></strong>
@@ -68,7 +85,6 @@
 		<?php require_once('../../location/index.php') ?>
 		<form class="form-inline" id="done" method="post" action="../../store/index.php">
 			<button type="submit">Done</button>
-
 		</form>
 
 <?php

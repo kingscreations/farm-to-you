@@ -1,5 +1,5 @@
 /**
- * @author Florian Goussin <florian.goussin@gmail.com>
+ * @author Alonso Indacochea <alonso@hermesdevelopment.com>
  */
 
 $(document).ready(function() {
@@ -29,9 +29,14 @@ $(document).ready(function() {
 		}
 	});
 
-	$("button").click(
+	$("storeButton").click(
 		function() {
 			$("#outputArea").load('../php/forms/store-controller.php');
+		}
+	);
+	$("locationButton").click(
+		function() {
+			$("#outputArea").load('../php/forms/location-controller.php');
 		}
 	);
 });

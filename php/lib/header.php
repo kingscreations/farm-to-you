@@ -51,6 +51,7 @@ $prefix = str_repeat("../", $depthDifference);
 		<script src="<?php echo $prefix; ?>js/iscroll.js"></script>
 		<script src="<?php echo $prefix; ?>js/add-profile.js"></script>
 		<script src="<?php echo $prefix; ?>js/cart.js"></script>
+		<script src="<?php echo $prefix; ?>js/store.js"></script>
 		<script src="<?php echo $prefix; ?>js/checkout-shipping.js"></script>
 		<script src="https://js.stripe.com/v2/"></script><!--	stripe api	-->
 		<script src="<?php echo $prefix; ?>js/checkout.js"></script>

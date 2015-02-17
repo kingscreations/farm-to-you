@@ -3,17 +3,18 @@ session_start();
 $currentDir = dirname(__FILE__);
 
 require_once('../dummy-session.php');
+require_once '../root-path.php';
+require_once '../php/lib/header.php';
 
-//require_once '../root-path.php';
-//require_once("../php/stripe-api/header.php");
-//?>
+?>
+
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/2.7.5/idangerous.swiper.min.css"/>
 <link rel="stylesheet" href="../css/main.css"/>
 <div class="row-fluid">
 	<div class="col-sm-12">
 		<h2>Add Store</h2>
-			<form class="form-inline" id="tweetController" method="post" action="../php/forms/store-controller.php">
+			<form class="form-inline" id="storeController" method="post" action="../php/forms/store-controller.php" onsubmit="button()">
 				<div class="form-group">
 					<label for="storeName">Store Name</label>
 					<input type="text" id="storeName" name="storeName">
@@ -38,4 +39,4 @@ require_once('../dummy-session.php');
 	</div>
 </div><!-- end row-fluid -->
 
-<?php //require_once "../php/stripe-api/footer.php"; ?>
+<?php require_once "../php/lib/footer.php"; ?>

@@ -29,25 +29,15 @@
 		echo "<p class=\"alert alert-danger\">Form values not complete. Verify the form and try again.</p>";
 	}
 
-//	function getRandomWord($len = 10) {
-//		$word = array_merge(range('a', 'z'), range('A', 'Z'));
-//		shuffle($word);
-//		return substr(implode($word), 0, $len);
-//	}
-//	$randActivation = bin2hex(openssl_random_pseudo_bytes(8));
-//	$randSalt = bin2hex(openssl_random_pseudo_bytes(16));
-//	$randHash = bin2hex(openssl_random_pseudo_bytes(64));
-
 	try {
 //
 		mysqli_report(MYSQLI_REPORT_STRICT);
 		$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 		$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-		$profileId = $_SESSION['profilesId'][0];
+		$storeName = $_SESSION['store']['name'];
 
-		$store = new Store(null, $profile->getProfileId(), 'Home', null, null, null);
-		$store->insert($mysqli);
+		$storeId = $_SESSION['store']['id'];
 
 		if(@isset($_POST["locationName"]) && ($_POST["address1"]) && ($_POST["address2"]) && ($_POST["zipCode"]) && ($_POST["city"]) && ($_POST["state"]) && ($_POST["country"])) {
 			$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"], $_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
@@ -59,17 +49,19 @@
 			$location = new Location(null, $_POST["locationName"], null, $_POST["state"], $_POST["city"], $_POST["zipCode"], $_POST["address1"], null);
 		}
 		$location->insert($mysqli);
-		$storeLocation = new StoreLocation($_SESSION['stores'][0], $location->getLocationId());
+		$locationId = $location->getLocationId();
+		$storeLocation = new StoreLocation($storeId, $locationId);
 		$storeLocation->insert($mysqli);
 
 
+
 		echo "<p class=\"alert alert-success\">" . $location->getLocationName() . " added!</p>";
-//	$mysqlStore = Store::getStoreByProfileId($mysqli, $profile->getProfileId());
-//	var_dump($mysqlStore); ?>
+
+	?>
 
 	<div class="row-fluid">
 	<div class="col-sm-12">
-	<h3><strong><?php echo $store->getStoreName() ?></strong>
+	<h3><strong><?php echo $storeName ?></strong>
 		<h2>Add Location</h2>
 		<form class="form-inline" id="locationController" method="post" action="location-controller.php">
 
@@ -85,4 +77,5 @@
 	<form class="form-inline" id="back" method="post" action="../../store/index.php">
 		<button type="submit">Back</button>
 	</form>
-<?php } ?>
+<?php }
+	require_once "../lib/footer.php";?>

@@ -1,3 +1,4 @@
+// MAY NEED TO ADJUST THE VALUES TO NOT BE REQUIRED SINCE THIS IS JUST TO UPDATE. WILL HAVE TO TEST WITH CONTROLLER AS WELL
 // document ready event
 $(document).ready(
 	// inner function for the ready() event

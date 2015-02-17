@@ -2,7 +2,7 @@
 require_once("../classes/product.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
-
+// MAY HAVE TO CHANGE THIS TO NOT BE REQUIRED SINCE THIS IS JUST AN UPDATE. WILL TEST THIS ALONG WITH JS
 // verify the form values have been submitted
 if(@isset($_POST["inputProductName"]) === false || @isset($_POST["inputProductPrice"]) === false
 	|| @isset($_POST["inputProductDescription"]) === false || @isset($_POST["inputProductWeight"]) === false || @isset($_POST["inputStockLimit"]) === false)  {

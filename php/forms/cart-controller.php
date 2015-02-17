@@ -21,14 +21,17 @@ try {
 		$configArray["database"]);
 
 	/**
-	 * submit form call
+	 * use cart form information
 	 */
+	for($i = 0; $i < count($_POST["productQuantity"]); $i++) {
+		// get the new product quantities from the $_POST global variable
+		$newProductQuantity = filter_var($_POST['productQuantity'][$i], FILTER_SANITIZE_NUMBER_FLOAT);
 
+		// get the product id from the $_SESSION global variable
+		$productId          = array_keys($_SESSION['products'])[$i];
 
-	foreach($_POST["productQuantity"] as $index => $productQuantity) {
-		// update the SESSION with the updated quantities from the cart
-		$newQuantity = escapeshellcmd(filter_var($productQuantity));
-		$_SESSION['products'][$index]['quantity'] = $newQuantity;
+		// update the SESSION with the up to date quantities
+		$_SESSION['products'][$productId] = $newProductQuantity;
 
 	}
 

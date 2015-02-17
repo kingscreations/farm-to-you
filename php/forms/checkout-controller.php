@@ -26,7 +26,6 @@ if(!@isset($_POST['stripeToken'])) {
 if(!@isset($_POST['rememberUser'])) {
 	throw new Exception("remember my card information is not valid");
 }
-
 try {
 	mysqli_report(MYSQLI_REPORT_STRICT);
 
@@ -53,24 +52,29 @@ try {
 
 	$count = 1;
 	$totalPrice = 0.0;
-	foreach($_SESSION['products'] as $sessionProduct) {
-		$product = Product::getProductByProductId($mysqli, $sessionProduct['id']);
+	foreach($_SESSION['products'] as $sessionProductId => $sessionProductQuantity) {
+		var_dump($sessionProductId);
+		var_dump($sessionProductQuantity);
+	}
+	exit();
+	foreach($_SESSION['products'] as $sessionProductId => $sessionProductQuantity) {
+		$product = Product::getProductByProductId($mysqli, $sessionProductId);
 
 		// create and insert a new order product
-		$orderProduct = new OrderProduct($order->getOrderId(), $product->getProductId(), $sessionProduct['quantity']);
+
+		$orderProduct = new OrderProduct($order->getOrderId(), $product->getProductId(), $sessionProductQuantity);
 		$orderProduct->insert($mysqli);
 
 		// calculate the final price (per product) and the total order price
 		$productPrice = $product->getProductPrice();
 		$productPriceType = $product->getProductPriceType();
 		$productWeight = $product->getProductWeight();
-		$productQuantity = $sessionProduct['quantity'];
 
 		$finalPrice = 0.0;
 		if($productPriceType === 'w') {
-			$finalPrice = $productPrice * $productQuantity * $productWeight;
+			$finalPrice = $productPrice * $sessionProductQuantity * $productWeight;
 		} else if($productPriceType === 'u') {
-			$finalPrice = $productPrice * $productQuantity;
+			$finalPrice = $productPrice * $sessionProductQuantity;
 		} else {
 			throw(new RangeException($productPriceType .
 				' is not a valid product price type. The value should be either w or u.'));
@@ -79,7 +83,7 @@ try {
 
 		$count++;
 	}
-
+	var_dump($totalPrice);
 	// create and insert the checkout with the current date and the total price
 	$checkout = new Checkout(null, $order->getOrderId(), new DateTime(), $totalPrice);
 	$checkout->insert($mysqli);
@@ -99,8 +103,8 @@ require_once '../../external-libs/autoload.php';
 $error = '';
 $success = '';
 
-$stripeToken = escapeshellcmd(filter_var($_POST['stripeToken'], FILTER_SANITIZE_STRING));
-$rememberUser = escapeshellcmd(filter_var($_POST['rememberUser'], FILTER_SANITIZE_STRING));
+$stripeToken = filter_var($_POST['stripeToken'], FILTER_SANITIZE_STRING);
+$rememberUser = filter_var($_POST['rememberUser'], FILTER_SANITIZE_STRING);
 
 try {
 	$charge = \Stripe\Charge::create(

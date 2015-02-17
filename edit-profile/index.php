@@ -4,6 +4,7 @@ require_once '../root-path.php';
 require_once("../php/lib/header.php");
 ?>
 
+<!--Form to edit a profile-->
 <div class="container">
 	<h2>Edit Profile</h2>
 
@@ -51,3 +52,7 @@ require_once("../php/lib/header.php");
 
 	</form>
 </div>
+
+<?php
+require_once("../php/lib/footer.php")
+?>

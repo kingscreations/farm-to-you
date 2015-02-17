@@ -33,7 +33,7 @@ if ($searching =="yes") {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-// We preform a bit of filtering
+// we preform a bit of filtering
 $searchq = strtoupper($searchq);
 $searchq = strtolower($searchq);
 $searchq = strip_tags($searchq);
@@ -63,12 +63,12 @@ if (!$result3) {
 
 // try to print a table
 	print '<table class="table table-responsive">';
-	print '<tr>';
-	print '<th>Product</th>';
-	print '<th>Description</th>';
-	print '<th>Price</th>';
-	print '</tr>';
 	while($row = mysqli_fetch_array($result1)) {
+		print '<tr>';
+		print '<th>Product</th>';
+		print '<th>Description</th>';
+		print '<th>Price</th>';
+		print '</tr>';
 		print '<tr>';
 //		print '<td>'.$row["id"].'</td>';
 //		print '<td>'.$row["product_code"].'</td>';
@@ -79,29 +79,29 @@ if (!$result3) {
 	}
 print '</table>';
 
-	print '<table class="table table-responsive">';
+print '<table class="table table-responsive">';
+while($row = mysqli_fetch_array($result2)) {
 	print '<tr>';
 	print '<th>Store</th>';
 	print '<th>Image</th>';
 	print '<th>Description</th>';
 	print '</tr>';
-while($row = mysqli_fetch_array($result2)) {
-		print '<tr>';
+	print '<tr>';
 //		print '<td>'.$row["id"].'</td>';
 //		print '<td>'.$row["product_code"].'</td>';
-		print '<td>' . $row["storeName"] . '</td>';
-		print '<td>' . $row["imagePath"] . '</td>';
-		print '<td>' . $row["storeDescription"] . '</td>';
-	}
-	print '</table>';
+	print '<td>' . $row["storeName"] . '</td>';
+	print '<td>' . $row["imagePath"] . '</td>';
+	print '<td>' . $row["storeDescription"] . '</td>';
+}
+print '</table>';
 
 print '<table class="table table-responsive">';
+while($row = mysqli_fetch_array($result3)) {
 	print '<tr>';
 	print '<th>Location</th>';
 	print '<th>Address</th>';
 	print '<th>City</th>';
 	print '</tr>';
-while($row = mysqli_fetch_array($result3)) {
 	print '<tr>';
 //		print '<td>'.$row["id"].'</td>';
 //		print '<td>'.$row["product_code"].'</td>';
@@ -112,13 +112,12 @@ while($row = mysqli_fetch_array($result3)) {
 }
 print '</table>';
 
-//This counts the number or results - and if there wasn't any it gives them a little message explaining that
+// this counts the number or results - and if there wasn't any it gives them a little message explaining that
 if (mysqli_num_rows($result1) == 0 && mysqli_num_rows($result2) == 0 && mysqli_num_rows($result3) == 0)
 {
 	echo "Sorry, but we can not find an entry to match your query<br><br>";
-//And we remind them what they searched for
+// and we remind them what they searched for
 	echo "<b>Searched For:</b> " .$searchq;
 }
-
 
 ?>

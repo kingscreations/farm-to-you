@@ -52,10 +52,10 @@ require_once '../php/lib/header.php';
 				<input type="text" name="cardExpirationYear" size="4" data-stripe="exp-year"/>
 			</div>
 			<div class="form-row center">
-				<label>
-					<input type="checkbox" id="remember-user" />
-					<span>Remember my card information for the next time</span>
-				</label
+				<input type="checkbox" id="remember-user" name="rememberUser" value="yes" />
+				<label for="remember-user">Remember my card information for the next time</label>
+<!--					<span>Remember my card information for the next time</span>-->
+<!--				</label-->
 			</div>
 			<div class="form-row center">
 				<button id="validate-payment" type="submit"  class="btn btn-success">Submit Payment</button>

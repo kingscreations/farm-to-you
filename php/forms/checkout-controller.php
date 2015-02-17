@@ -98,56 +98,66 @@ $error = '';
 $success = '';
 
 $stripeToken = filter_var($_POST['stripeToken'], FILTER_SANITIZE_STRING);
-$rememberUser = filter_var($_POST['rememberUser'], FILTER_SANITIZE_STRING);
+if(@isset($_POST['rememberUser']) === false) {
+	$rememberUser = false;
+} else if($_POST['rememberUser'] === "Yes") {
+	$rememberUser = true;
+} else {
+	throw new RangeException('Problem with the value of the remember user checkbox');
+	exit();
+}
+var_dump($rememberUser);
+
+// Convert our price in dollars to a price in cent
+// and from float to integer to be compatible with Strip API
+$totalPrice = intval($totalPrice * 100);
 
 try {
-//	Stripe_charge::create
-	$charge = \Stripe\Charge::create(
-		array(
-			"amount" => intval($totalPrice * 100), // amount in cents, again
-			"currency" => "usd",
+	if($rememberUser === true) {
+		$customer = \Stripe\Customer::create(array(
 			"card" => $stripeToken,
 			"description" => $user->getEmail()
-		)
-	);
-	echo "<p class=\"alert alert-success\">Payment done.</p>";
+		));
 
+		\Stripe\Charge::create(array(
+			"amount" => $totalPrice, // amount in cents
+			"currency" => "usd",
+			"customer" => $customer->id
+		));
+
+		// TODO saveStripeCustomerId($profile, $customer->id)
+	}
+
+	if($rememberUser === false) {
+
+		// charge directly the user
+		$charge = \Stripe\Charge::create(
+			array(
+				"amount" => $totalPrice, // amount in cents
+				"currency" => "usd",
+				"card" => $stripeToken,
+				"description" => $user->getEmail()
+			)
+		);
+		echo "<p class=\"alert alert-success\">Payment done.</p>";
+	}
 } catch(Stripe_CardError $stripeException) {
 	// The card has been declined
 	echo "<p class=\"alert alert-danger\">Exception: " . $stripeException->getMessage() . "</p>";
 }
 
-// Set your secret key: remember to change this to your live secret key in production
-// See your keys here https://dashboard.stripe.com/account
-Stripe::setApiKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2");
 
-// Get the credit card details submitted by the form
-$token = $_POST['stripeToken'];
-
-// Create a Customer
-$customer = Stripe_Customer::create(array(
-		"card" => $token,
-		"description" => "payinguser@example.com")
-);
-
-// Charge the Customer instead of the card
-Stripe_Charge::create(array(
-		"amount" => 1000, # amount in cents, again
-		"currency" => "usd",
-		"customer" => $customer->id)
-);
-
-// Save the customer ID in your database so you can use it later
-saveStripeCustomerId($user, $customer->id);
-
-// Later...
-$customerId = getStripeCustomerId($user);
-
-Stripe_Charge::create(array(
-		"amount"   => 1500, # $15.00 this time
-		"currency" => "usd",
-		"customer" => $customerId)
-);
+//// Save the customer ID in your database so you can use it later
+//saveStripeCustomerId($user, $customer->id);
+//
+//// Later...
+//$customerId = getStripeCustomerId($user);
+//
+//Stripe_Charge::create(array(
+//		"amount"   => 1500, # $15.00 this time
+//		"currency" => "usd",
+//		"customer" => $customerId)
+//);
 
 
 

@@ -7,7 +7,7 @@ require_once("../classes/product.php");
 
 // verify the form values have been submitted
 if(@isset($_POST["inputProductName"]) === false || @isset($_POST["inputProductPrice"]) === false
-	|| @isset($_POST["inputProductType"]) === false || @isset($_POST["inputProductPriceType"]) === false || @isset($_POST["inputProductWeight"]) === false || @isset($_POST["inputStockLimit"]) === false)  {
+	|| @isset($_POST["inputProductDescription"]) === false || @isset($_POST["inputProductPriceType"]) === false || @isset($_POST["inputProductWeight"]) === false || @isset($_POST["inputStockLimit"]) === false)  {
 	echo "<p class=\"alert alert-danger\">Form values not complete. Verify the form and try again.</p>";
 }
 
@@ -34,9 +34,9 @@ try {
 	$profile->insert($mysqli);
 
 	if(@isset($_POST["inputProductImage"])) {
-		$product = new Product(null, $profile->getProfileId(), $_POST["inputProductImage"], $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductType"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
+		$product = new Product(null, $profile->getProfileId(), $_POST["inputProductImage"], $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductDescription"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
 	} else {
-		$product = new Product(null, $profile->getProfileId(), null, $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductType"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
+		$product = new Product(null, $profile->getProfileId(), null, $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductDescription"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
 	}
 
 	$product->insert($mysqli);

@@ -4,11 +4,16 @@ require_once '../root-path.php';
 require_once("../php/lib/header.php");
 ?>
 
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+	<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
+	<script src="../js/add-product.js"></script>
+
 <!--Form for adding a new product-->
 <div class="container">
 	<h2>Add Product</h2>
 
-	<form class="form-inline" method="post" action="../php/forms/add-product-controller.php">
+	<form id="addProduct" class="form-inline" method="post" action="../php/forms/add-product-controller.php" novalidate>
 
 		<div class="form-group">
 			<label for="inputProductName">Product Name:</label>
@@ -25,8 +30,8 @@ require_once("../php/lib/header.php");
 		<br>
 
 		<div class="form-group">
-			<label for="inputProductType">Product Type:</label>
-			<input type="text" class="form-control" name="inputProductType" id="inputProductType" placeholder="Product Type">
+			<label for="inputProductDescription">Product Description:</label>
+			<textarea class="form-control" name="inputProductDescription" id="inputProductDescription" placeholder="Write Product Description here."></textarea>
 		</div>
 
 		<br>
@@ -63,6 +68,8 @@ require_once("../php/lib/header.php");
 		<div class="form-group">
 			<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit">
 		</div>
+
+		<p id="outputArea" style=""></p>
 
 	</form>
 

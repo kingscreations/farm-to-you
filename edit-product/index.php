@@ -3,12 +3,16 @@ $currentDir = dirname(__FILE__);
 require_once '../root-path.php';
 require_once("../php/lib/header.php");
 ?>
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+	<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
+	<script src="../js/edit-product.js"></script>
 
 <!--Form to edit a product-->
 <div class="container">
 	<h2>Edit Product</h2>
 
-	<form class="form-inline" method="post" action="../php/forms/edit-product-controller.php">
+	<form id="editProduct" class="form-inline" method="post" action="../php/forms/edit-product-controller.php" novalidate>
 
 		<div class="form-group">
 			<label for="inputProductName">Product Name:</label>
@@ -25,8 +29,8 @@ require_once("../php/lib/header.php");
 		<br>
 
 		<div class="form-group">
-			<label for="inputProductType">Product Type:</label>
-			<input type="text" class="form-control" name="inputProductType" id="inputProductType" placeholder="Product Type">
+			<label for="inputProductDescription">Product Description:</label>
+			<textarea class="form-control" name="inputProductDescription" id="inputProductDescription" placeholder="Product Type"></textarea>
 		</div>
 
 		<br>
@@ -65,6 +69,10 @@ require_once("../php/lib/header.php");
 		</div>
 
 	</form>
+
+	<p id="outputArea" style=""></p>
+
+</div>
 
 	<?php
 require_once("../php/lib/footer.php")

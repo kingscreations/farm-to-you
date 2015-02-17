@@ -23,14 +23,15 @@ require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 // TODO delete this as soon as possible -> for test purpose
 require_once '../dummy-session.php';
 
-try {
-	mysqli_report(MYSQLI_REPORT_STRICT);
+// path for the config file
+$configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
-	// get the credentials information from the server
-	$configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
+mysqli_report(MYSQLI_REPORT_STRICT);
+
+try {
+	// get the credentials information from the server and connect to the database
 	$configArray = readConfig($configFile);
 
-	// connection
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
@@ -48,17 +49,9 @@ try {
 }
 
 $_SESSION['products'] = array(
-	array(
-		'id' => $product1->getProductId(),
-		'quantity' => 7
-	),
-	array(
-		'id' => $product2->getProductId(),
-		'quantity' => 5
-	)
-);
-// productQuantity
-
+		$product1->getProductId() => 7,
+		$product2->getProductId() => 5
+	);
 /////////////////////////////////////////////////////////////////////////
 
 ?>
@@ -67,7 +60,7 @@ $_SESSION['products'] = array(
 		<div class="col-sm-12">
 			<h2>Shopping cart</h2>
 
-			<form id="cartController" action="../php/forms/cart-controller.php" method="post" onsubmit="event.preventDefault()" novalidate>
+			<form id="cartController" action="../php/forms/cart-controller.php" method="post">
 				<table class="table">
 					<thead>
 						<tr>
@@ -83,22 +76,18 @@ $_SESSION['products'] = array(
 						<?php
 
 						try {
-							mysqli_report(MYSQLI_REPORT_STRICT);
-
-							// get the credentials information from the server
-							$configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
+							// get the credentials information from the server and connect to the database
 							$configArray = readConfig($configFile);
 
-							// connection
 							$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 								$configArray["database"]);
 
 							$maxQuantity = 15;
 							$counter = 1;
-							foreach($_SESSION['products'] as $productFromSession) {
+							foreach($_SESSION['products'] as $sessionProductId => $sessionProductQuantity) {
 
 								// get the product from the database
-								$product = Product::getProductByProductId($mysqli, $productFromSession['id']);
+								$product = Product::getProductByProductId($mysqli, $sessionProductId);
 
 								echo '<tr>';
 								echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product->getImagePath() . '"></td>';
@@ -122,13 +111,15 @@ $_SESSION['products'] = array(
 									$stockLimit = 15;
 								}
 
+								// get the # of options to create in the select box
 								$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
 
 								// select box
-								echo '<td><select class="product-quantity" id="product'. $counter .'-quantity" name="product'. $counter .'Quantity">';
+								echo '<td><select class="product-quantity" id="product'. $counter .'-quantity" name="productQuantity[]">';
 
+								// creating $quantityLimit # of options
 								for($i = 0; $i < $quantityLimit; $i++) {
-									if(($i + 1) === $productFromSession['quantity']) {
+									if(($i + 1) === $sessionProductQuantity) {
 										echo '<option selected="selected">' . ($i + 1) . '</option>';
 									} else {
 										echo '<option>' . ($i + 1) . '</option>';

@@ -23,22 +23,17 @@ try {
 	/**
 	 * submit form call
 	 */
-	for($i = 0; $i < count($_POST); $i++) {
-		if(@isset($_POST['product'. ($i + 1) .'Quantity']) === false) {
-			echo "<p class=\"alert alert-danger\">form values not complete. Verify the form and try again.</p>";
-		}
-	}
 
-	// update the SESSION with the updated quantities from the cart
-	for($i = 0; $i < count($_POST); $i++) {
 
-		// filter the input
-		$newQuantity = escapeshellcmd(filter_var($_POST['product' . ($i + 1) . 'Quantity']));
+	foreach($_POST["productQuantity"] as $index => $productQuantity) {
+		// update the SESSION with the updated quantities from the cart
+		$newQuantity = escapeshellcmd(filter_var($productQuantity));
+		$_SESSION['products'][$index]['quantity'] = $newQuantity;
 
-		$_SESSION['products'][$i]['quantity'] = $newQuantity;
 	}
 
 	$mysqli->close();
+	header("Location: ../../checkout-shipping/");
 
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";

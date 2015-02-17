@@ -4,53 +4,59 @@ require_once '../root-path.php';
 require_once("../php/lib/header.php");
 ?>
 
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+	<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
+	<script src="../js/edit-profile.js"></script>
+
 <!--Form to edit a profile-->
 <div class="container">
 	<h2>Edit Profile</h2>
 
-	<form class="form-inline" method="post" action="../php/forms/edit-profile-controller.php">
+	<form id="editProfile" class="form-inline" method="post" action="../php/forms/edit-profile-controller.php">
 
 		<div class="form-group">
-			<label for="InputFirstname">First Name:</label>
-			<input type="text" class="form-control" id="InputFirstname" name="InputFirstname" placeholder="Enter First Name">
+			<label for="inputFirstname">First Name:</label>
+			<input type="text" class="form-control" id="inputFirstname" name="inputFirstname" placeholder="Enter First Name">
 		</div>
 
 		<br>
 
 		<div class="form-group">
-			<label for="InputLastname">Last Name:</label>
-			<input type="text" class="form-control" id="InputLastname" name="InputLastname" placeholder="Enter Last Name">
+			<label for="inputLastname">Last Name:</label>
+			<input type="text" class="form-control" id="inputLastname" name="inputLastname" placeholder="Enter Last Name">
 		</div>
 
 		<br>
 
 		<div class="form-group">
-			<label for="InputType">Profile Type:</label>
-			<input type="radio" class="form-control" name="InputType" id="InputType" value="m">Merchant
-			<input type="radio" class="form-control" name="InputType" id="InputType" value="c">Client
+			<label for="inputType">Profile Type:</label>
+			<input type="radio" class="form-control" name="inputType" id="inputType" value="m">Merchant
+			<input type="radio" class="form-control" name="inputType" id="inputType" value="c">Client
 		</div>
 
 		<br>
 
 		<div class="form-group">
-			<label for="InputPhone">Phone Number:</label>
-			<input type="tel" class="form-control" id="InputPhone" name="InputPhone" placeholder="Enter Phone Number">
+			<label for="inputPhone">Phone Number:</label>
+			<input type="tel" class="form-control" id="inputPhone" name="inputPhone" placeholder="Enter Phone Number">
 		</div>
 
 		<br>
 
 		<div class="form-group">
-			<label for="InputImage">Profile Image</label>
-			<input type="file" class="form-control" id="InputImage" name="InputImage" value="">
+			<label for="inputImage">Profile Image</label>
+			<input type="file" class="form-control" id="inputImage" name="inputImage" value="">
 		</div>
 
 		<br>
 
 		<div class="form-group">
-			<input type="submit" class="form-control" id="InputSubmit" name="InputSubmit">
+			<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit">
 		</div>
 
 	</form>
+	<p id="outputArea" style=""></p>
 </div>
 
 <?php

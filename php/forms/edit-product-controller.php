@@ -2,7 +2,7 @@
 session_start();
 
 $currentDir = dirname(__FILE__);
-require_once("../../dummy-session.php");
+require_once("../../dummy-session-single.php");
 require_once ("../../root-path.php");
 
 require_once("../classes/product.php");
@@ -52,7 +52,6 @@ try {
 	$productStockLimit = $_SESSION['product']['stock'];
 
 
-	// 1 and 59 are place holders for product id and profile id that already exists
 	if(@isset($_POST["editProductImage"])) {
 		$product = new Product($productId, $profileId, $_POST["editProductImage"], $_POST["editProductName"], $_POST["editProductPrice"], $_POST["editProductDescription"], $_POST["editProductPriceType"], $_POST["editProductWeight"], $_POST["editStockLimit"]);
 	} else {

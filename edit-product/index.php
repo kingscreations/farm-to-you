@@ -2,14 +2,25 @@
 session_start();
 $currentDir = dirname(__FILE__);
 
-require_once("../dummy-session.php");
+require_once("../dummy-session-single.php");
 require_once ("../root-path.php");
 require_once("../php/lib/header.php");
+
+
+$productName = $_SESSION['product']['name'];
+$productPrice = $_SESSION['product']['price'];
+$productDescription = $_SESSION['product']['description'];
+$productPriceType = $_SESSION['product']['priceType'];
+$productWeight = $_SESSION['product']['weight'];
+$productStock = $_SESSION['product']['stock'];
+$productImage = $_SESSION['product']['image']
 ?>
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
 	<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
 	<script src="../js/edit-product.js"></script>
+
+
 
 <!--Form to edit a product-->
 <div class="container">
@@ -19,7 +30,7 @@ require_once("../php/lib/header.php");
 
 		<div class="form-group">
 			<label for="editProductName">Product Name:</label>
-			<input type="text" class="form-control" name="editProductName" id="editProductName" placeholder=<?php echo $_SESSION['product']['name'];?> value=<?php echo $_SESSION['product']['name'];?>>
+			<input type="text" class="form-control" name="editProductName" id="editProductName" placeholder="<?php echo $_SESSION['product']['name'];?>" value="<?php echo $_SESSION['product']['name'];?>">
 		</div>
 
 		<br>

@@ -32,7 +32,11 @@ function checkInputImage($inputImage) {
 	// do so here!
 	imagedestroy($image);
 
-	return true;
+	if($mimeType === "image/png") {
+		return 'png';
+	} else {
+		return 'jpg';
+	}
 }
 
 ?>

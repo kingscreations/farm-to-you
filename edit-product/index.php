@@ -1,6 +1,9 @@
 <?php
+session_start();
 $currentDir = dirname(__FILE__);
-require_once '../root-path.php';
+
+require_once("../dummy-session.php");
+require_once ("../root-path.php");
 require_once("../php/lib/header.php");
 ?>
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>

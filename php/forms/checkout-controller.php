@@ -115,18 +115,22 @@ $totalPrice = intval($totalPrice * 100);
 
 try {
 	if($rememberUser === true) {
+
+		// first create a new customer
 		$customer = \Stripe\Customer::create(array(
 			"card" => $stripeToken,
 			"description" => $user->getEmail()
 		));
 
+		// then charge the new customer
 		\Stripe\Charge::create(array(
 			"amount" => $totalPrice, // amount in cents
 			"currency" => "usd",
 			"customer" => $customer->id
 		));
 
-		// TODO saveStripeCustomerId($profile, $customer->id)
+		// then save the customer info to the profile
+		$profile->setCustomerToken($customer->id);
 	}
 
 	if($rememberUser === false) {

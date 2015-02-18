@@ -14,39 +14,39 @@ $(document).ready(
 			// rules define what is good/bad input
 			rules: {
 				// each rule starts with the inputs name (NOT id)
-				inputProductName: {
+				editProductName: {
 
 					minlength: 2,
 					required: true
 				},
 
-				inputProductPrice: {
+				editProductPrice: {
 
 					required: true
 				},
 
-				inputProductDescription: {
+				editProductDescription: {
 
 					maxlength: 4294967295,
 					required: true
 				},
 
-				inputProductPriceType: {
+				editProductPriceType: {
 
 					required: true
 				},
 
-				inputProductWeight: {
+				editProductWeight: {
 
 					required: true
 				},
 
-				inputStockLimit: {
+				editStockLimit: {
 
 					required: true
 				},
 
-				inputProductImage: {
+				editProductImage: {
 
 					maxlength: 255,
 					required: false
@@ -55,36 +55,36 @@ $(document).ready(
 
 			// error messages to display to the end user
 			messages: {
-				inputProductName: {
+				editProductName: {
 
 					minlength: "Product Name must be at least 2 characters",
 					required: "Please enter your first name."
 				},
 
-				inputProductPrice: {
+				editProductPrice: {
 
 					required: "Please enter a product price."
 				},
 
-				inputProductDescription: {
+				editProductDescription: {
 					maxlength: "Product Description too long!",
 					required: "Please write a description of the product."
 				},
 
-				inputProductPriceType: {
+				editProductPriceType: {
 
 					required: "Please enter a product price type."
 				},
 
-				inputProductWeight: {
+				editProductWeight: {
 					required: "Please enter your products weight."
 				},
 
-				inputStockLimit: {
+				editStockLimit: {
 					required: "Please enter your current product stock amount available to sell"
 				},
 
-				inputProductImage: {
+				editProductImage: {
 
 					maxlength: "Image directory is too long!"
 

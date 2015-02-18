@@ -17,7 +17,7 @@ $(document).ready(
 // each rule starts with the inputs name (NOT id)
 				emailId: {
 					maxlength: 140,
-					required: true
+					required: true,
 					email: true
 				},
 				password: {
@@ -30,11 +30,11 @@ $(document).ready(
 					required: true
 				}
 			},
-// error messages to display to the end user
+			// error messages to display to the end user
 			messages: {
 				emailId: {
 					min: "Email is too long",
-					required: "Please enter an email address"
+					required: "Please enter an email address",
 					email: "Please enter a valid email address"
 				},
 				password: {
@@ -42,30 +42,30 @@ $(document).ready(
 					required: "please enter a password."
 				},
 				passwordCheck: {
-					equalTo: "Passwords do not match"
+					equalTo: "Passwords do not match",
 					maxlength: "Password is too long.",
 					required: "please enter a password."
 				}
 			},
 			//establish that both passwords match
 
-// setup an AJAX call to submit the form without reloading
+			// setup an AJAX call to submit the form without reloading
 			submitHandler: function(form) {
 				$(form).ajaxSubmit({
-// GET or POST
+					// GET or POST
 					type: "POST",
-// where to submit data
+					// where to submit data
 					url: "../php/forms/sign-up-controller.php",
-// TL; DR: reformat POST data
+					// TL; DR: reformat POST data
 					data: $(form).serialize(),
-// success is an event that happens when the server replies
+						// success is an event that happens when the server replies
 					success: function(ajaxOutput) {
-// clear the output area's formatting
+						// clear the output area's formatting
 						$("#outputArea").css("display", "");
-// write the server's reply to the output area
+						// write the server's reply to the output area
 						$("#outputArea").html(ajaxOutput);
-// reset the form if it was successful
-// this makes it easier to reuse the form again
+						// reset the form if it was successful
+						// this makes it easier to reuse the form again
 						if($(".alert-success").length >= 1) {
 							$(form)[0].reset();
 						}

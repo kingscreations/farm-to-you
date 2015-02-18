@@ -3,6 +3,10 @@ session_start();
 var_dump($_POST);
 var_dump($_FILES);
 $imageinfo = getimagesize($_FILES["inputImage"]['tmp_name']);
+$imageWidth  = $imageinfo[0];
+$imageHeight = $imageinfo[1];
+$imageFile = @imagecreatetruecolor($imageWidth, $imageHeight);
+move_uploaded_file($imageFile, 'path');
 var_dump($imageinfo);
 
 $currentDir = dirname(__FILE__);

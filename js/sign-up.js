@@ -15,7 +15,7 @@ $(document).ready(
 // rules define what is good/bad input
 			rules: {
 // each rule starts with the inputs name (NOT id)
-				emailId: {
+				inputEmail: {
 					maxlength: 140,
 					required: true,
 					email: true
@@ -32,7 +32,7 @@ $(document).ready(
 			},
 			// error messages to display to the end user
 			messages: {
-				emailId: {
+				inputEmail: {
 					min: "Email is too long",
 					required: "Please enter an email address",
 					email: "Please enter a valid email address"
@@ -57,7 +57,7 @@ $(document).ready(
 					// where to submit data
 					url: "../php/forms/sign-up-controller.php",
 					// TL; DR: reformat POST data
-					data: $(form).serialize(),
+					data: $(form),
 						// success is an event that happens when the server replies
 					success: function(ajaxOutput) {
 						// clear the output area's formatting

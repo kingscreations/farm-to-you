@@ -100,7 +100,7 @@ require_once("../php/classes/store.php");
 					echo '</tr>';
 					foreach($stores as $store) {
 						echo '<tr>';
-						echo '<td>' . $store->getStoreName() . '</td>';
+						echo '<td>'. $store->getStoreId() ." - " . $store->getStoreName() . '</td>';
 						echo '<td><a href="../edit-store/index.php" class="btn btn-default store-edit">edit</a></td>';
 						echo '</tr>';
 					}

@@ -23,9 +23,6 @@ if(!@isset($_POST['stripeToken'])) {
 	throw new Exception("The Stripe Token was not generated correctly");
 }
 
-if(!@isset($_POST['rememberUser'])) {
-	throw new Exception("remember my card information is not valid");
-}
 try {
 	mysqli_report(MYSQLI_REPORT_STRICT);
 
@@ -64,6 +61,7 @@ try {
 		$productPriceType = $product->getProductPriceType();
 		$productWeight = $product->getProductWeight();
 
+		// TODO round the price to two digits
 		$finalPrice = 0.0;
 		if($productPriceType === 'w') {
 			$finalPrice = $productPrice * $sessionProductQuantity * $productWeight;
@@ -97,7 +95,11 @@ require_once('../../external-libs/autoload.php');
 $error = '';
 $success = '';
 
+// filter the stripe token
 $stripeToken = filter_var($_POST['stripeToken'], FILTER_SANITIZE_STRING);
+
+// filter the checkbox
+$rememberUser = false;
 if(@isset($_POST['rememberUser']) === false) {
 	$rememberUser = false;
 } else if($_POST['rememberUser'] === "Yes") {
@@ -106,9 +108,8 @@ if(@isset($_POST['rememberUser']) === false) {
 	throw new RangeException('Problem with the value of the remember user checkbox');
 	exit();
 }
-var_dump($rememberUser);
 
-// Convert our price in dollars to a price in cent
+// Convert the price in dollars to a price in cents
 // and from float to integer to be compatible with Strip API
 $totalPrice = intval($totalPrice * 100);
 

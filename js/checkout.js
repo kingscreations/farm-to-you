@@ -98,13 +98,18 @@ $(document).ready(function() {
 	 * data: rememberUser the state of the checkbox
 	 */
 	function sendFormData() {
+		var $rememberUserCheckbox = $('#remember-user');
+		var data = {
+			'stripeToken': $('#stripe-token').val()
+		};
+		if($rememberUserCheckbox.is(":checked")) {
+			data.stripeToken = $rememberUserCheckbox.val();
+		}
+
 		$.ajax({
 			type: "post",
 			url: "../php/forms/checkout-controller.php",
-			data: {
-				'stripeToken': $('#stripe-token').val(),
-				'rememberUser': $('#remember-user').val()
-			}
+			data: data
 		})
 			.done(function(ajaxOutput) {
 				$("#outputArea").css('display', '');

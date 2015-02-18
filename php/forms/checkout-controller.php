@@ -6,7 +6,7 @@
 
 // start session as the first statement
 session_start();
-
+var_dump($_POST);
 // credentials
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 

@@ -123,8 +123,10 @@ $(document).ready(function() {
 	 * depending on which radio button is checked
 	 */
 	var $newCard               = $('#new-card');
+	var $submit                = $('#new-card button[type=submit]');
 	var $newCardInputs         = $('#new-card input');
 	var $checkoutRadioRemember = $('#checkout-radio-remember');
+
 	$checkoutRadioRemember.on('click', function() {
 		console.log('checkout-radio-remember checked');
 
@@ -135,6 +137,9 @@ $(document).ready(function() {
 				$input.addClass('disable-color');
 			});
 			$newCard.addClass('disable-color');
+
+			// disable the form validation process
+			$submit.addClass('formnovalidate');
 		}
 	});
 	$checkoutRadioRemember.click();
@@ -149,6 +154,9 @@ $(document).ready(function() {
 				$input.removeClass('disable-color');
 			});
 			$newCard.removeClass('disable-color');
+
+			// enable the form validation process
+			$submit.removeClass('formnovalidate');
 		}
 	});
 });

@@ -5,15 +5,13 @@ function checkInputImage($inputImage) {
 	$extensions = array("jpg", "jpeg", "png");
 	$extension  = strtolower(end(explode(".", $inputImage["name"])));
 	if(in_array($extension, $extensions) === false) {
-		echo "this is not a valid file";
-		return false;
+		throw new InvalidArgumentException('The input image file is not valid');
 	}
 
 	// check file content for malicious users and totally incompetent users
 	$mimeType = $inputImage["type"];
 	if($mimeType !== 'image/png' || $mimeType !== 'image/jpeg') {
-		echo 'Sorry, we only accept GIF and JPEG images\n';
-		return false;
+		throw new RangeException('GIF and JPEG images are the only valid image types');
 	}
 
 	if($mimeType === "image/png") {

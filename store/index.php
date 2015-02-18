@@ -10,7 +10,8 @@ require_once("../php/lib/header.php");
 require_once("../php/classes/store.php");
 
 ?>
-	<script src="../js/store.js"></script>
+
+<script src="../js/store.js"></script>
 
 <div class="row-fluid">
 	<div class="col-sm-12">
@@ -71,11 +72,13 @@ require_once("../php/classes/store.php");
 				<button type="submit">Submit</button>
 				<br>
 				<br>
+				<p id="outputArea"></p>
+				<br>
 			</form>
 		<?php
 
 			$currentDir = dirname(__FILE__);
-			require_once("../dummy-session.php");
+			require_once("../dummy-session-single.php");
 			require_once ("../root-path.php");
 
 			require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
@@ -86,17 +89,37 @@ require_once("../php/classes/store.php");
 				$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 				$stores = Store::getAllStoresByProfileId($mysqli, $_SESSION['profile']['id']);
-				var_dump($stores);
+//				var_dump($stores);
 				if($stores !== null) {
+
+
+					echo '<table class="table table-responsive">';
+					echo '<tr>';
+					echo '<th>Store</th>';
+					echo '<th></th>';
+					echo '</tr>';
 					foreach($stores as $store) {
 						echo '<tr>';
-
 						echo '<td>' . $store->getStoreName() . '</td>';
-						echo '<td><a href="https://bootcamp-coders.cnm.edu/~fgoussin/farm-to-you/store/" class="btn btn-default" style="width: 40px"></td>';
-
+						echo '<td><a href="../edit-store/index.php" class="btn btn-default store-edit">edit</a></td>';
 						echo '</tr>';
 					}
+					echo '</table>';
 				}
+
+
+
+
+//					foreach($stores as $store) {
+//
+//						echo '<tr>';
+//
+//						echo '<td>' . $store->getStoreName() . '</td>';
+//						echo '<td><a href="../edit-store/index.php" class="btn btn-default" style="width: 40px"></td>';
+//
+//						echo '</tr>';
+//					}
+//				}
 
 			} catch(Exception $exception) {
 				echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
@@ -104,13 +127,13 @@ require_once("../php/classes/store.php");
 
 		?>
 
-		<div>
-			<h2>Stores</h2>
-			<table>
-				<tr>
-					<th>Store name</th>
-					<th>Edit</th>
-				</tr>
+<!--		<div>-->
+<!--			<h2>Stores</h2>-->
+<!--			<table>-->
+<!--				<tr>-->
+<!--					<th>Store name</th>-->
+<!--					<th>Edit</th>-->
+<!--				</tr>-->
 
 				<?php
 
@@ -121,8 +144,6 @@ require_once("../php/classes/store.php");
 			</table>
 		</div>
 
-			<p id="outputArea"></p>
-		<br>
 	</div>
 </div>
 

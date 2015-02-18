@@ -592,7 +592,6 @@ class Store {
 		if($profileId <= 0) {
 			throw(new mysqli_sql_exception("profile id is not positive"));
 		}
-
 		// create query template
 		$query	 = "SELECT storeId, profileId, storeName, imagePath, creationDate, storeDescription FROM store WHERE profileId = ?";
 		$statement = $mysqli->prepare($query);
@@ -629,7 +628,6 @@ class Store {
 				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
 			}
 		}
-
 		// count the results in the array and return:
 		// 1) null if 0 results
 		// 2) the entire array if >= 1 result

@@ -6,6 +6,18 @@ $(document).ready(
 	// inner function for the ready() event
 	function() {
 
+		$(".store-edit").onclick(function() {
+
+
+			var storeEditObject = {
+				type: "post",
+				url: ""
+			}
+			$.ajax(storeEditObject).done(function(ajaxOutput) {
+
+			});
+		})
+
 		// tell the validator to validate this form (by id)
 		$("#storeController").validate({
 			// setup the formatting for the errors

@@ -23,27 +23,13 @@ try {
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
-	$hash = "12345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678";
-	$email = "BillyJoBob@suspender.com";
-	$salt = "48121620481216204812162048121620";
-	$activation = "1234567812345678";
-
-	$user = new User(1, $email, $hash, $salt, $activation);
-	$user->update($mysqli);
+	$user = User::getUserByUserId($mysqli, 1);
 
 	$_SESSION['user'] = array(
 		'id' => $user->getUserId()
 	);
 
-	$firstName = "John";
-	$lastName = "JoBob";
-	$phone = "(505)123-4567";
-	$profileType = "m";
-	$customerToken = "2";
-	$imagePath = "clown.jpg";
-
-	$profile = new Profile(1, $firstName, $lastName, $phone, $profileType, $customerToken, $imagePath, $user->getUserId());
-	$profile->update($mysqli);
+	$profile = Profile::getProfileByProfileId($mysqli, 1);
 
 	$_SESSION['profile'] = array(
 		'id' => $profile->getProfileId()

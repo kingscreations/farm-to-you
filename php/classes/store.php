@@ -242,17 +242,19 @@ class Store {
 		// verify that the image path is secure
 		$newImagePath = trim($newImagePath);
 		$newImagePath = filter_var($newImagePath, FILTER_SANITIZE_STRING);
-		if(empty($newImagePath) === true) {
+		if(empty($imagePath) === true) {
 			$this->imagePath = null;
 		}
+		$imageBasePath = '/var/www/html/farm-to-you/images/store/';
+		$imagePath = $imageBasePath . $newImagePath;
 
 		// verify the image path will fit in the database
-		if(strlen($newImagePath) > 255) {
+		if(strlen($imagePath) > 255) {
 			throw(new RangeException("image path too large"));
 		}
 
 		// store the image path
-		$this->imagePath = $newImagePath;
+		$this->imagePath = $imagePath;
 	}
 	/**
 	 * accessor method for store description

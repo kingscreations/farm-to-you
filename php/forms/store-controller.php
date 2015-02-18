@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-$imageBasePath = '/var/www/html/farmtoyou/images/store';
-$imageFileName = 'store-$storeId.{jpg|png}';
 
 $currentDir = dirname(__FILE__);
 require_once("../../dummy-session.php");
@@ -34,12 +32,13 @@ try {
 		throw new Exception('missing a required field');
 	}
 
+	$imageFileName = 'store-$storeId.{jpg|png}';
 
-	$inputImage = $_FILES['inputImage'];
+	$imageName = $_FILES['inputImage']['name'];
 
 	$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
 		$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
-	$store = new Store(null, $profileId, $_POST["storeName"], $_FILES["imagePath"], null, $_POST["storeDescription"]);
+	$store = new Store(null, $profileId, $_POST["storeName"], $imageName, null, $_POST["storeDescription"]);
 
 	$store->insert($mysqli);
 	$storeId = $store->getStoreId();
@@ -60,16 +59,7 @@ try {
 
 	echo "<p class=\"alert alert-success\">" . $store->getStoreName() . " added!</p><br><p class=\"alert alert-success\">" . $location->getLocationName() . " added!</p>";
 
-	?>
-	<div class="row-fluid">
-	<div class="col-sm-12">
-	<h3><strong><?php echo $_SESSION['store']['name']; ?></strong>
-	<br>
 
-	<a href="../edit-store/index.php" class="btn btn-info" role="button">Edit Store</a>	<br>
-
-
-<?php
 	} catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }

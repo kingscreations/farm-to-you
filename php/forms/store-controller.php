@@ -30,6 +30,7 @@ try {
 		!@isset($_POST["zipCode"]) || !@isset($_POST["city"]) || !@isset($_POST["state"]) || !@isset($_POST["storeName"])) {
 		throw new Exception('missing a required field');
 	}
+var_dump($_POST["inputImage"]);
 
 	if($_POST['address2'] !== '' && $_POST['country'] !== '' && $_POST["inputImage"] !== '' && $_POST["storeDescription"]) {
 		$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],

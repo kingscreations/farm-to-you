@@ -2,7 +2,7 @@
 session_start();
 $currentDir = dirname(__FILE__);
 
-require_once("../dummy-session.php");
+require_once("../dummy-session-single.php");
 require_once("../root-path.php");
 require_once("../php/lib/header.php");
 
@@ -86,6 +86,17 @@ require_once("../php/classes/store.php");
 				$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 				$stores = Store::getAllStoresByProfileId($mysqli, $_SESSION['profile']['id']);
+				var_dump($stores);
+				if($stores !== null) {
+					foreach($stores as $store) {
+						echo '<tr>';
+
+						echo '<td>' . $store->getStoreName() . '</td>';
+						echo '<td><a href="https://bootcamp-coders.cnm.edu/~fgoussin/farm-to-you/store/" class="btn btn-default" style="width: 40px"></td>';
+
+						echo '</tr>';
+					}
+				}
 
 			} catch(Exception $exception) {
 				echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
@@ -103,16 +114,8 @@ require_once("../php/classes/store.php");
 
 				<?php
 
-				if($stores !== null) {
-					foreach($stores as $store) {
-						echo '<tr>';
+//var_dump($stores);
 
-						echo '<td>' . $store->getStoreName() . '</td>';
-						echo '<td><a href="https://bootcamp-coders.cnm.edu/~fgoussin/farm-to-you/store/" class="btn btn-default" style="width: 40px"></td>';
-
-						echo '</tr>';
-					}
-				}
 
 				?>
 			</table>

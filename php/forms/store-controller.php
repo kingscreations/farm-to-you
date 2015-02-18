@@ -3,7 +3,7 @@ session_start();
 
 
 $currentDir = dirname(__FILE__);
-require_once("../../dummy-session.php");
+require_once("../../dummy-session-single.php");
 require_once ("../../root-path.php");
 
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");

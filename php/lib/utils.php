@@ -37,8 +37,6 @@ function checkInputImage($inputImage) {
 		}
 	}
 
-	var_dump($image);
-
 	// want to resize/crop/vandalize Alonso's images?
 	// do so here!
 	imagedestroy($image);

@@ -12,6 +12,7 @@ require_once("../classes/location.php");
 require_once("../classes/storelocation.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
+require_once("../lib/utils.php");
 
 
 // verify the form values have been submitted
@@ -30,6 +31,10 @@ try {
 	if(!@isset($_POST["locationName"]) || !@isset($_POST["address1"]) ||
 		!@isset($_POST["zipCode"]) || !@isset($_POST["city"]) || !@isset($_POST["state"]) || !@isset($_POST["storeName"])) {
 		throw new Exception('missing a required field');
+	}
+
+	if(checkInputImage($_FILES['inputImage']) === false) {
+		throw new Exception('shitty file');
 	}
 
 	$imageFileName = 'store-$storeId.{jpg|png}';

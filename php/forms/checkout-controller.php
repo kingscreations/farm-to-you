@@ -131,7 +131,7 @@ try {
 
 		// then save the customer info to the profile
 		$profile->setCustomerToken($customer->id);
-		// TODO update database
+		$profile->update($mysqli);
 	}
 
 	if($rememberUser === false) {

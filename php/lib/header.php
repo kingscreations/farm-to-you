@@ -48,7 +48,6 @@ $prefix = str_repeat("../", $depthDifference);
 			);
 
 		</script>
-		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/additional-methods.min.js"></script>
 		<script src="<?php echo $prefix; ?>js/iscroll.js"></script>
 		<script src="<?php echo $prefix; ?>js/add-profile.js"></script>
 		<script src="<?php echo $prefix; ?>js/cart.js"></script>

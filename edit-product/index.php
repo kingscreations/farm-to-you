@@ -5,15 +5,32 @@ $currentDir = dirname(__FILE__);
 require_once("../dummy-session-single.php");
 require_once ("../root-path.php");
 require_once("../php/lib/header.php");
+require_once("../php/classes/product.php");
+
+try {
+	//
+	mysqli_report(MYSQLI_REPORT_STRICT);
+	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
+	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 
-$productName = $_SESSION['product']['name'];
-$productPrice = $_SESSION['product']['price'];
-$productDescription = $_SESSION['product']['description'];
-$productPriceType = $_SESSION['product']['priceType'];
-$productWeight = $_SESSION['product']['weight'];
-$productStock = $_SESSION['product']['stock'];
-$productImage = $_SESSION['product']['image']
+	$product = new Product(null, 1, "image.jpg", "testing session", "1.20", "testing session descript", "w", 4.23, null);
+	$product->insert($mysqli);
+
+$_SESSION['product'] = array(
+	'id' 				=> $product->getProductId(),
+	'name'			=> $product->getProductName(),
+	'price'	=> $product->getProductPrice(),
+	'image'			=> $product->getImagePath(),
+	'description'		=> $product->getProductDescription(),
+	'weight' => $product->getProductWeight(),
+	'stock' => $product->getStockLimit(),
+	'priceType' => $product->getProductPriceType()
+);
+	echo "<p class=\"alert alert-success\">Product (id = " . $product->getProductId() . ") posted!</p>";
+} catch(Exception $exception) {
+	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
+}
 ?>
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
@@ -37,14 +54,14 @@ $productImage = $_SESSION['product']['image']
 
 		<div class="form-group">
 			<label for="editProductPrice">Product Price:</label>
-			<input type="text" class="form-control" name="editProductPrice" id="editProductPrice" placeholder=<?php echo $_SESSION['product']['price'];?> value=<?php echo $_SESSION['product']['price'];?>>
+			<input type="text" class="form-control" name="editProductPrice" id="editProductPrice" placeholder="<?php echo $_SESSION['product']['price'];?>" value="<?php echo $_SESSION['product']['price'];?>">
 		</div>
 
 		<br>
 
 		<div class="form-group">
 			<label for="editProductDescription">Product Description:</label>
-			<textarea class="form-control" name="editProductDescription" id="editProductDescription" placeholder=<?php echo $_SESSION['product']['description'];?> value=<?php echo $_SESSION['product']['description'];?>></textarea>
+			<input type="text" class="form-control" name="editProductDescription" id="editProductDescription" placeholder="<?php echo $_SESSION['product']['description'];?>" value="<?php echo $_SESSION['product']['description'];?>"></textarea>
 		</div>
 
 		<br>
@@ -59,27 +76,27 @@ $productImage = $_SESSION['product']['image']
 
 		<div class="form-group">
 			<label for="editProductWeight">Product Weight:</label>
-			<input type="text" class="form-control" name="editProductWeight" id="editProductWeight" placeholder=<?php echo $_SESSION['product']['weight'];?> value=<?php echo $_SESSION['product']['weight'];?>>
+			<input type="text" class="form-control" name="editProductWeight" id="editProductWeight" placeholder="<?php echo $_SESSION['product']['weight'];?>" value="<?php echo $_SESSION['product']['weight'];?>">
 		</div>
 
 		<br>
 
 		<div class="form-group">
 			<label for="editStockLimit">Current Stock Amount:</label>
-			<input type="number" class="form-control" name="editStockLimit" id="editStockLimit" step="1" placeholder=<?php echo $_SESSION['product']['stock'];?> value=<?php echo $_SESSION['product']['stock'];?>>
+			<input type="number" class="form-control" name="editStockLimit" id="editStockLimit" step="1" placeholder="<?php echo $_SESSION['product']['stock'];?>" value="<?php echo $_SESSION['product']['stock'];?>">
 		</div>
 
 		<br>
 
 		<div class="form-group">
 			<label for="editProductImage">Product Image:</label>
-			<input type="file" class="form-control" name="editProductImage" id="editProductImage" value=<?php echo $_SESSION['product']['image'];?>>
+			<input type="file" class="form-control" name="editProductImage" id="editProductImage" value="<?php echo $_SESSION['product']['image'];?>">
 		</div>
 
 		<br>
 
 		<div class="form-group">
-			<input type="submit" class="form-control" id="editSubmit" name="editSubmit">
+			<input type="submit" class="form-control" id="editSubmit" name="editSubmit" value="Submit">
 		</div>
 
 	</form>

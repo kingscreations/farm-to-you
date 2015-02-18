@@ -51,12 +51,14 @@ try {
 	$productImagePath = $_SESSION['product']['image'];
 	$productStockLimit = $_SESSION['product']['stock'];
 
+	var_dump($productId);
 
-	if(@isset($_POST["editProductImage"])) {
+
+//	if(@isset($_POST["editProductImage"])) {
 		$product = new Product($productId, $profileId, $_POST["editProductImage"], $_POST["editProductName"], $_POST["editProductPrice"], $_POST["editProductDescription"], $_POST["editProductPriceType"], $_POST["editProductWeight"], $_POST["editStockLimit"]);
-	} else {
-		$product = new Product($productId, $profileId, null, $_POST["editProductName"], $_POST["editProductPrice"], $_POST["editProductDescription"], $_POST["editProductPriceType"], $_POST["editProductWeight"], $_POST["editStockLimit"]);
-	}
+//	} else {
+//		$product = new Product($productId, $profileId, null, $_POST["editProductName"], $_POST["editProductPrice"], $_POST["editProductDescription"], $_POST["editProductPriceType"], $_POST["editProductWeight"], $_POST["editStockLimit"]);
+//	}
 
 	$product->update($mysqli);
 

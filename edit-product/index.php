@@ -18,57 +18,57 @@ require_once("../php/lib/header.php");
 	<form id="editProduct" class="form-inline" method="post" action="../php/forms/edit-product-controller.php" novalidate>
 
 		<div class="form-group">
-			<label for="inputProductName">Product Name:</label>
-			<input type="text" class="form-control" name="inputProductName" id="inputProductName" placeholder="Product Name">
+			<label for="editProductName">Product Name:</label>
+			<input type="text" class="form-control" name="editProductName" id="editProductName" placeholder=<?php echo $_SESSION['product']['name'];?> value=<?php echo $_SESSION['product']['name'];?>>
 		</div>
 
 		<br>
 
 		<div class="form-group">
-			<label for="inputProductPrice">Product Price:</label>
-			<input type="text" class="form-control" name="inputProductPrice" id="inputProductPrice" placeholder="Price">
+			<label for="editProductPrice">Product Price:</label>
+			<input type="text" class="form-control" name="editProductPrice" id="editProductPrice" placeholder=<?php echo $_SESSION['product']['price'];?> value=<?php echo $_SESSION['product']['price'];?>>
 		</div>
 
 		<br>
 
 		<div class="form-group">
-			<label for="inputProductDescription">Product Description:</label>
-			<textarea class="form-control" name="inputProductDescription" id="inputProductDescription" placeholder="Product Type"></textarea>
+			<label for="editProductDescription">Product Description:</label>
+			<textarea class="form-control" name="editProductDescription" id="editProductDescription" placeholder=<?php echo $_SESSION['product']['description'];?> value=<?php echo $_SESSION['product']['description'];?>></textarea>
 		</div>
 
 		<br>
 
 		<div class="form-group">
-			<label for="inputProductPriceType">Product Price Type:</label>
-			<input type="radio" class="form-control" name="inputProductPriceType" id="inputProductPriceType" value="w">By Weight
-			<input type="radio" class="form-control" name="inputProductPriceType" id="inputProductPriceType" value="u">Per Unit
+			<label for="editProductPriceType">Product Price Type:</label>
+			<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w">By Weight
+			<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u">Per Unit
 		</div>
 
 		<br>
 
 		<div class="form-group">
-			<label for="inputProductWeight">Product Weight:</label>
-			<input type="text" class="form-control" name="inputProductWeight" id="inputProductWeight" placeholder="Weight">
+			<label for="editProductWeight">Product Weight:</label>
+			<input type="text" class="form-control" name="editProductWeight" id="editProductWeight" placeholder=<?php echo $_SESSION['product']['weight'];?> value=<?php echo $_SESSION['product']['weight'];?>>
 		</div>
 
 		<br>
 
 		<div class="form-group">
-			<label for="inputStockLimit">Current Stock Amount:</label>
-			<input type="number" class="form-control" name="inputStockLimit" id="inputStockLimit" step="1">
+			<label for="editStockLimit">Current Stock Amount:</label>
+			<input type="number" class="form-control" name="editStockLimit" id="editStockLimit" step="1" placeholder=<?php echo $_SESSION['product']['stock'];?> value=<?php echo $_SESSION['product']['stock'];?>>
 		</div>
 
 		<br>
 
 		<div class="form-group">
-			<label for="inputProductImage">Product Image:</label>
-			<input type="file" class="form-control" name="inputProductImage" id="inputProductImage" value="">
+			<label for="editProductImage">Product Image:</label>
+			<input type="file" class="form-control" name="editProductImage" id="editProductImage" value=<?php echo $_SESSION['product']['image'];?>>
 		</div>
 
 		<br>
 
 		<div class="form-group">
-			<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit">
+			<input type="submit" class="form-control" id="editSubmit" name="editSubmit">
 		</div>
 
 	</form>

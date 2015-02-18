@@ -33,20 +33,24 @@ try {
 		throw new Exception('missing a required field');
 	}
 
-	if(checkInputImage($_FILES['inputImage']) === false) {
-		throw new Exception('shitty file');
-	}
-
-	$imageFileName = 'store-$storeId.{jpg|png}';
-
-	$imageName = $_FILES['inputImage']['name'];
 
 	$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
 		$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
-	$store = new Store(null, $profileId, $_POST["storeName"], $imageName, null, $_POST["storeDescription"]);
+	$store = new Store(null, $profileId, $_POST["storeName"], '', null, $_POST["storeDescription"]);
 
-	$store->insert($mysqli);
-	$storeId = $store->getStoreId();
+	if(empty($_FILES['inputImage']) === false) {
+		$imageExtension = checkInputImage($_FILES['inputImage']);
+		$store->insert($mysqli);
+		$storeId = $store->getStoreId();
+		$imageFileName = 'store' . $storeId . '.' . $imageExtension;
+		$store->setImagePath($imageFileName);
+		$store->update($mysqli);
+	} else {
+		$store->insert($mysqli);
+		$storeId = $store->getStoreId();
+	}
+
+
 	$location->insert($mysqli);
 	$locationId = $location->getLocationId();
 	$storeLocation = new StoreLocation($storeId, $locationId);

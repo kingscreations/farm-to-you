@@ -34,17 +34,17 @@ $prefix = str_repeat("../", $depthDifference);
 		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
 		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
-		<script>
+		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/additional-methods.min.js"></script>
 
-			/**
-			 * add exactlength to check the exact length of a field
-			 */
-			$.validator.addMethod("exactlength",
-				function(value, element, param) {
-					return this.optional(element) || value.length == param;
-				},
-				$.validator.format("Please enter exactly {0} characters.")
-			);
+<!--			/**-->
+<!--			 * add exactlength to check the exact length of a field-->
+<!--			 */-->
+<!--			$.validator.addMethod("exactlength",-->
+<!--				function(value, element, param) {-->
+<!--					return this.optional(element) || value.length == param;-->
+<!--				},-->
+<!--				$.validator.format("Please enter exactly {0} characters.")-->
+<!--			);-->
 
 		</script>
 		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/additional-methods.min.js"></script>

@@ -19,9 +19,11 @@ function checkInputImage($inputImage) {
 
 	// check file content for malicious users and totally incompetent users
 	$mimeType = $inputImage["type"];
-	if($mimeType !== 'image/png' || $mimeType !== 'image/jpeg') {
-		throw new RangeException('GIF and JPEG images are the only valid image types');
+	if($mimeType !== 'image/png' && $mimeType !== 'image/jpeg') {
+		throw new RangeException('PNG and JPEG images are the only valid image types');
 	}
+
+	$image = null;
 
 	if($mimeType === "image/png") {
 		if(($image = @imagecreatefrompng($inputImage["tmp_name"])) === false) {
@@ -29,7 +31,7 @@ function checkInputImage($inputImage) {
 		}
 	}
 
-	if($mimeType === "image/jpg") {
+	if($mimeType === "image/jpeg") {
 		if(($image = @imagecreatefromjpeg($inputImage["tmp_name"])) === false) {
 			throw new InvalidArgumentException('The input jpg image format is incorrect');
 		}

@@ -10,6 +10,7 @@ require_once("../php/lib/header.php");
 require_once("../php/classes/store.php");
 
 ?>
+	<script src="../js/store.js"></script>
 
 <div class="row-fluid">
 	<div class="col-sm-12">

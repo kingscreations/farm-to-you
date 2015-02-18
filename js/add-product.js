@@ -45,7 +45,7 @@ $(document).ready(
 					required: true
 				},
 
-				inputProductImage: {
+				inputImage: {
 
 					maxlength: 255,
 					required: false

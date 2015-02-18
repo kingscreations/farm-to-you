@@ -171,9 +171,9 @@ class Location {
 		// verify that the location country is secure
 		$newCountry = trim($newCountry);
 		$newCountry = filter_var($newCountry, FILTER_SANITIZE_STRING);
-		if(empty($newCountry) === true) {
-			throw(new InvalidArgumentException("country name is empty or insecure"));
-		}
+//		if(empty($newCountry) === true) {
+//			throw(new InvalidArgumentException("country name is empty or insecure"));
+//		}
 
 		// verify the location country will fit in the database
 		if(strlen($newCountry) > 2) {

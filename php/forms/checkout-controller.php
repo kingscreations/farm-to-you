@@ -18,19 +18,20 @@ require_once("../classes/order.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
 
-//
+// connexion configuration
+mysqli_report(MYSQLI_REPORT_STRICT);
+
+// get the credentials information from the server
+$configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
+
+// check the post variable
 if(!@isset($_POST['stripeToken'])) {
 	throw new Exception("The Stripe Token was not generated correctly");
 }
 
 try {
-	mysqli_report(MYSQLI_REPORT_STRICT);
-
-	// get the credentials information from the server
-	$configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
-	$configArray = readConfig($configFile);
-
 	// connection
+	$configArray = readConfig($configFile);
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
@@ -80,9 +81,6 @@ try {
 	$checkout = new Checkout(null, $order->getOrderId(), new DateTime(), $totalPrice);
 	$checkout->insert($mysqli);
 
-//	clearDatabase($mysqli);
-	$mysqli->close();
-
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
@@ -128,7 +126,6 @@ try {
 			"currency" => "usd",
 			"customer" => $customer->id
 		));
-
 		// then save the customer info to the profile
 		$profile->setCustomerToken($customer->id);
 		$profile->update($mysqli);
@@ -145,8 +142,13 @@ try {
 				"description" => $user->getEmail()
 			)
 		);
-		echo "<p class=\"alert alert-success\">Payment done.</p>";
 	}
+
+	echo "<p class=\"alert alert-success\">Payment done.</p>";
+
+	//close the database connection
+	$mysqli->close();
+
 } catch(Stripe_CardError $stripeException) {
 	// The card has been declined
 	echo "<p class=\"alert alert-danger\">Exception: " . $stripeException->getMessage() . "</p>";

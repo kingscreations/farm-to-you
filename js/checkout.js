@@ -100,10 +100,10 @@ $(document).ready(function() {
 	function sendFormData() {
 		var $rememberUserCheckbox = $('#remember-user');
 		var data = {
-			'stripeToken': $('#stripe-token').val()
+			'stripeToken': $('#stripe-token').val(),
 		};
 		if($rememberUserCheckbox.is(":checked")) {
-			data.stripeToken = $rememberUserCheckbox.val();
+			data.rememberUser = $rememberUserCheckbox.val();
 		}
 
 		$.ajax({

@@ -1,5 +1,9 @@
 <?php
 session_start();
+var_dump($_POST);
+var_dump($_FILES);
+$imageinfo = getimagesize($_FILES["inputImage"]['tmp_name']);
+var_dump($imageinfo);
 
 $currentDir = dirname(__FILE__);
 require_once("../../dummy-session.php");
@@ -30,11 +34,13 @@ try {
 		!@isset($_POST["zipCode"]) || !@isset($_POST["city"]) || !@isset($_POST["state"]) || !@isset($_POST["storeName"])) {
 		throw new Exception('missing a required field');
 	}
-//var_dump($_POST["inputImage"]);
+
+
+	$inputImage = $_FILES['inputImage'];
 
 	$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
 		$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
-	$store = new Store(null, $profileId, $_POST["storeName"], $_POST["imagePath"], $_POST["creationDate"], $_POST["storeDescription"]);
+	$store = new Store(null, $profileId, $_POST["storeName"], $_FILES["imagePath"], null, $_POST["storeDescription"]);
 
 	$store->insert($mysqli);
 	$storeId = $store->getStoreId();

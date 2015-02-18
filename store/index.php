@@ -14,7 +14,7 @@ require_once("../php/classes/store.php");
 <div class="row-fluid">
 	<div class="col-sm-12">
 		<h2>Add Store</h2>
-			<form class="form-inline" id="storeController" method="post" action="../php/forms/store-controller.php">
+			<form class="form-inline" id="storeController" method="post" action="../php/forms/store-controller.php" enctype="multipart/form-data">>
 				<div class="form-group">
 					<label for="storeName">Store Name</label>
 					<input type="text" id="storeName" name="storeName" value="Pass Farms">
@@ -28,7 +28,7 @@ require_once("../php/classes/store.php");
 
 				<div class="form-group">
 					<label for="inputImage">Store Image</label>
-					<input type="file" id="inputImage" name="imagePath">
+					<input type="file" id="inputImage" name="inputImage">
 				</div>
 				<br>
 				<div class="form-group">

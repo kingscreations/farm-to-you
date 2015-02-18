@@ -117,4 +117,27 @@ $(document).ready(function() {
 			});
 	}
 
+
+	/**
+	 * enable / disable input and change the text color to light grey
+	 * depending on which radio button is checked
+	 */
+	$('#checkout-radio-remember').on('change', function() {
+		if($(this).is(':checked') && $(this).val() === 'remember') {
+			$.each($newCard, function() {
+				$(this).prop('disabled', false);
+			});
+		}
+	});
+
+	$('#checkout-radio-new-card').on('change', function() {
+		console.log('change');
+		var $newCard = $('#new-card').children('input');
+
+		if($(this).is(':checked') && $(this).val() === 'new') {
+			$.each($newCard, function() {
+				$(this).prop('disabled', true);
+			});
+		}
+	});
 });

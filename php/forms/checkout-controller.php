@@ -155,19 +155,6 @@ try {
 }
 
 
-//// Save the customer ID in your database so you can use it later
-//saveStripeCustomerId($user, $customer->id);
-//
-//// Later...
-//$customerId = getStripeCustomerId($user);
-//
-//Stripe_Charge::create(array(
-//		"amount"   => 1500, # $15.00 this time
-//		"currency" => "usd",
-//		"customer" => $customerId)
-//);
-
-
 
 
 /**

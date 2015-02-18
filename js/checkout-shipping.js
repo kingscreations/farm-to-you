@@ -25,6 +25,8 @@ $(document).ready(function() {
 					if($(".alert-success").length >= 1) {
 						$(form)[0].reset();
 					}
+
+					console.log('debug');
 					window.location.href = "https://bootcamp-coders.cnm.edu/~fgoussin/farm-to-you/checkout/";
 				}
 			});

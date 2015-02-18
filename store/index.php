@@ -6,6 +6,9 @@ require_once("../dummy-session.php");
 require_once("../root-path.php");
 require_once("../php/lib/header.php");
 
+// classes
+require_once("../php/classes/store.php");
+
 ?>
 
 <div class="row-fluid">
@@ -25,7 +28,7 @@ require_once("../php/lib/header.php");
 
 				<div class="form-group">
 					<label for="inputImage">Store Image</label>
-					<input type="file" id="inputImage" name="inputImage">
+					<input type="file" id="inputImage" name="imagePath">
 				</div>
 				<br>
 				<div class="form-group">
@@ -68,6 +71,52 @@ require_once("../php/lib/header.php");
 				<br>
 				<br>
 			</form>
+		<?php
+
+			$currentDir = dirname(__FILE__);
+			require_once("../dummy-session.php");
+			require_once ("../root-path.php");
+
+			require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+
+			try {
+				mysqli_report(MYSQLI_REPORT_STRICT);
+				$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
+				$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
+
+				$stores = Store::getAllStoresByProfileId($mysqli, $_SESSION['profile']['id']);
+
+			} catch(Exception $exception) {
+				echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
+			}
+
+		?>
+
+		<div>
+			<h2>Stores</h2>
+			<table>
+				<tr>
+					<th>Store name</th>
+					<th>Edit</th>
+				</tr>
+
+				<?php
+
+				if($stores !== null) {
+					foreach($stores as $store) {
+						echo '<tr>';
+
+						echo '<td>' . $store->getStoreName() . '</td>';
+						echo '<td><a href="https://bootcamp-coders.cnm.edu/~fgoussin/farm-to-you/store/" class="btn btn-default" style="width: 40px"></td>';
+
+						echo '</tr>';
+					}
+				}
+
+				?>
+			</table>
+		</div>
+
 			<p id="outputArea"></p>
 		<br>
 	</div>

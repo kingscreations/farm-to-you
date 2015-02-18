@@ -49,7 +49,8 @@ class Store {
 	 * @throws InvalidArgumentException it data types are not valid
 	 * @throws RangeException if data values are out of bounds (e.g. strings too long, negative integers)
 	 **/
-	public function __construct($newStoreId, $newProfileId, $newStoreName, $newImagePath = null, $newCreationDate = null, $newStoreDescription = null) {
+	public function __construct($newStoreId, $newProfileId, $newStoreName, $newImagePath, $newCreationDate,
+										 $newStoreDescription = null) {
 		try {
 			$this->setStoreId($newStoreId);
 			$this->setProfileId($newProfileId);

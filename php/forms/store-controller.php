@@ -30,49 +30,11 @@ try {
 		!@isset($_POST["zipCode"]) || !@isset($_POST["city"]) || !@isset($_POST["state"]) || !@isset($_POST["storeName"])) {
 		throw new Exception('missing a required field');
 	}
-var_dump($_POST["inputImage"]);
+//var_dump($_POST["inputImage"]);
 
-	if($_POST['address2'] !== '' && $_POST['country'] !== '' && $_POST["inputImage"] !== '' && $_POST["storeDescription"]) {
-		$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
-			$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
-		$store = new Store(null, $profileId, $_POST["storeName"], $_POST["inputImage"], null, $_POST["storeDescription"]);
-	} else if($_POST['address2'] === '' && $_POST['country'] === '' && $_POST["inputImage"] === '') {
-		$location = new Location(null, $_POST["locationName"], null, $_POST["state"], $_POST["city"],
-			$_POST["zipCode"], $_POST["address1"], null);
-		$store = new Store(null, $profileId, $_POST["storeName"], null, null, $_POST["storeDescription"]);
-	} else if($_POST['address2'] === '' && $_POST['country'] === '' && $_POST["storeDescription"] === '') {
-		$location = new Location(null, $_POST["locationName"], null, $_POST["state"], $_POST["city"],
-			$_POST["zipCode"], $_POST["address1"], null);
-		$store = new Store(null, $profileId, $_POST["storeName"], $_POST["inputImage"], null, null);
-	} else if($_POST['address2'] === '' && $_POST["storeDescription"] === '') {
-		$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
-			$_POST["zipCode"], $_POST["address1"], null);
-		$store = new Store(null, $profileId, $_POST["storeName"], $_POST["inputImage"], null, null);
-	} else if($_POST['country'] === '' && $_POST["storeDescription"] === '') {
-		$location = new Location(null, $_POST["locationName"], null, $_POST["state"], $_POST["city"],
-			$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
-		$store = new Store(null, $profileId, $_POST["storeName"], $_POST["inputImage"], null, null);
-	} else if($_POST['address2'] === '' && $_POST["inputImage"] === '') {
-		$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
-			$_POST["zipCode"], $_POST["address1"], null);
-		$store = new Store(null, $profileId, $_POST["storeName"], null, null, $_POST["storeDescription"]);
-	} else if($_POST['country'] === '' && $_POST["inputImage"] === '') {
-		$location = new Location(null, $_POST["locationName"], null, $_POST["state"], $_POST["city"],
-			$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
-		$store = new Store(null, $profileId, $_POST["storeName"], null, null, $_POST["storeDescription"]);
-	} else if($_POST['address2'] === '') {
-		$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
-			$_POST["zipCode"], $_POST["address1"], null);
-		$store = new Store(null, $profileId, $_POST["storeName"], $_POST["inputImage"], null, $_POST["storeDescription"]);
-	} else if($_POST['country'] === '') {
-		$location = new Location(null, $_POST["locationName"], null, $_POST["state"], $_POST["city"],
-			$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
-		$store = new Store(null, $profileId, $_POST["storeName"], $_POST["inputImage"], null, $_POST["storeDescription"]);
-	} else {
-		$location = new Location(null, $_POST["locationName"], null, $_POST["state"], $_POST["city"], $_POST["zipCode"], $_POST["address1"], null);
-		$store = new Store(null, $profileId, $_POST["storeName"], null, null, null);
-	}
-
+	$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
+		$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
+	$store = new Store(null, $profileId, $_POST["storeName"], $_POST["imagePath"], $_POST["creationDate"], $_POST["storeDescription"]);
 
 	$store->insert($mysqli);
 	$storeId = $store->getStoreId();
@@ -81,9 +43,7 @@ var_dump($_POST["inputImage"]);
 	$storeLocation = new StoreLocation($storeId, $locationId);
 	$storeLocation->insert($mysqli);
 
-	$storeNames = Store::getAllStoresByProfileId($mysqli, $store->getProfileId());
-
-
+//	$storeNames = Store::getAllStoresByProfileId($mysqli, $store->getProfileId());
 
 	$_SESSION['store'] = array(
 		'id' 				=> $store->getStoreId(),

@@ -62,7 +62,8 @@ class Location {
 	 * @throws InvalidArgumentException it data types are not valid
 	 * @throws RangeException if data values are out of bounds (e.g. strings too long, negative integers)
 	 **/
-	public function __construct($newLocationId, $newLocationName, $newCountry, $newState, $newCity, $newZipCode, $newAddress1, $newAddress2 = null) {
+	public function __construct($newLocationId, $newLocationName, $newCountry, $newState, $newCity, $newZipCode,
+										 $newAddress1, $newAddress2 = null) {
 		try {
 			$this->setLocationId($newLocationId);
 			$this->setLocationName($newLocationName);
@@ -337,9 +338,9 @@ class Location {
 		// verify that the location address line 2 is secure
 		$newAddress2 = trim($newAddress2);
 		$newAddress2 = filter_var($newAddress2, FILTER_SANITIZE_STRING);
-		if(empty($newAddress2) === true) {
-			throw(new InvalidArgumentException("address 2 is empty or insecure"));
-		}
+//		if(empty($newAddress2) === true) {
+//			throw(new InvalidArgumentException("address 2 is empty or insecure"));
+//		}
 
 		// verify the location address line 2 will fit in the database
 		if(strlen($newAddress2) > 150) {

@@ -122,22 +122,33 @@ $(document).ready(function() {
 	 * enable / disable input and change the text color to light grey
 	 * depending on which radio button is checked
 	 */
-	$('#checkout-radio-remember').on('change', function() {
+	var $newCard               = $('#new-card');
+	var $newCardInputs         = $('#new-card input');
+	var $checkoutRadioRemember = $('#checkout-radio-remember');
+	$checkoutRadioRemember.on('click', function() {
+		console.log('checkout-radio-remember checked');
+
 		if($(this).is(':checked') && $(this).val() === 'remember') {
-			$.each($newCard, function() {
-				$(this).prop('disabled', false);
+			$.each($newCardInputs, function() {
+				$input = $(this);
+				$input.prop('disabled', true);
+				$input.addClass('disable-color');
 			});
+			$newCard.addClass('disable-color');
 		}
 	});
+	$checkoutRadioRemember.click();
 
-	$('#checkout-radio-new-card').on('change', function() {
-		console.log('change');
-		var $newCard = $('#new-card').children('input');
+	$('#checkout-radio-new-card').on('click', function() {
+		console.log('checkout-radio-new-card checked');
 
 		if($(this).is(':checked') && $(this).val() === 'new') {
-			$.each($newCard, function() {
-				$(this).prop('disabled', true);
+			$.each($newCardInputs, function() {
+				$input = $(this);
+				$input.prop('disabled', false);
+				$input.removeClass('disable-color');
 			});
+			$newCard.removeClass('disable-color');
 		}
 	});
 });

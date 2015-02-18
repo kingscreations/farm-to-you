@@ -69,7 +69,7 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 			// get and test the customer token
 			$customerToken = $profile->getCustomerToken();
 			if($customerToken !== null) {
-				echo '<input type="radio" id="checkout-radio-remember" name="radio" value="remember"> Use your previous credit card';
+				echo '<input type="radio" id="checkout-radio-remember" name="radio" value="remember" checked> Use your previous credit card';
 				echo '<br/>';
 				echo '<input type="radio" id="checkout-radio-new-card" name="radio" value="new"> Use another credit card';
 			}

@@ -3,9 +3,15 @@ session_start();
 var_dump($_POST);
 var_dump($_FILES);
 $imageinfo = getimagesize($_FILES["inputImage"]['tmp_name']);
+
 $imageWidth  = $imageinfo[0];
 $imageHeight = $imageinfo[1];
 $imageFile = @imagecreatetruecolor($imageWidth, $imageHeight);
+
+$imageBasePath = '/var/www/html/farmtoyou/images/store';
+// TODO change this blueprint by including the store id in the middle and adding the file extension according to the mime type
+$imageFileName = 'store-$storeId.{jpg|png}';
+
 move_uploaded_file($imageFile, 'path');
 var_dump($imageinfo);
 

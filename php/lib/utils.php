@@ -32,7 +32,7 @@ function checkInputImage($inputImage) {
 
 	// want to resize/crop/vandalize Alonso's images?
 	// do so here!
-//	imagedestroy($image);
+	imagedestroy($image);
 
 	return true;
 }

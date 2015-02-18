@@ -8,6 +8,8 @@ require_once ("../../root-path.php");
 require_once("../classes/product.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
+var_dump($_POST);
+
 // MAY HAVE TO CHANGE THIS TO NOT BE REQUIRED SINCE THIS IS JUST AN UPDATE. WILL TEST THIS ALONG WITH JS
 // verify the form values have been submitted
 if(@isset($_POST["editProductName"]) === false || @isset($_POST["editProductPrice"]) === false
@@ -54,11 +56,11 @@ try {
 	var_dump($productId);
 
 
-//	if(@isset($_POST["editProductImage"])) {
+	if(@isset($_POST["editProductImage"])) {
 		$product = new Product($productId, $profileId, $_POST["editProductImage"], $_POST["editProductName"], $_POST["editProductPrice"], $_POST["editProductDescription"], $_POST["editProductPriceType"], $_POST["editProductWeight"], $_POST["editStockLimit"]);
-//	} else {
-//		$product = new Product($productId, $profileId, null, $_POST["editProductName"], $_POST["editProductPrice"], $_POST["editProductDescription"], $_POST["editProductPriceType"], $_POST["editProductWeight"], $_POST["editStockLimit"]);
-//	}
+	} else {
+		$product = new Product($productId, $profileId, null, $_POST["editProductName"], $_POST["editProductPrice"], $_POST["editProductDescription"], $_POST["editProductPriceType"], $_POST["editProductWeight"], $_POST["editStockLimit"]);
+	}
 
 	$product->update($mysqli);
 

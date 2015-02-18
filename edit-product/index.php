@@ -14,7 +14,7 @@ try {
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 
-	$product = new Product(null, 1, "image.jpg", "testing session", "1.20", "testing session descript", "w", 4.23, null);
+	$product = new Product(null, 1, "image.jpg", "testing session", "1.20", "testing session descript", "w", 4.23, 56);
 	$product->insert($mysqli);
 
 $_SESSION['product'] = array(
@@ -90,7 +90,7 @@ $_SESSION['product'] = array(
 
 		<div class="form-group">
 			<label for="editProductImage">Product Image:</label>
-			<input type="file" class="form-control" name="editProductImage" id="editProductImage" value="<?php echo $_SESSION['product']['image'];?>">
+			<input type="file" class="form-control" name="editProductImage" id="editProductImage">
 		</div>
 
 		<br>

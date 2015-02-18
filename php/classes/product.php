@@ -63,7 +63,7 @@ class Product {
 	 * @param string $newProductDescription product description
 	 * @param string $newProductPriceType product price type
 	 * @param float $newProductWeight product weight
-	 * @param int $stockLimit limit the number of this product
+	 * @param int $newStockLimit limit the number of this product
 	 *
 	 * @throws InvalidArgumentException if data types are not valid
 	 * @throws RangeException if data values are out of bounds
@@ -337,7 +337,7 @@ class Product {
 	/**
 	 * mutator for the stockLimit
 	 *
-	 * @param int $newStockLimitId for the product
+	 * @param int $newStockLimit for the product
 	 * @throws InvalidArgumentException if data types are not valid
 	 * @throws RangeException if $newStockLimit is less than 0
 	 */
@@ -374,14 +374,14 @@ class Product {
 			throw(new mysqli_sql_exception("not a new product"));
 		}
 
-		$query	 = "INSERT INTO product(profileId, imagePath, productName, productPrice, productDescription, productPriceType, productWeight) VALUES(?, ?, ?, ?, ?, ?, ?)";
+		$query	 = "INSERT INTO product(profileId, imagePath, productName, productPrice, productDescription, productPriceType, productWeight, stockLimit) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-		$wasClean	  = $statement->bind_param("issdssd", $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
-			$this->productDescription, $this->productPriceType, $this->productWeight);
+		$wasClean	  = $statement->bind_param("issdssdi", $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
+			$this->productDescription, $this->productPriceType, $this->productWeight, $this->stockLimit);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -443,14 +443,14 @@ class Product {
 		}
 
 		$query	 = "UPDATE product SET profileId = ?, imagePath = ?, productName = ?, productPrice = ?, productDescription = ?,
-			productWeight = ? WHERE productId = ?";
+			productWeight = ?, stockLimit = ? WHERE productId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-		$wasClean	  = $statement->bind_param("issdsdi", $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
-			$this->productDescription, $this->productWeight, $this->productId);
+		$wasClean	  = $statement->bind_param("issdsdii", $this->profileId, $this->imagePath, $this->productName, $this->productPrice,
+			$this->productDescription, $this->productWeight, $this->stockLimit, $this->productId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -479,7 +479,7 @@ class Product {
 		$productName = filter_var($productName, FILTER_SANITIZE_STRING);
 
 		$query	 = "SELECT productId, profileId, imagePath, productName, productPrice, productDescription, productPriceType,
- 			productWeight FROM product WHERE productName LIKE ?";
+ 			productWeight, stockLimit FROM product WHERE productName LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -506,7 +506,7 @@ class Product {
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
 				$product	= new Product($row["productId"], $row["profileId"], $row["imagePath"], $row["productName"],
-					$row["productPrice"], $row["productDescription"], $row["productPriceType"], $row["productWeight"]);
+					$row["productPrice"], $row["productDescription"], $row["productPriceType"], $row["productWeight"], $row["stockLimit"]);
 				$products[] = $product;
 			}
 			catch(Exception $exception) {
@@ -542,7 +542,7 @@ class Product {
 		$productDescription = filter_var($productDescription, FILTER_SANITIZE_STRING);
 
 		$query	 = "SELECT productId, profileId, imagePath, productName, productPrice, productDescription, productPriceType,
-			productWeight FROM product WHERE productDescription LIKE ?";
+			productWeight, stockLimit FROM product WHERE productDescription LIKE ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -569,7 +569,7 @@ class Product {
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
 				$product	= new Product($row["productId"], $row["profileId"], $row["imagePath"], $row["productName"], $row["productPrice"],
-					$row["productDescription"], $row['productPriceType'], $row["productWeight"]);
+					$row["productDescription"], $row['productPriceType'], $row["productWeight"], $row["stockLimit"]);
 				$products[] = $product;
 			}
 			catch(Exception $exception) {
@@ -609,7 +609,7 @@ class Product {
 			throw(new mysqli_sql_exception("product id is not positive"));
 		}
 		$query	 = "SELECT productId, profileId, imagePath, productName, productPrice, productDescription, productPriceType,
- 			productWeight FROM product WHERE productId = ?";
+ 			productWeight, stockLimit FROM product WHERE productId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -635,7 +635,7 @@ class Product {
 			$row   = $result->fetch_assoc();
 			if($row !== null) {
 				$product	= new Product($row["productId"], $row["profileId"], $row["imagePath"], $row["productName"],
-					$row["productPrice"], $row["productDescription"], $row['productPriceType'], $row["productWeight"]);
+					$row["productPrice"], $row["productDescription"], $row['productPriceType'], $row["productWeight"], $row["stockLimit"]);
 			}
 		} catch(Exception $exception) {
 			// if the row couldn't be converted, rethrow it
@@ -662,7 +662,7 @@ class Product {
 
 		// create query template
 		$query	 = "SELECT productId, profileId, imagePath, productName, productPrice, productDescription, productPriceType,
- 			productWeight FROM product";
+ 			productWeight, stockLimit FROM product";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -684,7 +684,7 @@ class Product {
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
 				$product	= new Product($row["productId"], $row["profileId"], $row["imagePath"], $row["productName"],
-					$row["productPrice"], $row["productDescription"], $row['productPriceType'], $row["productWeight"]);
+					$row["productPrice"], $row["productDescription"], $row['productPriceType'], $row["productWeight"], $row["stockLimit"]);
 				$products[] = $product;
 			}
 			catch(Exception $exception) {

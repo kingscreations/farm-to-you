@@ -32,6 +32,17 @@ try {
 		$product = new Product(null, $profileId, null, $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductDescription"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
 	}
 
+//	if(empty($_FILES['inputImage']) === false) {
+//		$imageExtension = checkInputImage($_FILES['inputImage']);
+//		$product->insert($mysqli);
+//		$productId = $product->getProductId();
+//		$imageFileName = 'product' . $productId . '.' . $imageExtension;
+//		$product->setImagePath($imageFileName);
+//		$product->update($mysqli);
+//	} else {
+//		$product->insert($mysqli);
+//		$productId = $product->getProductd();
+//	}
 	$product->insert($mysqli);
 
 	$_SESSION['product'] = array(

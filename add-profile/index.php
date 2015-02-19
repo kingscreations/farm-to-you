@@ -54,7 +54,7 @@ require_once("../php/lib/header.php");
 		<br>
 
 		<div class="form-group">
-			<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit">
+			<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit" value="Submit">
 		</div>
 
 	</form>

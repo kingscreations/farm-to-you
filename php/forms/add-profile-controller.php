@@ -27,9 +27,21 @@ try {
 		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", $_POST["inputImage"], $user->getUserId());
 	} else {
 		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", null, $user->getUserId());
-
 	}
+
+//	if(empty($_FILES['inputImage']) === false) {
+//		$imageExtension = checkInputImage($_FILES['inputImage']);
+//		$profile->insert($mysqli);
+//		$profileId = $profile->getProfileId();
+//		$imageFileName = 'profile' . $profileId . '.' . $imageExtension;
+//		$profile->setImagePath($imageFileName);
+//		$profile->update($mysqli);
+//	} else {
+//		$profile->insert($mysqli);
+//		$profileId = $profile->getProfileId();
+//	}
 	$profile->insert($mysqli);
+
 	echo "<p class=\"alert alert-success\">Profile (id = " . $profile->getProfileId() . ") posted!</p>";
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";

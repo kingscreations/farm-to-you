@@ -7,7 +7,7 @@ require_once ("../root-path.php");
 require_once("../php/lib/header.php");
 require_once("../php/classes/product.php");
 
-try {
+//try {
 	//
 	mysqli_report(MYSQLI_REPORT_STRICT);
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
@@ -27,10 +27,10 @@ $_SESSION['product'] = array(
 	'stock' => $product->getStockLimit(),
 	'priceType' => $product->getProductPriceType()
 );
-	echo "<p class=\"alert alert-success\">Product (id = " . $product->getProductId() . ") posted!</p>";
-} catch(Exception $exception) {
-	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
-}
+//	echo "<p class=\"alert alert-success\">Product (id = " . $product->getProductId() . ") updated!</p>";
+//} catch(Exception $exception) {
+//	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
+//}
 ?>
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>

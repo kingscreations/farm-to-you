@@ -1,7 +1,7 @@
 // open a new window with the form under scrutiny
 module("tabs", {
 	setup: function() {
-		F.open("../../add-profile/index.php");
+		F.open("../../edit-profile/index.php");
 	}
 });
 
@@ -36,7 +36,7 @@ function testValidFields() {
 	// here, we assert we got the success message from the AJAX call
 	F(".alert").visible(function() {
 		// create a regular expression that evaluates the successful text
-		var successRegex = /Profile \(id = \d+\) posted!/;
+		var successRegex = /Profile \(id = \d+\) updated!/;
 
 		// the ok() function from qunit is equivalent to SimpleTest's assertTrue()
 		ok(F(this).hasClass("alert-success"), "successful alert CSS");

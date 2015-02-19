@@ -8,7 +8,6 @@ require_once ("../../root-path.php");
 require_once("../classes/product.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
-var_dump($_POST);
 
 // MAY HAVE TO CHANGE THIS TO NOT BE REQUIRED SINCE THIS IS JUST AN UPDATE. WILL TEST THIS ALONG WITH JS
 // verify the form values have been submitted
@@ -53,7 +52,6 @@ try {
 	$productImagePath = $_SESSION['product']['image'];
 	$productStockLimit = $_SESSION['product']['stock'];
 
-	var_dump($productId);
 
 
 	if(@isset($_POST["editProductImage"])) {
@@ -64,7 +62,7 @@ try {
 
 	$product->update($mysqli);
 
-	echo "<p class=\"alert alert-success\">Product (id = " . $product->getProductId() . ") posted!</p>";
+	echo "<p class=\"alert alert-success\">Product (id = " . $product->getProductId() . ") updated!</p>";
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }

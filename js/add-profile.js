@@ -14,7 +14,6 @@ $(document).ready(
 			rules: {
 				// each rule starts with the inputs name (NOT id)
 				inputFirstname: {
-
 					minlength: 2,
 					required: true
 				},

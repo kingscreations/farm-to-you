@@ -24,10 +24,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 // get the credentials information from the server
 $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
-// check the post variable
-if(!@isset($_POST['stripeToken'])) {
-	throw new Exception("The Stripe Token was not generated correctly");
-}
+
 
 try {
 	// connection
@@ -41,8 +38,6 @@ try {
 	if($profile === null) {
 		echo '<p class=\"alert alert-danger\">Internal server error.</p>';
 	}
-
-	// TODO: change the behavior according if the checkbox is checked or not
 
 	// create and insert a new order
 	$order = new Order(null, $_SESSION['profile']['id'], new DateTime());
@@ -85,63 +80,90 @@ try {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
 
-// stripe API
-//require_once '../external-libs/stripe-api/Stripe.php';
+/**
+ * Stripe API calls
+ */
+
+// auto load includes all the API files
 require_once('../../external-libs/autoload.php');
 
+// setup
 \Stripe\Stripe::setApiKey("sk_test_6bR9BBZRQppeQHGjgplRV3Bw");
 $error = '';
 $success = '';
-
-// filter the stripe token
-$stripeToken = filter_var($_POST['stripeToken'], FILTER_SANITIZE_STRING);
-
-// filter the checkbox
-$rememberUser = false;
-if(@isset($_POST['rememberUser']) === false) {
-	$rememberUser = false;
-} else if($_POST['rememberUser'] === "Yes") {
-	$rememberUser = true;
-} else {
-	throw new RangeException('Problem with the value of the remember user checkbox');
-	exit();
-}
 
 // Convert the price in dollars to a price in cents
 // and from float to integer to be compatible with Strip API
 $totalPrice = intval($totalPrice * 100);
 
 try {
-	if($rememberUser === true) {
+	if(@isset($_POST['creditCard']) === true && $_POST['creditCard'] === 'old') {
+		$customerToken = $profile->getCustomerToken();
+			var_dump($customerToken);
+		if($customerToken !== null && strpos($customerToken, 'cus_') !== false) {
+			// charge the customer with the memorize information
+			\Stripe\Charge::create(array(
+					"amount"   => $totalPrice, // amount in cents
+					"currency" => "usd",
+					"customer" => $customerToken)
+			);
 
-		// first create a new customer
-		$customer = \Stripe\Customer::create(array(
-			"card" => $stripeToken,
-			"description" => $user->getEmail()
-		));
+		} else {
+			throw new Exception('Custom token from Profile invalid');
+		}
 
-		// then charge the new customer
-		\Stripe\Charge::create(array(
-			"amount" => $totalPrice, // amount in cents
-			"currency" => "usd",
-			"customer" => $customer->id
-		));
-		// then save the customer info to the profile
-		$profile->setCustomerToken($customer->id);
-		$profile->update($mysqli);
-	}
+	} else {
 
-	if($rememberUser === false) {
+		// check the post variable
+		if(!@isset($_POST['stripeToken'])) {
+			throw new Exception("The Stripe Token was not generated correctly");
+		}
 
-		// charge directly the user
-		$charge = \Stripe\Charge::create(
-			array(
-				"amount" => $totalPrice, // amount in cents
-				"currency" => "usd",
+		// filter the stripe token
+		$stripeToken = filter_var($_POST['stripeToken'], FILTER_SANITIZE_STRING);
+
+		// filter the checkbox
+		$rememberUser = false;
+		if(@isset($_POST['rememberUser']) === false) {
+			$rememberUser = false;
+		} else if($_POST['rememberUser'] === "Yes") {
+			$rememberUser = true;
+		} else {
+			throw new RangeException('Problem with the value of the remember user checkbox');
+			exit();
+		}
+
+		if($rememberUser === true) {
+
+			// first create a new customer
+			$customer = \Stripe\Customer::create(array(
 				"card" => $stripeToken,
 				"description" => $user->getEmail()
-			)
-		);
+			));
+
+			// then charge the new customer
+			\Stripe\Charge::create(array(
+				"amount" => $totalPrice, // amount in cents
+				"currency" => "usd",
+				"customer" => $customer->id
+			));
+			// then save the customer info to the profile
+			$profile->setCustomerToken($customer->id);
+			$profile->update($mysqli);
+		}
+
+		if($rememberUser === false) {
+
+			// charge directly the user
+			$charge = \Stripe\Charge::create(
+				array(
+					"amount" => $totalPrice, // amount in cents
+					"currency" => "usd",
+					"card" => $stripeToken,
+					"description" => $user->getEmail()
+				)
+			);
+		}
 	}
 
 	echo "<p class=\"alert alert-success\">Payment done.</p>";

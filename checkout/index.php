@@ -5,7 +5,7 @@
  */
 
 session_start();
-
+//var_dump($_SESSION);
 $currentDir = dirname(__FILE__);
 
 // header
@@ -44,15 +44,6 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 			<br>
 			<?php
 
-			//// Later...
-			//$customerId = getStripeCustomerId($user);
-			//
-			//Stripe_Charge::create(array(
-			//		"amount"   => 1500, # $15.00 this time
-			//		"currency" => "usd",
-			//		"customer" => $customerId)
-			//);
-
 			try {
 				// connection
 				$configArray = readConfig($configFile);
@@ -64,14 +55,20 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 			}
 
 			// get the active profile
-			$profile = Profile::getProfileByProfileId($mysqli, $_SESSION['profile']['id']);
+//			$profile = Profile::getProfileByProfileId($mysqli, $_SESSION['profile']['id']);
+			$profile = Profile::getProfileByProfileId($mysqli, 2);
+
+			if($profile === null) {
+				throw new Exception('Problem with the SESSION: profile is null');
+			}
 
 			// get and test the customer token
 			$customerToken = $profile->getCustomerToken();
-			if($customerToken !== null) {
-				echo '<input type="radio" id="checkout-radio-remember" name="radio" value="remember" checked> Use your previous credit card';
+
+			if($customerToken !== null && strpos($customerToken, 'cus_') !== false) {
+				echo '<input type="radio" id="checkout-radio-remember" name="creditCard" value="old" checked> Use your previous credit card';
 				echo '<br/>';
-				echo '<input type="radio" id="checkout-radio-new-card" name="radio" value="new"> Use another credit card';
+				echo '<input type="radio" id="checkout-radio-new-card" name="creditCard" value="new"> Use another credit card';
 			}
 
 			?>

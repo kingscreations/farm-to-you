@@ -1,4 +1,4 @@
-<?php
+`<?php
 
 $dummyPath = dirname(__FILE__);
 

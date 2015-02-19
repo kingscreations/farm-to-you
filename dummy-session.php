@@ -44,7 +44,8 @@ try {
 		'id' => $user->getUserId()
 	);
 
-	$profile = new Profile(null, randomString(5), randomString(7), randomString(10), 'm', randomString(1), randomString(19), $user->getUserId());
+	$profile = new Profile(null, randomString(5), randomString(7), randomString(10), 'm', randomString(1),
+		randomString(19), $user->getUserId());
 	$profile->insert($mysqli);
 
 	$_SESSION['profile'] = array(

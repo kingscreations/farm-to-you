@@ -15,7 +15,7 @@ require_once("../lib/csrf.php");
 session_start();
 
 try {
-	if(!@isset($_POST["inputEmail"]) || !@isset($_POST["password"])) {
+	if(!@isset($_POST["email"]) || !@isset($_POST["password"])) {
 		throw new Exception('invalid input post');
 	}
 
@@ -23,17 +23,26 @@ try {
 	if(verifyCsrf($_POST["csrfName"], $_POST["csrfToken"]) === false) {
 		throw(new RuntimeException("CSRF tokens incorrect or missing. Make sure cookies are enabled."));
 	}
+	//connect to mysqli
+	mysqli_report(MYSQLI_REPORT_STRICT);
+	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
+	$this->mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
+
 	// get the users email from mysqli
-	$this->user->insert($this->mysqli);
 	$mysqlUser = User::getUserByEmail($this->mysqli, $this->email);
-	$this->assertIdentical($this->user->inputEmail(), $mysqlUser->getEmail());
+	$this->assertIdentical($this->user->email(), $mysqlUser->getEmail());
 
 	// generate hash and retrieve salt
-	$salt =
+	$salt = $this->mysqlUser->getUserSalt;
 	$hash = hash_pbkdf2("sha512", "password", $salt, 2048, 128);
 
 	// retrieve users hash and compare to input
+	$userHash = $this->mysqlUser->getUserHash;
+	if ($userHash !== $hash) {
+		throw new Exception('email input does not match existing account');
+	}
 
+	// catch any exceptions
 } catch(Exception $exception) {
 	echo "<p class=\"input not posted!\">Exception: " . $exception->getMessage() . "</p>";
 }

@@ -6,7 +6,7 @@ module("tabs", {
 });
 
 // global variables for form values
-var INVALID_PRODUCTNAME  = "R";
+var INVALID_PRODUCTNAME  = "Rjtester";
 var INVALID_PRODUCTPRICE = "1.200.100492";
 var INVALID_PRODUCTDESCRIPTION = "fail plz";
 var INVALID_PRODUCTPRICETYPE = "w";

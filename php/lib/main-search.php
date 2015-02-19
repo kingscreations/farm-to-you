@@ -18,6 +18,7 @@
 			</button>
 		</div>
 	</form>
+	<p class="outputArea"></p>
 </div><!-- end row-fluid -->
 <br/>
 <div class="row-fluid">

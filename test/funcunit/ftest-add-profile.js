@@ -6,17 +6,17 @@ module("tabs", {
 });
 
 // global variables for form values
-var INVALID_PROFILEFNAME    = "J";
-var INVALID_PROFILELNAME = "R";
-var INVALID_PROFILETYPE = " ";
+var INVALID_PROFILEFNAME    = "Jay";
+var INVALID_PROFILELNAME = "Rreafdds";
+var INVALID_PROFILETYPE = "m";
 var INVALID_PHONE = "459283423495823492348592348235923482349";
-var INVALID_IMAGE = ""
+var INVALID_IMAGE = "test.txt";
 
 var VALID_PROFILEFNAME     = "Jay";
 var VALID_PROFILELNAME   = "Renteria";
 var VALID_PROFILETYPE = "m";
 var VALID_PHONE = "505-994-3954";
-var VALID_IMAGE = "";
+var VALID_IMAGE = "images/image.jpg";
 
 /**
  * test filling in only valid form data
@@ -63,7 +63,7 @@ function testInvalidFields() {
 	F(".alert").visible(function() {
 		// the ok() function from qunit is equivalent to SimpleTest's assertTrue()
 		ok(F(this).hasClass("alert-danger"), "danger alert CSS");
-		ok(F(this).html().indexOf("Exception: unable to execute mySQL statement") === 0, "unsuccessful message");
+		ok(F(this).html().indexOf("Exception: phone content too large") === 0, "unsuccessful message");
 	});
 }
 

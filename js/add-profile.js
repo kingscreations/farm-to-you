@@ -31,7 +31,7 @@ $(document).ready(
 
 				inputPhone: {
 
-					maxlength: 20,
+
 					required: true
 				},
 

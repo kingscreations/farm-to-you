@@ -89,56 +89,28 @@ require_once("../php/classes/store.php");
 				$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 				$stores = Store::getAllStoresByProfileId($mysqli, $_SESSION['profile']['id']);
-//				var_dump($stores);
 				if($stores !== null) {
 
-
-					echo '<table class="table table-responsive">';
-					echo '<tr>';
-					echo '<th>Store</th>';
-					echo '<th></th>';
-					echo '</tr>';
-					foreach($stores as $store) {
+						echo '<table class="table table-responsive">';
 						echo '<tr>';
-						echo '<td>'. $store->getStoreId() ." - " . $store->getStoreName() . '</td>';
-						echo '<td><a href="../edit-store/index.php" class="btn btn-default store-edit">edit</a></td>';
+						echo '<th>Store</th>';
+						echo '<th></th>';
 						echo '</tr>';
-					}
-					echo '</table>';
+						foreach($stores as $store) {
+							$storeId = $store->getStoreId();
+							$storeName = $store->getStoreName();
+							echo '<tr>';
+							echo '<td>'. $storeId ." - " . $storeName . '</td>';
+
+							echo '<td><a href="../edit-store/index.php" id="editButton" class="btn btn-default store-edit">Edit '.$storeId.' </a></td>';
+							echo '</tr>';
+						}
+						echo '</table>';
 				}
-
-
-
-
-//					foreach($stores as $store) {
-//
-//						echo '<tr>';
-//
-//						echo '<td>' . $store->getStoreName() . '</td>';
-//						echo '<td><a href="../edit-store/index.php" class="btn btn-default" style="width: 40px"></td>';
-//
-//						echo '</tr>';
-//					}
-//				}
 
 			} catch(Exception $exception) {
 				echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 			}
-
-		?>
-
-<!--		<div>-->
-<!--			<h2>Stores</h2>-->
-<!--			<table>-->
-<!--				<tr>-->
-<!--					<th>Store name</th>-->
-<!--					<th>Edit</th>-->
-<!--				</tr>-->
-
-				<?php
-
-//var_dump($stores);
-
 
 				?>
 			</table>

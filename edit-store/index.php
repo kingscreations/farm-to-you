@@ -16,21 +16,21 @@ require_once("../php/lib/header.php");
 
 		<div class="form-group">
 			<label for="storeName">Store Name</label>
-			<input type="text" class="form-control" name="editStoreName" id="editStoreName" placeholder=<?php echo $_SESSION['store']['name'];?>>
+			<input type="text" class="form-control" name="editStoreName" id="editStoreName" value=<?php echo $_SESSION['store']['name'];?>>
 		</div>
 
 		<br>
 
 		<div class="form-group">
 			<label for="inputProductPrice">Store Description</label>
-			<input type="text" class="form-control" name="editStoreDescription" id="editStoreDescription" placeholder=<?php echo $_SESSION['store']['description'];?>>
+			<input type="text" class="form-control" name="editStoreDescription" id="editStoreDescription" value=<?php echo $_SESSION['store']['description'];?>>
 		</div>
 
 		<br>
 
 		<div class="form-group">
 			<label for="inputProductType">Image Path</label>
-			<input type="file" class="form-control" name="editInputImage" id="editInputImage" placeholder=<?php echo $_SESSION['store']['image'];?>>
+			<input type="file" class="form-control" name="editInputImage" id="editInputImage" value=<?php echo $_SESSION['store']['image'];?>>
 		</div>
 
 		<br>

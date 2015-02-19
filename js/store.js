@@ -1,11 +1,33 @@
 /**
 * @author Alonso Indacochea <alonso@hermesdevelopment.com>
 */
+function editStore() {
+	$.ajax({
+		type: 'POST',
+		url: '../edit-store/index.php',
+		data: {
+			service: name
+		}
+	});
+}
+
 // document ready event
 $(document).ready(
-	// inner function for the ready() event
-	function() {
+// inner function for the ready() event
 
+
+function() {
+
+
+		//function addStoreEdit(referrer) {
+		//	$.ajax({
+		//		ßtype: "POST",
+		//		url: "../store/index.php",
+		//		data: {storeList: referrer.id},
+		//		success: function(data) {
+		//			$("#statusBar").html(data);
+		//		}
+		//	});
 		//$(".store-edit").onclick(function() {
 		//
 		//
@@ -17,6 +39,7 @@ $(document).ready(
 		//
 		//	});
 		//})
+
 
 		// tell the validator to validate this form (by id)
 		$("#storeController").validate({

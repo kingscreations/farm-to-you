@@ -6,7 +6,7 @@
 
 // start session as the first statement
 session_start();
-var_dump($_POST);
+//var_dump($_POST);
 // credentials
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
@@ -99,8 +99,9 @@ $totalPrice = intval($totalPrice * 100);
 try {
 	if(@isset($_POST['creditCard']) === true && $_POST['creditCard'] === 'old') {
 		$customerToken = $profile->getCustomerToken();
-			var_dump($customerToken);
+
 		if($customerToken !== null && strpos($customerToken, 'cus_') !== false) {
+			echo 'old client';
 			// charge the customer with the memorize information
 			\Stripe\Charge::create(array(
 					"amount"   => $totalPrice, // amount in cents
@@ -134,7 +135,7 @@ try {
 		}
 
 		if($rememberUser === true) {
-
+			echo 'remember true';
 			// first create a new customer
 			$customer = \Stripe\Customer::create(array(
 				"card" => $stripeToken,
@@ -153,7 +154,8 @@ try {
 		}
 
 		if($rememberUser === false) {
-
+			echo 'remember false';
+			var_dump($stripeToken);
 			// charge directly the user
 			$charge = \Stripe\Charge::create(
 				array(

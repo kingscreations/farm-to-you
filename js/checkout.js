@@ -13,7 +13,7 @@ $(document).ready(function() {
 	var $newCardInputs         = $('#new-card input');
 	var $checkoutRadioRemember = $('#checkout-radio-remember');
 	var $checkoutRadioNewCard  = $('#checkout-radio-new-card');
-console.log($checkoutRadioRemember);
+
 	var novalidate = 'formnovalidate';
 
 	// disable the credit card form
@@ -122,6 +122,7 @@ console.log($checkoutRadioRemember);
 
 				// create a new stripe token from the credit card information
 				Stripe.card.createToken($form, stripeResponseHandler);
+				console.log('please create that token!');
 			}
 		}
 	});
@@ -134,17 +135,18 @@ console.log($checkoutRadioRemember);
 	 */
 	function stripeResponseHandler(status, response) {
 		var $form = $('#payment-form');
-
+console.log('in the stripeResponseHandler');
 		if (response.error) {
 			// Show the errors on the form
-			$form.find('.payment-errors').text(response.error.message);
+			$form.append('<p class=\"alert alert-danger\">Exception: Payment refused</p>');
 			$form.find('button').prop('disabled', false);
+			console.log('error added?????');
 		} else {
 			// response contains id and card, which contains additional card details
 			var token = response.id;
 			// Insert the token into the form so it gets submitted to the server
 			$form.append($('<input id="stripe-token" type="hidden" />').val(token));
-
+		console.log('stripe-token added');
 			sendFormData();
 		}
 	};

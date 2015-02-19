@@ -28,15 +28,15 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
 <div class="row-fluid" xmlns="http://www.w3.org/1999/html">
 	<div class="col-sm-4 col-sm-offset-4">
-		<div class="basic-information">
-			<p>The chosen location you "have chosen" is:</p>
-			<ul>
-				<li>Grower's Market</li>
-				<li>Robinson Park</li>
-				<li>87102, Albuquerque NM</li>
-			</ul>
-		</div>
-		<br/>
+<!--		<div class="basic-information">-->
+<!--			<p>The chosen location you "have chosen" is:</p>-->
+<!--			<ul>-->
+<!--				<li>Grower's Market</li>-->
+<!--				<li>Robinson Park</li>-->
+<!--				<li>87102, Albuquerque NM</li>-->
+<!--			</ul>-->
+<!--		</div>-->
+<!--		<br/>-->
 
 		<form id="payment-form" action="../php/forms/checkout-controller.php" method="post" onsubmit="event.preventDefault()" novalidate>
 			<h2>Secure payment via stripe</h2>

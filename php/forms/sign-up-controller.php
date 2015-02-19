@@ -20,7 +20,6 @@ $salt = bin2hex(openssl_random_pseudo_bytes(16));
 $hash = hash_pbkdf2("sha512", "password", $salt, 2048, 128);
 $activation = bin2hex(openssl_random_pseudo_bytes(8));
 
-var_dump($hash);
 
 
 
@@ -42,8 +41,6 @@ try {
 	$user->insert($mysqli);
 
 
-	echo "<p class=\"Thank you for signing up with Farm To You! We have sent an email to the address you entered. Please open the email and follow the instructions to complete the registration process.success!\"></p>";
-
 	// email the user with an activation message
 	$to = $_POST["inputEmail"];
 	$from = "CEO@farmtoyou.com";
@@ -64,11 +61,11 @@ try {
 	$url = "$url?activation=$activation";
 	$message = <<< EOF
 	<html>
-	<body>
-	<h1>Welcome to Farm To You!</h1>
-	<hr />
-	<p>Thank you for creating a password. Visit the following URL to complete your registration process: <a href="$url">$url</a>.</p>
-	</body>
+		<body>
+			<h1>Welcome to Farm To You!</h1>
+			<hr />
+			<p>Thank you for creating a password. Visit the following URL to complete your registration process: <a href="$url">$url</a>.</p>
+		</body>
 	</html>
 EOF;
 

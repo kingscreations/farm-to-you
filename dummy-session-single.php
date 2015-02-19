@@ -23,15 +23,15 @@ try {
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
+	$profile = Profile::getProfileByProfileId($mysqli, 1);
+
+	$_SESSION['profile'] = array(
 	$user = User::getUserByUserId($mysqli, 1);
 
 	$_SESSION['user'] = array(
 		'id' => $user->getUserId()
 	);
 
-	$profile = Profile::getProfileByProfileId($mysqli, 1);
-
-	$_SESSION['profile'] = array(
 		'id' => $profile->getProfileId()
 	);
 

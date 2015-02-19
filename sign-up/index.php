@@ -26,10 +26,10 @@ require_once("../php/lib/header.php");
 				<input type="text" name="inputEmail" id="inputEmail" value="jason@jason.com" size="45" />
 				<br><br>
 				<label>Enter a password:</label>
-				<input type="password" name="password" id="password" value="" size="38" />
+				<input type="password" name="password" id="password" value="jason" size="38" />
 				<br><br>
 				<label>Please re-Enter Password:</label>
-				<input type="password" name="passwordCheck" id="passwordCheck" value="" size="29" />
+				<input type="password" name="passwordCheck" id="passwordCheck" value="jason" size="29" />
 				<br><br>
 				<input type="submit" value="Let's get started!" id="submit">
 			</fieldset>

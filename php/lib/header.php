@@ -5,6 +5,10 @@
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
 
+// require CSRF and start the session
+require_once("csrf.php");
+session_start();
+
 // Get the relative path
 $currentDepth = substr_count($currentDir, "/");
 $rootDepth = substr_count($rootPath, "/");
@@ -12,7 +16,7 @@ $depthDifference = $currentDepth - $rootDepth;
 $prefix = str_repeat("../", $depthDifference);
 
 ?>
-<!doctype HTML>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8"/>

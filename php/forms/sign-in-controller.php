@@ -45,7 +45,7 @@ try {
 	if ($userHash !== $hash) {
 		throw new Exception('email input does not match existing account');
 	}
-
+var_dump($_SESSION);
 	// catch any exceptions
 } catch(Exception $exception) {
 	echo "<p class=\"input not posted!\">Exception: " . $exception->getMessage() . "</p>";

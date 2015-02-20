@@ -37,10 +37,12 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-	//
+	// insert user into mysqli
 	$user = new User(null, $_POST["inputEmail"], $hash, $salt, $activation);
 	$user->insert($mysqli);
 
+	//populate session with activation variable
+	$_SESSION['activation'] = $activation;
 
 	// email the user with an activation message
 	$to = $_POST["inputEmail"];

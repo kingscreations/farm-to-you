@@ -22,7 +22,7 @@ $(document).ready(
 				password: {
 					maxlength: 200,
 					required: true
-				},
+				}
 			},
 			// error messages to display to the end user
 			messages: {
@@ -34,7 +34,7 @@ $(document).ready(
 				password: {
 					maxlength: "Password is too long.",
 					required: "please enter a password."
-				},
+				}
 			},
 
 			// setup an AJAX call to submit the form without reloading

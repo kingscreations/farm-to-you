@@ -23,6 +23,10 @@ try {
 	if(verifyCsrf($_POST["csrfName"], $_POST["csrfToken"]) === false) {
 		throw(new RuntimeException("CSRF tokens incorrect or missing. Make sure cookies are enabled."));
 	}
+
+	//populate session with email variable
+	$_SESSION['email'] = $_POST["email"];
+
 	//connect to mysqli
 	mysqli_report(MYSQLI_REPORT_STRICT);
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");

@@ -9,7 +9,7 @@
 require_once("../classes/user.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 // require CSRF protection
-require_once("../lib/csrf.php");
+// require_once("../lib/csrf.php");
 
 // CSRF requires sessions
 session_start();
@@ -25,23 +25,16 @@ try {
 //	}
 
 
+//$_SESSION['user'] = array(
+//	'id' => $user->getUserId()
+//);
 
 
-$user = getUserByEmail();
-
-
-$_SESSION['user'] = array(
-	'id' => $user->getUserId()
-);
-
-
-	//populate session with email variable
-	$_SESSION['email'] = $_POST["email"];
-
-
-	// get the users email from mysqli
+		// get the users email from mysqli
 	$mysqlUser = User::getUserByEmail($this->mysqli, $this->email);
 	$this->assertIdentical($this->user->email(), $mysqlUser->getEmail());
+
+	$user = getUserByEmail();
 
 	// generate hash and retrieve salt
 	$salt = $this->mysqlUser->getUserSalt;
@@ -52,7 +45,6 @@ $_SESSION['user'] = array(
 	if ($userHash !== $hash) {
 		throw new Exception('email input does not match existing account');
 	}
-var_dump($_SESSION);
 	// catch any exceptions
 } catch(Exception $exception) {
 	echo "<p class=\"input not posted!\">Exception: " . $exception->getMessage() . "</p>";

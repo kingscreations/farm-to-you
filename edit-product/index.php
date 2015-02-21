@@ -1,18 +1,13 @@
 <?php
-session_start();
 $currentDir = dirname(__FILE__);
-
-require_once("../dummy-session-single.php");
 require_once ("../root-path.php");
 require_once("../php/lib/header.php");
+require_once("../dummy-session-single.php");
 require_once("../php/classes/product.php");
 
-//try {
-	//
 	mysqli_report(MYSQLI_REPORT_STRICT);
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
-
 
 	$product = new Product(null, 1, "image.jpg", "testing session", "1.20", "testing session descript", "w", 4.23, 56);
 	$product->insert($mysqli);

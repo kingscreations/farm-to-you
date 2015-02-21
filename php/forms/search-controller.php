@@ -1,14 +1,14 @@
 <?php
 $currentDir = dirname(__FILE__);
 
+require_once("../lib/header.php");
+require_once '../../root-path.php';
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../classes/product.php");
 require_once("../classes/store.php");
 require_once("../classes/category.php");
 require_once("../classes/location.php");
 require_once("../classes/categoryproduct.php");
-require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-require_once '../../root-path.php';
-require_once("../lib/header.php");
 require_once("../lib/footer.php");
 
 
@@ -33,7 +33,7 @@ if ($searching =="yes") {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-// we preform a bit of filtering
+// a bit of filtering
 $searchq = strtoupper($searchq);
 $searchq = strtolower($searchq);
 $searchq = strip_tags($searchq);
@@ -61,7 +61,7 @@ if (!$result3) {
 	exit();
 }
 
-// try to print a table
+// try to print a table per each table searched by
 	print '<table class="table table-responsive">';
 	while($row = mysqli_fetch_array($result1)) {
 		print '<tr>';

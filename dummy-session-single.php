@@ -24,16 +24,16 @@ try {
 		$configArray["database"]);
 
 	$profile = Profile::getProfileByProfileId($mysqli, 1);
-
-	$_SESSION['profile'] = array(
 	$user = User::getUserByUserId($mysqli, 1);
 
+	$_SESSION['profile'] = array(
+		'id' => $profile->getProfileId()
+	);
 	$_SESSION['user'] = array(
 		'id' => $user->getUserId()
 	);
 
-		'id' => $profile->getProfileId()
-	);
+
 
 	$mysqli->close();
 

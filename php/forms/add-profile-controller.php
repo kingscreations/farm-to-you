@@ -1,13 +1,14 @@
 <?php
-session_start();
 
 $currentDir = dirname(__FILE__);
+require_once("../../root-path.php");
+require_once("../lib/header.php");
 require_once("../../dummy-session.php");
-require_once ("../../root-path.php");
-
 require_once("../classes/profile.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../classes/user.php");
+require_once("../lib/footer.php");
+
 
 
 // verify the form values have been submitted
@@ -46,3 +47,19 @@ try {
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
+
+// make a table/list to show their new profile
+echo "<div class=\"container\">";
+	echo "<h2>My Profile</h2>";
+	echo "<ul class=\"list-group\">";
+		echo "<li class=\"list-group-item\">First Name: " . $_POST['inputFirstname'] . "</li>";
+		echo "<li class=\"list-group-item\">Last Name: " . $_POST['inputLastname'] . "</li>";
+		echo "<li class=\"list-group-item\">Profile Type: " . $_POST['inputType'] . "</li>";
+		echo "<li class=\"list-group-item\">Phone Number: " . $_POST['inputPhone'] . "</li>";
+	echo "</ul>";
+
+	echo "<form action=\"../../edit-profile/index.php\">";
+		echo "<input class =\"form-control\" type=\"submit\" value=\"Edit Profile\">";
+	echo "</form>";
+
+echo "</div>";

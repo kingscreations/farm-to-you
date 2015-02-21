@@ -1,11 +1,11 @@
 <?php
-session_start();
+//session_start();
 $currentDir = dirname(__FILE__);
 
 //require_once("../dummy-session-single.php");
 require_once("../root-path.php");
-require_once("../php/classes/store.php");
 require_once("../php/lib/header.php");
+require_once("../php/classes/store.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 
@@ -16,7 +16,7 @@ try {
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 	$store = Store::getStoreByStoreId($mysqli, 1);
-echo 'view';
+//echo 'view';
 //	var_dump($store);
 	$storeName = $store->getStoreName();
 	$storeDescription = $store->getStoreDescription();

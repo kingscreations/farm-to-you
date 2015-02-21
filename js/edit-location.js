@@ -1,48 +1,15 @@
 /**
-* @author Alonso Indacochea <alonso@hermesdevelopment.com>
-*/
-function editStore() {
-	$.ajax({
-		type: 'POST',
-		url: '../edit-store/index.php',
-		data: {
-			service: name
-		}
-	});
-}
+ * @author Alonso Indacochea <alonso@hermesdevelopment.com>
+ */
 
 // document ready event
 $(document).ready(
 // inner function for the ready() event
 
-
-function() {
-
-
-		//function addStoreEdit(referrer) {
-		//	$.ajax({
-		//		ßtype: "POST",
-		//		url: "../store/index.php",
-		//		data: {storeList: referrer.id},
-		//		success: function(data) {
-		//			$("#statusBar").html(data);
-		//		}
-		//	});
-		//$(".store-edit").onclick(function() {
-		//
-		//
-		//	var storeEditObject = {
-		//		type: "post",
-		//		url: ""
-		//	}
-		//	$.ajax(storeEditObject).done(function(ajaxOutput) {
-		//
-		//	});
-		//})
-
+	function() {
 
 		// tell the validator to validate this form (by id)
-		$("#storeController").validate({
+		$("#editLocationController").validate({
 			// setup the formatting for the errors
 			errorClass: "label-danger",
 			errorLabelContainer: "#outputArea",
@@ -51,16 +18,6 @@ function() {
 			// rules define what is good/bad input
 			rules: {
 				// each rule starts with the inputs name (NOT id)
-				storeName: {
-					maxlength: 100,
-					required: true
-				},
-
-				storeDescription: {
-					maxlength: 4294967295,
-					required: false
-				},
-
 				locationName: {
 					maxlength: 100,
 					required: true
@@ -94,11 +51,6 @@ function() {
 					maxlength: 2
 				},
 
-				imagePath: {
-
-					required: false,
-					maxlength: 255
-				},
 				country: {
 
 					required: false,
@@ -110,20 +62,10 @@ function() {
 
 			// error messages to display to the end user
 			messages: {
-				storeName: {
-
-					maxlength: "Store name cannot exceed 100 characters",
-					required: "Please enter the store name."
-				},
-
 				locationName: {
 
 					maxlength: "Location name cannot exceed 100 characters",
 					required: "Please enter the location name."
-				},
-
-				storeDescription: {
-					maxlength: "Store description too long!"
 				},
 
 				address1: {
@@ -139,14 +81,12 @@ function() {
 
 					required: "Please enter a zip code.",
 					zipcodeUS: "Not a valid zip code."
-
 				},
 
 				city: {
 
 					required: "Please enter a city.",
 					maxlength: "City name too long!"
-
 				},
 
 				state: {
@@ -160,11 +100,6 @@ function() {
 					minlength: "Country must be two characters.",
 					maxlength: "Country must be two characters."
 
-				},
-
-				imagePath: {
-					maxlength: "Image path is too long!"
-
 				}
 			},
 
@@ -174,7 +109,7 @@ function() {
 					// GET or POST
 					type: "POST",
 					// where to submit data
-					url: "../php/forms/store-controller.php",
+					url: "../php/forms/edit-location-controller.php",
 					// TL; DR: reformat POST data
 					data: $(form),
 					// success is an event that happens when the server replies

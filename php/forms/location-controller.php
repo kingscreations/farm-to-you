@@ -83,14 +83,14 @@ header(')
 		<form class="form-inline" id="locationController" method="post" action="location-controller.php">
 
 		<?php require_once('../../location/index.php') ?>
-		<form class="form-inline" id="done" method="post" action="../../store/index.php">
+		<form class="form-inline" id="done" method="post" action="../../add-store/index.php">
 			<button type="submit">Done</button>
 		</form>
 
 <?php
 	} catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";?>
-	<form class="form-inline" id="back" method="post" action="../../store/index.php">
+	<form class="form-inline" id="back" method="post" action="../../add-store/index.php">
 		<button type="submit">Back</button>
 	</form>
 <?php }

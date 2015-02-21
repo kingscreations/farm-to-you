@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 $currentDir = dirname(__FILE__);
 //require_once("../../dummy-session-single.php");
@@ -40,6 +39,9 @@ try {
 	if ($_POST['editStoreDescription'] !== ''){
 		$storeDescription = $_POST['editStoreDescription'];
 //		$_SESSION['store'] ['description'] = $_POST['editStoreDescription'];
+		$store->setStoreDescription($storeDescription);
+	} else {
+		$storeDescription = '';
 		$store->setStoreDescription($storeDescription);
 	}
 

@@ -1,11 +1,10 @@
 <?php
 /**
- * signed-in-page
+ * Created by PhpStorm.
  * User: jason
- * Date: 2/20/2015
- * Time: 1:12 PM
+ * Date: 2/21/2015
+ * Time: 12:22 PM
  */
-
 $currentDir = dirname(__FILE__);
 require_once '../root-path.php';
 require_once("../php/lib/header.php");
@@ -13,7 +12,7 @@ require_once("../php/lib/header.php");
 
 <div class="row-fluid">
 	<div class=""col-sm-12">
-		<h3>You are now signed in to Farm To You!</h3>
+		<h3>Your registration is complete. </br> Thank you for signing up with farm to you!</h3>
 
 // link to take user to home page
 

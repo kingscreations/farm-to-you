@@ -49,17 +49,21 @@ try {
 }
 
 // make a table/list to show their new profile
-echo "<div class=\"container\">";
+if ($exception = false) {
+	echo "<div class=\"container\">";
 	echo "<h2>My Profile</h2>";
 	echo "<ul class=\"list-group\">";
-		echo "<li class=\"list-group-item\">First Name: " . $_POST['inputFirstname'] . "</li>";
-		echo "<li class=\"list-group-item\">Last Name: " . $_POST['inputLastname'] . "</li>";
-		echo "<li class=\"list-group-item\">Profile Type (m = merchant, c = client): " . $_POST['inputType'] . "</li>";
-		echo "<li class=\"list-group-item\">Phone Number: " . $_POST['inputPhone'] . "</li>";
+	echo "<li class=\"list-group-item\">First Name: " . $_POST['inputFirstname'] . "</li>";
+	echo "<li class=\"list-group-item\">Last Name: " . $_POST['inputLastname'] . "</li>";
+	echo "<li class=\"list-group-item\">Profile Type (m = merchant, c = client): " . $_POST['inputType'] . "</li>";
+	echo "<li class=\"list-group-item\">Phone Number: " . $_POST['inputPhone'] . "</li>";
 	echo "</ul>";
 
 	echo "<form action=\"../../edit-profile/index.php\">";
-		echo "<input class =\"form-control\" type=\"submit\" value=\"Edit Profile\">";
+	echo "<input class =\"form-control\" type=\"submit\" value=\"Edit Profile\">";
 	echo "</form>";
 
-echo "</div>";
+	echo "</div>";
+}else{
+	echo"Please go back and change the above";
+}

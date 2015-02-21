@@ -1,8 +1,8 @@
 <?php
 $currentDir = dirname(__FILE__);
 
-require_once("../lib/header.php");
 require_once '../../root-path.php';
+require_once("../lib/header.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../classes/product.php");
 require_once("../classes/store.php");
@@ -61,61 +61,66 @@ if (!$result3) {
 	exit();
 }
 
-// try to print a table per each table searched by
-	print '<table class="table table-responsive">';
+// try to echo a table per each table searched by
+if(mysqli_num_rows($result1) > 0 || mysqli_num_rows($result2) > 0 || mysqli_num_rows($result3) > 0) {
+	echo '<table id="searchResults" class="table table-responsive">';
+}
+if(mysqli_num_rows($result1) > 0) {
+	echo '<tr>';
+	echo '<th>Product</th>';
+	echo '<th>Description</th>';
+	echo '<th>Price</th>';
+	echo '</tr>';
 	while($row = mysqli_fetch_array($result1)) {
-		print '<tr>';
-		print '<th>Product</th>';
-		print '<th>Description</th>';
-		print '<th>Price</th>';
-		print '</tr>';
-		print '<tr>';
-//		print '<td>'.$row["id"].'</td>';
-//		print '<td>'.$row["product_code"].'</td>';
-		print '<td>' . $row["productName"] . '</td>';
-		print '<td>' . $row["productDescription"] . '</td>';
-		print '<td>' . $row["productPrice"] . '</td>';
-		print '</tr>';
+		echo '<tr>';
+		echo '<td>' . $row["productName"] . '</td>';
+		echo '<td>' . $row["productDescription"] . '</td>';
+		echo '<td>' . $row["productPrice"] . '</td>';
+		echo '</tr>';
 	}
-print '</table>';
-
-print '<table class="table table-responsive">';
-while($row = mysqli_fetch_array($result2)) {
-	print '<tr>';
-	print '<th>Store</th>';
-	print '<th>Image</th>';
-	print '<th>Description</th>';
-	print '</tr>';
-	print '<tr>';
-//		print '<td>'.$row["id"].'</td>';
-//		print '<td>'.$row["product_code"].'</td>';
-	print '<td>' . $row["storeName"] . '</td>';
-	print '<td>' . $row["imagePath"] . '</td>';
-	print '<td>' . $row["storeDescription"] . '</td>';
 }
-print '</table>';
+//echo '</table>';
 
-print '<table class="table table-responsive">';
-while($row = mysqli_fetch_array($result3)) {
-	print '<tr>';
-	print '<th>Location</th>';
-	print '<th>Address</th>';
-	print '<th>City</th>';
-	print '</tr>';
-	print '<tr>';
-//		print '<td>'.$row["id"].'</td>';
-//		print '<td>'.$row["product_code"].'</td>';
-	print '<td>' . $row["locationName"] . '</td>';
-	print '<td>' . $row["address1"] . '</td>';
-	print '<td>' . $row["city"] . '</td>';
-	print '</tr>';
+//echo '<table class="table table-responsive">';
+if(mysqli_num_rows($result2) > 0) {
+	echo '<tr>';
+	echo '<th>Store</th>';
+	echo '<th>Image</th>';
+	echo '<th>Description</th>';
+	echo '</tr>';
+	while($row = mysqli_fetch_array($result2)) {
+		echo '<tr>';
+		echo '<td>' . $row["storeName"] . '</td>';
+		echo '<td>' . $row["imagePath"] . '</td>';
+		echo '<td>' . $row["storeDescription"] . '</td>';
+	}
 }
-print '</table>';
+//echo '</table>';
+
+//echo '<table class="table table-responsive">';
+if(mysqli_num_rows($result3) > 0 ) {
+	echo '<tr>';
+	echo '<th>Location</th>';
+	echo '<th>Address</th>';
+	echo '<th>City</th>';
+	echo '</tr>';
+	while($row = mysqli_fetch_array($result3)) {
+		echo '<tr>';
+		echo '<td>' . $row["locationName"] . '</td>';
+		echo '<td>' . $row["address1"] . '</td>';
+		echo '<td>' . $row["city"] . '</td>';
+		echo '</tr>';
+	}
+}
+if(mysqli_num_rows($result1) > 0 || mysqli_num_rows($result2) > 0 || mysqli_num_rows($result3) > 0) {
+	echo '</table>';
+}
+
 
 // this counts the number or results - and if there wasn't any it gives them a little message explaining that
 if (mysqli_num_rows($result1) == 0 && mysqli_num_rows($result2) == 0 && mysqli_num_rows($result3) == 0)
 {
-	echo "Sorry, but we can not find an entry to match your query<br><br>";
+	echo "<p class=\"alert alert-danger\">Sorry, but we can not find an entry to match your query</p><br><br>";
 // and we remind them what they searched for
 	echo "<b>Searched For:</b> " .$searchq;
 }

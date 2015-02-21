@@ -36,9 +36,9 @@ try {
 
 	$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
 		$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
-	$store = new Store(null, $profileId, $_POST["storeName"], '', null, $_POST["storeDescription"]);
+	$store = new Store(null, $profileId, $_POST["storeName"], null, null, $_POST["storeDescription"]);
 
-	if(empty($_FILES['inputImage']) === false) {
+	if(@isset($_FILES['inputImage'])) {
 		$imageExtension = checkInputImage($_FILES['inputImage']);
 		$store->insert($mysqli);
 		$storeId = $store->getStoreId();
@@ -46,6 +46,7 @@ try {
 		$store->setImagePath($imageFileName);
 		$store->update($mysqli);
 	} else {
+		$store->setImagePath(null);
 		$store->insert($mysqli);
 		$storeId = $store->getStoreId();
 	}

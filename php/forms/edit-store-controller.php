@@ -2,7 +2,7 @@
 session_start();
 
 $currentDir = dirname(__FILE__);
-require_once("../../dummy-session.php");
+//require_once("../../dummy-session-single.php");
 require_once ("../../root-path.php");
 
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
@@ -11,12 +11,8 @@ require_once("../classes/location.php");
 require_once("../classes/storelocation.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
+require_once("../lib/utils.php");
 
-
-// verify the form values have been submitted
-//if(@isset($_POST["storeName"]) === false) {
-//	echo "<p class=\"alert alert-danger\">Form values not complete. Verify the form and try again.</p>";
-//}
 
 try {
 
@@ -24,35 +20,49 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-	$profileId = $_SESSION['profile']['id'];
-	$storeId = $_SESSION['store'] ['id'];
-	$storeName = $_SESSION['store'] ['name'];
-	$storeImagePath = $_SESSION['store'] ['image'];
-	$storeDescription = $_SESSION['store'] ['description'];
-	$storeCreationDate = $_SESSION['store'] ['creation'];
+	$store = Store::getStoreByStoreId($mysqli, 1);
+//	var_dump($store);
+	$storeName = $store->getStoreName();
+	$storeDescription = $store->getStoreDescription();
+	$storeImagePath = $store->getImagePath();
+	echo 'storeImagePath';
 
+	var_dump($storeImagePath);
 
-	if($_POST['editStoreName'] !== '' && $_POST['editStoreDescription'] !== '' && $_POST["editInputImage"] !== '') {
-		$store = new Store($storeId, $profileId, $_POST['editStoreName'], $_POST["editInputImage"], $storeCreationDate, $_POST['editStoreDescription']);
-	} else if($_POST['editStoreName'] === '' && $_POST['editStoreDescription'] !== '' && $_POST["editInputImage"] !== '') {
-		$store = new Store($storeId, $profileId, $storeName, $_POST["editInputImage"], $storeCreationDate, $_POST['editStoreDescription']);
-	} else if($_POST['editStoreName'] === '' && $_POST['editStoreDescription'] === '' && $_POST['editInputImage'] !== '') {
-		$store = new Store($storeId, $profileId, $storeName, $_POST["editInputImage"], $storeCreationDate, $storeDescription);
-	} else if($_POST['editStoreName'] !== '' && $_POST['editStoreDescription'] === '' && $_POST["editInputImage"] !== '') {
-		$store = new Store($storeId, $profileId, $_POST['editStoreName'], $_POST["editInputImage"], $storeCreationDate, $storeDescription);
-	} else if($_POST['editStoreName'] === '' && $_POST['editStoreDescription'] !== '' && $_POST["editInputImage"] === '') {
-		$store = new Store($storeId, $profileId, $storeName, $storeImagePath, $storeCreationDate, $_POST['editStoreDescription']);
-	} else if($_POST['editStoreName'] !== '' && $_POST['editStoreDescription'] === '' && $_POST["editInputImage"] === '') {
-		$store = new Store($storeId, $profileId, $_POST['editStoreName'], $storeImagePath, $storeCreationDate, $storeDescription);
-	} else if($_POST['editStoreName'] !== '' && $_POST['editStoreDescription'] !== '' && $_POST["editInputImage"] === '') {
-		$store = new Store($storeId, $profileId, $_POST['editStoreName'], $storeImagePath, $storeCreationDate, $_POST['editStoreDescription']);
-	} else {
-		$store = new Store($storeId, $profileId, $storeName, $storeImagePath, $storeCreationDate, $storeDescription);
+	$storeId = $store->getStoreId();
+
+	if($_POST['editStoreName'] !== '') {
+		$storeName = $_POST['editStoreName'];
+//		$_SESSION['store'] ['name'] = $_POST['editStoreName'];
+		$store->setStoreName($storeName);
 	}
 
+	if ($_POST['editStoreDescription'] !== ''){
+		$storeDescription = $_POST['editStoreDescription'];
+//		$_SESSION['store'] ['description'] = $_POST['editStoreDescription'];
+		$store->setStoreDescription($storeDescription);
+	}
+
+//	var_dump($store);
+//	var_dump(@isset($_FILES['editInputImage']));
+//	var_dump($_FILES);
+
+//	if($_FILES['editInputImage']['error'] !== 0) {
+//		$_FILES['editInputImage'] = null;
+//	}
+
+	if(@isset($_FILES['editInputImage']) === true) {
+
+		$imageExtension = checkInputImage($_FILES['editInputImage']);
+		$imageFileName = 'store-' . $storeId . '.' . $imageExtension;
+//		$_SESSION['store'] ['image'] = $_FILES['editInputImage'];
+		echo 'imageFileName';
+		var_dump($imageFileName);
+		$store->setImagePath($imageFileName);
+	}
 	$store->update($mysqli);
 
-	echo "<p class=\"alert alert-success\">" . $store->getStoreName() . " updated!</p><br><p class=\"alert alert-success\">";
+	echo "<p class=\"alert alert-success\">" . $store->getStoreName() . " updated!</p>";
 
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";?>

@@ -17,10 +17,10 @@ require_once("../php/lib/header.php");
 
 		<br>
 
-		<form class= "form" method="post" name="signUp" id="signUp" action="../php/forms/sign-up-controller.php">
+		<form class= "form" method="post" id="signUp" action="../php/forms/sign-up-controller.php">
 			<fieldset>
 				<?php
-					echo generateInputTags();
+//					echo generateInputTags();
 				?>
 				<label>Your email:</label>
 				<input type="text" name="inputEmail" id="inputEmail" value="jason@jason.com" size="45" />

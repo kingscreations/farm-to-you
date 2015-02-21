@@ -20,17 +20,24 @@ try {
 	}
 
 	// verify the CSRF tokens
-	if(verifyCsrf($_POST["csrfName"], $_POST["csrfToken"]) === false) {
-		throw(new RuntimeException("CSRF tokens incorrect or missing. Make sure cookies are enabled."));
-	}
+//	if(verifyCsrf($_POST["csrfName"], $_POST["csrfToken"]) === false) {
+//		throw(new RuntimeException("CSRF tokens incorrect or missing. Make sure cookies are enabled."));
+//	}
+
+
+
+
+$user = getUserByEmail();
+
+
+$_SESSION['user'] = array(
+	'id' => $user->getUserId()
+);
+
 
 	//populate session with email variable
 	$_SESSION['email'] = $_POST["email"];
 
-	//connect to mysqli
-	mysqli_report(MYSQLI_REPORT_STRICT);
-	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
-	$this->mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 	// get the users email from mysqli
 	$mysqlUser = User::getUserByEmail($this->mysqli, $this->email);

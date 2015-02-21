@@ -54,7 +54,7 @@ echo "<div class=\"container\">";
 	echo "<ul class=\"list-group\">";
 		echo "<li class=\"list-group-item\">First Name: " . $_POST['inputFirstname'] . "</li>";
 		echo "<li class=\"list-group-item\">Last Name: " . $_POST['inputLastname'] . "</li>";
-		echo "<li class=\"list-group-item\">Profile Type: " . $_POST['inputType'] . "</li>";
+		echo "<li class=\"list-group-item\">Profile Type (m = merchant, c = client): " . $_POST['inputType'] . "</li>";
 		echo "<li class=\"list-group-item\">Phone Number: " . $_POST['inputPhone'] . "</li>";
 	echo "</ul>";
 

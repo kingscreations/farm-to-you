@@ -13,8 +13,6 @@ require_once("../classes/storelocation.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
 
-var_dump($_SESSION);
-
 try {
 
 	mysqli_report(MYSQLI_REPORT_STRICT);
@@ -34,12 +32,14 @@ try {
 	$store = new Store(null, $profileId, $_POST["storeName"], null, null, $_POST["storeDescription"]);
 
 	if(@isset($_FILES['inputImage'])) {
+		$imageBasePath = '/var/www/html/farm-to-you/images/store/';
 		$imageExtension = checkInputImage($_FILES['inputImage']);
 		$store->insert($mysqli);
 		$storeId = $store->getStoreId();
-		$imageFileName = 'store' . $storeId . '.' . $imageExtension;
+		$imageFileName = $imageBasePath . 'store-' . $storeId . '.' . $imageExtension;
 		$store->setImagePath($imageFileName);
 		$store->update($mysqli);
+		move_uploaded_file($_FILES['inputImage']['tmp_name'], $imageFileName);
 	} else {
 		$store->setImagePath(null);
 		$store->insert($mysqli);

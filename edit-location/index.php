@@ -15,9 +15,8 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-	$location = Location::getLocationByLocationId($mysqli, 3);
-//echo 'view';
-//	var_dump($store);
+	$location = Location::getLocationByLocationId($mysqli, 1);
+
 	$locationName = $location->getLocationName();
 	$locationCountry = $location->getCountry();
 	$locationState = $location->getState();
@@ -42,43 +41,45 @@ try {
 
 				<div class="form-group">
 					<label for="locationName">Location Name</label>
-					<input type="text" class="form-control" name="locationName" id="locationName" value=<?php echo $locationName;?>>
+					<input type="text" class="form-control" name="locationName" id="locationName" value="<?php echo $locationName;?>">
 				</div>
 
 				<br>
 
 				<div class="form-group">
 					<label for="address1">Address</label>
-					<input type="text" class="form-control" id="address1" name="address1" value=<?php echo $locationAddress1;?>>
+					<input type="text" class="form-control" id="address1" name="address1" value="<?php echo $locationAddress1;?>">
 				</div>
 				<br>
 
 				<div class="form-group">
 					<label for="address2"></label>
-					<input type="text" class="form-control" id="address2" name="address2" value=<?php echo $locationAddress2;?>>
+					<input type="text" class="form-control" id="address2" name="address2" value="<?php echo $locationAddress2;?>">
 				</div>
 				<br>
 
 				<div class="form-group">
 					<label for="city">City</label>
-					<input type="text" class="form-control" id="city" name="city" value=<?php echo $locationCity;?>>
+					<input type="text" class="form-control" id="city" name="city" value="<?php echo $locationCity;?>">
 				</div>
 				<div class="form-group">
 					<label for="state">State</label>
-					<input type="text" class="form-control" id="state" name="state" value=<?php echo $locationState;?>>
+					<input type="text" class="form-control" id="state" name="state" value="<?php echo $locationState;?>">
 				</div>
 				<div class="form-group">
 					<label for="zipCode">Zip Code</label>
-					<input type="text" class="form-control" id="zipCode" name="zipCode" value=<?php echo $locationZipCode;?>>
+					<input type="text" class="form-control" id="zipCode" name="zipCode" value="<?php echo $locationZipCode;?>">
 				</div>
 				<div class="form-group">
 					<label for="country">Country</label>
-					<input type="text" class="form-control" id="country" name="country" value=<?php echo $locationCountry;?>>
+					<input type="text" class="form-control" id="country" name="country" value="<?php echo $locationCountry;?>">
 				</div>
 
 				<br>
 				<br>
-				<button type="submit">Submit</button>
+				<div class="form-group">
+					<input type="submit" class="form-control" id="editSubmit" name="editSubmit" value="Submit">
+				</div>
 				<br>
 				<br>
 				<p id="outputArea"></p>

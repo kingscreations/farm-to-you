@@ -69,7 +69,9 @@ require_once("../php/classes/store.php");
 
 				<br>
 				<br>
-				<button type="submit">Submit</button>
+				<div class="form-group">
+					<input type="submit" class="form-control" id="editSubmit" name="editSubmit" value="Submit">
+				</div>
 				<br>
 				<br>
 				<p id="outputArea"></p>

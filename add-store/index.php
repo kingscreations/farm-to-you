@@ -1,10 +1,10 @@
 <?php
-session_start();
 $currentDir = dirname(__FILE__);
 
-require_once("../dummy-session-single.php");
+//require_once("../dummy-session-single.php");
 require_once("../root-path.php");
 require_once("../php/lib/header.php");
+//var_dump($_SESSION);
 
 // classes
 require_once("../php/classes/store.php");
@@ -113,8 +113,6 @@ require_once("../php/classes/store.php");
 			}
 
 				?>
-			</table>
-		</div>
 
 	</div>
 </div>

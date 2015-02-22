@@ -238,26 +238,21 @@ class Store {
 	 * @throws RangeException if $newImagePath is > 255 characters
 	 **/
 	public function setImagePath($newImagePath) {
-//var_dump($newImagePath);
+
 		// verify that the image path is secure
 		$newImagePath = trim($newImagePath);
 		$newImagePath = filter_var($newImagePath, FILTER_SANITIZE_STRING);
 
-		$imageBasePath = '/var/www/html/farm-to-you/images/store/';
-		$imagePath = $imageBasePath . $newImagePath;
-
 		// verify the image path will fit in the database
-		if(strlen($imagePath) > 255) {
+		if(strlen($newImagePath) > 255) {
 			throw(new RangeException("image path too large"));
 		}
-//echo 'store.php';
-//var_dump($newImagePath);
 
 		// store the image path
 		if($newImagePath === '') {
 			$this->imagePath = null;
 		} else {
-			$this->imagePath = $imagePath;
+			$this->imagePath = $newImagePath;
 		}
 
 	}

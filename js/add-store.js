@@ -1,15 +1,15 @@
 /**
 * @author Alonso Indacochea <alonso@hermesdevelopment.com>
 */
-function editStore() {
-	$.ajax({
-		type: 'POST',
-		url: '../edit-store/index.php',
-		data: {
-			service: name
-		}
-	});
-}
+//function editStore() {
+//	$.ajax({
+//		type: 'POST',
+//		url: '../edit-store/index.php',
+//		data: {
+//			service: name
+//		}
+//	});
+//}
 
 // document ready event
 $(document).ready(

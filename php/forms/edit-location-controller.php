@@ -14,7 +14,12 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-	$location = Location::getLocationByLocationId($mysqli, 3);
+	if(!@isset($_POST["locationName"]) || !@isset($_POST["address1"]) ||
+		!@isset($_POST["zipCode"]) || !@isset($_POST["city"]) || !@isset($_POST["state"])) {
+		throw new Exception('missing a required field');
+	}
+
+	$location = Location::getLocationByLocationId($mysqli, 1);
 
 	$locationName = $location->getLocationName();
 	$locationCountry = $location->getCountry();

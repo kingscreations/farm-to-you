@@ -24,10 +24,6 @@ try {
 	$storeName = $store->getStoreName();
 	$storeDescription = $store->getStoreDescription();
 	$storeImagePath = $store->getImagePath();
-	echo 'storeImagePath';
-
-	var_dump($storeImagePath);
-
 	$storeId = $store->getStoreId();
 
 	if($_POST['editStoreName'] !== '') {
@@ -45,22 +41,12 @@ try {
 		$store->setStoreDescription($storeDescription);
 	}
 
-//	var_dump($store);
-//	var_dump(@isset($_FILES['editInputImage']));
-//	var_dump($_FILES);
-
-//	if($_FILES['editInputImage']['error'] !== 0) {
-//		$_FILES['editInputImage'] = null;
-//	}
-
 	if(@isset($_FILES['editInputImage']) === true) {
-
+		$imageBasePath = '/var/www/html/farm-to-you/images/store/';
 		$imageExtension = checkInputImage($_FILES['editInputImage']);
-		$imageFileName = 'store-' . $storeId . '.' . $imageExtension;
-//		$_SESSION['store'] ['image'] = $_FILES['editInputImage'];
-		echo 'imageFileName';
-		var_dump($imageFileName);
+		$imageFileName = $imageBasePath . 'store-' . $storeId . '.' . $imageExtension;
 		$store->setImagePath($imageFileName);
+		move_uploaded_file($_FILES['editInputImage']['tmp_name'], $imageFileName);
 	}
 	$store->update($mysqli);
 

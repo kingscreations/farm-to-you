@@ -55,14 +55,14 @@ try {
 
 		<div class="form-group">
 			<label for="editStoreName">Store Name</label>
-			<input type="text" class="form-control" name="editStoreName" id="editStoreName" value=<?php echo $storeName;?>>
+			<input type="text" class="form-control" name="editStoreName" id="editStoreName" value="<?php echo $storeName;?>">
 		</div>
 
 		<br>
 
 		<div class="form-group">
 			<label for="editStoreDescription">Store Description</label>
-			<input type="text" class="form-control" name="editStoreDescription" id="editStoreDescription" value=<?php echo $storeDescription;?>>
+			<input type="text" class="form-control" name="editStoreDescription" id="editStoreDescription" value="<?php echo $storeDescription;?>">
 		</div>
 
 		<br>
@@ -75,7 +75,9 @@ try {
 		<br>
 		<br>
 		<br>
-		<button type="submit">Submit</button>
+		<div class="form-group">
+			<input type="submit" class="form-control" id="editSubmit" name="editSubmit" value="Submit">
+		</div>
 		<br>
 		<br>
 		<p id="outputArea"></p>

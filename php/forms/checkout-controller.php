@@ -88,7 +88,7 @@ try {
 require_once('../../external-libs/autoload.php');
 
 // setup
-\Stripe\Stripe::setApiKey($config['stripe']);
+\Stripe\Stripe::setApiKey($configArray['stripe']);
 $error = '';
 $success = '';
 

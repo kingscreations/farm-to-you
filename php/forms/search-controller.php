@@ -33,35 +33,34 @@ if ($searching =="yes") {
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 
-//$products = Product::getProductByProductName($mysqli, $searchq);
-//Product::getProductByProductDescription($mysqli, $searchq);
+$products = Product::getProductByProductNameAndDescription($mysqli, $searchq);
 $stores = Store::getStoreByStoreName($mysqli, $searchq);
 $locations = Location::getLocationByNameOrAddress($mysqli, $searchq);
 
 
 // try to echo a table per each table searched by
-if($stores != null || $locations != null) {
+if($stores != null || $locations != null || $products != null) {
 	echo '<table id="searchResults" class="table table-responsive">';
 }
 
-//
-//if($products !== null) {
-//	foreach($products as $product) {
-//		echo '<tr>';
-//		echo '<th>Product</th>';
-//		echo '<th>Description</th>';
-//		echo '<th>Price</th>';
-//		echo '</tr>';
-//		$productName = $product->getProductName();
-//		$productDescription = $product->getProductDescription();
-//		$productPrice = $product->getProductPrice();
-//		echo '<tr>';
-//		echo '<td>' . $productName . '</td>';
-//		echo '<td>' . $productDescription . '</td>';
-//		echo '<td>' . $productPrice . '</td>';
-//		echo '</tr>';
-//	}
-//}
+
+	if($products !== null) {
+		foreach($products as $product) {
+			echo '<tr>';
+			echo '<th>Product</th>';
+			echo '<th>Description</th>';
+			echo '<th>Price</th>';
+			echo '</tr>';
+			$productName = $product->getProductName();
+			$productDescription = $product->getProductDescription();
+			$productPrice = $product->getProductPrice();
+			echo '<tr>';
+			echo '<td>' . $productName . '</td>';
+			echo '<td>' . $productDescription . '</td>';
+			echo '<td>' . $productPrice . '</td>';
+			echo '</tr>';
+		}
+	}
 	if($stores !== null) {
 		foreach($stores as $store) {
 			echo '<tr>';
@@ -104,7 +103,7 @@ if($stores != null || $locations != null) {
 
 
 //this counts the number or results - and if there wasn't any it gives them a little message explaining that
-	if($stores === null && $locations === null) {
+	if($stores === null && $locations === null && $products === null) {
 		echo "<p class=\"alert alert-danger\">Sorry, but we can not find an entry to match your query</p><br><br>";
 //and we remind them what they searched for
 		echo "<b>Searched For:</b> " . $searchq;

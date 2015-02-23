@@ -174,7 +174,11 @@ class Product {
 			throw(new RangeException("image path is too large"));
 		}
 
-		$this->imagePath = $newImagePath;
+		if($newImagePath === '') {
+			$this->imagePath = null;
+		} else {
+			$this->imagePath = $newImagePath;
+		}
 	}
 
 	/**

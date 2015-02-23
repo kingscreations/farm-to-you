@@ -83,7 +83,6 @@ require_once("../php/classes/store.php");
 // dummy session
 $currentDir = dirname(__FILE__);
 require_once ("../root-path.php");
-require_once("../dummy-session-single.php");
 
 // credentials
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
@@ -95,7 +94,7 @@ try {
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 	// grab all stores by profile id in dummy session
-	$stores = Store::getAllStoresByProfileId($mysqli, $_SESSION['profile']['id']);
+	$stores = Store::getAllStoresByProfileId($mysqli, 1);
 
 	// create table of existing stores
 	if($stores !== null) {

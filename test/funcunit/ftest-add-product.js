@@ -62,10 +62,7 @@ function testInvalidFields() {
 	F("#inputProductPriceType").click(INVALID_PRODUCTPRICETYPE);
 	F("#inputProductWeight").type(INVALID_PRODUCTWEIGHT);
 	F("#inputStockLimit").type(INVALID_PRODUCTSTOCKLIMIT);
-	F("#inputProductImage").click(INVALID_IMAGE);
 
-	F.wait(10000);
-	// click the button once all the fields are filled in
 	F("#inputSubmit").click();
 
 	// in forms, we want to assert the form worked as expected
@@ -75,6 +72,31 @@ function testInvalidFields() {
 		ok(F(this).hasClass("alert-danger"), "danger alert CSS");
 		ok(F(this).html().indexOf("Exception: product price is not a valid float") === 0, "unsuccessful message");
 	});
+
+	F("#inputProductPrice").type('[ctrl]a[ctrl-up][delete]');
+	F("#inputProductPrice").type(VALID_PRODUCTPRICE);
+	F("#inputProductName").type('[ctrl]a[ctrl-up][delete]');
+	F("#inputProductName").type(VALID_PRODUCTNAME);
+	F("#inputProductDescription").type('[ctrl]a[ctrl-up][delete]');
+	F("#inputProductDescription").type(VALID_PRODUCTDESCRIPTION);
+	F("#inputProductPriceType").click(VALID_PRODUCTPRICETYPE);
+	F("#inputProductWeight").type('[ctrl]a[ctrl-up][delete]');
+	F("#inputProductWeight").type(VALID_PRODUCTWEIGHT);
+	F("#inputStockLimit").type('[ctrl]a[ctrl-up][delete]');
+	F("#inputStockLimit").type(VALID_PRODUCTSTOCKLIMIT);
+
+	F("#inputProductImage").click(INVALID_IMAGE);
+
+	F.wait(10000);
+
+	F("#inputSubmit").click();
+
+	F(".alert").visible(function() {
+		// the ok() function from qunit is equivalent to SimpleTest's assertTrue()
+		ok(F(this).hasClass("alert-danger"), "danger alert CSS");
+		ok(F(this).html().indexOf("Exception: The input image file should be either jpg, JPG, jpeg, JPEG, png or PNG") === 0, "unsuccessful message");
+	});
+
 }
 
 // the test function *MUST* be called in order for the test to execute

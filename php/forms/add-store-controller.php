@@ -3,7 +3,6 @@
 // dummy session
 $currentDir = dirname(__FILE__);
 require_once ("../../root-path.php");
-require_once("../../dummy-session-single.php");
 
 // credentials
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
@@ -26,7 +25,7 @@ try {
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 	// get profile id from dummy session
-	$profileId = $_SESSION['profile']['id'];
+	$profileId = 1;
 
 	// throw exception if missing a required field
 	if(!@isset($_POST["locationName"]) || !@isset($_POST["address1"]) ||

@@ -4,7 +4,7 @@
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
 
-session_start();
+//session_start();
 //var_dump($_SESSION);
 $currentDir = dirname(__FILE__);
 
@@ -56,7 +56,7 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
 			// get the active profile
 //			$profile = Profile::getProfileByProfileId($mysqli, $_SESSION['profile']['id']);
-			$profile = Profile::getProfileByProfileId($mysqli, 2);
+			$profile = Profile::getProfileByProfileId($mysqli, 1);
 
 			if($profile === null) {
 				throw new Exception('Problem with the SESSION: profile is null');

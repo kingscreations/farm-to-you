@@ -8,49 +8,53 @@ $(document).ready(function() {
 	 * enable / disable input and change the text color to light grey
 	 * depending on which radio button is checked
 	 */
-	var $newCard               = $('#new-card');
-	var $submit                = $('#validate-payment');
-	var $newCardInputs         = $('#new-card input');
-	var $checkoutRadioRemember = $('#checkout-radio-remember');
-	var $checkoutRadioNewCard  = $('#checkout-radio-new-card');
+	var newCard               = $('#new-card');
+	var submit                = $('#validate-payment');
+	var newCardInputs         = $('#new-card input');
+	var checkoutRadioRemember = $('#checkout-radio-remember');
+	var checkoutRadioNewCard  = $('#checkout-radio-new-card');
 
 	var novalidate = 'formnovalidate';
 
 	// disable the credit card form
-	$checkoutRadioRemember.on('click', function() {
+	checkoutRadioRemember.on('click', function() {
 
-		if($checkoutRadioRemember.is(':checked') && $checkoutRadioRemember.val() === 'old') {
+		if(checkoutRadioRemember.is(':checked') && checkoutRadioRemember.val() === 'old') {
 
-			$.each($newCardInputs, function() {
+			$.each(newCardInputs, function() {
 				$input = $(this);
 				$input.prop('disabled', true);
 				$input.addClass('disable-color');
 			});
-			$newCard.addClass('disable-color');
+			newCard.addClass('disable-color');
 
 			// disable the form validation process
-			$submit.addClass(novalidate);
+			submit.addClass(novalidate);
 		}
 	});
 
 	// triggers the click event the first time the program runs
-	$checkoutRadioRemember.click();
+	checkoutRadioRemember.click();
 
 	// enable the credit card form
-	$checkoutRadioNewCard.on('click', function() {
+	checkoutRadioNewCard.on('click', function() {
 
-		if($checkoutRadioNewCard.is(':checked') && $checkoutRadioNewCard.val() === 'new') {
+		if(checkoutRadioNewCard.is(':checked') && checkoutRadioNewCard.val() === 'new') {
 
-			$.each($newCardInputs, function() {
+			$.each(newCardInputs, function() {
 				$input = $(this);
 				$input.prop('disabled', false);
 				$input.removeClass('disable-color');
 			});
-			$newCard.removeClass('disable-color');
+			newCard.removeClass('disable-color');
 
 			// enable the form validation process
-			$submit.removeClass(novalidate);
+			submit.removeClass(novalidate);
 		}
+	});
+
+	$("#payment-form").click(function() {
+		console.log('#payment-form clicked!');
 	});
 
 	// This identifies your website in the createToken call below
@@ -107,13 +111,13 @@ $(document).ready(function() {
 
 		submitHandler: function(form) {
 			var $form = $(form);
-
+console.log('form submitted!');
 			// Disable the submit button to prevent repeated clicks
 			$form.find('button')
 				.prop('disabled', true)
 				.addClass('disabled');
 
-			if($submit.hasClass(novalidate) === true) {
+			if(submit.hasClass(novalidate) === true) {
 
 				// directly send the data from the form
 				sendFormData();
@@ -122,7 +126,6 @@ $(document).ready(function() {
 
 				// create a new stripe token from the credit card information
 				Stripe.card.createToken($form, stripeResponseHandler);
-				console.log('please create that token!');
 			}
 		}
 	});
@@ -135,18 +138,15 @@ $(document).ready(function() {
 	 */
 	function stripeResponseHandler(status, response) {
 		var $form = $('#payment-form');
-console.log('in the stripeResponseHandler');
 		if (response.error) {
 			// Show the errors on the form
 			$form.append('<p class=\"alert alert-danger\">Exception: Payment refused</p>');
 			$form.find('button').prop('disabled', false);
-			console.log('error added?????');
 		} else {
 			// response contains id and card, which contains additional card details
 			var token = response.id;
 			// Insert the token into the form so it gets submitted to the server
 			$form.append($('<input id="stripe-token" type="hidden" />').val(token));
-		console.log('stripe-token added');
 			sendFormData();
 		}
 	};
@@ -164,10 +164,10 @@ console.log('in the stripeResponseHandler');
 		};
 
 		// assign the good value to the credit card
-		if($checkoutRadioNewCard.is(':checked')) {
-			data.creditCard = $checkoutRadioNewCard.val();
+		if(checkoutRadioNewCard.is(':checked')) {
+			data.creditCard = checkoutRadioNewCard.val();
 		} else {
-			data.creditCard = $checkoutRadioRemember.val();
+			data.creditCard = checkoutRadioRemember.val();
 		}
 
 		if($rememberUserCheckbox.is(":checked")) {

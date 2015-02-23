@@ -1,27 +1,27 @@
 <?php
 
-session_start();
+//session_start();
 
 /**
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
 
-require_once("../php/classes/product.php");
-require_once("../php/classes/user.php");
-require_once("../php/classes/profile.php");
-
-$currentDir = dirname(__FILE__);
-
 // header
+$currentDir = dirname(__FILE__);
 require_once '../root-path.php';
 require_once '../php/lib/header.php';
 
 // credentials
 require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 
+// model
+require_once("../php/classes/product.php");
+require_once("../php/classes/user.php");
+require_once("../php/classes/profile.php");
+
 /////////////////////////////////////////////////////////////////////////
 // TODO delete this as soon as possible -> for test purpose
-require_once '../dummy-session.php';
+require_once '../dummy-session-single.php';
 
 // path for the config file
 $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";

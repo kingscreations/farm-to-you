@@ -4,11 +4,11 @@
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
 
-session_start();
+//session_start();
 
-$currentDir = dirname(__FILE__);
 
 // header
+$currentDir = dirname(__FILE__);
 require_once '../root-path.php';
 require_once '../php/lib/header.php';
 
@@ -26,7 +26,7 @@ require_once '../php/lib/header.php';
 			</ul>
 
 			<p id="outputArea"></p>
-			<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="cart-validate-button">
+			<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="checkout-shipping-submit">
 		</form>
 	</div>
 </div><!-- end row-fluid -->

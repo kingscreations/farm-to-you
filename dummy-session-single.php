@@ -33,8 +33,6 @@ try {
 		'id' => $user->getUserId()
 	);
 
-
-
 	$mysqli->close();
 
 } catch(Exception $exception) {

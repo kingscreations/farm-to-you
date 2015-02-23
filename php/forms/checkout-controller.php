@@ -99,7 +99,7 @@ $totalPrice = intval($totalPrice * 100);
 try {
 	if(@isset($_POST['creditCard']) === true && $_POST['creditCard'] === 'old') {
 		$customerToken = $profile->getCustomerToken();
-
+var_dump($customerToken);
 		if($customerToken !== null && strpos($customerToken, 'cus_') !== false) {
 			echo 'old client';
 			// charge the customer with the memorize information

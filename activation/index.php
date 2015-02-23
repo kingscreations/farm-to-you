@@ -18,13 +18,16 @@ try {
 	echo "Exception: " . $exception->getMessage() . "<br/>";
 	echo $exception->getFile() . ":". $exception->getLine();
 	}
-// get the users activation from mysqli
-$mysqlActivation = User::getUserByActivation($mysqli, $activation);
+// get activation code from email and sanitize
+$activation = $_GET['activation'];
+$activation = filter_var($activation, FILTER_SANITIZE_STRING);
+
 
 // create session id specific to this user
 $_SESSION['user'] = array(
-	'id' => $user->getUserId(),
-	'activation' => $mysqlActivation)
+	'id' => $user->getUserId()
+);
+var_dump($_SESSION);
 
 ?>
 

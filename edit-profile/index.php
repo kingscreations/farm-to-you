@@ -15,7 +15,7 @@ require_once("../dummy-session-single.php");
 <div class="container">
 	<h2>Edit Profile</h2>
 
-	<form id="editProfile" class="form-inline" method="post" action="../php/forms/edit-profile-controller.php">
+	<form id="editProfile" class="form-inline" method="post" action="../php/forms/edit-profile-controller.php" enctype="multipart/form-data">
 
 		<div class="form-group">
 			<label for="inputFirstname">First Name:</label>

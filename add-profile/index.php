@@ -2,7 +2,7 @@
 $currentDir = dirname(__FILE__);
 require_once ("../root-path.php");
 require_once("../php/lib/header.php");
-require_once("../dummy-session.php");
+require_once("../dummy-user-session.php");
 require_once("../php/lib/footer.php")
 ?>
 
@@ -15,7 +15,7 @@ require_once("../php/lib/footer.php")
 <div class="container">
 	<h2>Create Profile</h2>
 
-	<form id="addProfile" class="form-inline" method="post" action="../php/forms/add-profile-controller.php" novalidate>
+	<form id="addProfile" class="form-inline" method="post" action="../php/forms/add-profile-controller.php" enctype="multipart/form-data" novalidate>
 
 		<div class="form-group">
 			<label for="inputFirstname">First Name:</label>

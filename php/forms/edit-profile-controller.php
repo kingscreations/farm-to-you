@@ -25,18 +25,14 @@ try {
 	$profileId = $_SESSION['profile']['id'];
 	$userId = $_SESSION['user']['id'];
 
-	if(@isset($_POST["inputImage"])) {
-		// the 13 and 25 are holders for profile id of 17 and user id of 25
-		$profile = new Profile($profileId, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", $_POST["inputImage"], $userId);
-	} else {
+
 		$profile = new Profile($profileId, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", null, $userId);
 
-	}
 
 	if(@isset($_FILES['inputImage'])) {
 		$imageBasePath = '/var/www/html/farm-to-you/images/profile/';
 		$imageExtension = checkInputImage($_FILES['inputImage']);
-		$profile->insert($mysqli);
+		$profile->update($mysqli);
 		$profileId = $profile->getProfileId();
 		$imageFileName = $imageBasePath . 'profile-' . $profileId . '.' . $imageExtension;
 		$profile->setImagePath($imageFileName);

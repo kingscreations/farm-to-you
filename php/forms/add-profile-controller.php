@@ -3,10 +3,10 @@
 $currentDir = dirname(__FILE__);
 require_once("../../root-path.php");
 require_once("../lib/header.php");
-require_once("../../dummy-session.php");
 require_once("../classes/profile.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../classes/user.php");
+require_once("../../dummy-user-session.php");
 require_once("../lib/footer.php");
 require_once("../lib/utils.php");
 
@@ -25,12 +25,7 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-	//this will insert the image if one was selected, otherwise will input the image as null
-	if(@isset($_POST["inputImage"])) {
-		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", $_POST["inputImage"], $user->getUserId());
-	} else {
 		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", null, $user->getUserId());
-	}
 
 	if(@isset($_FILES['inputImage'])) {
 		$imageBasePath = '/var/www/html/farm-to-you/images/profile/';
@@ -53,7 +48,7 @@ try {
 }
 
 // make a table/list to show their new profile
-if ($exception = false) {
+if($exception = false) {
 	echo "<div class=\"container\">";
 	echo "<h2>My Profile</h2>";
 	echo "<ul class=\"list-group\">";

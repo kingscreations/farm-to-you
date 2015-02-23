@@ -29,9 +29,9 @@ try {
 	}
 
 	// verify the CSRF tokens
-//	if(verifyCsrf($_POST["csrfName"], $_POST["csrfToken"]) === false) {
-//		throw(new RuntimeException("CSRF tokens incorrect or missing. Make sure cookies are enabled."));
-//	}
+	if(verifyCsrf($_POST["csrfName"], $_POST["csrfToken"]) === false) {
+		throw(new RuntimeException("CSRF tokens incorrect or missing. Make sure cookies are enabled."));
+	}
 	//
 	mysqli_report(MYSQLI_REPORT_STRICT);
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
@@ -60,7 +60,7 @@ try {
 	// build message
 	$pageName = end(explode("/", $_SERVER["PHP_SELF"]));
 	$url = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["PHP_SELF"];
-	$url = str_replace($pageName, "activation-controller.php", $url);
+	$url = str_replace($pageName, "activation-page/index.php", $url);
 	$url = "$url?activation=$activation";
 	$message = <<< EOF
 	<html>
@@ -78,7 +78,7 @@ EOF;
 	$status = $mailer->send($to, $headers, $message);
 	if(PEAR::isError($status) === true)
 	{
-		echo "<div class=\"alert alert-danger\" role=\"alert\"><strong>Oh snap!</strong> Unable to send mail message:" . $status->getMessage() . "</div>";
+		echo "<div class=\"alert alert-danger\" role=\"alert\"><strong>Jumpin Jehosaphat!</strong> Unable to send mail message:" . $status->getMessage() . "</div>";
 	}
 	else
 	{

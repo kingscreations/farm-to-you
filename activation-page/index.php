@@ -8,6 +8,24 @@
 $currentDir = dirname(__FILE__);
 require_once '../root-path.php';
 require_once("../php/lib/header.php");
+
+try {
+	mysqli_report(MYSQLI_REPORT_STRICT);
+	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
+	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
+
+} catch(Exception $exception) {
+	echo "Exception: " . $exception->getMessage() . "<br/>";
+	echo $exception->getFile() . ":". $exception->getLine();
+	}
+// get the users activation from mysqli
+$mysqlActivation = User::getUserByActivation($mysqli, $activation);
+
+// create session id specific to this user
+$_SESSION['user'] = array(
+	'id' => $user->getUserId(),
+	'activation' => $mysqlActivation)
+
 ?>
 
 <div class="row-fluid">

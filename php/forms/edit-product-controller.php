@@ -17,25 +17,6 @@ if(@isset($_POST["editProductName"]) === false || @isset($_POST["editProductPric
 }
 
 
-
-
-//
-//$_SESSION['product'] = array(
-//	'id' 				=> $product->getProductId(),
-//	'name'			=> $product->getProductName(),
-//	'price'	=> $product->getProductPrice(),
-//	'image'			=> $product->getImagePath(),
-//	'description'		=> $product->getProductDescription(),
-//	'weight' => $product->getProductWeight(),
-//	'stock' => $product->getStockLimit(),
-//	'priceType' => $product->getProductPriceType()
-//);
-
-
-
-
-
-
 try {
 	//
 	mysqli_report(MYSQLI_REPORT_STRICT);
@@ -60,7 +41,21 @@ try {
 		$product = new Product($productId, $profileId, null, $_POST["editProductName"], $_POST["editProductPrice"], $_POST["editProductDescription"], $_POST["editProductPriceType"], $_POST["editProductWeight"], $_POST["editStockLimit"]);
 	}
 
-	$product->update($mysqli);
+	if(@isset($_FILES['inputImage'])) {
+		$imageBasePath = '/var/www/html/farm-to-you/images/product/';
+		$imageExtension = checkInputImage($_FILES['inputImage']);
+		$product->insert($mysqli);
+		$productId = $product->getProductId();
+		$imageFileName = $imageBasePath . 'product-' . $productId . '.' . $imageExtension;
+		$product->setImagePath($imageFileName);
+		$product->update($mysqli);
+		move_uploaded_file($_FILES['inputImage']['tmp_name'], $imageFileName);
+	} else {
+		$product->setImagePath(null);
+		$product->update($mysqli);
+		$productId = $product->getProductId();
+	}
+
 
 	echo "<p class=\"alert alert-success\">Product (id = " . $product->getProductId() . ") updated!</p>";
 } catch(Exception $exception) {

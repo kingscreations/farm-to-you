@@ -48,7 +48,7 @@ try {
 }
 
 // make a table/list to show their new profile
-if($exception = false) {
+if($profile != null) {
 	echo "<div class=\"container\">";
 	echo "<h2>My Profile</h2>";
 	echo "<ul class=\"list-group\">";

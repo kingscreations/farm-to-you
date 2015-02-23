@@ -32,93 +32,83 @@ if ($searching =="yes") {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-// a bit of filtering
-$searchq = strtoupper($searchq);
-$searchq = strtolower($searchq);
-$searchq = strip_tags($searchq);
-$searchq = trim ($searchq);
-$searchq = filter_var($searchq, FILTER_SANITIZE_STRING);
-$searchq = escapeshellcmd($searchq);
 
+//$products = Product::getProductByProductName($mysqli, $searchq);
+//Product::getProductByProductDescription($mysqli, $searchq);
+$stores = Store::getStoreByStoreName($mysqli, $searchq);
+$locations = Location::getLocationByNameOrAddress($mysqli, $searchq);
 
-// query the database. The amount of columns have to match as it currently is. Need more from product and location though
-	$result1 = mysqli_query($mysqli, "SELECT productName, productPrice, productDescription FROM product WHERE productName LIKE '%$searchq%' OR productDescription LIKE '%$searchq%'");
-	$result2 = mysqli_query($mysqli,"SELECT storeName, imagePath, storeDescription  FROM store WHERE storeName LIKE '%$searchq%'");
-	$result3 = mysqli_query($mysqli, "SELECT locationName, address1, city FROM location WHERE locationName LIKE '%$searchq%' OR address1 LIKE '%$searchq%'");
-
-// check for errors in the search
-if (!$result1) {
-	printf("Error: %s\n", mysqli_error($mysqli));
-	exit();
-}
-if (!$result2) {
-	printf("Error: %s\n", mysqli_error($mysqli));
-	exit();
-}
-if (!$result3) {
-	printf("Error: %s\n", mysqli_error($mysqli));
-	exit();
-}
 
 // try to echo a table per each table searched by
-if(mysqli_num_rows($result1) > 0 || mysqli_num_rows($result2) > 0 || mysqli_num_rows($result3) > 0) {
+if($stores != null || $locations != null) {
 	echo '<table id="searchResults" class="table table-responsive">';
 }
-if(mysqli_num_rows($result1) > 0) {
-	echo '<tr>';
-	echo '<th>Product</th>';
-	echo '<th>Description</th>';
-	echo '<th>Price</th>';
-	echo '</tr>';
-	while($row = mysqli_fetch_array($result1)) {
-		echo '<tr>';
-		echo '<td>' . $row["productName"] . '</td>';
-		echo '<td>' . $row["productDescription"] . '</td>';
-		echo '<td>' . $row["productPrice"] . '</td>';
-		echo '</tr>';
-	}
-}
 
-if(mysqli_num_rows($result2) > 0) {
-	echo '<tr>';
-	echo '<th>Store</th>';
-	echo '<th>Image</th>';
-	echo '<th>Description</th>';
-	echo '</tr>';
-	while($row = mysqli_fetch_array($result2)) {
-		echo '<tr>';
-		echo '<td>' . $row["storeName"] . '</td>';
-		echo '<td>' . $row["imagePath"] . '</td>';
-		echo '<td>' . $row["storeDescription"] . '</td>';
+//
+//if($products !== null) {
+//	foreach($products as $product) {
+//		echo '<tr>';
+//		echo '<th>Product</th>';
+//		echo '<th>Description</th>';
+//		echo '<th>Price</th>';
+//		echo '</tr>';
+//		$productName = $product->getProductName();
+//		$productDescription = $product->getProductDescription();
+//		$productPrice = $product->getProductPrice();
+//		echo '<tr>';
+//		echo '<td>' . $productName . '</td>';
+//		echo '<td>' . $productDescription . '</td>';
+//		echo '<td>' . $productPrice . '</td>';
+//		echo '</tr>';
+//	}
+//}
+	if($stores !== null) {
+		foreach($stores as $store) {
+			echo '<tr>';
+			echo '<th>Store</th>';
+			echo '<th>Image</th>';
+			echo '<th>Description</th>';
+			echo '</tr>';
+			$storeName = $store->getStoreName();
+			$storeImage = $store->getImagePath();
+			$storeDescription = $store->getStoreDescription();
+			echo '<tr>';
+			echo '<td>' . $storeName . '</td>';
+			echo '<td>' . $storeImage . '</td>';
+			echo '<td>' . $storeDescription . '</td>';
+		}
 	}
-}
 
-if(mysqli_num_rows($result3) > 0 ) {
-	echo '<tr>';
-	echo '<th>Location</th>';
-	echo '<th>Address</th>';
-	echo '<th>City</th>';
-	echo '</tr>';
-	while($row = mysqli_fetch_array($result3)) {
-		echo '<tr>';
-		echo '<td>' . $row["locationName"] . '</td>';
-		echo '<td>' . $row["address1"] . '</td>';
-		echo '<td>' . $row["city"] . '</td>';
-		echo '</tr>';
+	if($locations !== null) {
+		foreach($locations as $location) {
+			echo '<tr>';
+			echo '<th>Location</th>';
+			echo '<th>Address</th>';
+			echo '<th>City</th>';
+			echo '</tr>';
+			$locationName = $location->getLocationName();
+			$locationAddress1 = $location->getAddress1();
+			$locationCity = $location->getCity();
+			echo '<tr>';
+			echo '<td>' . $locationName . '</td>';
+			echo '<td>' . $locationAddress1 . '</td>';
+			echo '<td>' . $locationCity . '</td>';
+			echo '</tr>';
+		}
 	}
-}
+	if($stores != null || $locations != null) {
+		echo '</table>';
+	}
 
-if(mysqli_num_rows($result1) > 0 || mysqli_num_rows($result2) > 0 || mysqli_num_rows($result3) > 0) {
-	echo '</table>';
-}
+
 
 
 //this counts the number or results - and if there wasn't any it gives them a little message explaining that
-if (mysqli_num_rows($result1) == 0 && mysqli_num_rows($result2) == 0 && mysqli_num_rows($result3) == 0)
-{
-	echo "<p class=\"alert alert-danger\">Sorry, but we can not find an entry to match your query</p><br><br>";
+	if($stores === null && $locations === null) {
+		echo "<p class=\"alert alert-danger\">Sorry, but we can not find an entry to match your query</p><br><br>";
 //and we remind them what they searched for
-	echo "<b>Searched For:</b> " .$searchq;
-}
+		echo "<b>Searched For:</b> " . $searchq;
+	}
+
 
 ?>

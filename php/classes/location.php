@@ -47,6 +47,10 @@ class Location {
 	 **/
 	private $address2;
 
+	/**
+	 * search by address or name
+	 */
+	private $search;
 
 	/**
 	 * constructor for this location class
@@ -799,6 +803,64 @@ class Location {
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+
+		// build an array of location
+		$locations = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$location = new Location($row["locationId"], $row["locationName"],$row["country"], $row["state"], $row["city"], $row["zipCode"], $row["address1"], $row["address2"]);
+				$locations[] = $location;
+			}
+			catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+		}
+
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) the entire array if >= 1 result
+		$numberOfLocations = count($locations);
+		if($numberOfLocations === 0) {
+			return(null);
+		} else {
+			return($locations);
+		}
+	}
+	public static function getLocationByNameOrAddress(&$mysqli, $search) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+
+		// sanitize address line 1 before searching
+		$search = trim($search);
+		$search = filter_var($search, FILTER_SANITIZE_STRING);
+
+		// create query template
+		$query	 = "SELECT locationId, locationName, country, state, city, zipCode, address1, address2 FROM location WHERE address1 LIKE ? OR locationName LIKE ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		// bind address line 1 to the place holder in the template
+		$search = "%$search%";
+		$wasClean = $statement->bind_param("ss", $search, $search);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
 
 		// execute the statement

@@ -1,16 +1,19 @@
 <?php
-$currentDir = dirname(__FILE__);
+/**
+ * @author Alonso Indacochea <alonso@hermesdevelopment.com>
+ */
 
-//require_once("../dummy-session-single.php");
+// header
+$currentDir = dirname(__FILE__);
 require_once("../root-path.php");
 require_once("../php/lib/header.php");
-//var_dump($_SESSION);
 
 // classes
 require_once("../php/classes/location.php");
 
 ?>
 
+	<!--js validation + ajax call-->
 <script src="../js/add-location.js"></script>
 
 <div class="row-fluid">
@@ -27,13 +30,11 @@ require_once("../php/classes/location.php");
 					<input type="text" id="address1" name="address1" value="1228 W La Entrada">
 				</div>
 				<br>
-
 				<div class="form-group">
 					<label for="address2"></label>
 					<input type="text" id="address2" name="address2">
 				</div>
 				<br>
-
 				<div class="form-group">
 					<label for="city">City</label>
 					<input type="text" id="city" name="city" value="Corrales">
@@ -50,7 +51,6 @@ require_once("../php/classes/location.php");
 					<label for="country">Country</label>
 					<input type="text" id="country" name="country">
 				</div>
-
 				<br>
 				<br>
 				<div class="form-group">
@@ -64,4 +64,5 @@ require_once("../php/classes/location.php");
 	</div>
 </div>
 
+<!--footer-->
 <?php require_once "../php/lib/footer.php"; ?>

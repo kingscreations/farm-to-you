@@ -59,46 +59,58 @@ function testValidFields() {
  * test filling in invalid form data
  **/
 function testInvalidFields() {
-	// fill in the form values
 
+	// delete default form value and fill in the form value
 	F("#locationName").type('[ctrl]a[ctrl-up][delete]');
 	F("#locationName").type(INVALID_LOCATIONNAME);
 
+	// click the button once field is filled in
 	F("#editSubmit").click();
 
+	// assert we got the php error message from the AJAX call
 	F(".alert").visible(function() {
 		ok(F(this).hasClass("alert-danger"), "danger alert CSS");
 		ok(F(this).html().indexOf("Exception: location name is empty or insecure") === 0, "unsuccessful message");
 	});
 
+	//retype a valid input in previous field to prevent other error messages
 	F("#locationName").type(VALID_LOCATIONNAME);
 
+	// delete default form value and fill in the form value
 	F("#address1").type('[ctrl]a[ctrl-up][delete]');
 	F("#address1").type(INVALID_ADDRESS1);
 
+	// click the button once field is filled in
 	F("#editSubmit").click();
 
+	// assert we got the php error message from the AJAX call
 	F(".alert").visible(function() {
 		ok(F(this).hasClass("alert-danger"), "danger alert CSS");
 		ok(F(this).html().indexOf("Exception: address 1 is empty or insecure") === 0, "unsuccessful message");
 	});
 
+	//retype a valid input in previous field to prevent other error messages
 	F("#address1").type(VALID_ADDRESS1);
 
+	// delete default form value and fill in the form value
 	F("#address2").type('[ctrl]a[ctrl-up][delete]');
 	F("#address2").type(INVALID_ADDRESS2);
 	F("#city").type('[ctrl]a[ctrl-up][delete]');
 	F("#city").type(INVALID_CITY);
 
+	// click the button once field is filled in
 	F("#editSubmit").click();
 
+	// assert we got the php error message from the AJAX call
 	F(".alert").visible(function() {
 		ok(F(this).hasClass("alert-danger"), "danger alert CSS");
 		ok(F(this).html().indexOf("Exception: city name is empty or insecure") === 0, "unsuccessful message");
 	});
 
+	//retype a valid input in previous field to prevent other error messages
 	F("#city").type(VALID_CITY);
 
+	// delete default form value and fill in the form value
 	F("#zipCode").type('[ctrl]a[ctrl-up][delete]');
 	F("#zipCode").type(INVALID_ZIPCODE);
 	F("#country").type('[ctrl]a[ctrl-up][delete]');
@@ -106,12 +118,11 @@ function testInvalidFields() {
 	F("#state").type('[ctrl]a[ctrl-up][delete]');
 	F("#state").type(INVALID_STATE);
 
-	// click the button once all the fields are filled in
+	// click the button once field is filled in
 	F("#editSubmit").click();
-	// in forms, we want to assert the form worked as expected
-	// here, we assert we got the success message from the AJAX call
+
+	// assert we got the php error message from the AJAX call
 	F(".alert").visible(function() {
-		// the ok() function from qunit is equivalent to SimpleTest's assertTrue()
 		ok(F(this).hasClass("alert-danger"), "danger alert CSS");
 		ok(F(this).html().indexOf("Exception: state name is empty or insecure") === 0, "unsuccessful message");
 	});

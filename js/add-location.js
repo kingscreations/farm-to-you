@@ -4,9 +4,8 @@
 
 // document ready event
 $(document).ready(
+
 // inner function for the ready() event
-
-
 function() {
 
 		// tell the validator to validate this form (by id)
@@ -126,7 +125,6 @@ function() {
 
 
 						// reset the form if it was successful
-						// this makes it easier to reuse the form again
 						if($(".alert-success").length >= 1) {
 							$(form)[0].reset();
 						}

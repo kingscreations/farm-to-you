@@ -14,7 +14,6 @@ require_once("../php/classes/location.php");
 // credentials
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
-
 try {
 
 	// get the credentials information from the server and connect to the database
@@ -22,7 +21,7 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-	// grab all locations by location id 1
+	// grab location with id 1
 	$location = Location::getLocationByLocationId($mysqli, 1);
 
 	// create variables for attribute values

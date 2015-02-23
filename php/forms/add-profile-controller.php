@@ -8,6 +8,7 @@ require_once("../classes/profile.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../classes/user.php");
 require_once("../lib/footer.php");
+require_once("../lib/utils.php");
 
 
 
@@ -31,18 +32,20 @@ try {
 		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", null, $user->getUserId());
 	}
 
-//	if(empty($_FILES['inputImage']) === false) {
-//		$imageExtension = checkInputImage($_FILES['inputImage']);
-//		$profile->insert($mysqli);
-//		$profileId = $profile->getProfileId();
-//		$imageFileName = 'profile' . $profileId . '.' . $imageExtension;
-//		$profile->setImagePath($imageFileName);
-//		$profile->update($mysqli);
-//	} else {
-//		$profile->insert($mysqli);
-//		$profileId = $profile->getProfileId();
-//	}
-	$profile->insert($mysqli);
+	if(@isset($_FILES['inputImage'])) {
+		$imageBasePath = '/var/www/html/farm-to-you/images/profile/';
+		$imageExtension = checkInputImage($_FILES['inputImage']);
+		$profile->insert($mysqli);
+		$profileId = $profile->getProfileId();
+		$imageFileName = $imageBasePath . 'profile-' . $profileId . '.' . $imageExtension;
+		$profile->setImagePath($imageFileName);
+		$profile->update($mysqli);
+		move_uploaded_file($_FILES['inputImage']['tmp_name'], $imageFileName);
+	} else {
+		$profile->setImagePath(null);
+		$profile->insert($mysqli);
+		$profileId = $profile->getProfileId();
+	}
 
 	echo "<p class=\"alert alert-success\">Profile (id = " . $profile->getProfileId() . ") posted!</p>";
 } catch(Exception $exception) {

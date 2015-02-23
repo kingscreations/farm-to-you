@@ -23,17 +23,20 @@ try {
 	if(verifyCsrf($_POST["csrfName"], $_POST["csrfToken"]) === false) {
 		throw(new RuntimeException("CSRF tokens incorrect or missing. Make sure cookies are enabled."));
 	}
-
-	// filter _POST variables
-$email = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
-$password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
-
-
-
-// gain access to database
+// connect to database
+try {
 	mysqli_report(MYSQLI_REPORT_STRICT);
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
+
+} catch(Exception $exception) {
+	echo "Exception: " . $exception->getMessage() . "<br/>";
+	echo $exception->getFile() . ":". $exception->getLine();
+}
+	// filter _POST variables
+	$email = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
+	$password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+
 
 	// get the users email from mysqli
 	$mysqlEmail = User::getUserByEmail($mysqli, $email);

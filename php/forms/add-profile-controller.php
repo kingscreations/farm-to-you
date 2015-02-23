@@ -19,11 +19,12 @@ if(@isset($_POST["inputFirstname"]) === false || @isset($_POST["inputLastname"])
 
 
 try {
-	//
+	//insert the new profile
 	mysqli_report(MYSQLI_REPORT_STRICT);
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
+	//this will insert the image if one was selected, otherwise will input the image as null
 	if(@isset($_POST["inputImage"])) {
 		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", $_POST["inputImage"], $user->getUserId());
 	} else {

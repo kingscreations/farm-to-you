@@ -14,14 +14,13 @@ require_once("../lib/footer.php");
 
 
 $searchq = $_POST["inputSearch"];
-//$searchq = preg_replace("#[^0-9a-z]#i", "", $searchq); this is causing spaces to get messed up when searching by address
 $searching = $_POST["searching"];
 
 // this is only displayed if they have submitted the form
 if ($searching =="yes") {
 	echo "<h2>Results</h2><p>";
 
-// if they did not enter a search term we give them an error
+	// if they did not enter a search term we give them an error
 	if($searchq == "") {
 		echo "<p>No search term entered</p>";
 		exit;
@@ -79,9 +78,7 @@ if(mysqli_num_rows($result1) > 0) {
 		echo '</tr>';
 	}
 }
-//echo '</table>';
 
-//echo '<table class="table table-responsive">';
 if(mysqli_num_rows($result2) > 0) {
 	echo '<tr>';
 	echo '<th>Store</th>';
@@ -95,9 +92,7 @@ if(mysqli_num_rows($result2) > 0) {
 		echo '<td>' . $row["storeDescription"] . '</td>';
 	}
 }
-//echo '</table>';
 
-//echo '<table class="table table-responsive">';
 if(mysqli_num_rows($result3) > 0 ) {
 	echo '<tr>';
 	echo '<th>Location</th>';
@@ -112,16 +107,17 @@ if(mysqli_num_rows($result3) > 0 ) {
 		echo '</tr>';
 	}
 }
+
 if(mysqli_num_rows($result1) > 0 || mysqli_num_rows($result2) > 0 || mysqli_num_rows($result3) > 0) {
 	echo '</table>';
 }
 
 
-// this counts the number or results - and if there wasn't any it gives them a little message explaining that
+//this counts the number or results - and if there wasn't any it gives them a little message explaining that
 if (mysqli_num_rows($result1) == 0 && mysqli_num_rows($result2) == 0 && mysqli_num_rows($result3) == 0)
 {
 	echo "<p class=\"alert alert-danger\">Sorry, but we can not find an entry to match your query</p><br><br>";
-// and we remind them what they searched for
+//and we remind them what they searched for
 	echo "<b>Searched For:</b> " .$searchq;
 }
 

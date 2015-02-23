@@ -35,6 +35,7 @@ function testValidFields() {
 	F("#editStockLimit").type(VALID_PRODUCTSTOCKLIMIT);
 	F("#editProductImage").click(VALID_IMAGE);
 
+	F.wait(10000);
 	// click the button once all the fields are filled in
 	F("#editSubmit").click();
 
@@ -63,6 +64,7 @@ function testInvalidFields() {
 	F("#editStockLimit").type(INVALID_PRODUCTSTOCKLIMIT);
 	F("#editProductImage").click(INVALID_IMAGE);
 
+	F.wait(10000);
 	// click the button once all the fields are filled in
 	F("#editSubmit").click();
 

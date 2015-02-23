@@ -29,6 +29,7 @@ function testValidFields() {
 	F("#inputPhone").type(VALID_PHONE);
 	F("#inputImage").click(VALID_IMAGE);
 
+	F.wait(10000);
 	// click the button once all the fields are filled in
 	F("#inputSubmit").click();
 
@@ -55,6 +56,7 @@ function testInvalidFields() {
 	F("#inputPhone").type(INVALID_PHONE);
 	F("#inputImage").click(INVALID_IMAGE);
 
+	F.wait(10000);
 	// click the button once all the fields are filled in
 	F("#inputSubmit").click();
 

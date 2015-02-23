@@ -20,12 +20,12 @@ if(@isset($_POST["inputProductName"]) === false || @isset($_POST["inputProductPr
 $profileId = $_SESSION['profile']['id'];
 
 try {
-	//
+	//insert into the database
 	mysqli_report(MYSQLI_REPORT_STRICT);
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-
+	//will insert the image if one is input, otherwise will place as null
 	if(@isset($_POST["inputProductImage"])) {
 		$product = new Product(null, $profileId, $_POST["inputProductImage"], $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductDescription"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
 	} else {
@@ -45,6 +45,7 @@ try {
 //	}
 	$product->insert($mysqli);
 
+	//store the product into the session to be able to edit
 	$_SESSION['product'] = array(
 		'id' 				=> $product->getProductId(),
 		'name'			=> $product->getProductName(),

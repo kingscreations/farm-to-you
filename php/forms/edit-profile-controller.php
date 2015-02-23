@@ -36,7 +36,7 @@ try {
 	if(@isset($_FILES['inputImage'])) {
 		$imageBasePath = '/var/www/html/farm-to-you/images/profile/';
 		$imageExtension = checkInputImage($_FILES['inputImage']);
-		$profile->insert($mysqli);
+		$profile->update($mysqli);
 		$profileId = $profile->getProfileId();
 		$imageFileName = $imageBasePath . 'profile-' . $profileId . '.' . $imageExtension;
 		$profile->setImagePath($imageFileName);

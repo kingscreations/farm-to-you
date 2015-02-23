@@ -7,6 +7,8 @@ require_once ("../../root-path.php");
 
 require_once("../classes/product.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+require_once("../lib/utils.php");
+
 
 
 // MAY HAVE TO CHANGE THIS TO NOT BE REQUIRED SINCE THIS IS JUST AN UPDATE. WILL TEST THIS ALONG WITH JS

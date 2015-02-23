@@ -25,18 +25,22 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
+	// get profile id from dummy session
 	$profileId = $_SESSION['profile']['id'];
 
+	// throw exception if missing a required field
 	if(!@isset($_POST["locationName"]) || !@isset($_POST["address1"]) ||
 		!@isset($_POST["zipCode"]) || !@isset($_POST["city"]) || !@isset($_POST["state"]) || !@isset($_POST["storeName"])) {
 		throw new Exception('missing a required field');
 	}
 
-
+	// create new Location and Store with form input
 	$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
 		$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
 	$store = new Store(null, $profileId, $_POST["storeName"], null, null, $_POST["storeDescription"]);
 
+	// if user provides input image, sanitize, add base path, insert store, grab store id, update image path,
+	// update store, and upload image
 	if(@isset($_FILES['inputImage'])) {
 		$imageBasePath = '/var/www/html/farm-to-you/images/store/';
 		$imageExtension = checkInputImage($_FILES['inputImage']);
@@ -46,32 +50,28 @@ try {
 		$store->setImagePath($imageFileName);
 		$store->update($mysqli);
 		move_uploaded_file($_FILES['inputImage']['tmp_name'], $imageFileName);
+	// else, set to null, insert store and grab store id
 	} else {
 		$store->setImagePath(null);
 		$store->insert($mysqli);
 		$storeId = $store->getStoreId();
 	}
 
-
+	// insert location
 	$location->insert($mysqli);
+
+	// create variable for location id
 	$locationId = $location->getLocationId();
+
+	// create new StoreLocation
 	$storeLocation = new StoreLocation($storeId, $locationId);
+	// insert storeLocation
 	$storeLocation->insert($mysqli);
-
-//	$storeNames = Store::getAllStoresByProfileId($mysqli, $store->getProfileId());
-
-//	$_SESSION['store'] = array(
-//		'id' 				=> $store->getStoreId(),
-//		'name'			=> $store->getStoreName(),
-//		'description'	=> $store->getStoreDescription(),
-//		'image'			=> $store->getImagePath(),
-//		'creation'		=> $store->getCreationDate()
-//	);
 
 	echo "<p class=\"alert alert-success\">" . $store->getStoreName() . " added!</p><br>
 			<p class=\"alert alert-success\">" . $location->getLocationName() . " added!</p>";
 
-
 	} catch(Exception $exception) {
+	
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }

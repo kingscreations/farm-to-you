@@ -8,6 +8,8 @@
 $currentDir = dirname(__FILE__);
 require_once '../root-path.php';
 require_once("../php/lib/header.php");
+require_once("../php/classes/user.php");
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 try {
 	mysqli_report(MYSQLI_REPORT_STRICT);
@@ -21,14 +23,19 @@ try {
 // get activation code from email and sanitize
 $activation = $_GET['activation'];
 $activation = filter_var($activation, FILTER_SANITIZE_STRING);
+$mysqlUser = User::getUserByActivation($mysqli, $activation);
 
 
 // create session id specific to this user
 $_SESSION['user'] = array(
-	'id' => $user->getUserId()
+	'id' => $mysqlUser->getUserId()
 );
-var_dump($_SESSION);
 
+$currentPathExploded = explode("/", $_SERVER["PHP_SELF"]);
+if(empty($currentPathExploded)) {
+	throw new RangeException('Impossible to explode the path');
+}	$url = "https://". $_SERVER["SERVER_NAME"] . '/' . $currentPathExploded[1] . '/' .
+		$currentPathExploded[2];
 ?>
 
 <div class="row-fluid">
@@ -38,10 +45,10 @@ var_dump($_SESSION);
 
 <p>
 	<ul>
-		<li><a href="../home-page/index.php">Continue to farm-to-you home page</a>
-
-</li>
-</ul>
+		<li>
+			<a href="<?php echo $url ?>">Continue to home page</a>
+		</li>
+	</ul>
 </p>
 
 	</div>

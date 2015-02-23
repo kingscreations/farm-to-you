@@ -45,7 +45,7 @@ try {
 	$_SESSION['activation'] = $activation;
 
 	// email the user with an activation message
-	$to = $user->getEmail();
+	$to = $_POST["inputEmail"];
 	$from = "CEO@farmtoyou.com";
 
 	// build headers
@@ -58,13 +58,15 @@ try {
 	$headers["Content-Type"] = "text/html; charset=UTF-8";
 
 	// build message
-//	$pageName = end(explode("/", $_SERVER["PHP_SELF"]));
 	$currentPathExploded = explode("/", $_SERVER["PHP_SELF"]);
 	if(empty($currentPathExploded)) {
 		throw new RangeException('Impossible to explode the path');
 	}
-	$url = "https://" . $_SERVER["SERVER_NAME"] . '/' . $currentPathExploded[1] . '/' . $currentPathExploded[2] . '/activation/index.php';
+	$url = "https://". $_SERVER["SERVER_NAME"] . '/' . $currentPathExploded[1] . '/' .
+		$currentPathExploded[2] . '/activation/index.php';
+
 	$url = "$url?activation=$activation";
+	
 	$message = <<< EOF
 	<html>
 		<body>
@@ -81,7 +83,7 @@ EOF;
 	$status = $mailer->send($to, $headers, $message);
 	if(PEAR::isError($status) === true)
 	{
-		echo "<div class=\"alert alert-danger\" role=\"alert\"><strong>Oh snap!</strong> Unable to send mail message:" . $status->getMessage() . "</div>";
+		echo "<div class=\"alert alert-danger\" role=\"alert\"><strong>Jumpin Jehosaphat!</strong> Unable to send mail message:" . $status->getMessage() . "</div>";
 	}
 	else
 	{

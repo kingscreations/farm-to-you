@@ -9,6 +9,7 @@ require_once("../classes/profile.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../classes/user.php");
 require_once("../classes/product.php");
+require_once("../lib/utils.php");
 
 
 // verify the form values have been submitted
@@ -32,18 +33,20 @@ try {
 		$product = new Product(null, $profileId, null, $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductDescription"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
 	}
 
-//	if(empty($_FILES['inputImage']) === false) {
-//		$imageExtension = checkInputImage($_FILES['inputImage']);
-//		$product->insert($mysqli);
-//		$productId = $product->getProductId();
-//		$imageFileName = 'product' . $productId . '.' . $imageExtension;
-//		$product->setImagePath($imageFileName);
-//		$product->update($mysqli);
-//	} else {
-//		$product->insert($mysqli);
-//		$productId = $product->getProductd();
-//	}
-	$product->insert($mysqli);
+	if(@isset($_FILES['inputImage'])) {
+		$imageBasePath = '/var/www/html/farm-to-you/images/product/';
+		$imageExtension = checkInputImage($_FILES['inputImage']);
+		$product->insert($mysqli);
+		$productId = $product->getProductId();
+		$imageFileName = $imageBasePath . 'product-' . $productId . '.' . $imageExtension;
+		$product->setImagePath($imageFileName);
+		$product->update($mysqli);
+		move_uploaded_file($_FILES['inputImage']['tmp_name'], $imageFileName);
+	} else {
+		$product->setImagePath(null);
+		$product->insert($mysqli);
+		$productId = $product->getProductId();
+	}
 
 	//store the product into the session to be able to edit
 	$_SESSION['product'] = array(

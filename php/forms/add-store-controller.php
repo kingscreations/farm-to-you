@@ -1,12 +1,17 @@
 <?php
-//session_start();
 
+// dummy session
 $currentDir = dirname(__FILE__);
 require_once ("../../root-path.php");
 require_once("../../dummy-session-single.php");
 
+// credentials
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+
+// image input processing
 require_once("../lib/utils.php");
+
+// classes
 require_once("../classes/store.php");
 require_once("../classes/location.php");
 require_once("../classes/storelocation.php");
@@ -15,6 +20,7 @@ require_once("../classes/user.php");
 
 try {
 
+	// get the credentials information from the server and connect to the database
 	mysqli_report(MYSQLI_REPORT_STRICT);
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);

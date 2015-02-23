@@ -7,6 +7,7 @@ require_once("/usr/lib/php5/simpletest/autorun.php");
 require_once("../php/classes/categoryproduct.php");
 require_once ("../php/classes/user.php");
 require_once ("../php/classes/profile.php");
+require_once("../php/classes/store.php");
 require_once ("../php/classes/product.php");
 require_once("../php/classes/category.php");
 
@@ -38,6 +39,7 @@ class CategoryProductTest extends UnitTestCase {
 	private $product = null;
 	private $user = null;
 	private $profile = null;
+	private $store = null;
 
 
 	/**
@@ -54,7 +56,9 @@ class CategoryProductTest extends UnitTestCase {
 		$this->user->insert($this->mysqli);
 		$this->profile = new Profile(null, "Test", "Test2", "5555555555", "m", "012345", "http://www.cats.com/cat.jpg", $this->user->getUserId());
 		$this->profile->insert($this->mysqli);
-		$this->product = new Product(null, $this->profile->getProfileId(), "http://www.cats.com/cat.jpg", "test", "1.20", "test", 'u', 1.20 );
+		$this->store = new Store(null, $this->profile->getProfileId(), "Pass Farms", "a.jpg", null, "really cool");
+		$this->store->insert($this->mysqli);
+		$this->product = new Product(null, $this->store->getStoreId(), "http://www.cats.com/cat.jpg", "test", "1.20", "test", 'u', 1.20 );
 		$this->product->insert($this->mysqli);
 		$this->category = new Category(null, "category");
 		$this->category->insert($this->mysqli);
@@ -80,6 +84,11 @@ class CategoryProductTest extends UnitTestCase {
 		if($this->product !== null) {
 			$this->product->delete($this->mysqli);
 			$this->product = null;
+		}
+
+		if($this->store !== null) {
+			$this->store->delete($this->mysqli);
+			$this->store = null;
 		}
 
 		if($this->profile !== null) {
@@ -172,6 +181,7 @@ class CategoryProductTest extends UnitTestCase {
 		$this->assertNotNull($this->user);
 		$this->assertNotNull($this->category);
 		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->store);
 		$this->assertNotNull($this->product);
 		$this->assertNotNull($this->mysqli);
 
@@ -193,6 +203,7 @@ class CategoryProductTest extends UnitTestCase {
 		$this->assertNotNull($this->categoryProduct);
 		$this->assertNotNull($this->user);
 		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->store);
 		$this->assertNotNull($this->category);
 		$this->assertNotNull($this->product);
 		$this->assertNotNull($this->mysqli);
@@ -216,6 +227,7 @@ class CategoryProductTest extends UnitTestCase {
 		$this->assertNotNull($this->user);
 		$this->assertNotNull($this->category);
 		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->store);
 		$this->assertNotNull($this->product);
 		$this->assertNotNull($this->mysqli);
 
@@ -239,6 +251,7 @@ class CategoryProductTest extends UnitTestCase {
 		$this->assertNotNull($this->user);
 		$this->assertNotNull($this->category);
 		$this->assertNotNull($this->profile);
+		$this->assertNotNull($this->store);
 		$this->assertNotNull($this->product);
 		$this->assertNotNull($this->mysqli);
 

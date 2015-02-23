@@ -5,6 +5,7 @@ require_once("/usr/lib/php5/simpletest/autorun.php");
 // the classes to test
 require_once("../php/classes/user.php");
 require_once("../php/classes/profile.php");
+require_once("../php/classes/store.php");
 require_once("../php/classes/product.php");
 
 // require the encrypted configuration functions
@@ -33,7 +34,10 @@ class ProductTest extends UnitTestCase {
 	/**
 	 * instance of the first profile (order foreign key)
 	 **/
+
 	private $profile = null;
+
+	private $store = null;
 
 	/**
 	 * instance of the object we are testing with
@@ -48,7 +52,10 @@ class ProductTest extends UnitTestCase {
 	/**
 	 * instance of the second profile (order foreign key)
 	 **/
+
 	private $profile2 = null;
+
+	private $store2 = null;
 
 	/**
 	 * instance of the second object we are testing with
@@ -73,7 +80,7 @@ class ProductTest extends UnitTestCase {
 	/**
 	 * @var string $productType type of the product
 	 */
-	private $productType = "vegetable";
+	private $productPriceType = "w";
 
 	/**
 	 * @var float $productWeight weight of the product
@@ -101,7 +108,10 @@ class ProductTest extends UnitTestCase {
 			$this->user->getUserId());
 		$this->profile->insert($this->mysqli);
 
-		$this->product = new Product(null, $this->profile->getProfileId(), $this->imagePath, $this->productName, $this->productPrice,
+		$this->store = new Store(null, $this->profile->getProfileId(), "Pass Farms", "a.jpg", null, "really cool");
+		$this->store->insert($this->mysqli);
+
+		$this->product = new Product(null, $this->store->getStoreId(), $this->imagePath, $this->productName, $this->productPrice,
 			'very tasty organic tomatoes: just an exceptional product', 'w', $this->productWeight);
 
 		// instance of the second product
@@ -112,7 +122,10 @@ class ProductTest extends UnitTestCase {
 			$this->user2->getUserId());
 		$this->profile2->insert($this->mysqli);
 
-		$this->product2 = new Product(null, $this->profile2->getProfileId(), $this->imagePath, $this->productName, $this->productPrice,
+		$this->store2 = new Store(null, $this->profile2->getProfileId(), "Pass Farms", "a.jpg", null, "really cool");
+		$this->store2->insert($this->mysqli);
+
+		$this->product2 = new Product(null, $this->store2->getStoreId(), $this->imagePath, $this->productName, $this->productPrice,
 			'very tasty organic tomatoes: just an exceptional product', 'w', $this->productWeight);
 	}
 
@@ -130,6 +143,16 @@ class ProductTest extends UnitTestCase {
 			$this->product2->delete($this->mysqli);
 		}
 		$this->product2 = null;
+
+		if($this->store !== null) {
+			$this->store->delete($this->mysqli);
+			$this->store = null;
+		}
+
+		if($this->store2 !== null) {
+			$this->store2->delete($this->mysqli);
+			$this->store2 = null;
+		}
 
 		if($this->profile2 !== null) {
 			$this->profile2->delete($this->mysqli);
@@ -174,7 +197,7 @@ class ProductTest extends UnitTestCase {
 
 		// third, assert the Product we have created and mySQL's Product are the same object
 		$this->assertIdentical($this->product->getProductId(), $mysqlProduct->getProductId());
-		$this->assertIdentical($this->product->getProfileId(), $mysqlProduct->getProfileId());
+		$this->assertIdentical($this->product->getStoreId(), $mysqlProduct->getStoreId());
 		$this->assertIdentical($this->product->getImagePath(), $mysqlProduct->getImagePath());
 		$this->assertIdentical($this->product->getProductName(), $mysqlProduct->getProductName());
 		$this->assertIdentical($this->product->getProductPrice(), $mysqlProduct->getProductPrice());
@@ -257,7 +280,7 @@ class ProductTest extends UnitTestCase {
 
 		// fourth, assert the Product we have updated and mySQL's Product are the same object
 		$this->assertIdentical($this->product->getProductId(), $mysqlProduct->getProductId());
-		$this->assertIdentical($this->product->getProfileId(), $mysqlProduct->getProfileId());
+		$this->assertIdentical($this->product->getStoreId(), $mysqlProduct->getStoreId());
 		$this->assertIdentical($this->product->getImagePath(), $mysqlProduct->getImagePath());
 		$this->assertIdentical($this->product->getProductName(), $mysqlProduct->getProductName());
 		$this->assertIdentical($this->product->getProductPrice(), $mysqlProduct->getProductPrice());

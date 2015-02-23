@@ -2,12 +2,13 @@
 session_start();
 
 $currentDir = dirname(__FILE__);
-require_once("../../dummy-session.php");
+//require_once("../../dummy-session.php");
 require_once ("../../root-path.php");
 
 require_once("../classes/profile.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../classes/user.php");
+require_once("../classes/store.php");
 require_once("../classes/product.php");
 require_once("../lib/utils.php");
 
@@ -18,7 +19,7 @@ if(@isset($_POST["inputProductName"]) === false || @isset($_POST["inputProductPr
 	echo "<p class=\"alert alert-danger\">Form values not complete. Verify the form and try again.</p>";
 }
 
-$profileId = $_SESSION['profile']['id'];
+$storeId = 1;
 
 try {
 	//insert into the database
@@ -27,23 +28,18 @@ try {
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 	//will insert the image if one is input, otherwise will place as null
-	if(@isset($_POST["inputProductImage"])) {
-		$product = new Product(null, $profileId, $_POST["inputProductImage"], $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductDescription"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
-	} else {
-		$product = new Product(null, $profileId, null, $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductDescription"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
-	}
-
-	if(@isset($_FILES['inputImage'])) {
+	if(@isset($_FILES["inputProductImage"])) {
 		$imageBasePath = '/var/www/html/farm-to-you/images/product/';
-		$imageExtension = checkInputImage($_FILES['inputImage']);
+		$imageExtension = checkInputImage($_FILES['inputProductImage']);
+		$product = new Product(null, $storeId, "", $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductDescription"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
 		$product->insert($mysqli);
 		$productId = $product->getProductId();
 		$imageFileName = $imageBasePath . 'product-' . $productId . '.' . $imageExtension;
 		$product->setImagePath($imageFileName);
 		$product->update($mysqli);
-		move_uploaded_file($_FILES['inputImage']['tmp_name'], $imageFileName);
+		move_uploaded_file($_FILES['inputProductImage']['tmp_name'], $imageFileName);
 	} else {
-		$product->setImagePath(null);
+		$product = new Product(null, $storeId, "", $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductDescription"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
 		$product->insert($mysqli);
 		$productId = $product->getProductId();
 	}

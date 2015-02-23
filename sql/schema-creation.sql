@@ -95,9 +95,9 @@ CREATE TABLE product (
 	productWeight DECIMAL(8, 4),
 	imagePath VARCHAR(255),
 	stockLimit INT UNSIGNED,
-	profileId INT UNSIGNED NOT NULL,
-	INDEX(profileId),
-	FOREIGN KEY(profileId) REFERENCES profile(profileId),
+	storeId INT UNSIGNED NOT NULL,
+	INDEX(storeId),
+	FOREIGN KEY(storeId) REFERENCES store(storeId),
 	PRIMARY KEY(productId)
 );
 

@@ -2,30 +2,31 @@
 $currentDir = dirname(__FILE__);
 require_once ("../root-path.php");
 require_once("../php/lib/header.php");
-require_once("../dummy-session-single.php");
+//require_once("../dummy-session-single.php");
 require_once("../php/classes/product.php");
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+
+try {
+
 
 	mysqli_report(MYSQLI_REPORT_STRICT);
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-	$product = new Product(null, 1, "image.jpg", "testing session", "1.20", "testing session descript", "w", 4.23, 56);
-	$product->insert($mysqli);
+	$product = Product::getProductByProductId($mysqli, 1);
 
-$_SESSION['product'] = array(
-	'id' 				=> $product->getProductId(),
-	'name'			=> $product->getProductName(),
-	'price'	=> $product->getProductPrice(),
-	'image'			=> $product->getImagePath(),
-	'description'		=> $product->getProductDescription(),
-	'weight' => $product->getProductWeight(),
-	'stock' => $product->getStockLimit(),
-	'priceType' => $product->getProductPriceType()
-);
-//	echo "<p class=\"alert alert-success\">Product (id = " . $product->getProductId() . ") updated!</p>";
-//} catch(Exception $exception) {
-//	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
-//}
+	$productId = $product->getProductId();
+	$productName = $product->getProductName();
+	$productPrice = $product->getProductPrice();
+	$productImagePath = $product->getImagePath();
+	$productDescription = $product->getProductDescription();
+	$productWeight = $product->getProductWeight();
+	$productStockLimit = $product->getStockLimit();
+	$productPriceType = $product->getProductPriceType();
+
+} catch(Exception $exception) {
+	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
+}
 ?>
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
@@ -38,25 +39,25 @@ $_SESSION['product'] = array(
 <div class="container">
 	<h2>Edit Product</h2>
 
-	<form id="editProduct" class="form-inline" method="post" action="../php/forms/edit-product-controller.php" novalidate>
+	<form id="editProduct" class="form-inline" method="post" action="../php/forms/edit-product-controller.php"  enctype="multipart/form-data">
 
 		<div class="form-group">
 			<label for="editProductName">Product Name:</label>
-			<input type="text" class="form-control" name="editProductName" id="editProductName" placeholder="<?php echo $_SESSION['product']['name'];?>" value="<?php echo $_SESSION['product']['name'];?>">
+			<input type="text" class="form-control" name="editProductName" id="editProductName" value="<?php echo $productName;?>">
 		</div>
 
 		<br>
 
 		<div class="form-group">
 			<label for="editProductPrice">Product Price:</label>
-			<input type="text" class="form-control" name="editProductPrice" id="editProductPrice" placeholder="<?php echo $_SESSION['product']['price'];?>" value="<?php echo $_SESSION['product']['price'];?>">
+			<input type="text" class="form-control" name="editProductPrice" id="editProductPrice" value="<?php echo $productPrice;?>">
 		</div>
 
 		<br>
 
 		<div class="form-group">
 			<label for="editProductDescription">Product Description:</label>
-			<input type="text" class="form-control" name="editProductDescription" id="editProductDescription" placeholder="<?php echo $_SESSION['product']['description'];?>" value="<?php echo $_SESSION['product']['description'];?>"></textarea>
+			<input type="text" class="form-control" name="editProductDescription" id="editProductDescription" value="<?php echo $productDescription;?>"></textarea>
 		</div>
 
 		<br>
@@ -71,14 +72,14 @@ $_SESSION['product'] = array(
 
 		<div class="form-group">
 			<label for="editProductWeight">Product Weight:</label>
-			<input type="text" class="form-control" name="editProductWeight" id="editProductWeight" placeholder="<?php echo $_SESSION['product']['weight'];?>" value="<?php echo $_SESSION['product']['weight'];?>">
+			<input type="text" class="form-control" name="editProductWeight" id="editProductWeight" value="<?php echo $productWeight;?>">
 		</div>
 
 		<br>
 
 		<div class="form-group">
 			<label for="editStockLimit">Current Stock Amount:</label>
-			<input type="number" class="form-control" name="editStockLimit" id="editStockLimit" step="1" placeholder="<?php echo $_SESSION['product']['stock'];?>" value="<?php echo $_SESSION['product']['stock'];?>">
+			<input type="number" class="form-control" name="editStockLimit" id="editStockLimit" step="1" value="<?php echo $productStockLimit;?>">
 		</div>
 
 		<br>

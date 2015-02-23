@@ -106,8 +106,8 @@ function testInvalidFields() {
 }
 
 /**
- * test filling in only valid form data AND remember the user
- **/
+* test filling in only valid form data AND remember the user
+**/
 function testValidFieldsAndRememberUser() {
 	// fill in the cart
 	$cartQuantities.val(12);

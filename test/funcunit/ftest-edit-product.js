@@ -55,17 +55,13 @@ function testValidFields() {
  * test filling in invalid form data
  **/
 function testInvalidFields() {
-	// fill in the form values
 	F("#editProductName").type(INVALID_PRODUCTNAME);
 	F("#editProductPrice").type(INVALID_PRODUCTPRICE);
 	F("#editProductDescription").type(INVALID_PRODUCTDESCRIPTION);
 	F("#editProductPriceType").click(INVALID_PRODUCTPRICETYPE);
 	F("#editProductWeight").type(INVALID_PRODUCTWEIGHT);
 	F("#editStockLimit").type(INVALID_PRODUCTSTOCKLIMIT);
-	F("#editProductImage").click(INVALID_IMAGE);
 
-	F.wait(10000);
-	// click the button once all the fields are filled in
 	F("#editSubmit").click();
 
 	// in forms, we want to assert the form worked as expected
@@ -75,6 +71,27 @@ function testInvalidFields() {
 		ok(F(this).hasClass("alert-danger"), "danger alert CSS");
 		ok(F(this).html().indexOf("Exception: product price is not a valid float") === 0, "unsuccessful message");
 	});
+
+	F("#editProductPrice").type(VALID_PRODUCTPRICE);
+	F("#editProductName").type(VALID_PRODUCTNAME);
+	F("#editProductDescription").type(VALID_PRODUCTDESCRIPTION);
+	F("#editProductPriceType").click(VALID_PRODUCTPRICETYPE);
+	F("#editProductWeight").type(VALID_PRODUCTWEIGHT);
+	F("#editStockLimit").type(VALID_PRODUCTSTOCKLIMIT);
+
+	F("#editProductImage").click(INVALID_IMAGE);
+
+	F.wait(10000);
+
+	F("#editSubmit").click();
+
+	F(".alert").visible(function() {
+		// the ok() function from qunit is equivalent to SimpleTest's assertTrue()
+		ok(F(this).hasClass("alert-danger"), "danger alert CSS");
+		ok(F(this).html().indexOf("Exception: The input image file should be either jpg, JPG, jpeg, JPEG, png or PNG") === 0, "unsuccessful message");
+	});
+
+
 }
 
 // the test function *MUST* be called in order for the test to execute

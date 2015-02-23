@@ -64,18 +64,21 @@ $prefix = str_repeat("../", $depthDifference);
 				</div>
 				<div class="col-xs-6">
 					<ul class="nav nav-pills" role="tablist">
-						<li role="presentation" class="dropdown">
-							<a id="drop6" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-								My Account
-								<span class="caret"></span>
-							</a>
-							<ul id="my-account-dropdown-menu" class="dropdown-menu" role="menu" aria-labelledby="drop6">
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="">Settings</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="">Order history</a></li>
-								<li role="presentation" class="divider"></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="">Sign out</a></li>
-							</ul>
-						</li>
+						<?php if(@isset($_SESSION['user'])) { ?>
+							<li role="presentation" class="dropdown">
+								<a id="drop6" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+									My Account
+									<span class="caret"></span>
+								</a>
+								<ul id="my-account-dropdown-menu" class="dropdown-menu" role="menu" aria-labelledby="drop6">
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="">Settings</a></li>
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="">Order history</a></li>
+									<li role="presentation" class="divider"></li>
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="">Sign out</a></li>
+								</ul>
+							</li>
+						<?php } else { ?>
+						<?php } ?>
 					</ul> <!-- end pills -->
 				</div>
 			</div><!-- end row-fluid main-menu -->

@@ -69,7 +69,7 @@ require_once("../php/classes/store.php");
 			<br>
 			<br>
 			<div class="form-group">
-				<input type="submit" class="form-control" id="editSubmit" name="editSubmit" value="Submit">
+				<input type="submit" class="form-control" id="editSubmit" action="../php/forms/store-edit-button-controller.php" name="editSubmit" value="Submit">
 			</div>
 			<br>
 			<br>

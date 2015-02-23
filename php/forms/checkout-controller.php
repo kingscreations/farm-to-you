@@ -6,7 +6,7 @@
 
 // start session as the first statement
 session_start();
-//var_dump($_POST);
+
 // credentials
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
@@ -18,7 +18,7 @@ require_once("../classes/order.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
 
-// connexion configuration
+// connection configuration
 mysqli_report(MYSQLI_REPORT_STRICT);
 
 // get the credentials information from the server
@@ -88,20 +88,20 @@ try {
 require_once('../../external-libs/autoload.php');
 
 // setup
-\Stripe\Stripe::setApiKey("sk_test_6bR9BBZRQppeQHGjgplRV3Bw");
+\Stripe\Stripe::setApiKey($config['stripe']);
 $error = '';
 $success = '';
 
 // Convert the price in dollars to a price in cents
-// and from float to integer to be compatible with Strip API
+// and from float to integer to be compatible with Stripe API
 $totalPrice = intval($totalPrice * 100);
 
 try {
 	if(@isset($_POST['creditCard']) === true && $_POST['creditCard'] === 'old') {
 		$customerToken = $profile->getCustomerToken();
-var_dump($customerToken);
+
 		if($customerToken !== null && strpos($customerToken, 'cus_') !== false) {
-			echo 'old client';
+
 			// charge the customer with the memorize information
 			\Stripe\Charge::create(array(
 					"amount"   => $totalPrice, // amount in cents
@@ -135,7 +135,7 @@ var_dump($customerToken);
 		}
 
 		if($rememberUser === true) {
-			echo 'remember true';
+
 			// first create a new customer
 			$customer = \Stripe\Customer::create(array(
 				"card" => $stripeToken,
@@ -154,8 +154,7 @@ var_dump($customerToken);
 		}
 
 		if($rememberUser === false) {
-			echo 'remember false';
-			var_dump($stripeToken);
+
 			// charge directly the user
 			$charge = \Stripe\Charge::create(
 				array(
@@ -184,7 +183,7 @@ var_dump($customerToken);
 /**
  * Temporary function which acts like a tear down method
  *
- * @param $mysqli the database connexion
+ * @param $mysqli the database connection
  */
 function clearDatabase($mysqli) {
 	$orderProducts = OrderProduct::getAllOrderProducts($mysqli);

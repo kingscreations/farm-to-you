@@ -58,5 +58,5 @@ try {
 }
 // create session id specific to this user
 $_SESSION['user'] = array(
-	'id' => $user->getUserId()
+	'id' => $mysqlUser->getUserId()
 );

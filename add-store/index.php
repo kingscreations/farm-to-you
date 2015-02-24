@@ -110,7 +110,7 @@ try {
 			echo '<tr>';
 			echo '<td>'. $storeId ." - " . $storeName . '</td>';
 
-			echo '<td><a href="../edit-store/index.php" id="editButton" class="btn btn-default store-edit">Edit '.$storeId.' </a></td>';
+			echo '<td><button id="'.$storeId.'" class="btn btn-default editButton">Edit '.$storeId.' </button></td>';
 			echo '</tr>';
 		}
 		echo '</table>';

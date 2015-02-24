@@ -21,8 +21,8 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-	// grab store with id 1
-	$store = Store::getStoreByStoreId($mysqli, 1);
+	// grab store with id from session
+	$store = Store::getStoreByStoreId($mysqli, $_SESSION['storeId']);
 
 	// create variables for attribute values
 	$storeName = $store->getStoreName();

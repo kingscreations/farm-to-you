@@ -108,9 +108,9 @@ try {
 			$storeId = $store->getStoreId();
 			$storeName = $store->getStoreName();
 			echo '<tr>';
-			echo '<td>'. $storeId ." - " . $storeName . '</td>';
+			echo '<td>'. $storeName . '</td>';
 
-			echo '<td><button id="'.$storeId.'" class="btn btn-default editButton">Edit '.$storeId.' </button></td>';
+			echo '<td><button id="'.$storeId.'" class="btn btn-default editButton">Edit '.$storeName.' </button></td>';
 			echo '</tr>';
 		}
 		echo '</table>';

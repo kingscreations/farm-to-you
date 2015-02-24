@@ -88,13 +88,6 @@ $(document).ready(
 						$("#outputArea").css("display", "block");
 						// write the server's reply to the output area
 						$("#outputArea").html(ajaxOutput);
-
-
-						// reset the form if it was successful
-						// this makes it easier to reuse the form again
-						if($(".alert-success").length >= 1) {
-							$(form)[0].reset();
-						}
 					}
 				});
 			}

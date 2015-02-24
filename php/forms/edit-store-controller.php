@@ -1,8 +1,8 @@
 <?php
 // dummy session
+session_start();
 $currentDir = dirname(__FILE__);
 require_once ("../../root-path.php");
-require_once("../../dummy-session-single.php");
 
 // credentials
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
@@ -24,8 +24,8 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-	// grab store with id 1
-	$store = Store::getStoreByStoreId($mysqli, 1);
+	// grab store with id from session
+	$store = Store::getStoreByStoreId($mysqli, $_SESSION['storeId']);
 
 	// create variables for store attributes
 	$storeName = $store->getStoreName();

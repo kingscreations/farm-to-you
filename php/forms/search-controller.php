@@ -40,7 +40,8 @@ $locations = Location::getLocationByNameOrAddress($mysqli, $searchq);
 
 // try to echo a table per each table searched by
 if($stores != null || $locations != null || $products != null) {
-	echo '<table id="searchResults" class="table table-responsive">';
+	echo '<div class="table-responsive">';
+	echo '<table id="searchResults" class="table table-condensed table-striped table-bordered table-hover no-margin">';
 }
 
 
@@ -61,6 +62,7 @@ if($stores != null || $locations != null || $products != null) {
 			echo '</tr>';
 		}
 	}
+
 if($stores !== null) {
 		echo '<tr>';
 		echo '<th>Store</th>';
@@ -95,8 +97,9 @@ if($stores !== null) {
 			echo '</tr>';
 		}
 	}
-	if($stores != null || $locations != null) {
+	if($stores != null || $locations != null || $products != null) {
 		echo '</table>';
+		echo '</div>';
 	}
 
 

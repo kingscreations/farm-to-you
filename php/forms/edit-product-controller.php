@@ -25,7 +25,7 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-$productId = 1;
+$productId = 134;
 $storeId = 1;
 
 //	if(@isset($_POST["editProductImage"])) {

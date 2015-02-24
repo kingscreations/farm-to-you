@@ -25,16 +25,16 @@ try {
 		$configArray["database"]);
 
 	// TODO: use that later to manage the locations with a select list AND then a possibility to add any location
-	$location = new Location(null, "Grower's Market", 'US', 'NM', 'Albuquerque', 87102, 'Robinson Park');
+	$location = new Location(null, "Grower's Market", 'US', 'NM', 'Albuquerque', '87108', 'Robinson Park');
 	$location->insert($mysqli);
 
-	$_SESSION['locations'] = array(
-		array(
-			'id' => $location->getLocationId()
-		)
-	);
-
 	$mysqli->close();
+
+	// store the location for the next step
+	$_SESSION['order-location'] = $location->getLocationId();
+
+	// redirect the client to the checkout page
+	header("Location: ../../checkout/");
 
 	echo "<p class=\"alert alert-success\">Location (id = " . $location->getLocationId() . ") used successfully!</p>";
 

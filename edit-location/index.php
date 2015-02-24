@@ -22,7 +22,7 @@ try {
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 	// grab location with id 1
-	$location = Location::getLocationByLocationId($mysqli, 1);
+	$location = Location::getLocationByLocationId($mysqli, 134);
 
 	// create variables for attribute values
 	$locationName = $location->getLocationName();

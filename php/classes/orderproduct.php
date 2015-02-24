@@ -17,6 +17,11 @@ class OrderProduct {
 	private $productId;
 
 	/**
+	 * @var int $locationId the id of the location of the order. Foreign Key to the location entity
+	 */
+	private $locationId;
+
+	/**
 	 * @var int $productQuantity how many products for this order
 	 */
 	private $productQuantity;
@@ -31,15 +36,17 @@ class OrderProduct {
 	 *
 	 * @param int $newOrderId
 	 * @param int $newProductId
+	 * @param int $newLocationId
 	 * @param string $newProductQuantity
 	 *
 	 * @throws InvalidArgumentException if data types are not valid
 	 * @throws RangeException if data values are out of bounds
 	 */
-	public function __construct($newOrderId, $newProductId, $newProductQuantity) {
+	public function __construct($newOrderId, $newProductId, $newLocationId, $newProductQuantity) {
 		try {
 			$this->setOrderId($newOrderId);
 			$this->setProductId($newProductId);
+			$this->setLocationId($newLocationId);
 			$this->setProductQuantity($newProductQuantity);
 		} catch(InvalidArgumentException $invalidArgument) {
 			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
@@ -107,6 +114,40 @@ class OrderProduct {
 	}
 
 	/**
+	 * accessor for the location id
+	 *
+	 * @return int value for the location id
+	 */
+	public function getLocationId() {
+		return $this->locationId;
+	}
+
+	/**
+	 * mutator for the location id
+	 *
+	 * @param int $newLocationId for the location id
+	 * @throws InvalidArgumentException if data types are not valid
+	 * @throws RangeException if $newLocationId is less than 0
+	 */
+	public function setLocationId($newLocationId) {
+		if($newLocationId === null) {
+			$this->locationId = null;
+			return;
+		}
+
+		$newLocationId = filter_var($newLocationId, FILTER_VALIDATE_INT);
+		if($newLocationId === false) {
+			throw(new InvalidArgumentException("location id is not a valid integer"));
+		}
+
+		if($newLocationId <= 0) {
+			throw(new RangeException("location id must be positive"));
+		}
+
+		$this->locationId = intval($newLocationId);
+	}
+
+	/**
 	 * accessor for the product quantity
 	 *
 	 * @return int $productQuantity for the product quantity
@@ -146,13 +187,13 @@ class OrderProduct {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}
 
-		$query	 = "INSERT INTO orderProduct(orderId, productId, productQuantity) VALUES(?, ?, ?)";
+		$query	 = "INSERT INTO orderProduct(orderId, productId, locationId, productQuantity) VALUES(?, ?, ?, ?)";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-		$wasClean	  = $statement->bind_param("iii", $this->orderId, $this->productId, $this->productQuantity);
+		$wasClean	  = $statement->bind_param("iiii", $this->orderId, $this->productId, $this->locationId, $this->productQuantity);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}
@@ -235,7 +276,7 @@ class OrderProduct {
 			throw(new mysqli_sql_exception("product id is not positive"));
 		}
 
-		$query	 = "SELECT orderId, productId, productQuantity FROM orderProduct WHERE orderId = ? AND productId = ?";
+		$query	 = "SELECT orderId, productId, locationId, productQuantity FROM orderProduct WHERE orderId = ? AND productId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -261,7 +302,65 @@ class OrderProduct {
 			$orderProduct = null;
 			$row   = $result->fetch_assoc();
 			if($row !== null) {
-				$orderProduct	= new OrderProduct($row["orderId"], $row["productId"], $row["productQuantity"]);
+				$orderProduct	= new OrderProduct($row["orderId"], $row["productId"], $row['locationId'], $row["productQuantity"]);
+			}
+		} catch(Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+		}
+
+		// free up memory and return the result
+		$result->free();
+		$statement->close();
+		return($orderProduct);
+	}
+
+	/**
+	 * get the order product by the location id
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 */
+	public function getOrderProductByLocationId(&$mysqli, $locationId) {
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+
+		$locationId = filter_var($locationId, FILTER_VALIDATE_INT);
+		if($locationId === false) {
+			throw(new mysqli_sql_exception("location id is not an integer"));
+		}
+		if($locationId <= 0) {
+			throw(new mysqli_sql_exception("location id is not positive"));
+		}
+
+		$query	 = "SELECT orderId, productId, locationId, productQuantity FROM orderProduct WHERE locationId = ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		$wasClean = $statement->bind_param("i", $locationId);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+
+		// grab the order product from mySQL
+		try {
+			$orderProduct = null;
+			$row   = $result->fetch_assoc();
+			if($row !== null) {
+				$orderProduct	= new OrderProduct($row["orderId"], $row["productId"], $row['locationId'], $row["productQuantity"]);
 			}
 		} catch(Exception $exception) {
 			// if the row couldn't be converted, rethrow it
@@ -288,7 +387,7 @@ class OrderProduct {
 		}
 
 		// create query template
-		$query	 = "SELECT orderId, productId, productQuantity FROM orderProduct";
+		$query	 = "SELECT orderId, productId, locationId, productQuantity FROM orderProduct";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
@@ -309,7 +408,7 @@ class OrderProduct {
 		$orderProducts = array();
 		while(($row = $result->fetch_assoc()) !== null) {
 			try {
-				$orderProduct	= new OrderProduct($row["orderId"], $row["productId"], $row["productQuantity"]);
+				$orderProduct	= new OrderProduct($row["orderId"], $row["productId"], $row['locationId'], $row["productQuantity"]);
 				$orderProducts[] = $orderProduct;
 			}
 			catch(Exception $exception) {

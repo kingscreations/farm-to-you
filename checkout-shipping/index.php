@@ -17,7 +17,7 @@ require_once '../php/lib/header.php';
 
 <div class="row-fluid">
 	<div class="col-sm-12">
-		<form id="checkoutShippingController" action="../php/forms/checkout-shipping-controller.php" method="post" onsubmit="event.preventDefault()" novalidate>
+		<form id="checkoutShippingController" action="../php/forms/checkout-shipping-controller.php" method="post" novalidate>
 			<h2>You don't have any choice for the pickup location even if you are supposed to</h2>
 			<p>The chosen location you "have chosen" is:</p>
 			<ul>

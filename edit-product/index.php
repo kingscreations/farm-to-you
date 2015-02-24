@@ -12,8 +12,7 @@ try {
 	mysqli_report(MYSQLI_REPORT_STRICT);
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
-
-	$product = Product::getProductByProductId($mysqli, 82);
+	$product = Product::getProductByProductId($mysqli, 134);
 
 	$productId = $product->getProductId();
 	$productName = $product->getProductName();

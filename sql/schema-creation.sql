@@ -105,10 +105,13 @@ CREATE TABLE orderProduct (
 	productQuantity INT UNSIGNED NOT NULL,
 	orderId INT UNSIGNED NOT NULL,
 	productId INT UNSIGNED NOT NULL,
+	locationId INT UNSIGNED NOT NULL,
 	INDEX(orderId),
 	INDEX(productId),
+	INDEX(locationId),
 	FOREIGN KEY(orderId) REFERENCES `order`(orderId),
 	FOREIGN KEY(productId) REFERENCES product(productId),
+	FOREIGN KEY(locationId) REFERENCES location(locationId),
 	PRIMARY KEY(orderId, productId)
 );
 

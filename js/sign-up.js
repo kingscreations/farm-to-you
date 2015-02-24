@@ -16,6 +16,7 @@ $(document).ready(
 			rules: {
 // each rule starts with the inputs name (NOT id)
 				inputEmail: {
+					minlength: 6,
 					maxlength: 140,
 					required: true,
 					email: true
@@ -33,7 +34,8 @@ $(document).ready(
 			// error messages to display to the end user
 			messages: {
 				inputEmail: {
-					min: "Email is too long",
+					minlength: "Email is too short",
+					maxlength: "Email is too long",
 					required: "Please enter an email address",
 					email: "Please enter a valid email address"
 				},

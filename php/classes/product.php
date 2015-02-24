@@ -730,7 +730,7 @@ class Product {
 		}
 
 		// bind the product description to the place holder in the template
-		$productDescription = "%$search%";
+		$search = "%$search%";
 		$wasClean = $statement->bind_param("ss", $search, $search);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));

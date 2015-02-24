@@ -45,12 +45,12 @@ if($stores != null || $locations != null || $products != null) {
 
 
 	if($products !== null) {
-		foreach($products as $product) {
 			echo '<tr>';
 			echo '<th>Product</th>';
 			echo '<th>Description</th>';
 			echo '<th>Price</th>';
 			echo '</tr>';
+		foreach($products as $product) {
 			$productName = $product->getProductName();
 			$productDescription = $product->getProductDescription();
 			$productPrice = $product->getProductPrice();
@@ -61,13 +61,13 @@ if($stores != null || $locations != null || $products != null) {
 			echo '</tr>';
 		}
 	}
-	if($stores !== null) {
+if($stores !== null) {
+		echo '<tr>';
+		echo '<th>Store</th>';
+		echo '<th>Image</th>';
+		echo '<th>Description</th>';
+		echo '</tr>';
 		foreach($stores as $store) {
-			echo '<tr>';
-			echo '<th>Store</th>';
-			echo '<th>Image</th>';
-			echo '<th>Description</th>';
-			echo '</tr>';
 			$storeName = $store->getStoreName();
 			$storeImage = $store->getImagePath();
 			$storeDescription = $store->getStoreDescription();
@@ -79,12 +79,12 @@ if($stores != null || $locations != null || $products != null) {
 	}
 
 	if($locations !== null) {
-		foreach($locations as $location) {
 			echo '<tr>';
 			echo '<th>Location</th>';
 			echo '<th>Address</th>';
 			echo '<th>City</th>';
 			echo '</tr>';
+		foreach($locations as $location) {
 			$locationName = $location->getLocationName();
 			$locationAddress1 = $location->getAddress1();
 			$locationCity = $location->getCity();

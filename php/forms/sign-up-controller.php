@@ -78,7 +78,7 @@ try {
 EOF;
 
 	// send the email
-	error_reporting(E_ALL & ~E_STRICT);
+	error_reporting(E_ALL & ~(E_STRICT | E_NOTICE | E_DEPRECATED));
 	$mailer =& Mail::factory("sendmail");
 	$status = $mailer->send($to, $headers, $message);
 	if(PEAR::isError($status) === true)

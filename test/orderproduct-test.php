@@ -9,6 +9,7 @@ require_once("../php/classes/store.php");
 require_once("../php/classes/product.php");
 require_once("../php/classes/order.php");
 require_once("../php/classes/orderproduct.php");
+require_once("../php/classes/location.php");
 
 // require the encrypted configuration functions
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
@@ -43,6 +44,9 @@ class OrderProductTest extends UnitTestCase {
 	 **/
 	private $profile = null;
 
+	/**
+	 * instance of the first profile (order foreign key)
+	 **/
 	private $store = null;
 
 	/**
@@ -54,6 +58,11 @@ class OrderProductTest extends UnitTestCase {
 	 * instance of the object we are testing with
 	 */
 	private $order = null;
+
+	/**
+	 * instance of the object we are testing with
+	 */
+	private $location = null;
 
 	/**
 	 * @var int $productQuantity how many products for this order
@@ -95,6 +104,34 @@ class OrderProductTest extends UnitTestCase {
 	 */
 	private $orderDate = null;
 
+
+	// this section contains member variables with constants needed for creating a new location
+	private $locationName = "Home";
+	/**
+	 * country of location
+	 **/
+	private $country = "US";
+	/**
+	 * state of location
+	 **/
+	private $state = "NM";
+	/**
+	 * city of location
+	 **/
+	private $city = "Corrales";
+	/**
+	 * zip code of location
+	 **/
+	private $zipCode = "87048";
+	/**
+	 * address line 1 of location
+	 **/
+	private $address1 = "1228 W La Entrada";
+	/**
+	 * address line 2 of location
+	 **/
+	private $address2 = null;
+
 	/**
 	 * sets up the mySQL connection for this test
 	 **/
@@ -127,9 +164,12 @@ class OrderProductTest extends UnitTestCase {
 		$this->order = new Order(null, $this->profile->getProfileId(), $this->orderDate);
 		$this->order->insert($this->mysqli);
 
+		$this->location = new Location(null, $this->locationName, $this->country, $this->state, $this->city, $this->zipCode, $this->address1, $this->address2);
+		$this->location->insert($this->mysqli);
+
 		// instance of orderProduct
 		$this->orderProductDate = new DateTime();
-		$this->orderProduct = new OrderProduct($this->order->getOrderId(), $this->product->getProductId(), $this->productQuantity);
+		$this->orderProduct = new OrderProduct($this->order->getOrderId(), $this->product->getProductId(), $this->location->getLocationId(), $this->productQuantity);
 	}
 
 	/**
@@ -140,6 +180,11 @@ class OrderProductTest extends UnitTestCase {
 			$this->orderProduct->delete($this->mysqli);
 		}
 		$this->orderProduct = null;
+
+		if($this->location !== null) {
+			$this->location->delete($this->mysqli);
+			$this->location = null;
+		}
 
 		if($this->order !== null) {
 			$this->order->delete($this->mysqli);

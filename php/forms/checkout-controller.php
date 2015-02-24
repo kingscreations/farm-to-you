@@ -17,6 +17,7 @@ require_once("../classes/product.php");
 require_once("../classes/order.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
+require_once("../classes/location.php");
 
 // connection configuration
 mysqli_report(MYSQLI_REPORT_STRICT);
@@ -24,7 +25,9 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 // get the credentials information from the server
 $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
-
+$_SESSION['location'] = array(
+	id, id2, id3
+);
 
 try {
 	// connection

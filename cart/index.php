@@ -18,6 +18,8 @@ require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 require_once("../php/classes/product.php");
 require_once("../php/classes/user.php");
 require_once("../php/classes/profile.php");
+require_once("../php/classes/store.php");
+require_once("../php/classes/location.php");
 
 /////////////////////////////////////////////////////////////////////////
 // TODO delete this as soon as possible -> for test purpose
@@ -35,11 +37,16 @@ try {
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
-	$product1 = new Product(null, $_SESSION['profile']['id'], '../images/veggies/tomato.jpg', 'tomato', 4.0, 'organic red grape tomato', 'w', 0.3);
-	$product1->insert($mysqli);
+	$store = new Store(null, $_SESSION['profile']['id'], 'Frank\'s Veggies', 'fakePath', new DateTime(), 'The best veggies of Albuquerque');
+	$store->insert($mysqli);
 
-	$product2 = new Product(null, $_SESSION['profile']['id'], '../images/fruits/banana.jpg', 'banana', 0.29, 'super tasty green banana', 'w', 0.24);
+	$product1 = new Product(null, $store->getStoreId(), '../images/veggies/tomato.jpg', 'tomato', 4.0, 'organic red grape tomato', 'w', 0.3);
+	$product1->insert($mysqli);
+	$product2 = new Product(null, $store->getStoreId(), '../images/fruits/banana.jpg', 'banana', 0.29, 'super tasty green banana', 'w', 0.24);
 	$product2->insert($mysqli);
+
+	$location = new Location(null, "Home", "US", "NM", "Corrales", "87048", "1228 W La Entrada");
+	$location->insert($mysqli);
 
 	$mysqli->close();
 
@@ -49,10 +56,22 @@ try {
 }
 
 $_SESSION['products'] = array(
-		$product1->getProductId() => 7,
-		$product2->getProductId() => 5
-	);
+	$product1->getProductId() => array(
+		'quantity' => 7,
+		'locations' => array(
+			$location->getLocationId()
+		)
+	),
+	$product2->getProductId() => array(
+		'quantity' => 5,
+		'locations' => array(
+			$location->getLocationId()
+		)
+	)
+);
 /////////////////////////////////////////////////////////////////////////
+
+// TODO add a delete button for each product
 
 ?>
 
@@ -84,7 +103,7 @@ $_SESSION['products'] = array(
 
 							$maxQuantity = 15;
 							$counter = 1;
-							foreach($_SESSION['products'] as $sessionProductId => $sessionProductQuantity) {
+							foreach($_SESSION['products'] as $sessionProductId => $sessionProduct) {
 
 								// get the product from the database
 								$product = Product::getProductByProductId($mysqli, $sessionProductId);
@@ -119,7 +138,7 @@ $_SESSION['products'] = array(
 
 								// creating $quantityLimit # of options
 								for($i = 0; $i < $quantityLimit; $i++) {
-									if(($i + 1) === $sessionProductQuantity) {
+									if(($i + 1) === $sessionProduct['quantity']) {
 										echo '<option selected="selected">' . ($i + 1) . '</option>';
 									} else {
 										echo '<option>' . ($i + 1) . '</option>';

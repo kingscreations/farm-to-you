@@ -25,10 +25,6 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 // get the credentials information from the server
 $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
-$_SESSION['location'] = array(
-	id, id2, id3
-);
-
 try {
 	// connection
 	$configArray = readConfig($configFile);
@@ -48,11 +44,11 @@ try {
 
 	$count = 1;
 	$totalPrice = 0.0;
-	foreach($_SESSION['products'] as $sessionProductId => $sessionProductQuantity) {
+	foreach($_SESSION['products'] as $sessionProductId => $sessionProduct) {
 		$product = Product::getProductByProductId($mysqli, $sessionProductId);
 
 		// create and insert a new order product
-		$orderProduct = new OrderProduct($order->getOrderId(), $product->getProductId(), $sessionProductQuantity);
+		$orderProduct = new OrderProduct($order->getOrderId(), $product->getProductId(), $_SESSION['order-location'], $sessionProduct['quantity']);
 		$orderProduct->insert($mysqli);
 
 		// calculate the final price (per product) and the total order price
@@ -63,9 +59,9 @@ try {
 		// TODO round the price to two digits
 		$finalPrice = 0.0;
 		if($productPriceType === 'w') {
-			$finalPrice = $productPrice * $sessionProductQuantity * $productWeight;
+			$finalPrice = $productPrice * $sessionProduct['quantity'] * $productWeight;
 		} else if($productPriceType === 'u') {
-			$finalPrice = $productPrice * $sessionProductQuantity;
+			$finalPrice = $productPrice * $sessionProduct['quantity'];
 		} else {
 			throw(new RangeException($productPriceType .
 				' is not a valid product price type. The value should be either w or u.'));

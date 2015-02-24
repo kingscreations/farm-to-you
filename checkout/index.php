@@ -4,8 +4,6 @@
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
 
-//session_start();
-//var_dump($_SESSION);
 $currentDir = dirname(__FILE__);
 
 // header
@@ -28,15 +26,6 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
 <div class="row-fluid" xmlns="http://www.w3.org/1999/html">
 	<div class="col-sm-4 col-sm-offset-4">
-<!--		<div class="basic-information">-->
-<!--			<p>The chosen location you "have chosen" is:</p>-->
-<!--			<ul>-->
-<!--				<li>Grower's Market</li>-->
-<!--				<li>Robinson Park</li>-->
-<!--				<li>87102, Albuquerque NM</li>-->
-<!--			</ul>-->
-<!--		</div>-->
-<!--		<br/>-->
 
 		<form id="payment-form" action="../php/forms/checkout-controller.php" method="post" onsubmit="event.preventDefault()" novalidate>
 			<h2>Secure payment via stripe</h2>
@@ -55,8 +44,7 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 			}
 
 			// get the active profile
-//			$profile = Profile::getProfileByProfileId($mysqli, $_SESSION['profile']['id']);
-			$profile = Profile::getProfileByProfileId($mysqli, 1);
+			$profile = Profile::getProfileByProfileId($mysqli, $_SESSION['profile']['id']);
 
 			if($profile === null) {
 				throw new Exception('Problem with the SESSION: profile is null');

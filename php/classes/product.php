@@ -256,7 +256,6 @@ class Product {
 		if(in_array($newProductPriceType, $allowedLetters) === false) {
 			throw(new RangeException("product price type must be w or u"));
 		}
-//		var_dump($newProductPriceType);
 		$this->productPriceType = $newProductPriceType;
 	}
 
@@ -443,14 +442,14 @@ class Product {
 		}
 
 		$query	 = "UPDATE product SET storeId = ?, imagePath = ?, productName = ?, productPrice = ?, productDescription = ?,
-			productWeight = ?, stockLimit = ? WHERE productId = ?";
+			productWeight = ?, stockLimit = ?,  productPriceType = ? WHERE productId = ?";
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
-		$wasClean	  = $statement->bind_param("issdsdii", $this->storeId, $this->imagePath, $this->productName, $this->productPrice,
-			$this->productDescription, $this->productWeight, $this->stockLimit, $this->productId);
+		$wasClean	  = $statement->bind_param("issdsdisi", $this->storeId, $this->imagePath, $this->productName, $this->productPrice,
+			$this->productDescription, $this->productWeight, $this->stockLimit, $this->productPriceType, $this->productId);
 		if($wasClean === false) {
 			throw(new mysqli_sql_exception("unable to bind parameters"));
 		}

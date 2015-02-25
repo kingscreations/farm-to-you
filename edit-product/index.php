@@ -66,11 +66,13 @@ try {
 
 		<div class="form-group">
 			<label for="editProductPriceType">Product Price Type:</label>
+<!--			<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w" checked>By Weight-->
+<!--			<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u">Per Unit-->
 			<?php
 				if ($productPriceType === "w") {
 					echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w" checked>By Weight';
 					echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u">Per Unit';
-				}else{
+				}elseif ($productPriceType === "u"){
 					echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w">By Weight';
 					echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u" checked>Per Unit';
 				}

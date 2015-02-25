@@ -37,6 +37,8 @@ try {
 	$productPriceType = $product->getProductPriceType();
 	$storeId = $product->getStoreId();
 
+
+
 	// if user makes edits, update in product
 	if($_POST['editProductName'] !== '') {
 		$productName = $_POST['editProductName'];

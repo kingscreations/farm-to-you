@@ -12,6 +12,7 @@ require_once("../php/lib/header.php");
 // classes
 require_once("../php/classes/store.php");
 require_once("../php/classes/location.php");
+require_once("../php/classes/product.php");
 require_once("../php/classes/storelocation.php");
 
 // credentials
@@ -87,6 +88,62 @@ try {
 			<p id="outputArea"></p>
 		</form>
 
+
+		<br>
+		<div class="form-group">
+			<button id="<?php echo $_SESSION['storeId'];?>" class="btn btn-default addProductButton">Add Product</button>
+		</div>
+
+		<?php
+
+
+		// dummy session
+		$currentDir = dirname(__FILE__);
+		require_once ("../root-path.php");
+
+		// credentials
+		require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+
+		try {
+			// get the credentials information from the server and connect to the database
+			mysqli_report(MYSQLI_REPORT_STRICT);
+			$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
+			$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
+
+			// grab all storeLocations by store id in dummy session
+			$products = Product::getAllProductsByStoreId($mysqli, $_SESSION['storeId']);
+			// create table of existing storeLocations
+			if($products !== null) {
+
+				echo '<table class="table table-responsive">';
+				echo '<tr>';
+				echo '<th>Products</th>';
+				echo '<th></th>';
+				echo '</tr>';
+				foreach($products as $product) {
+					$productName = $product->getProductName();
+					$productId = $product->getProductId();
+					echo '<tr>';
+					echo '<td>'. $productName . '</td>';
+					echo '<td><button id="'.$productId.'" class="btn btn-default editProductButton">Edit</button></td>';
+					echo '<td><button id="'.$productId.'" class="btn btn-default deleteProductButton">Delete</button></td>';
+					echo '</tr>';
+				}
+				echo '</table>';
+			}
+
+		} catch(Exception $exception) {
+			echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
+		}
+
+		?>
+
+
+		<br>
+		<div class="form-group">
+			<button id="<?php echo $_SESSION['storeId'];?>" class="btn btn-default addButton">Add Pick-Up Location</button>
+		</div>
+
 		<?php
 
 
@@ -132,9 +189,6 @@ try {
 
 		?>
 
-		<div class="form-group">
-			<button id="<?php echo $_SESSION['storeId'];?>" class="btn btn-default addButton">Add Pick-Up Location</button>
-		</div>
 		<br>
 		<div class="form-group">
 			<button class="btn btn-default addButton" id="back">Back</button>

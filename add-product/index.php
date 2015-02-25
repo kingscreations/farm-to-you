@@ -2,8 +2,9 @@
 $currentDir = dirname(__FILE__);
 require_once ("../root-path.php");
 require_once("../php/lib/header.php");
-require_once("../dummy-session.php");
-require_once("../php/classes/product.php")
+require_once("../php/classes/product.php");
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+
 ?>
 
 
@@ -87,7 +88,7 @@ require_once("../php/classes/product.php")
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 	// grab all stores by profile id in dummy session
-	$products = Product::getAllProductsByStoreId($mysqli, 1);
+	$products = Product::getAllProductsByStoreId($mysqli, $_SESSION["storeId"]);
 
 	// create table of existing stores
 	if($products !== null) {
@@ -103,7 +104,8 @@ require_once("../php/classes/product.php")
 		echo '<tr>';
 			echo '<td>'. $productName . '</td>';
 
-			echo '<td><button id="'.$productId.'" class="btn btn-default editButton">Edit '.$productName.' </button></td>';
+			echo '<td><button id="'.$productId.'" class="btn btn-default editButton">Edit</button></td>';
+			echo '<td><button id="'.$productId.'" class="btn btn-default deleteProductButton">Delete</button></td>';
 			echo '</tr>';
 		}
 		echo '</table>';
@@ -114,6 +116,11 @@ require_once("../php/classes/product.php")
 	}
 
 	?>
+
+	<div class="form-group">
+		<button class="btn btn-default addButton" id="back">Back</button>
+	</div>
+
 </div>
 
 	<?php

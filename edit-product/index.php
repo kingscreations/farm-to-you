@@ -111,6 +111,9 @@ try {
 	<p id="outputArea" style=""></p>
 
 </div>
+<div class="form-group">
+	<button class="btn btn-default addButton" id="back">Back</button>
+</div>
 
 	<?php
 require_once("../php/lib/footer.php")

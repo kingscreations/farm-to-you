@@ -4,6 +4,13 @@ $(document).ready(
 	// inner function for the ready() event
 	function() {
 
+		//Back button
+
+		document.getElementById("back").onclick = function () {
+			location.href = "../edit-store/index.php";
+		};
+
+
 		// tell the validator to validate this form (by id)
 		$("#editProduct").validate({
 			// setup the formatting for the errors

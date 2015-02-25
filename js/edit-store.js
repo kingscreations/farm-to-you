@@ -18,6 +18,28 @@ $(document).ready(
 			});
 		});
 
+		$('.deleteProductButton').click(function() {
+			var productId = $(this).attr("id");
+			$.ajax({
+				type: "POST",
+				url: "../php/forms/delete-product-add-to-session.php",
+				data: {productId: productId}
+			}).done(function() {
+			location.href = "../edit-store/index.php";
+			});
+		});
+
+		$('.editProductButton').click(function() {
+			var productId = $(this).attr("id");
+			$.ajax({
+				type: "POST",
+				url: "../php/forms/edit-product-add-to-session.php",
+				data: {productId: productId}
+			}).done(function() {
+				location.href = "../edit-product/index.php";
+			});
+		});
+
 		$('.deleteButton').click(function() {
 			var locationId = $(this).attr("id");
 			$.ajax({
@@ -25,9 +47,10 @@ $(document).ready(
 				url: "../php/forms/delete-location-add-to-session.php",
 				data: {locationId: locationId}
 			}).done(function() {
-			location.href = "../edit-store/index.php";
+				location.href = "../edit-store/index.php";
 			});
 		});
+
 
 		//Back button
 
@@ -44,6 +67,17 @@ $(document).ready(
 				data: {storeId: storeId}
 			}).done(function() {
 				location.href = "../add-location/index.php";
+			});
+		});
+
+		$('.addProductButton').click(function() {
+			var storeId = $(this).attr("id");
+			$.ajax({
+				type: "POST",
+				url: "../php/forms/add-store-add-to-session.php",
+				data: {storeId: storeId}
+			}).done(function() {
+				location.href = "../add-product/index.php";
 			});
 		});
 

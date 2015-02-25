@@ -18,6 +18,24 @@ $(document).ready(
 			});
 		});
 
+		$('.deleteProductButton').click(function() {
+			var productId = $(this).attr("id");
+			$.ajax({
+				type: "POST",
+				url: "../php/forms/delete-product-add-to-session.php",
+				data: {productId: productId}
+			}).done(function() {
+				location.href = "../add-product/index.php";
+			});
+		});
+
+		//Back button
+
+		document.getElementById("back").onclick = function () {
+			location.href = "../edit-store/index.php";
+		};
+
+
 		// tell the validator to validate this form (by id)
 		$("#addProduct").validate({
 			// setup the formatting for the errors

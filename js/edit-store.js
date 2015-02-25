@@ -1,30 +1,22 @@
+/**
+ * @author Alonso Indacochea <alonso@hermesdevelopment.com>
+ */
+
 $(document).ready(
 // inner function for the ready() event
 
-
 	function() {
 
-
-		//function addStoreEdit(referrer) {
-		//	$.ajax({
-		//		ßtype: "POST",
-		//		url: "../store/index.php",
-		//		data: {storeList: referrer.id},
-		//		success: function(data) {
-		//			$("#statusBar").html(data);
-		//		}
-		//	});
-		//$(".store-edit").onclick(function() {
-		//
-		//
-		//	var storeEditObject = {
-		//		type: "post",
-		//		url: ""
-		//	}
-		//	$.ajax(storeEditObject).done(function(ajaxOutput) {
-		//
-		//	});
-		//})
+		$('.editButton').click(function() {
+			var locationId = $(this).attr("id");
+			$.ajax({
+				type: "POST",
+				url: "../php/forms/edit-location-add-to-session.php",
+				data: {locationId: locationId}
+			}).done(function() {
+				location.href = "../edit-location/index.php";
+			});
+		});
 
 
 		// tell the validator to validate this form (by id)

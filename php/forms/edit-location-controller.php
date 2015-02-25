@@ -1,8 +1,8 @@
 <?php
+session_start();
 // dummy session
 $currentDir = dirname(__FILE__);
 require_once ("../../root-path.php");
-require_once("../../dummy-session-single.php");
 
 // credentials
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
@@ -26,7 +26,7 @@ try {
 	}
 
 	// grab location with id 1
-	$location = Location::getLocationByLocationId($mysqli, 134);
+	$location = Location::getLocationByLocationId($mysqli, $_SESSION['locationId']);
 
 	// create variables for location attributes
 	$locationName = $location->getLocationName();

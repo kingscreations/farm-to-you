@@ -119,7 +119,8 @@ try {
 					$locationName = $location->getLocationName();
 					echo '<tr>';
 					echo '<td>'. $locationName . '</td>';
-					echo '<td><button id="'.$locationId.'" class="btn btn-default editButton">Edit '.$locationName.' </button></td>';
+					echo '<td><button id="'.$locationId.'" class="btn btn-default editButton">Edit</button></td>';
+					echo '<td><button id="'.$locationId.'" class="btn btn-default deleteButton">Delete</button></td>';
 					echo '</tr>';
 				}
 				echo '</table>';

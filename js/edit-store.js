@@ -18,6 +18,19 @@ $(document).ready(
 			});
 		});
 
+		$('.deleteButton').click(function() {
+			var locationId = $(this).attr("id");
+			$.ajax({
+				type: "POST",
+				url: "../php/forms/delete-location-add-to-session.php",
+				data: {locationId: locationId}
+			}).done(function() {
+			location.href = "../edit-store/index.php";
+			});
+		});
+
+		//Back button
+
 		document.getElementById("back").onclick = function () {
 			location.href = "../add-store/index.php";
 		};

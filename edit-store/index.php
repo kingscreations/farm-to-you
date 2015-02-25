@@ -29,7 +29,6 @@ try {
 	// create variables for attribute values
 	$storeName = $store->getStoreName();
 	$storeDescription = $store->getStoreDescription();
-
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
@@ -58,7 +57,9 @@ try {
 				<input type="file" class="form-control" name="editInputImage" id="editInputImage">
 			</div>
 			<br>
-			<br>
+			<div class="form-group">
+				<img src="https://bootcamp-coders.cnm.edu/farm-to-you/images/store/store-<?php echo $_SESSION['storeId'];?>.jpg">
+			</div>
 			<br>
 			<div class="form-group">
 				<input type="submit" class="form-control" id="editSubmit" name="editSubmit" value="Submit">
@@ -84,9 +85,9 @@ try {
 			$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 			$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-			// grab all stores by profile id in dummy session
+			// grab all storeLocations by store id in dummy session
 			$storeLocations = StoreLocation::getAllStoreLocationsByStoreId($mysqli, $_SESSION['storeId']);
-			// create table of existing stores
+			// create table of existing storeLocations
 			if($storeLocations !== null) {
 
 				echo '<table class="table table-responsive">';

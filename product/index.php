@@ -42,7 +42,9 @@ try {
 	$store    = Store::getStoreByStoreId($mysqli, 1);
 
 	// TODO link this page with the index page AND search page
-	$product  = Product::getProductByProductId($mysqli, 1);
+	$productId = $_GET['product'];
+
+	$product  = Product::getProductByProductId($mysqli, $productId);
 
 	// get all the products of the current product store
 	$storeProducts = Product::getAllProductsByStoreId($mysqli, $store->getStoreId());
@@ -84,12 +86,15 @@ try {
 		<?php
 		if($storeProducts !== null) {
 			foreach($storeProducts as $product) {
+				$thumbnailSrc            = 'product-'. $product->getProductId() .'.jpg';
+
 				echo '<li>';
 				echo $product->getProductName();
-				echo '<a href="" class="thumbnail">';
 
-				if(file_exists($basePath . $imageSrc)) {
-					echo '<img class="img-responsive" src="' . $baseUrl . $imageSrc . '">';
+				echo '<a href="https://bootcamp-coders.cnm.edu/~fgoussin/farm-to-you/product/index.php?product='. $product->getProductId() .'" class="thumbnail">';
+
+				if(file_exists($basePath . $thumbnailSrc)) {
+					echo '<img class="img-responsive" src="' . $baseUrl . $thumbnailSrc . '">';
 				} else {
 					echo '<img class="img-responsive" src="' . $imagePlaceholderSrc . '">';
 				}

@@ -45,9 +45,18 @@ try {
 	// generate hash from users password using mysqli salt
 	$hash = hash_pbkdf2("sha512", $_POST["password2"], $mysqlSalt, 2048, 128);
 
+	// create the url link to the homepage
+	$currentPathExploded = explode("/", $_SERVER["PHP_SELF"]);
+	if(empty($currentPathExploded)) {
+		throw new RangeException('Impossible to explode the path');
+	}	$url = "https://". $_SERVER["SERVER_NAME"] . '/' . $currentPathExploded[1] . '/' .
+		$currentPathExploded[2];
+
 	// compare hashes
 	if ($mysqlHash !== $hash) {
 		throw new Exception('password input does not match existing account');
+	} elseif($mysqlHash == $hash) {
+		header("Location: $url");
 	}
 	// catch any exceptions
 } catch(Exception $exception) {
@@ -57,3 +66,7 @@ try {
 $_SESSION['user'] = array(
 	'id' => $mysqlId->getUserId()
 );
+
+
+
+?>

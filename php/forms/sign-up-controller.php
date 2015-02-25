@@ -23,7 +23,7 @@ try {
 
 //generate salt, hash, and activation from input
 	$salt = bin2hex(openssl_random_pseudo_bytes(16));
-	$hash = hash_pbkdf2("sha512", "password1", $salt, 2048, 128);
+	$hash = hash_pbkdf2("sha512", $_POST["password1"], $salt, 2048, 128);
 	$activation = bin2hex(openssl_random_pseudo_bytes(8));
 
 	// verify the CSRF tokens
@@ -38,7 +38,6 @@ try {
 	// insert user into mysqli
 	$user = new User(null, $_POST["inputEmail"], $hash, $salt, $activation);
 	$user->insert($mysqli);
-
 	//populate session with activation variable
 	$_SESSION['activation'] = $activation;
 

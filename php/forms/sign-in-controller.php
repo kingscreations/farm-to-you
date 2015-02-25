@@ -18,7 +18,6 @@ try {
 	if(!@isset($_POST["email"]) || !@isset($_POST["password2"])) {
 		throw new Exception('invalid input post');
 	}
-
 	// verify the CSRF tokens
 //	if(verifyCsrf($_POST["csrfName"], $_POST["csrfToken"]) === false) {
 //		throw(new RuntimeException("CSRF tokens incorrect or missing. Make sure cookies are enabled."));
@@ -33,30 +32,22 @@ try {
 	echo "Exception: " . $exception->getMessage() . "<br/>";
 	echo $exception->getFile() . ":". $exception->getLine();
 }
-	// filter _POST variables
+	// filter _POSTed email variable
 	$email = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
-	$password2 = filter_var($_POST['password2'], FILTER_SANITIZE_STRING);
-	$password2 = trim($password2);
 
-	// get the users email from mysqli
+	// search for the login email from mysqli
 	$mysqlId = User::getUserByEmail($mysqli, $email);
+
 	//get the mysqli hash and salt
 	$mysqlSalt = $mysqlId->getSalt();
 	$mysqlHash = $mysqlId->getHash();
-	var_dump($mysqlId);
-	var_dump($mysqlSalt);
-	var_dump($mysqlHash);
-
-
 
 	// generate hash from users password using mysqli salt
-	$hash = hash_pbkdf2("sha512", "password2", $mysqlSalt, 2048, 128);
-	var_dump($hash);
-	var_dump($mysqlHash);
-	var_dump($mysqlSalt);
+	$hash = hash_pbkdf2("sha512", $_POST["password2"], $mysqlSalt, 2048, 128);
+
 	// compare hashes
 	if ($mysqlHash !== $hash) {
-		throw new Exception('email input does not match existing account');
+		throw new Exception('password input does not match existing account');
 	}
 	// catch any exceptions
 } catch(Exception $exception) {

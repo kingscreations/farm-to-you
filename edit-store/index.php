@@ -62,8 +62,10 @@ try {
 			</div>
 			<br>
 			<div class="form-group">
-				<input type="submit" class="form-control" id="editSubmit" name="editSubmit" value="Submit">
+					<input type="submit" class="form-control" id="editSubmit" name="editSubmit" value="Submit">
 			</div>
+			<br>
+			<br>
 			<br>
 			<br>
 			<p id="outputArea"></p>
@@ -104,10 +106,6 @@ try {
 					echo '<td><button id="'.$locationId.'" class="btn btn-default editButton">Edit '.$locationName.' </button></td>';
 					echo '</tr>';
 				}
-				echo '<tr>';
-				echo '<tr>';
-				echo '<td><button id="'.$_SESSION['storeId'].'" class="btn btn-default addButton">Add Pick-Up Location</button></td>';
-				echo '<th></th>';
 				echo '</table>';
 			}
 
@@ -117,7 +115,13 @@ try {
 
 		?>
 
+		<div class="form-group">
+			<button id="<?php echo $_SESSION['storeId'];?>" class="btn btn-default addButton">Add Pick-Up Location</button>
+		</div>
 		<br>
+		<div class="form-group">
+			<button class="btn btn-default addButton" id="back">Back</button>
+		</div>
 	</div>
 </div>
 

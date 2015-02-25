@@ -87,6 +87,11 @@ try {
 				<p id="outputArea"></p>
 			</form>
 			<br>
+
+			<div class="form-group">
+				<button class="btn btn-default addButton" id="back">Back</button>
+			</div>
+
 		</div>
 	</div>
 

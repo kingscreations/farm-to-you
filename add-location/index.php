@@ -61,6 +61,9 @@ require_once("../php/classes/location.php");
 			<p id="outputArea"></p>
 			<br>
 		</form>
+		<div class="form-group">
+			<button class="btn btn-default addButton" id="back">Back</button>
+		</div>
 	</div>
 </div>
 

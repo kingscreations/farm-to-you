@@ -18,6 +18,11 @@ $(document).ready(
 			});
 		});
 
+		document.getElementById("back").onclick = function () {
+			location.href = "../add-store/index.php";
+		};
+
+
 		$('.addButton').click(function() {
 			var storeId = $(this).attr("id");
 			$.ajax({

@@ -6,6 +6,10 @@ $(document).ready(
 
 	function() {
 
+		document.getElementById("back").onclick = function () {
+			location.href = "../edit-store/index.php";
+		};
+
 		// form validation
 		$("#editLocationController").validate({
 			// setup the formatting for the errors

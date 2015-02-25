@@ -8,7 +8,11 @@ $(document).ready(
 // inner function for the ready() event
 function() {
 
-		// tell the validator to validate this form (by id)
+	document.getElementById("back").onclick = function () {
+		location.href = "../edit-store/index.php";
+	};
+
+	// tell the validator to validate this form (by id)
 		$("#locationController").validate({
 			// setup the formatting for the errors
 			errorClass: "label-danger",

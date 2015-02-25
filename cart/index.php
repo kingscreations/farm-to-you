@@ -20,11 +20,7 @@ require_once("../php/classes/user.php");
 require_once("../php/classes/profile.php");
 require_once("../php/classes/store.php");
 require_once("../php/classes/location.php");
-require_once("../php/classes/storelocation.php")
-
-/////////////////////////////////////////////////////////////////////////
-// TODO delete this as soon as possible -> for test purpose
-require_once '../dummy-session-single.php';
+require_once("../php/classes/storelocation.php");
 
 // path for the config file
 $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
@@ -38,20 +34,14 @@ try {
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
-	$store = Store::getStoreByStoreId($mysqli, 1);
+	$user     = User::getUserByUserId($mysqli, 1);
+	$profile  = Profile::getProfileByProfileId($mysqli, 1);
+	$store    = Store::getStoreByStoreId($mysqli, 1);
 
 	$product1 = Product::getProductByProductId($mysqli, 1);
 	$product1 = Product::getProductByProductId($mysqli, 2);
 
-	$storeLocations = StoreLocation::getAllStoreLocationsByStoreId($mysqli, 1);
-
-	$locations = [];
-
-	if($storeLocations !== null) {
-		foreach($storeLocations as $storeLocation) {
-
-		}
-	}
+	$location = Location::getLocationByLocationId($mysqli, 1);
 
 	$mysqli->close();
 

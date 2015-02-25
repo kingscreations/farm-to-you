@@ -1,7 +1,22 @@
+/**
+ * @author Jay Renteria <jay@jayrenteria.com>
+ */
+
 // document ready event
 $(document).ready(
 	// inner function for the ready() event
 	function() {
+
+		$('.editButton').click(function() {
+			var productId = $(this).attr("id");
+			$.ajax({
+				type: "POST",
+				url: "../php/forms/edit-product-add-to-session.php",
+				data: {productId: productId}
+			}).done(function() {
+				location.href = "../edit-product/index.php";
+			});
+		});
 
 		// tell the validator to validate this form (by id)
 		$("#addProduct").validate({

@@ -1,5 +1,5 @@
 <?php
-//session_start();
+session_start();
 
 $currentDir = dirname(__FILE__);
 //require_once("../../dummy-session-single.php");
@@ -25,26 +25,67 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-$productId = 134;
-$storeId = 1;
+	$product = Product::getProductByProductId($mysqli, $_SESSION['productId']);
 
-//	if(@isset($_POST["editProductImage"])) {
-//		$product = new Product($productId, $storeId, $_POST["editProductImage"], $_POST["editProductName"], $_POST["editProductPrice"], $_POST["editProductDescription"], $_POST["editProductPriceType"], $_POST["editProductWeight"], $_POST["editStockLimit"]);
-//	} else {
-//		$product = new Product($productId, $storeId, null, $_POST["editProductName"], $_POST["editProductPrice"], $_POST["editProductDescription"], $_POST["editProductPriceType"], $_POST["editProductWeight"], $_POST["editStockLimit"]);
-//	}
+	$productId = $product->getProductId();
+	$productName = $product->getProductName();
+	$productPrice = $product->getProductPrice();
+	$productImagePath = $product->getImagePath();
+	$productDescription = $product->getProductDescription();
+	$productWeight = $product->getProductWeight();
+	$productStockLimit = $product->getStockLimit();
+	$productPriceType = $product->getProductPriceType();
+	$storeId = $product->getStoreId();
 
-	if(@isset($_FILES['editProductImage'])) {
+	// if user makes edits, update in product
+	if($_POST['editProductName'] !== '') {
+		$productName = $_POST['editProductName'];
+		$product->setProductName($productName);
+	}
+
+	// if user makes edits, update in product
+	if($_POST['editProductPrice'] !== '') {
+		$productPrice = $_POST['editProductPrice'];
+		$product->setProductPrice($productPrice);
+	}
+
+	if($_POST['editProductWeight'] !== '') {
+		$productWeight = $_POST['editProductWeight'];
+		$product->setProductWeight($productWeight);
+	}
+
+	if($_POST['editStockLimit'] !== '') {
+		$productStockLimit = $_POST['editStockLimit'];
+		$product->setStockLimit($productStockLimit);
+	}
+
+	if($_POST['editProductPriceType'] !== '') {
+		$productPriceType = $_POST['editProductPriceType'];
+		$product->setProductPriceType($productPriceType);
+	}
+
+	// if user makes edits, update in product
+	if ($_POST['editProductDescription'] !== ''){
+		$productDescription = $_POST['editProductDescription'];
+		$product->setProductDescription($productDescription);
+		// else, if user leaves field empty, delete description and update store
+	} else {
+		$storeDescription = '';
+		$store->setStoreDescription($storeDescription);
+	}
+
+	// if user makes edits, update in product and upload image
+	if(@isset($_FILES['editProductImage']) === true) {
 		$imageBasePath = '/var/www/html/farm-to-you/images/product/';
 		$imageExtension = checkInputImage($_FILES['editProductImage']);
 		$imageFileName = $imageBasePath . 'product-' . $productId . '.' . $imageExtension;
-		$product = new Product($productId, $storeId, $imageBasePath, $_POST["editProductName"], $_POST["editProductPrice"], $_POST["editProductDescription"], $_POST["editProductPriceType"], $_POST["editProductWeight"], $_POST["editStockLimit"]);
-		$product->update($mysqli);
+		$product->setImagePath($imageFileName);
 		move_uploaded_file($_FILES['editProductImage']['tmp_name'], $imageFileName);
-	} else {
-		$product = new Product($productId, $storeId, null, $_POST["editProductName"], $_POST["editProductPrice"], $_POST["editProductDescription"], $_POST["editProductPriceType"], $_POST["editProductWeight"], $_POST["editStockLimit"]);
-		$product->update($mysqli);
 	}
+
+	// update product in database
+		$product->update($mysqli);
+
 
 
 	echo "<p class=\"alert alert-success\">Product (id = " . $product->getProductId() . ") updated!</p>";

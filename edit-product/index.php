@@ -12,7 +12,9 @@ try {
 	mysqli_report(MYSQLI_REPORT_STRICT);
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
-	$product = Product::getProductByProductId($mysqli, 134);
+
+
+	$product = Product::getProductByProductId($mysqli, $_SESSION['productId']);
 
 	$productId = $product->getProductId();
 	$productName = $product->getProductName();
@@ -22,6 +24,7 @@ try {
 	$productWeight = $product->getProductWeight();
 	$productStockLimit = $product->getStockLimit();
 	$productPriceType = $product->getProductPriceType();
+
 
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
@@ -63,8 +66,15 @@ try {
 
 		<div class="form-group">
 			<label for="editProductPriceType">Product Price Type:</label>
-			<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w">By Weight
-			<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u">Per Unit
+			<?php
+				if ($productPriceType === "w") {
+					echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w" checked>By Weight';
+					echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u">Per Unit';
+				}else{
+					echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w">By Weight';
+					echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u" checked>Per Unit';
+				}
+			?>
 		</div>
 
 		<br>

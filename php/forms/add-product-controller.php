@@ -19,7 +19,7 @@ if(@isset($_POST["inputProductName"]) === false || @isset($_POST["inputProductPr
 	echo "<p class=\"alert alert-danger\">Form values not complete. Verify the form and try again.</p>";
 }
 
-$storeId = 145;
+$storeId = 1;
 
 try {
 	//insert into the database

@@ -91,7 +91,7 @@ try {
 
 				echo '<table class="table table-responsive">';
 				echo '<tr>';
-				echo '<th>Location</th>';
+				echo '<th>Pick-Up Locations</th>';
 				echo '<th></th>';
 				echo '</tr>';
 				foreach($storeLocations as $storeLocation) {
@@ -100,10 +100,13 @@ try {
 					$locationName = $location->getLocationName();
 					echo '<tr>';
 					echo '<td>'. $locationName . '</td>';
-
 					echo '<td><button id="'.$locationId.'" class="btn btn-default editButton">Edit '.$locationName.' </button></td>';
 					echo '</tr>';
 				}
+				echo '<tr>';
+				echo '<tr>';
+				echo '<td><button id="'.$_SESSION['storeId'].'" class="btn btn-default addButton">Add Pick-Up Location</button></td>';
+				echo '<th></th>';
 				echo '</table>';
 			}
 

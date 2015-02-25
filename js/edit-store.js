@@ -18,6 +18,17 @@ $(document).ready(
 			});
 		});
 
+		$('.addButton').click(function() {
+			var storeId = $(this).attr("id");
+			$.ajax({
+				type: "POST",
+				url: "../php/forms/add-store-add-to-session.php",
+				data: {storeId: storeId}
+			}).done(function() {
+				location.href = "../add-location/index.php";
+			});
+		});
+
 
 		// tell the validator to validate this form (by id)
 		$("#editStoreController").validate({

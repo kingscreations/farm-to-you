@@ -6,6 +6,7 @@
 // header
 $currentDir = dirname(__FILE__);
 require_once("../root-path.php");
+require_once('../paths.php');
 require_once("../php/lib/header.php");
 
 // classes
@@ -58,7 +59,22 @@ try {
 			</div>
 			<br>
 			<div class="form-group">
-				<img src="https://bootcamp-coders.cnm.edu/farm-to-you/images/store/store-<?php echo $_SESSION['storeId'];?>.jpg">
+
+				<?php
+
+				$baseUrl             = CONTENT_ROOT_URL . 'images/store/';
+				$basePath            = CONTENT_ROOT_PATH . 'images/store/';
+				$imagePlaceholderSrc = 'placeholder.jpg';
+				$imageSrc            = 'store-'. $_SESSION['storeId'] .'.jpg';
+
+				// show a placeholder if the product is not associated with an image
+				if(file_exists($basePath . $imageSrc)) {
+					?>
+					<img src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $storeName; ?>"/>
+				<?php } else { ?>
+					<img src="<?php echo $baseUrl . $imagePlaceholderSrc; ?>" alt="<?php echo $storeName; ?>"/>
+				<?php } ?>
+
 			</div>
 			<br>
 			<div class="form-group">

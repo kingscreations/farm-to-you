@@ -123,7 +123,7 @@ try {
 				echo $stockLimit .' available';
 			}
 
-			echo '<br/>';
+			echo '<br/><br/>';
 
 			if($stockLimit === null) {
 				$stockLimit = 15;
@@ -134,22 +134,31 @@ try {
 			// get the # of options to create in the select box
 			$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
 
-			// select box
-			echo '<td><select class="product-quantity" id="product'. $counter .'-quantity" name="productQuantity[]">';
+			if($product->getProductPriceType() === 'u') {
 
-			// creating $quantityLimit # of options
-			for($i = 0; $i < $quantityLimit; $i++) {
-				if(($i + 1) === $sessionProduct['quantity']) {
-					echo '<option selected="selected">' . ($i + 1) . '</option>';
-				} else {
-					echo '<option>' . ($i + 1) . '</option>';
+				// select box
+				echo 'Select a quantity: <select class="product-quantity" name="productQuantity[]">';
+
+				// creating $quantityLimit # of options
+				for($i = 0; $i < $quantityLimit; $i++) {
+					if($i === 0) {
+						echo '<option selected="selected">' . ($i + 1) . '</option>';
+					} else {
+						echo '<option>' . ($i + 1) . '</option>';
+					}
 				}
+
+				echo '</select>';
+				// end select box
+			} else {
+
+				echo 'Select a weight:';
+				echo ' <input class="xs-input" type="text" name="productWeight" id=""/>';
+				echo 'lb';
 			}
 
-			echo '</select></td>';
-			// end select box
-
 			?>
+
 		</div>
 	</div>
 </div>

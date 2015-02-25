@@ -20,6 +20,7 @@ require_once("../php/classes/user.php");
 require_once("../php/classes/profile.php");
 require_once("../php/classes/store.php");
 require_once("../php/classes/location.php");
+require_once("../php/classes/storelocation.php")
 
 /////////////////////////////////////////////////////////////////////////
 // TODO delete this as soon as possible -> for test purpose
@@ -37,16 +38,20 @@ try {
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
-	$store = new Store(null, $_SESSION['profile']['id'], 'Frank\'s Veggies', 'fakePath', new DateTime(), 'The best veggies of Albuquerque');
-	$store->insert($mysqli);
+	$store = Store::getStoreByStoreId($mysqli, 1);
 
-	$product1 = new Product(null, $store->getStoreId(), '../images/veggies/tomato.jpg', 'tomato', 4.0, 'organic red grape tomato', 'w', 0.3);
-	$product1->insert($mysqli);
-	$product2 = new Product(null, $store->getStoreId(), '../images/fruits/banana.jpg', 'banana', 0.29, 'super tasty green banana', 'w', 0.24);
-	$product2->insert($mysqli);
+	$product1 = Product::getProductByProductId($mysqli, 1);
+	$product1 = Product::getProductByProductId($mysqli, 2);
 
-	$location = new Location(null, "Home", "US", "NM", "Corrales", "87048", "1228 W La Entrada");
-	$location->insert($mysqli);
+	$storeLocations = StoreLocation::getAllStoreLocationsByStoreId($mysqli, 1);
+
+	$locations = [];
+
+	if($storeLocations !== null) {
+		foreach($storeLocations as $storeLocation) {
+
+		}
+	}
 
 	$mysqli->close();
 

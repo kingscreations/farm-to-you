@@ -26,7 +26,7 @@ require_once("../php/lib/signing-in-header.php");
 			<input type="text" name="email" id="email" value="" size="45" />
 			<br><br>
 			<label>Enter your password:</label>
-			<input type="password" name="password" id="password" value="" size="38" />
+			<input type="password" name="password2" id="password2" value="" size="38" />
 			<br><br>
 			<input type="submit" value="Log In" id="submit">
 		</fieldset>

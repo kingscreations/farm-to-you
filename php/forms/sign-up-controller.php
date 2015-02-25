@@ -13,26 +13,24 @@ require_once("../lib/csrf.php");
 require_once("Mail.php");
 
 // CSRF requires sessions
-session_start();
+//session_start();
 
-//generate salt, hash, and activation
-$salt = bin2hex(openssl_random_pseudo_bytes(16));
-$hash = hash_pbkdf2("sha512", "password", $salt, 2048, 128);
-$activation = bin2hex(openssl_random_pseudo_bytes(8));
-
-
-
-
+// tell controller to retrieve form data
 try {
-	if(!@isset($_POST["inputEmail"]) || !@isset($_POST["password"])) {
+	if(!@isset($_POST["inputEmail"]) || !@isset($_POST["password1"])) {
 		throw new Exception('invalid input post');
 	}
+
+//generate salt, hash, and activation from input
+	$salt = bin2hex(openssl_random_pseudo_bytes(16));
+	$hash = hash_pbkdf2("sha512", "password1", $salt, 2048, 128);
+	$activation = bin2hex(openssl_random_pseudo_bytes(8));
 
 	// verify the CSRF tokens
 //	if(verifyCsrf($_POST["csrfName"], $_POST["csrfToken"]) === false) {
 //		throw(new RuntimeException("CSRF tokens incorrect or missing. Make sure cookies are enabled."));
 //	}
-	//
+	// connect to mysqli
 	mysqli_report(MYSQLI_REPORT_STRICT);
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
@@ -87,8 +85,8 @@ EOF;
 	}
 	else
 	{
-		echo "<div class=\"alert alert-success\" role=\"alert\"><strong>Sign up successful!</strong> Please check your Email to complete the signup process.</div>";
+		echo "<div class=\"alert alert-success\" role=\"alert\">Sign up successful! Please check your Email to complete the signup process.</div>";
 	}
 } catch(Exception $exception) {
-	echo "<p class=\"input not posted!\">Exception: " . $exception->getMessage() . "</p>";
+	echo "<p class=\"alert alert-danger\" role=\"alert\">Exception: " . $exception->getMessage() . "</p>";
 }

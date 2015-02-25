@@ -12,17 +12,17 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
  require_once("../lib/csrf.php");
 
 // CSRF requires sessions
-session_start();
+//session_start();
 
 try {
-	if(!@isset($_POST["email"]) || !@isset($_POST["password"])) {
+	if(!@isset($_POST["email"]) || !@isset($_POST["password2"])) {
 		throw new Exception('invalid input post');
 	}
 
 	// verify the CSRF tokens
-	if(verifyCsrf($_POST["csrfName"], $_POST["csrfToken"]) === false) {
-		throw(new RuntimeException("CSRF tokens incorrect or missing. Make sure cookies are enabled."));
-	}
+//	if(verifyCsrf($_POST["csrfName"], $_POST["csrfToken"]) === false) {
+//		throw(new RuntimeException("CSRF tokens incorrect or missing. Make sure cookies are enabled."));
+//	}
 // connect to database
 try {
 	mysqli_report(MYSQLI_REPORT_STRICT);
@@ -35,19 +35,25 @@ try {
 }
 	// filter _POST variables
 	$email = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
-	$password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
-
+	$password2 = filter_var($_POST['password2'], FILTER_SANITIZE_STRING);
+	$password2 = trim($password2);
 
 	// get the users email from mysqli
-	$mysqlEmail = User::getUserByEmail($mysqli, $email);
-
+	$mysqlId = User::getUserByEmail($mysqli, $email);
 	//get the mysqli hash and salt
-	$mysqlHash = User($mysqli, $hash);
-	$salt = User($mysqli, $salt);
+	$mysqlSalt = $mysqlId->getSalt();
+	$mysqlHash = $mysqlId->getHash();
+	var_dump($mysqlId);
+	var_dump($mysqlSalt);
+	var_dump($mysqlHash);
+
+
 
 	// generate hash from users password using mysqli salt
-	$hash = hash_pbkdf2("sha512", "password", $salt, 2048, 128);
-
+	$hash = hash_pbkdf2("sha512", "password2", $mysqlSalt, 2048, 128);
+	var_dump($hash);
+	var_dump($mysqlHash);
+	var_dump($mysqlSalt);
 	// compare hashes
 	if ($mysqlHash !== $hash) {
 		throw new Exception('email input does not match existing account');
@@ -58,5 +64,5 @@ try {
 }
 // create session id specific to this user
 $_SESSION['user'] = array(
-	'id' => $mysqlUser->getUserId()
+	'id' => $mysqlId->getUserId()
 );

@@ -13,7 +13,7 @@ var INVALID_EMAIL = "jason@jason.com";
 var INVALID_PASSWORD = "password";
 var INVALID_PASSWORD2 = "password";
 
-var VALID_EMAIL = "farmer@suspender.com";
+var VALID_EMAIL = "farmer@tractor.com";
 var VALID_PASSWORD = "password";
 var VALID_PASSWORD2 = "password";
 /**
@@ -32,10 +32,8 @@ function testValidFields() {
 	// here, we assert we got the success message from the AJAX call
 	F(".alert").visible(function() {
 		// create a expression that evaluates the successful text
-		var successRegex = "Sign up successful! Please check your Email to complete the signup process.";
 		ok(F(this).hasClass("alert-success"), "successful alert CSS");
-		ok(successRegex.test(F(this).html()), "successful message");
-
+		ok(F(this).html().indexOf("Sign up successful! Please check your Email to complete the signup process.") === 0, "successful message");
 	});
 }
 
@@ -51,12 +49,12 @@ function testInvalidFields() {
 
 
 	// click the button once field is filled in
-	F("#editSubmit").click();
+	F("#submit").click();
 
 	// assert we got the php error message from the AJAX call
 	F(".alert").visible(function() {
 		ok(F(this).hasClass("alert-danger"), "danger alert CSS");
-		ok(F(this).html().indexOf("Exception: unable to execute mySQL statement: Duplicate entry 'jason@jason.com' for key 'email'") === 0, "unsuccessful message");
+		ok(F(this).html().indexOf("Exception: unable to execute mySQL statement: Duplicate entry") === 0, "unsuccessful message");
 	});
 
 }

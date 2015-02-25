@@ -19,7 +19,7 @@ $(document).ready(
 					required: true,
 					email: true
 				},
-				password: {
+				password2: {
 					maxlength: 200,
 					required: true
 				}
@@ -31,7 +31,7 @@ $(document).ready(
 					required: "Please enter an email address",
 					email: "Please enter a valid email address"
 				},
-				password: {
+				password2: {
 					maxlength: "Password is too long.",
 					required: "please enter a password."
 				}

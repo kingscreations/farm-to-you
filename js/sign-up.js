@@ -17,16 +17,16 @@ $(document).ready(
 // each rule starts with the inputs name (NOT id)
 				inputEmail: {
 					minlength: 6,
-					maxlength: 140,
+					maxlength: 100,
 					required: true,
 					email: true
 				},
-				password: {
+				password1: {
 					maxlength: 200,
 					required: true
 				},
 				passwordCheck: {
-					equalTo: "#password",
+					equalTo: "#password1",
 					maxlength: 200,
 					required: true
 				}
@@ -39,7 +39,7 @@ $(document).ready(
 					required: "Please enter an email address",
 					email: "Please enter a valid email address"
 				},
-				password: {
+				password1: {
 					maxlength: "Password is too long.",
 					required: "please enter a password."
 				},

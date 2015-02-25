@@ -1,6 +1,6 @@
-/**
- * placeholder colors and others
- */
+/********************************************
+* basic html styling
+********************************************/
 footer,
 #main-menu {
 	background-color: darkgrey;
@@ -24,9 +24,6 @@ footer p {
 	margin-top: 30px;
 	text-align: center;
 }
-
-
-
 
 /**
  *	Sticky footer plugin: http://mystrd.at/modern-clean-css-sticky-footer/
@@ -98,7 +95,7 @@ td {
 	padding: 0 !important;
 }
 
-.row-fluid {
+.row {
 	width: 90%;
 	margin-left: auto;
 	margin-right: auto;
@@ -123,19 +120,26 @@ li[role=presentation].open a {
 }
 
 
-/**
- * order page
- */
-.tiny-thumbnail {
-	width: 50px;
-	height: 30px;
+/********************************************
+* thumbnails
+********************************************/
+.tiny-thumbnail,
+.thumbnail img{
+	width: 40px;
+	height: 40px;
 }
 
 @media screen and (min-width: 768px) {
-	.tiny-thumbnail {
-		width: 100px;
+	.tiny-thumbnail,
+	.thumbnail img {
+		width: 80px;
 		height: 60px;
 	}
+}
+
+.thumbnail-links li {
+	display: inline-block;
+	margin-left: 1em;
 }
 
 .product-quantity {
@@ -177,15 +181,15 @@ li[role=presentation].open a {
 	border-color: #e5e5e5 !important;
 }
 
-/*
- * head titles
- */
+/********************************************
+* Headings
+********************************************/
 h1, h2 {
 	padding: 10px 0;
 }
 
 h1 {
-	font-size: 1em;
+	font-size: 1.4em;
 }
 h2 {
 	font-size: 1.6em;
@@ -270,4 +274,19 @@ h2 {
  */
 .basic-information {
 	color: #aaa;
+}
+
+
+
+
+
+.currency-value {
+	font-size: 1.6em;
+	font-weight: bold;
+}
+
+#listing-page-cart {
+	border: 3px solid #add8e6;
+	border-radius: 3px;
+	padding: 1em;
 }

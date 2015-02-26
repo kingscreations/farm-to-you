@@ -2,7 +2,27 @@
 $currentDir = dirname(__FILE__);
 require_once ("../root-path.php");
 require_once("../php/lib/header.php");
-require_once("../dummy-session-single.php");
+require_once("../php/classes/profile.php");
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+
+//require_once("../dummy-session-single.php");
+
+var_dump($_SESSION["profileId"]);
+
+mysqli_report(MYSQLI_REPORT_STRICT);
+$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
+$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
+
+
+
+$profile = Profile::getProfileByProfileId($mysqli, $_SESSION["profileId"]);
+
+$profileFirstname = $profile->getFirstName();
+$profileLastname = $profile->getLastName();
+$profilePhone = $profile->getPhone();
+$profileImage = $profile->getImagePath();
+
+
 ?>
 
 
@@ -19,29 +39,21 @@ require_once("../dummy-session-single.php");
 
 		<div class="form-group">
 			<label for="inputFirstname">First Name:</label>
-			<input type="text" class="form-control" id="inputFirstname" name="inputFirstname" placeholder="Enter First Name">
+			<input type="text" class="form-control" id="inputFirstname" name="inputFirstname" placeholder="<?php echo $profileFirstname ?>" value="<?php echo $profileFirstname ?>">
 		</div>
 
 		<br>
 
 		<div class="form-group">
 			<label for="inputLastname">Last Name:</label>
-			<input type="text" class="form-control" id="inputLastname" name="inputLastname" placeholder="Enter Last Name">
-		</div>
-
-		<br>
-
-		<div class="form-group">
-			<label for="inputType">Profile Type:</label>
-			<input type="radio" class="form-control" name="inputType" id="inputType" value="m">Merchant
-			<input type="radio" class="form-control" name="inputType" id="inputType" value="c">Client
+			<input type="text" class="form-control" id="inputLastname" name="inputLastname" placeholder="<?php echo $profileLastname ?>" value="<?php echo $profileLastname ?>">
 		</div>
 
 		<br>
 
 		<div class="form-group">
 			<label for="inputPhone">Phone Number:</label>
-			<input type="tel" class="form-control" id="inputPhone" name="inputPhone" placeholder="Enter Phone Number">
+			<input type="tel" class="form-control" id="inputPhone" name="inputPhone" placeholder="<?php echo $profilePhone ?>" value="<?php echo $profilePhone ?>">
 		</div>
 
 		<br>
@@ -54,7 +66,7 @@ require_once("../dummy-session-single.php");
 		<br>
 
 		<div class="form-group">
-			<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit">
+			<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit" value="Submit">
 		</div>
 
 	</form>

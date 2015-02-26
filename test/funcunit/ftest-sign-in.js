@@ -9,11 +9,11 @@ module("tabs", {
 });
 
 // global variables for form values
-var INVALID_EMAIL = "big@dog2.com";
+var INVALID_EMAIL = "big@dog2";
 var INVALID_PASSWORD = "password";
 
-var VALID_EMAIL = "jason@jason.com";
-var VALID_PASSWORD = "jason";
+var VALID_EMAIL = "big@dog2";
+var VALID_PASSWORD = "dog";
 /**
  * test filling in only valid form data
  **/

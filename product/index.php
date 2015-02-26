@@ -41,8 +41,12 @@ try {
 	$profile  = Profile::getProfileByProfileId($mysqli, 1);
 	$store    = Store::getStoreByStoreId($mysqli, 1);
 
-	// TODO link this page with the index page AND search page
-	$productId = $_GET['product'];
+	// get the product id from the current url
+	if(!@isset($_GET['product'])) {
+		header('Location: ../index.php');
+	}
+
+	$productId = filter_var($_GET['product'], FILTER_SANITIZE_NUMBER_INT);
 
 	$product  = Product::getProductByProductId($mysqli, $productId);
 
@@ -60,21 +64,25 @@ try {
 		}
 	}
 
-	// image path and url setup
-	$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
-
-	$productBaseUrl      = CONTENT_ROOT_URL . 'images/product/';
-	$productBasePath     = CONTENT_ROOT_PATH . 'images/product/';
-	$productImageSrc     = 'product-'. $product->getProductId() .'.jpg';
-
-	$storeBaseUrl  = CONTENT_ROOT_URL . 'images/store/';
-	$storeBasePath = CONTENT_ROOT_PATH . 'images/store/';
-	$storeImageSrc  = 'store-'. $store->getStoreId() .'.jpg';
-
 } catch(Exception $exception) {
 	echo 'Exception: '. $exception->getMessage() .'<br/>';
 	echo $exception->getFile(). ':' .$exception->getLine();
 }
+
+// image path and url setup
+$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
+
+$productBaseUrl      = CONTENT_ROOT_URL . 'images/product/';
+$productBasePath     = CONTENT_ROOT_PATH . 'images/product/';
+$productImageSrc     = 'product-'. $product->getProductId() .'.jpg';
+
+$storeBaseUrl  = CONTENT_ROOT_URL . 'images/store/';
+$storeBasePath = CONTENT_ROOT_PATH . 'images/store/';
+$storeImageSrc  = 'store-'. $store->getStoreId() .'.jpg';
+
+// TODO hash the get url /  mod rewrite
+//$salt = bin2hex(openssl_random_pseudo_bytes(16));
+//$hash = hash_pbkdf2("sha512", $_POST["password1"], $salt, 2048, 128);
 
 ?>
 
@@ -187,10 +195,11 @@ try {
 					}
 
 					?>
-					<br/><br/>
+					<br/>
+					<div id="outputArea" class="no-list-style"></div>
+					<br/>
 					<button class="btn btn-primary" type="submit" id="add-product-to-cart">Add to Cart</button>
 				</div><!-- listing-page-cart -->
-				<div id="outputArea"></div>
 			</form>
 
 			<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count"></div>

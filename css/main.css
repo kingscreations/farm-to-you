@@ -54,6 +54,17 @@ footer p {
 	padding: 2em;
 }
 
+.no-list-style {
+	list-style-type: none;
+}
+
+#outputArea {
+	margin: 0 !important;
+	padding: 1em;
+	border-radius: 3px;
+	margin-top: 10px;
+}
+
 /**
  * forms
  */
@@ -311,3 +322,10 @@ h2 {
  #add-product-to-cart {
 	 width: 100%;
  }
+
+ 
+#page-not-found {
+	background-image: url("../images/farm-not-found.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+}

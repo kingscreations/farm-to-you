@@ -94,7 +94,7 @@ try {
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 	// grab all stores by profile id in dummy session
-	$stores = Store::getAllStoresByProfileId($mysqli, 1);
+	$stores = Store::getAllStoresByProfileId($mysqli, $_SESSION['profileId']);
 
 	// create table of existing stores
 	if($stores !== null) {

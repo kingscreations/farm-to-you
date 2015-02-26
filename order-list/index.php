@@ -32,6 +32,7 @@ try {
 			$orderId = $order->getOrderId();
 			$orderDate = $order->getOrderDate();
 			$formattedDate = $orderDate->format("Y-m-d H:i:s");
+			$orderProducts = OrderProduct::getAllOrderProductsByOrderId($mysqli, $orderId);
 			echo '<table class="table table-responsive">';
 			echo '<tr>';
 			echo '<th>Order #'.$orderId .'</th>';
@@ -45,6 +46,14 @@ try {
 
 			echo '<tr>';
 			echo '<td>Products</td>';
+			echo '<td>' ;
+			foreach($orderProducts as $orderProduct) {
+				$productId = $orderProduct->getProductId();
+				$product = Product::getProductByProductId($mysqli, $productId);
+				$productName = $product->getProductByProductName();
+				echo "'.$productName .'\n";
+			}
+			echo '</td>' ;
 			echo '<td>'.$formattedDate .'</td>';
 			echo '</tr>';
 			echo '</table>';

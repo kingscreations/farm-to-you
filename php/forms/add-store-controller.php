@@ -25,7 +25,7 @@ try {
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 	// get profile id from dummy session
-	$profileId = 1;
+	$profileId = $_SESSION['profileId'];
 
 	// throw exception if missing a required field
 	if(!@isset($_POST["locationName"]) || !@isset($_POST["address1"]) ||

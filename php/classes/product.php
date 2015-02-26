@@ -835,4 +835,65 @@ class Product {
 			return ($products);
 		}
 	}
+
+	public static function getAllProductsFromMerchantByProfileId(&$mysqli, $profileId) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+
+		$profileId = filter_var($profileId, FILTER_VALIDATE_INT);
+		if($profileId === false) {
+			throw(new mysqli_sql_exception("profile id is not an integer"));
+		}
+		if($profileId <= 0) {
+			throw(new mysqli_sql_exception("profile id is not positive"));
+		}
+		// create query template
+		$query = "SELECT productId, product.storeId, product.imagePath, productName, productPrice, productDescription, productPriceType,
+			productWeight, stockLimit FROM product INNER JOIN store ON product.storeId = store.storeId
+			INNER JOIN profile ON store.profileId = profile.profileId WHERE store.profileId = ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+
+		// bind the store id to the place holder in the template
+		$wasClean = $statement->bind_param("i", $profileId);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+
+		// build an array of store
+		$products = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$product = new Product($row["productId"], $row["storeId"], $row["imagePath"], $row["productName"],
+					$row["productPrice"], $row["productDescription"], $row['productPriceType'], $row["productWeight"], $row["stockLimit"]);
+				$products[] = $product;
+			} catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+		}
+		$numberOfProducts = count($products);
+		if($numberOfProducts === 0) {
+			return (null);
+		} else {
+			return ($products);
+		}
+	}
+
 }

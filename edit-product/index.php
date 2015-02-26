@@ -30,9 +30,7 @@ try {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
 ?>
-	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
-	<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
+	<!-- JS for the page-->
 	<script src="../js/edit-product.js"></script>
 
 
@@ -110,10 +108,12 @@ try {
 
 	<p id="outputArea" style=""></p>
 
+
+	<div class="form-group">
+		<button class="btn btn-default addButton" id="back">Back</button>
+	</div>
 </div>
-<div class="form-group">
-	<button class="btn btn-default addButton" id="back">Back</button>
-</div>
+
 
 	<?php
 require_once("../php/lib/footer.php")

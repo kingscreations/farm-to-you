@@ -65,7 +65,7 @@ $(document).ready(
 				editProductName: {
 
 					minlength: "Product Name must be at least 2 characters",
-					required: "Please enter your first name."
+					required: "Please enter a product name."
 				},
 
 				editProductPrice: {

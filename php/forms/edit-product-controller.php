@@ -73,7 +73,7 @@ try {
 		// else, if user leaves field empty, delete description and update store
 	} else {
 		$storeDescription = '';
-		$store->setStoreDescription($storeDescription);
+		$order->setStoreDescription($storeDescription);
 	}
 
 	// if user makes edits, update in product and upload image

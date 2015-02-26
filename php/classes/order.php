@@ -445,4 +445,63 @@ class Order {
 			return($orders);
 		}
 	}
+	public static function getAllOrdersByProfileId(&$mysqli, $profileId) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+
+		$profileId = filter_var($profileId, FILTER_VALIDATE_INT);
+		if($profileId === false) {
+			throw(new mysqli_sql_exception("profile id is not an integer"));
+		}
+		if($profileId <= 0) {
+			throw(new mysqli_sql_exception("profile id is not positive"));
+		}
+		// create query template
+		$query	 = "SELECT orderId, profileId, orderDate FROM `order` WHERE profileId = ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		// bind the store id to the place holder in the template
+		$wasClean = $statement->bind_param("i", $profileId);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+
+		// build an array of store
+		$orders = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$order	= new Order($row["orderId"], $row["profileId"], $row["orderDate"]);
+				$orders[] = $order;
+			}
+			catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+		}
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) the entire array if >= 1 result
+		$numberOfOrders = count($orders);
+		if($numberOfOrders === 0) {
+			return(null);
+		} else {
+			return($orders);
+		}
+	}
 }

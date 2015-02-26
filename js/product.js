@@ -12,12 +12,18 @@ $(document).ready(function() {
 			productWeight: {
 				number: true,
 				required: true
+			},
+			productQuantity: {
+
 			}
 		},
 		messages: {
 			productWeight: {
 				number: "The product weight must be a number.",
 				required: "Please enter the weight of the product."
+			},
+			productQuantity: {
+
 			}
 		},
 
@@ -29,7 +35,24 @@ $(document).ready(function() {
 				.prop('disabled', true)
 				.addClass('disabled');
 
-			$(form).ajaxSubmit({
+			var $product= $('[name=product]');
+			var $productWeight = $('[name=productWeight]');
+			var $productQuantity = $('[name=productQuantity]');
+
+			var data = {
+				product: $product.val()
+			}
+
+			if($productQuantity.length !== 0) {
+				data.productQuantity = $productQuantity.val();
+			}
+
+			if($productWeight.length !== 0) {
+				data.productWeight = $productWeight.val();
+			}
+			console.log(data);
+
+			$form.ajaxSubmit({
 				type: "POST",
 				url: "../php/forms/product-controller.php",
 				data: $(form),

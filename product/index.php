@@ -92,9 +92,9 @@ $storeImageSrc  = 'store-'. $store->getStoreId() .'.jpg';
 			<?php
 
 			if(file_exists($storeBasePath . $storeImageSrc)) {
-				echo '<a href="" class="thumbnail"><img src="' . $storeBaseUrl . $storeImageSrc .'" alt="'. $store->getStoreName() .'" class="img-resonsive"/></a>';
+				echo '<a href="" class="thumbnail"><img src="' . $storeBaseUrl . $storeImageSrc .'" alt="'. $store->getStoreName() .'" class="img-responsive"/></a>';
 			} else {
-				echo '<a href="" class="thumbnail"><img src="' . $imagePlaceholderSrc . '" alt="'. $store->getStoreName() .'" class="img-resonsive"/></a>';
+				echo '<a href="" class="thumbnail"><img src="' . $imagePlaceholderSrc . '" alt="'. $store->getStoreName() .'" class="img-responsive"/></a>';
 			}
 			echo '<span class="store-name">By <a href="">'. $store->getStoreName(). '</a></span>';
 
@@ -199,6 +199,7 @@ $storeImageSrc  = 'store-'. $store->getStoreId() .'.jpg';
 					<div id="outputArea" class="no-list-style"></div>
 					<br/>
 					<button class="btn btn-primary" type="submit" id="add-product-to-cart">Add to Cart</button>
+					<input name="product" type="hidden" value="<?php echo $product->getProductId(); ?>"/>
 				</div><!-- listing-page-cart -->
 			</form>
 

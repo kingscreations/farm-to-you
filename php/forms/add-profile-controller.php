@@ -25,11 +25,28 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", null, $user->getUserId());
+//
+//	if(@isset($_FILES['inputImage'])) {
+//		$imageBasePath = '/var/www/html/farm-to-you/images/profile/';
+//		$imageExtension = checkInputImage($_FILES['inputImage']);
+//		$profile->insert($mysqli);
+//		$profileId = $profile->getProfileId();
+//		$imageFileName = $imageBasePath . 'profile-' . $profileId . '.' . $imageExtension;
+//		$profile->setImagePath($imageFileName);
+//		$profile->update($mysqli);
+//		move_uploaded_file($_FILES['inputImage']['tmp_name'], $imageFileName);
+//	} else {
+//		$profile->setImagePath(null);
+//		$profile->insert($mysqli);
+//		$profileId = $profile->getProfileId();
+//	}
+var_dump(@isset($_FILES["inputImage"]));
+	var_dump($_FILES["inputImage"]);
 
-	if(@isset($_FILES['inputImage'])) {
+	if(@isset($_FILES["inputImage"])) {
 		$imageBasePath = '/var/www/html/farm-to-you/images/profile/';
 		$imageExtension = checkInputImage($_FILES['inputImage']);
+		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", "", $user->getUserId());
 		$profile->insert($mysqli);
 		$profileId = $profile->getProfileId();
 		$imageFileName = $imageBasePath . 'profile-' . $profileId . '.' . $imageExtension;
@@ -37,10 +54,11 @@ try {
 		$profile->update($mysqli);
 		move_uploaded_file($_FILES['inputImage']['tmp_name'], $imageFileName);
 	} else {
-		$profile->setImagePath(null);
+		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", "", $user->getUserId());
 		$profile->insert($mysqli);
-		$profileId = $profile->getProfileId();
+		$profile = $profile->getProfileId();
 	}
+
 
 	echo "<p class=\"alert alert-success\">Profile (id = " . $profile->getProfileId() . ") posted!</p>";
 } catch(Exception $exception) {

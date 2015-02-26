@@ -276,16 +276,18 @@ class Profile {
 		// verify the image path content is secure
 		$newImagePath = trim($newImagePath);
 		$newImagePath = filter_var($newImagePath, FILTER_SANITIZE_STRING);
-		if(empty($newImagePath) === true) {
-			$this->imagePath = null;
-		}
+
 
 		// verify the image path content will fit in the database
 		if(strlen($newImagePath) > 255) {
 			throw(new RangeException("image path content too large"));
 		}
 		// store the image path content
-		$this->imagePath = $newImagePath;
+		if($newImagePath === '') {
+			$this->imagePath = null;
+		} else {
+			$this->imagePath = $newImagePath;
+		}
 	}
 	/**
 	 * accessor method for $userId
@@ -643,6 +645,64 @@ class Profile {
 		} else {
 			return($profiles);
 		}
+	}
+
+	/**
+	 * gets the Profile by profileId
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @param int $userId profile content to search for
+	 * @return mixed Profile found or null if not found
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+	public static function getProfileByUserId(&$mysqli, $userId) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+		// sanitize the profileId before searching
+		$userId = filter_var($userId, FILTER_VALIDATE_INT);
+		if($userId === false) {
+			throw(new mysqli_sql_exception("user id is not an integer"));
+		}
+		if($userId <= 0) {
+			throw(new mysqli_sql_exception("user id is not positive"));
+		}
+		// create query template
+		$query = "SELECT profileId, firstName, lastName, phone, profileType, customerToken, imagePath, userId FROM profile WHERE userId = ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+		// bind the profile content to the place holder in the template
+		$wasClean = $statement->bind_param("i", $userId);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+		// grab the profile from mySQL
+		try {
+			$profile = null;
+			$row = $result->fetch_assoc();
+			if($row !== null) {
+				$profile = new Profile($row["profileId"], $row["firstName"], $row["lastName"], $row["phone"], $row["profileType"], $row["customerToken"], $row["imagePath"], $row["userId"]);
+			}
+		} catch(Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+		}
+		// free up memory and return the result
+		$result->free();
+		$statement->close();
+		return($profile);
 	}
 
 

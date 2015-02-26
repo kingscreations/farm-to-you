@@ -1,7 +1,10 @@
 <?php
 
+/**
+ * @author Florian Goussin <florian.goussin@gmail.com>
+ */
+
 session_start();
-//ob_start();
 
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 

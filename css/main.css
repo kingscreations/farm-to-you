@@ -283,7 +283,7 @@ h2 {
 
 
 
-
+/* product page */
 .currency-value {
 	font-size: 1.6em;
 	font-weight: bold;
@@ -301,3 +301,10 @@ h2 {
 	bottom: 40px;
 	margin-left: 10px;
 }
+
+.count-store-products {
+	padding: 1em;
+}
+ #add-product-to-cart {
+	 width: 100%;
+ }

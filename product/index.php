@@ -97,6 +97,8 @@ try {
 			<ul class="thumbnail-links">
 			<?php
 			if($storeProducts !== null) {
+				echo '<li><a href="" class="thumbnail count-store-products">'. count($storeProducts) . ' products</a></li>';
+
 				foreach($storeProducts as $index => $storeProduct) {
 					// show at max 4 items
 					if(($index + 1) > 4) {
@@ -117,6 +119,7 @@ try {
 					echo '</a>';
 					echo '</li>';
 				}
+
 			}
 			?>
 			</ul>
@@ -134,56 +137,61 @@ try {
 			<?php } ?>
 		</div>
 		<div class="col-sm-5">
-			<div id="listing-page-cart">
-				<h1><?php echo $product->getProductName(); ?></h1>
-				<p><?php echo $product->getProductDescription(); ?></p>
-				<span class="currency-value">$<?php echo $product->getProductPrice(); ?> USD</span><br/>
-				<?php
+			<form id="product-controller" action="../php/forms/product-controller.php" method="post">
+				<div id="listing-page-cart">
+					<h1><?php echo $product->getProductName(); ?></h1>
+					<p><?php echo $product->getProductDescription(); ?></p>
+					<span class="currency-value">$<?php echo $product->getProductPrice(); ?> USD</span><br/>
+					<?php
 
-				$stockLimit = $product->getStockLimit();
-				if($stockLimit < 15) {
-					echo 'Only '. $stockLimit .' available';
-				} else {
-					echo $stockLimit .' available';
-				}
-
-				echo '<br/><br/>';
-
-				if($stockLimit === null) {
-					$stockLimit = 15;
-				}
-
-				$maxQuantity = 15;
-
-				// get the # of options to create in the select box
-				$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
-
-				if($product->getProductPriceType() === 'u') {
-
-					// select box
-					echo 'Select a quantity: <select class="product-quantity" name="productQuantity[]">';
-
-					// creating $quantityLimit # of options
-					for($i = 0; $i < $quantityLimit; $i++) {
-						if($i === 0) {
-							echo '<option selected="selected">' . ($i + 1) . '</option>';
-						} else {
-							echo '<option>' . ($i + 1) . '</option>';
-						}
+					$stockLimit = $product->getStockLimit();
+					if($stockLimit < 15) {
+						echo 'Only '. $stockLimit .' available';
+					} else {
+						echo $stockLimit .' available';
 					}
 
-					echo '</select>';
-					// end select box
-				} else {
+					echo '<br/><br/>';
 
-					echo 'Select a weight:';
-					echo ' <input class="xs-input" type="text" name="productWeight" id=""/>';
-					echo ' lb';
-				}
+					if($stockLimit === null) {
+						$stockLimit = 15;
+					}
 
-				?>
+					$maxQuantity = 15;
 
-			</div>
+					// get the # of options to create in the select box
+					$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
+
+					if($product->getProductPriceType() === 'u') {
+
+						// select box
+						echo 'Select a quantity: <select class="product-quantity" name="productQuantity[]">';
+
+						// creating $quantityLimit # of options
+						for($i = 0; $i < $quantityLimit; $i++) {
+							if($i === 0) {
+								echo '<option selected="selected">' . ($i + 1) . '</option>';
+							} else {
+								echo '<option>' . ($i + 1) . '</option>';
+							}
+						}
+
+						echo '</select>';
+						// end select box
+					} else {
+
+						echo 'Select a weight:';
+						echo ' <input class="xs-input" type="text" name="productWeight" id=""/>';
+						echo ' lb';
+					}
+
+					?>
+					<br/>
+				</div><!-- listing-page-cart -->
+				<br/>
+				<button class="btn btn-primary" type="submit" id="add-product-to-cart">Add to Cart</button>
+				<div id="outputArea"></div>
+			</form>
 		</div>
 	</div>
 </div><!-- end container-fluid -->

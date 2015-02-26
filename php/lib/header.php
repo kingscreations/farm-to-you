@@ -42,6 +42,7 @@ $prefix = str_repeat("../", $depthDifference);
 		<script src="<?php echo $prefix; ?>js/validate-exact-length.js"></script>
 		<script src="<?php echo $prefix; ?>js/iscroll.js"></script>
 		<script src="<?php echo $prefix; ?>js/add-profile.js"></script>
+		<script src="<?php echo $prefix; ?>js/product.js"></script>
 		<script src="<?php echo $prefix; ?>js/cart.js"></script>
 		<script src="<?php echo $prefix; ?>js/sign-up.js"></script>
 		<script src="<?php echo $prefix; ?>js/checkout-shipping.js"></script>

@@ -41,6 +41,7 @@ try {
 	//get the mysqli hash and salt
 	$mysqlSalt = $mysqlId->getSalt();
 	$mysqlHash = $mysqlId->getHash();
+	$mysqlName = $mysqlId->getName();
 
 	// generate hash from users password using mysqli salt
 	$hash = hash_pbkdf2("sha512", $_POST["password2"], $mysqlSalt, 2048, 128);
@@ -55,13 +56,15 @@ try {
 	// compare hashes
 	if ($mysqlHash !== $hash) {
 		throw new Exception('password input does not match existing account');
-	} elseif($mysqlHash == $hash) {
-		header("Location: $url");
-	}
-	// catch any exceptions
+	}// elseif($mysqlHash == $hash) {
+//		header("Location: $url");
+//	}
+	// catch any AJAX exceptions
+	echo "<div class=\"alert alert-success\" role=\"alert\">You are signed in!</div>";
 } catch(Exception $exception) {
-	echo "<p class=\"input not posted!\">Exception: " . $exception->getMessage() . "</p>";
+	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
+
 // create session id specific to this user
 $_SESSION['user'] = array(
 	'id' => $mysqlId->getUserId()

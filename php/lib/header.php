@@ -77,15 +77,9 @@ $prefix = str_repeat("../", $depthDifference);
 								</ul>
 							</li>
 						<?php } else { ?>
-							<li>
-								<a href="#">Become a merchant</span></a>
-							</li>
-							<li>
-								<a href="#">Register</span></a>
-							</li>
-							<li>
-								<a href="#">Login</span></a>
-							</li>
+							<li><a href="#">Login</span></a></li>
+							<li><a href="#">Register</span></a></li>
+							<li><a href="#">Become a merchant</span></a></li>
 						<?php } ?>
 					</ul> <!-- end pills -->
 				</div>

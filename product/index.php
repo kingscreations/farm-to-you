@@ -93,17 +93,21 @@ try {
 			?>
 		</div>
 		<div class="col-sm-7">
+			<!-- store products thumbnails -->
 			<ul class="thumbnail-links">
 			<?php
 			if($storeProducts !== null) {
-				foreach($storeProducts as $storeProduct) {
+				foreach($storeProducts as $index => $storeProduct) {
+					// show at max 4 items
+					if(($index + 1) > 4) {
+						break;
+					}
 					$thumbnailSrc            = 'product-'. $storeProduct->getProductId() .'.jpg';
 
 					echo '<li>';
 
-					// TODO get rid of the hardcoding
 					// link to a product page
-					echo '<a href="https://bootcamp-coders.cnm.edu/~fgoussin/farm-to-you/product/index.php?product='. $storeProduct->getProductId() .'" class="thumbnail">';
+					echo '<a href="'. SITE_ROOT_URL .'product/index.php?product='. $storeProduct->getProductId() .'" class="thumbnail">';
 
 					if(file_exists($productBasePath . $thumbnailSrc)) {
 						echo '<img class="img-responsive" src="' . $productBaseUrl . $thumbnailSrc . '">';

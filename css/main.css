@@ -44,6 +44,8 @@ footer p {
 
 #main-menu {
 	width: 100%;
+	height: 60px;
+	padding-top: 10px;
 	padding-left: 10%;
 	padding-right: 10%;
 }
@@ -330,6 +332,23 @@ h2 {
 	background-repeat: no-repeat;
 }
 
+/********************************************
+* cart icon
+********************************************/
+#cart-main-menu-item {
+	font-size: 1.2em;
+	position: relative;
+	bottom: 10px;
+}
+
+#cart-main-menu-item small {
+	font-size: 0.7em;
+	display: block;
+}
+
+.count {
+	
+}
 #multi-menu {
 	margin-top: 30px;
 }

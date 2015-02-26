@@ -75,6 +75,22 @@ $prefix = str_repeat("../", $depthDifference);
 				</div>
 				<div class="col-xs-6">
 					<ul class="nav nav-pills" role="tablist">
+						<?php if(@isset($_SESSION['products'])) { ?>
+							<li id="cart-main-menu-item">
+								<a href="#">
+									<span class="glyphicon glyphicon-shopping-cart"></span>
+									<small>Cart</small>
+									<span class="count"><?php echo count($_SESSION['products']); ?></span>
+								</a>
+							</li>
+						<?php } else { ?>
+							<li id="cart-main-menu-item">
+								<a href="#">
+									<span class="glyphicon glyphicon-shopping-cart"></span>
+									<small>Cart</small>
+								</a>
+							</li>
+						<?php } ?>
 						<?php if(@isset($_SESSION['user'])) { ?>
 							<li role="presentation" class="dropdown">
 								<a id="drop6" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">

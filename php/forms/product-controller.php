@@ -43,9 +43,9 @@ try {
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
-
-
 	$product = Product::getProductByProductId($mysqli, $productId);
+
+
 
 } catch(Exception $exception) {
 	echo '<p class="alert alert-danger">Exception: ' . $exception->getMessage() . '</p>';
@@ -71,6 +71,6 @@ if(@isset($_POST['productQuantity'])) {
 	);
 }
 
-echo '<p class="alert alert-success">'. $product->getProductName(). ' has been added to the cart!</p>';
+echo count($_SESSION['products']);
 
 ?>

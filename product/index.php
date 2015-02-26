@@ -105,7 +105,7 @@ $storeImageSrc  = 'store-'. $store->getStoreId() .'.jpg';
 			<ul class="thumbnail-links">
 			<?php
 			if($storeProducts !== null) {
-				echo '<li><a href="" class="thumbnail count-store-products">'. count($storeProducts) . ' products</a></li>';
+				echo '<li><a href="" class="thumbnail count-store-products"><span class="">'. count($storeProducts) . ' <small>products</small></a></li>';
 
 				foreach($storeProducts as $index => $storeProduct) {
 					// show at max 4 items
@@ -195,7 +195,6 @@ $storeImageSrc  = 'store-'. $store->getStoreId() .'.jpg';
 					}
 
 					?>
-					<br/>
 					<button class="btn btn-primary" type="submit" id="add-product-to-cart">Add to Cart</button>
 					<input name="product" type="hidden" value="<?php echo $product->getProductId(); ?>"/>
 				</div><!-- listing-page-cart -->

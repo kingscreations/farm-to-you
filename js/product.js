@@ -56,9 +56,15 @@ $(document).ready(function() {
 				type: "POST",
 				url: "../php/forms/product-controller.php",
 				data: $(form),
-				success: function(ajaxOutput) {
+				success: function(cartCount) {
+					$productName = $("h1").text();
 					$("#outputArea").css("display", "block");
-					$("#outputArea").html(ajaxOutput);
+					$("#outputArea").html('<p class="alert alert-success">' + $productName + ' has been added to the cart!</p>');
+
+					console.log(cartCount);
+					console.log($('#cart-main-menu-item a .count').text());
+
+					$('#cart-main-menu-item a .count').text(cartCount);
 
 					if($(".alert-success").length >= 1) {
 						$(form)[0].reset();

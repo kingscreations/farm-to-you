@@ -67,6 +67,10 @@ footer p {
 	margin-top: 10px;
 }
 
+a:hover {
+	text-decoration: none;
+}
+
 /**
  * forms
  */
@@ -137,8 +141,8 @@ li[role=presentation].open a {
 ********************************************/
 .tiny-thumbnail,
 .thumbnail img{
-	width: 50px !important;
-	height: 50px !important;
+	width: 70px !important;
+	height: 70px !important;
 }
 
 @media screen and (min-width: 768px) {
@@ -319,10 +323,26 @@ h2 {
 }
 
 .count-store-products {
+	height: 80px;
+	width: 80px;
 	padding: 1em;
+	font-size: 20px;
+	text-align: center;
 }
+
+.count-store-products small {
+	font-size: 0.7em;
+	display: block;
+}
+
+.thumbnail-links .count-store-products * {
+	position: relative;
+	bottom: 10px;
+}
+
  #add-product-to-cart {
 	 width: 100%;
+	 margin-top: 20px;
  }
 
  

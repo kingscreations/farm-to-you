@@ -33,10 +33,18 @@ try {
 	<!-- JS for the page-->
 	<script src="../js/edit-product.js"></script>
 
+<div id="multi-menu" class="col-md-3">
+	<ul class="nav nav-pills nav-stacked">
+		<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+		<li><a href="../add-store/index.php">Manage Stores</a></li>
+		<li><a href="#">List of Orders</a></li>
+		<li><a href="#">Account Settings</a></li>
+	</ul>
+</div>
 
 
 <!--Form to edit a product-->
-<div class="container">
+<div class="col-md-9">
 	<h2>Edit Product</h2>
 
 	<form id="editProduct" class="form-inline" method="post" action="../php/forms/edit-product-controller.php"  enctype="multipart/form-data">

@@ -13,8 +13,17 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 	<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
 	<script src="../js/add-product.js"></script>
 
+	<div id="multi-menu" class="col-md-3">
+		<ul class="nav nav-pills nav-stacked">
+			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+			<li><a href="../add-store/index.php">Manage Stores</a></li>
+			<li><a href="#">List of Orders</a></li>
+			<li><a href="#">Account Settings</a></li>
+		</ul>
+	</div>
+
 <!--Form for adding a new product-->
-<div class="container">
+<div class="col-md-9">
 	<h2>Add Product</h2>
 
 	<form id="addProduct" class="form-inline" method="post" action="../php/forms/add-product-controller.php" novalidate>

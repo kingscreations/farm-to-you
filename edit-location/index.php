@@ -42,8 +42,17 @@ try {
 	<!--js validation + ajax call-->
 	<script src="../js/edit-location.js"></script>
 
+	<div id="multi-menu" class="col-md-3">
+		<ul class="nav nav-pills nav-stacked">
+			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+			<li><a href="../add-store/index.php">Manage Stores</a></li>
+			<li><a href="#">List of Orders</a></li>
+			<li><a href="#">Account Settings</a></li>
+		</ul>
+	</div>
+
 	<div class="row-fluid">
-		<div class="col-sm-12">
+		<div class="col-sm-9">
 			<h2>Edit Location</h2>
 			<form class="form-inline" id="editLocationController" method="post" action="../php/forms/edit-location-controller.php">
 				<div class="form-group">

@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // dummy session
 $currentDir = dirname(__FILE__);
 require_once ("../../root-path.php");

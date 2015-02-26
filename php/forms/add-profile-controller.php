@@ -2,12 +2,10 @@
 
 $currentDir = dirname(__FILE__);
 require_once("../../root-path.php");
-require_once("../lib/header.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
 require_once("../../dummy-user-session.php");
-require_once("../lib/footer.php");
 require_once("../lib/utils.php");
 
 

@@ -3,8 +3,8 @@
 $currentDir = dirname(__FILE__);
 require_once("../../root-path.php");
 require_once("../lib/header.php");
-require_once("../classes/profile.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+require_once("../classes/profile.php");
 require_once("../classes/user.php");
 require_once("../../dummy-user-session.php");
 require_once("../lib/footer.php");
@@ -25,25 +25,7 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-//
-//	if(@isset($_FILES['inputImage'])) {
-//		$imageBasePath = '/var/www/html/farm-to-you/images/profile/';
-//		$imageExtension = checkInputImage($_FILES['inputImage']);
-//		$profile->insert($mysqli);
-//		$profileId = $profile->getProfileId();
-//		$imageFileName = $imageBasePath . 'profile-' . $profileId . '.' . $imageExtension;
-//		$profile->setImagePath($imageFileName);
-//		$profile->update($mysqli);
-//		move_uploaded_file($_FILES['inputImage']['tmp_name'], $imageFileName);
-//	} else {
-//		$profile->setImagePath(null);
-//		$profile->insert($mysqli);
-//		$profileId = $profile->getProfileId();
-//	}
-var_dump(@isset($_FILES["inputImage"]));
-	var_dump($_FILES["inputImage"]);
-
-	if(@isset($_FILES["inputImage"])) {
+	if(@isset($_FILES["inputImage"]) && ($_FILES["inputImage"]["tmp_name"]) !== "") {
 		$imageBasePath = '/var/www/html/farm-to-you/images/profile/';
 		$imageExtension = checkInputImage($_FILES['inputImage']);
 		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", "", $user->getUserId());
@@ -56,7 +38,7 @@ var_dump(@isset($_FILES["inputImage"]));
 	} else {
 		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", "", $user->getUserId());
 		$profile->insert($mysqli);
-		$profile = $profile->getProfileId();
+		$profileId = $profile->getProfileId();
 	}
 
 

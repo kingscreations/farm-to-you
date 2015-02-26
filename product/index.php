@@ -140,7 +140,7 @@ try {
 			<form id="product-controller" action="../php/forms/product-controller.php" method="post">
 				<div id="listing-page-cart">
 					<h1><?php echo $product->getProductName(); ?></h1>
-					<p><?php echo $product->getProductDescription(); ?></p>
+
 					<span class="currency-value">$<?php echo $product->getProductPrice(); ?> USD</span><br/>
 					<?php
 
@@ -153,6 +153,7 @@ try {
 
 					echo '<br/><br/>';
 
+					echo '<p>'.$product->getProductDescription(). '</p>';
 					if($stockLimit === null) {
 						$stockLimit = 15;
 					}
@@ -186,12 +187,13 @@ try {
 					}
 
 					?>
-					<br/>
+					<br/><br/>
+					<button class="btn btn-primary" type="submit" id="add-product-to-cart">Add to Cart</button>
 				</div><!-- listing-page-cart -->
-				<br/>
-				<button class="btn btn-primary" type="submit" id="add-product-to-cart">Add to Cart</button>
 				<div id="outputArea"></div>
 			</form>
+
+			<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count"></div>
 		</div>
 	</div>
 </div><!-- end container-fluid -->

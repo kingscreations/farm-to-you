@@ -6,6 +6,8 @@
 
 session_start();
 
+require_once("../classes/product.php");
+
 var_dump($_POST);
 
 

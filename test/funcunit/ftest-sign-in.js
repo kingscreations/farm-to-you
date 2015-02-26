@@ -9,7 +9,7 @@ module("tabs", {
 });
 
 // global variables for form values
-var INVALID_EMAIL = "big@dog.com";
+var INVALID_EMAIL = "big@dog2.com";
 var INVALID_PASSWORD = "password";
 
 var VALID_EMAIL = "jason@jason.com";
@@ -30,7 +30,7 @@ function testValidFields() {
 	F(".alert").visible(function() {
 		// create a expression that evaluates the successful text
 		ok(F(this).hasClass("alert-success"), "successful alert CSS");
-		ok(F(this).html().indexOf("You are logged in!") === 0, "successful message");
+		ok(F(this).html().indexOf("You are signed in!") === 0, "successful message");
 	});
 }
 
@@ -49,7 +49,7 @@ function testInvalidFields() {
 	// assert we got the php error message from the AJAX call
 	F(".alert").visible(function() {
 		ok(F(this).hasClass("alert-danger"), "danger alert CSS");
-		ok(F(this).html().indexOf("Exception: unable to execute mySQL statement: Duplicate entry") === 0, "unsuccessful message");
+		ok(F(this).html().indexOf("Exception: password input does not match existing account") === 0, "unsuccessful message");
 	});
 
 }

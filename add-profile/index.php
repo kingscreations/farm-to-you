@@ -29,7 +29,6 @@ $mysqli = new mysqli($configArray["hostname"], $configArray["username"], $config
 
 $userId = $_SESSION['user']['id'];
 $hasProfile = Profile::getProfileByUserId($mysqli, $userId);
-var_dump($_SESSION['user']['id']);
 
 if($hasProfile === null) {
 

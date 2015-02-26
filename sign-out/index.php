@@ -17,7 +17,7 @@ $_SESSION = array();
 session_destroy();
 ?>
 <div class="row-fluid">
-	<div class=""col-sm-12">
+	<div class="col-sm-12">
 		<h3>You are now signed out. Thank you for visiting farm-to-you. We hope to see you again soon.</h3>
 
 

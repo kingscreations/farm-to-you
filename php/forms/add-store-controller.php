@@ -36,24 +36,24 @@ try {
 	// create new Location and Store with form input
 	$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
 		$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
-	$order = new Store(null, $profileId, $_POST["storeName"], null, null, $_POST["storeDescription"]);
+	$store = new Store(null, $profileId, $_POST["storeName"], null, null, $_POST["storeDescription"]);
 
 	// if user provides input image, sanitize, add base path, insert store, grab store id, update image path,
 	// update store, and upload image
 	if(@isset($_FILES['inputImage'])) {
 		$imageBasePath = '/var/www/html/farm-to-you/images/store/';
 		$imageExtension = checkInputImage($_FILES['inputImage']);
-		$order->insert($mysqli);
-		$storeId = $order->getStoreId();
+		$store->insert($mysqli);
+		$storeId = $store->getStoreId();
 		$imageFileName = $imageBasePath . 'store-' . $storeId . '.' . $imageExtension;
-		$order->setImagePath($imageFileName);
-		$order->update($mysqli);
+		$store->setImagePath($imageFileName);
+		$store->update($mysqli);
 		move_uploaded_file($_FILES['inputImage']['tmp_name'], $imageFileName);
 	// else, set to null, insert store and grab store id
 	} else {
-		$order->setImagePath(null);
-		$order->insert($mysqli);
-		$storeId = $order->getStoreId();
+		$store->setImagePath(null);
+		$store->insert($mysqli);
+		$storeId = $store->getStoreId();
 	}
 
 	// insert location
@@ -67,7 +67,7 @@ try {
 	// insert storeLocation
 	$storeLocation->insert($mysqli);
 
-	echo "<p class=\"alert alert-success\">" . $order->getStoreName() . " added!</p><br>
+	echo "<p class=\"alert alert-success\">" . $store->getStoreName() . " added!</p><br>
 			<p class=\"alert alert-success\">" . $location->getLocationName() . " added!</p>";
 
 	} catch(Exception $exception) {

@@ -56,8 +56,8 @@ $prefix = str_repeat("../", $depthDifference);
 	</head>
 	<body>
 		<!-- start of global container -->
-		<div class="container-fluid">
-			<div class="row-fluid clearfix" id="main-menu">
+		<div class="container-fluid" id="main-menu">
+			<div class="row clearfix">
 				<div class="col-xs-6">
 					<h1 class="no-margin">farm-to-you</h1>
 				</div>
@@ -77,7 +77,17 @@ $prefix = str_repeat("../", $depthDifference);
 								</ul>
 							</li>
 						<?php } else { ?>
+							<li>
+								<a href="#">Become a merchant</span></a>
+							</li>
+							<li>
+								<a href="#">Register</span></a>
+							</li>
+							<li>
+								<a href="#">Login</span></a>
+							</li>
 						<?php } ?>
 					</ul> <!-- end pills -->
 				</div>
-			</div><!-- end row-fluid main-menu -->
+			</div><!-- end row main-menu -->
+		</div><!-- end container-fluid -->

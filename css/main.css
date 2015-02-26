@@ -1,18 +1,28 @@
 /********************************************
 * basic html styling
 ********************************************/
-footer,
-#main-menu {
-	background-color: darkgrey;
-	color: white;
-}
 
+html {
+	position: relative;
+	min-height: 100%;
+}
+body {
+	margin: 0 0 100px;
+	background-color: whitesmoke;
+}
 footer {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	min-height: 100px;
+	width: 100%;
 	border-top: 1px solid black;
 }
 
+footer,
 #main-menu {
-	border-bottom: 1px solid black;
+	background-color: black;
+	color: white;
 }
 
 footer a,
@@ -25,22 +35,23 @@ footer p {
 	text-align: center;
 }
 
-/**
- *	Sticky footer plugin: http://mystrd.at/modern-clean-css-sticky-footer/
- */
-html {
-	position: relative;
-	min-height: 100%;
+.container-fluid {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0;
 }
-body {
-	margin: 0 0 100px; /* bottom = footer height */
-}
-footer {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	min-height: 100px;
+
+#main-menu {
 	width: 100%;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.white-container {
+	background-color: white;
+	border-radius: 10px;
+	padding: 2em;
 }
 
 /**
@@ -93,23 +104,7 @@ td {
 /**
  *	bootstrap elements setup
  */
-.container-fluid {
-	width: 100% !important;
-	margin: 0 !important;
-	padding: 0 !important;
-}
 
-.row {
-	width: 90%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-#main-menu {
-	width: 100%;
-	padding-left: 5%;
-	padding-right: 5%;
-}
 
 li[role=presentation] a:hover,
 li[role=presentation] a:visited,
@@ -294,4 +289,9 @@ h2 {
 	border: 3px solid #add8e6;
 	border-radius: 3px;
 	padding: 1em;
+}
+
+.store-name {
+	font-size: 2em;
+	margin-top: 15px;
 }

@@ -73,97 +73,101 @@ try {
 
 ?>
 
-<div class="row">
-	<div class="col-sm-5">
-		<?php
-
-		echo '<a href="">'. $store->getStoreName(). '</a>';
-
-		?>
-	</div>
-	<div class="col-sm-7">
-		<ul class="thumbnail-links">
-		<?php
-		if($storeProducts !== null) {
-			foreach($storeProducts as $product) {
-				$thumbnailSrc            = 'product-'. $product->getProductId() .'.jpg';
-
-				echo '<li>';
-				echo $product->getProductName();
-
-				echo '<a href="https://bootcamp-coders.cnm.edu/~fgoussin/farm-to-you/product/index.php?product='. $product->getProductId() .'" class="thumbnail">';
-
-				if(file_exists($basePath . $thumbnailSrc)) {
-					echo '<img class="img-responsive" src="' . $baseUrl . $thumbnailSrc . '">';
-				} else {
-					echo '<img class="img-responsive" src="' . $imagePlaceholderSrc . '">';
-				}
-				echo '</a>';
-				echo '</li>';
-			}
-		}
-		?>
-		</ul>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-sm-7">
-		<?php if(file_exists($basePath . $imageSrc)) { ?>
-			<img class="img-responsive" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $product->getProductName(); ?>"/>
-		<?php } else { ?>
-			<img class="img-responsive" src="<?php echo $imagePlaceholderSrc; ?>" alt="<?php echo $product->getProductName(); ?>"/>
-		<?php } ?>
-	</div>
-	<div class="col-sm-5">
-		<div id="listing-page-cart">
-			<h1><?php echo $product->getProductName(); ?></h1>
-			<span class="currency-value">$<?php echo $product->getProductPrice(); ?> USD</span><br/>
+<div class="container-fluid vertical-spacer-60 white-container" id="product-page">
+	<div class="row">
+		<div class="col-sm-5">
 			<?php
 
-			$stockLimit = $product->getStockLimit();
-			if($stockLimit < 15) {
-				echo 'Only '. $stockLimit .' available';
-			} else {
-				echo $stockLimit .' available';
-			}
-
-			echo '<br/><br/>';
-
-			if($stockLimit === null) {
-				$stockLimit = 15;
-			}
-
-			$maxQuantity = 15;
-
-			// get the # of options to create in the select box
-			$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
-
-			if($product->getProductPriceType() === 'u') {
-
-				// select box
-				echo 'Select a quantity: <select class="product-quantity" name="productQuantity[]">';
-
-				// creating $quantityLimit # of options
-				for($i = 0; $i < $quantityLimit; $i++) {
-					if($i === 0) {
-						echo '<option selected="selected">' . ($i + 1) . '</option>';
-					} else {
-						echo '<option>' . ($i + 1) . '</option>';
-					}
-				}
-
-				echo '</select>';
-				// end select box
-			} else {
-
-				echo 'Select a weight:';
-				echo ' <input class="xs-input" type="text" name="productWeight" id=""/>';
-				echo 'lb';
-			}
+			echo '<a href=""><span class="store-name">'. $store->getStoreName(). '</span></a>';
 
 			?>
+		</div>
+		<div class="col-sm-7">
+			<ul class="thumbnail-links">
+			<?php
+			if($storeProducts !== null) {
+				foreach($storeProducts as $storeProduct) {
+					$thumbnailSrc            = 'product-'. $storeProduct->getProductId() .'.jpg';
 
+					echo '<li>';
+					echo $storeProduct->getProductName();
+
+					echo '<a href="https://bootcamp-coders.cnm.edu/~fgoussin/farm-to-you/product/index.php?product='. $storeProduct->getProductId() .'" class="thumbnail">';
+
+					if(file_exists($basePath . $thumbnailSrc)) {
+						echo '<img class="img-responsive" src="' . $baseUrl . $thumbnailSrc . '">';
+					} else {
+						echo '<img class="img-responsive" src="' . $imagePlaceholderSrc . '">';
+					}
+					echo '</a>';
+					echo '</li>';
+				}
+			}
+			?>
+			</ul>
 		</div>
 	</div>
-</div>
+
+	<div class="row">
+		<div class="col-sm-7">
+			<?php if(file_exists($basePath . $imageSrc)) { ?>
+				<img class="img-responsive" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $product->getProductName(); ?>"/>
+			<?php } else { ?>
+				<img class="img-responsive" src="<?php echo $imagePlaceholderSrc; ?>" alt="<?php echo $product->getProductName(); ?>"/>
+			<?php } ?>
+		</div>
+		<div class="col-sm-5">
+			<div id="listing-page-cart">
+				<h1><?php echo $product->getProductName(); ?></h1>
+				<span class="currency-value">$<?php echo $product->getProductPrice(); ?> USD</span><br/>
+				<?php
+
+				$stockLimit = $product->getStockLimit();
+				if($stockLimit < 15) {
+					echo 'Only '. $stockLimit .' available';
+				} else {
+					echo $stockLimit .' available';
+				}
+
+				echo '<br/><br/>';
+
+				if($stockLimit === null) {
+					$stockLimit = 15;
+				}
+
+				$maxQuantity = 15;
+
+				// get the # of options to create in the select box
+				$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
+
+				if($product->getProductPriceType() === 'u') {
+
+					// select box
+					echo 'Select a quantity: <select class="product-quantity" name="productQuantity[]">';
+
+					// creating $quantityLimit # of options
+					for($i = 0; $i < $quantityLimit; $i++) {
+						if($i === 0) {
+							echo '<option selected="selected">' . ($i + 1) . '</option>';
+						} else {
+							echo '<option>' . ($i + 1) . '</option>';
+						}
+					}
+
+					echo '</select>';
+					// end select box
+				} else {
+
+					echo 'Select a weight:';
+					echo ' <input class="xs-input" type="text" name="productWeight" id=""/>';
+					echo ' lb';
+				}
+
+				?>
+
+			</div>
+		</div>
+	</div>
+</div><!-- end container-fluid -->
+
+<?php require_once('../php/lib/footer.php'); ?>

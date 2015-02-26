@@ -5,9 +5,9 @@
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
 ?>
-
+		<div class="container-fluid">
 			<footer>
-				<div class="row-fluid">
+				<div class="row">
 					<div class="col-xs-3">
 						<p>
 							<a href="">Jason</a>

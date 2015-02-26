@@ -504,4 +504,57 @@ class Checkout {
 			return ($checkouts);
 		}
 	}
+
+	public static function getCheckoutByOrderId(&$mysqli, $orderId) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+
+		// sanitize the description before searching
+		$orderId = trim($orderId);
+		$orderId = filter_var($orderId, FILTER_VALIDATE_INT);
+		// create query template
+		$query = "SELECT checkoutId, orderId, checkoutDate, finalPrice FROM checkout WHERE orderId = ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		// bind the order id to the place holder in the template
+		$wasClean = $statement->bind_param("i", $orderId);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
+		}
+
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+
+		// grab the checkout from mySQL
+		try {
+			$checkout = null;
+			$row = $result->fetch_assoc();
+			if($row !== null) {
+				$checkout = new Checkout($row["checkoutId"], $row["orderId"], $row["checkoutDate"], $row['finalPrice']);
+			}
+		} catch(Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+		}
+
+		// free up memory and return the result
+		$result->free();
+		$statement->close();
+		return ($checkout);
+	}
+
+
 }

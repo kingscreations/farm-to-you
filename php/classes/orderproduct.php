@@ -493,6 +493,75 @@ class OrderProduct {
 			return($orderProducts);
 		}
 	}
+
+	/**
+	 * gets all Store Locations by Location id
+	 *
+	 * @param resource $mysqli pointer to mySQL connection, by reference
+	 * @return mixed array of Store Locations found or null if not found
+	 * @throws mysqli_sql_exception when mySQL related errors occur
+	 **/
+	public static function getAllOrderProductsByOrderId(&$mysqli, $orderId) {
+		// handle degenerate cases
+		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+			throw(new mysqli_sql_exception("input is not a mysqli object"));
+		}
+
+		$orderId = filter_var($orderId, FILTER_VALIDATE_INT);
+		if($orderId === false) {
+			throw(new mysqli_sql_exception("order id is not an integer"));
+		}
+		if($orderId <= 0) {
+			throw(new mysqli_sql_exception("order id is not positive"));
+		}
+		// create query template
+		$query	 = "SELECT orderId, productId, locationId, productQuantity FROM orderProduct WHERE orderId = ?";
+		$statement = $mysqli->prepare($query);
+		if($statement === false) {
+			throw(new mysqli_sql_exception("unable to prepare statement"));
+		}
+
+		// bind the location id to the place holder in the template
+		$wasClean = $statement->bind_param("i", $orderId);
+		if($wasClean === false) {
+			throw(new mysqli_sql_exception("unable to bind parameters"));
+		}
+
+		// execute the statement
+		if($statement->execute() === false) {
+			throw(new mysqli_sql_exception("unable to execute mySQL statement: " . $statement->error));
+		}
+
+		// get result from the SELECT query
+		$result = $statement->get_result();
+		if($result === false) {
+			throw(new mysqli_sql_exception("unable to get result set"));
+		}
+
+		// build an array of storeLocation
+		$orderProducts = array();
+		while(($row = $result->fetch_assoc()) !== null) {
+			try {
+				$orderProduct	= new OrderProduct($row["orderId"], $row["productId"], $row["locationId"], $row["productQuantity"]);
+				$orderProducts[] = $orderProduct;
+			}
+			catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new mysqli_sql_exception($exception->getMessage(), 0, $exception));
+			}
+		}
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) the entire array if >= 1 result
+		$numberOfOrderProducts = count($orderProducts);
+		if($numberOfOrderProducts === 0) {
+			return(null);
+		} else {
+			return($orderProducts);
+		}
+	}
+
+
 }
 
 ?>

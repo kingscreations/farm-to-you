@@ -9,9 +9,11 @@ require_once("../php/lib/header.php");
 // classes
 require_once("../php/classes/order.php");
 require_once("../php/classes/orderproduct.php");
+require_once("../php/classes/checkout.php");
+require_once("../php/classes/location.php");
 require_once("../php/classes/product.php");
 
-$profileId = 1;
+$profileId = $_SESSION['profileId'];
 
 // credentials
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
@@ -30,9 +32,12 @@ try {
 
 		foreach($orders as $order) {
 			$orderId = $order->getOrderId();
-			$orderDate = $order->getOrderDate();
-			$formattedDate = $orderDate->format("Y-m-d H:i:s");
 			$orderProducts = OrderProduct::getAllOrderProductsByOrderId($mysqli, $orderId);
+			$checkout = Checkout::getCheckoutByOrderId($mysqli, $orderId);
+			$checkoutDate = $checkout->getCheckoutDate();
+			$formattedDate = $checkoutDate->format("m/d/Y - H:i:s");
+			$checkoutFinalPrice = $checkout->getFinalPrice();
+
 			echo '<table class="table table-responsive">';
 			echo '<tr>';
 			echo '<th>Order #'.$orderId .'</th>';
@@ -43,19 +48,32 @@ try {
 			echo '<td>'.$formattedDate .'</td>';
 			echo '</tr>';
 
-
 			echo '<tr>';
 			echo '<td>Products</td>';
 			echo '<td>' ;
 			foreach($orderProducts as $orderProduct) {
 				$productId = $orderProduct->getProductId();
+				$orderProductQuantity = $orderProduct->getProductQuantity();
+				$locationId = $orderProduct->getLocationId();
 				$product = Product::getProductByProductId($mysqli, $productId);
-				$productName = $product->getProductByProductName();
-				echo "'.$productName .'\n";
+				$productName = $product->getProductName();
+				$productWeight = $product->getProductWeight();
+				$productPrice = $product->getProductPrice();
+				$location = Location::getLocationByLocationId($mysqli, $locationId);
+				$locationName = $location->getLocationName();
+
+				echo "$orderProductQuantity order of $productWeight lbs. of $productName for  $$productPrice at $locationName location";
+				echo '<br>';
 			}
 			echo '</td>' ;
-			echo '<td>'.$formattedDate .'</td>';
 			echo '</tr>';
+
+			echo '<tr>';
+			echo '<td>Final Price</td>';
+			echo '<td>$'.$checkoutFinalPrice.'</td>';
+			echo '</tr>';
+
+
 			echo '</table>';
 
 		}

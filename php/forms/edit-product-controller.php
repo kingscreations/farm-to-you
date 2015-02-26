@@ -11,7 +11,6 @@ require_once("../lib/utils.php");
 
 
 
-// MAY HAVE TO CHANGE THIS TO NOT BE REQUIRED SINCE THIS IS JUST AN UPDATE. WILL TEST THIS ALONG WITH JS
 // verify the form values have been submitted
 if(@isset($_POST["editProductName"]) === false || @isset($_POST["editProductPrice"]) === false
 	|| @isset($_POST["editProductDescription"]) === false || @isset($_POST["editProductWeight"]) === false || @isset($_POST["editStockLimit"]) === false)  {

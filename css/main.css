@@ -142,6 +142,10 @@ li[role=presentation].open a {
 	float: right;
 }
 
+.thumbnail {
+	display: inline-block;
+}
+
 .product-quantity {
 	max-width: 80px;
 }
@@ -293,5 +297,7 @@ h2 {
 
 .store-name {
 	font-size: 2em;
-	margin-top: 15px;
+	position: relative;
+	bottom: 40px;
+	margin-left: 10px;
 }

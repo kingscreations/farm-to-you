@@ -61,10 +61,15 @@ try {
 	}
 
 	// image path and url setup
-	$baseUrl             = CONTENT_ROOT_URL . 'images/product/';
-	$basePath            = CONTENT_ROOT_PATH . 'images/product/';
 	$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
-	$imageSrc            = 'product-'. $product->getProductId() .'.jpg';
+
+	$productBaseUrl      = CONTENT_ROOT_URL . 'images/product/';
+	$productBasePath     = CONTENT_ROOT_PATH . 'images/product/';
+	$productImageSrc     = 'product-'. $product->getProductId() .'.jpg';
+
+	$storeBaseUrl  = CONTENT_ROOT_URL . 'images/store/';
+	$storeBasePath = CONTENT_ROOT_PATH . 'images/store/';
+	$storeImageSrc  = 'store-'. $store->getStoreId() .'.jpg';
 
 } catch(Exception $exception) {
 	echo 'Exception: '. $exception->getMessage() .'<br/>';
@@ -73,12 +78,17 @@ try {
 
 ?>
 
-<div class="container-fluid vertical-spacer-60 white-container" id="product-page">
+<div class="container-fluid vertical-spacer-60" id="product-page">
 	<div class="row">
 		<div class="col-sm-5">
 			<?php
 
-			echo '<a href=""><span class="store-name">'. $store->getStoreName(). '</span></a>';
+			if(file_exists($storeBasePath . $storeImageSrc)) {
+				echo '<a href="" class="thumbnail"><img src="' . $storeBaseUrl . $storeImageSrc .'" alt="'. $store->getStoreName() .'" class="img-resonsive"/></a>';
+			} else {
+				echo '<a href="" class="thumbnail"><img src="' . $imagePlaceholderSrc . '" alt="'. $store->getStoreName() .'" class="img-resonsive"/></a>';
+			}
+			echo '<span class="store-name">By <a href="">'. $store->getStoreName(). '</a></span>';
 
 			?>
 		</div>
@@ -90,12 +100,13 @@ try {
 					$thumbnailSrc            = 'product-'. $storeProduct->getProductId() .'.jpg';
 
 					echo '<li>';
-					echo $storeProduct->getProductName();
 
+					// TODO get rid of the hardcoding
+					// link to a product page
 					echo '<a href="https://bootcamp-coders.cnm.edu/~fgoussin/farm-to-you/product/index.php?product='. $storeProduct->getProductId() .'" class="thumbnail">';
 
-					if(file_exists($basePath . $thumbnailSrc)) {
-						echo '<img class="img-responsive" src="' . $baseUrl . $thumbnailSrc . '">';
+					if(file_exists($productBasePath . $thumbnailSrc)) {
+						echo '<img class="img-responsive" src="' . $productBaseUrl . $thumbnailSrc . '">';
 					} else {
 						echo '<img class="img-responsive" src="' . $imagePlaceholderSrc . '">';
 					}
@@ -105,13 +116,15 @@ try {
 			}
 			?>
 			</ul>
-		</div>
+		</div><!-- end col-sm-7 -->
 	</div>
+</div><!-- end container-fluid -->
 
+	<div class="container-fluid white-container">
 	<div class="row">
 		<div class="col-sm-7">
-			<?php if(file_exists($basePath . $imageSrc)) { ?>
-				<img class="img-responsive" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $product->getProductName(); ?>"/>
+			<?php if(file_exists($productBasePath . $productImageSrc)) { ?>
+				<img class="img-responsive" src="<?php echo $productBaseUrl . $productImageSrc; ?>" alt="<?php echo $product->getProductName(); ?>"/>
 			<?php } else { ?>
 				<img class="img-responsive" src="<?php echo $imagePlaceholderSrc; ?>" alt="<?php echo $product->getProductName(); ?>"/>
 			<?php } ?>
@@ -119,6 +132,7 @@ try {
 		<div class="col-sm-5">
 			<div id="listing-page-cart">
 				<h1><?php echo $product->getProductName(); ?></h1>
+				<p><?php echo $product->getProductDescription(); ?></p>
 				<span class="currency-value">$<?php echo $product->getProductPrice(); ?> USD</span><br/>
 				<?php
 

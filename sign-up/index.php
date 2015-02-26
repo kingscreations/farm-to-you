@@ -12,7 +12,7 @@ require_once("../php/lib/header.php");
 ?>
 
 <div class="row-fluid">
-	<div class=""col-sm-12">
+	<div class="col-sm-12">
 		<h3>Sign Up!</h3>
 
 		<br>

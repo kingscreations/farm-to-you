@@ -1,14 +1,15 @@
 <?php
+session_start();
 
 $currentDir = dirname(__FILE__);
 require_once("../../root-path.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
-require_once("../../dummy-user-session.php");
+//require_once("../../dummy-user-session.php");
 require_once("../lib/utils.php");
 
-
+$userId = $_SESSION['user']['id'];
 
 // verify the form values have been submitted
 if(@isset($_POST["inputFirstname"]) === false || @isset($_POST["inputLastname"]) === false
@@ -26,7 +27,7 @@ try {
 	if(@isset($_FILES["inputImage"]) && ($_FILES["inputImage"]["tmp_name"]) !== "") {
 		$imageBasePath = '/var/www/html/farm-to-you/images/profile/';
 		$imageExtension = checkInputImage($_FILES['inputImage']);
-		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", "", $user->getUserId());
+		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", "", $userId);
 		$profile->insert($mysqli);
 		$profileId = $profile->getProfileId();
 		$imageFileName = $imageBasePath . 'profile-' . $profileId . '.' . $imageExtension;
@@ -34,7 +35,7 @@ try {
 		$profile->update($mysqli);
 		move_uploaded_file($_FILES['inputImage']['tmp_name'], $imageFileName);
 	} else {
-		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", "", $user->getUserId());
+		$profile = new Profile(null, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", "", $userId);
 		$profile->insert($mysqli);
 		$profileId = $profile->getProfileId();
 	}

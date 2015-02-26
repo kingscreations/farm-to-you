@@ -12,7 +12,6 @@ $configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 $mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 
-
 $profile = Profile::getProfileByProfileId($mysqli, $_SESSION["profileId"]);
 
 $profileFirstname = $profile->getFirstName();

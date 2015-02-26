@@ -3,10 +3,9 @@ $currentDir = dirname(__FILE__);
 
 require_once ("../../root-path.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-require_once("../../dummy-session-single.php");
+//require_once("../../dummy-session-single.php");
 require_once("../classes/profile.php");
 require_once("../lib/utils.php");
-
 
 // verify the form values have been submitted
 if(@isset($_POST["inputFirstname"]) === false || @isset($_POST["inputLastname"]) === false

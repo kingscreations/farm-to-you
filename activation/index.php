@@ -39,14 +39,14 @@ if(empty($currentPathExploded)) {
 ?>
 
 <div class="row-fluid">
-	<div class=""col-sm-12">
-		<h3>Your registration is complete. </br> Thank you for signing up with farm to you!</h3>
+	<div class="col-sm-12">
+		<h3>Your registration is complete. <br> Thank you for signing up with farm to you!</h3>
 
 
 <p>
 	<ul>
 		<li>
-			<a href="<?php echo $url ?>">Continue to home page</a>
+			<a href="../add-profile/index.php">Continue to make your profile!</a>
 		</li>
 	</ul>
 </p>

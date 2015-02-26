@@ -2,7 +2,7 @@
 $currentDir = dirname(__FILE__);
 require_once ("../root-path.php");
 require_once("../php/lib/header.php");
-require_once("../dummy-user-session.php");
+//require_once("../dummy-user-session.php");
 //require_once("../dummy-session-single.php");
 require_once("../php/lib/footer.php");
 require_once("../php/classes/profile.php");
@@ -29,6 +29,7 @@ $mysqli = new mysqli($configArray["hostname"], $configArray["username"], $config
 
 $userId = $_SESSION['user']['id'];
 $hasProfile = Profile::getProfileByUserId($mysqli, $userId);
+var_dump($_SESSION['user']['id']);
 
 if($hasProfile === null) {
 

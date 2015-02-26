@@ -12,7 +12,7 @@ require_once("../php/lib/signing-in-header.php");
 ?>
 
 <div class="row-fluid">
-	<div class=""col-sm-12">
+	<div class="col-sm-12">
 	<h3>Welcome Back!</h3>
 
 	<br>

@@ -22,7 +22,8 @@ $errorPath = '../lib/404.php';
 if(!@isset($_POST['product']) && ctype_digit($_POST['product'])) {
 	header('Location: '. $errorPath);
 } else {
-	$productId = filter_var($_POST, FILTER_SANITIZE_NUMBER_INT);
+	$productId = filter_var($_POST['product'], FILTER_SANITIZE_NUMBER_INT);
+	$productId = intval($productId);
 }
 
 // check if at least productQuantity or productWeight exits
@@ -30,49 +31,46 @@ if(!@isset($_POST['productQuantity']) && !@isset($_POST['productWeight'])) {
 	header('Location: '. $errorPath);
 }
 
-//try {
-//
-//	// connection
-//	$configArray = readConfig($configFile);
-//	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
-//		$configArray["database"]);
-//
-//	// connection???
-//
-//} catch(Exception $exception) {
-//	echo '<p class=\"alert alert-danger\">Exception: ' . $exception->getMessage() . '</p>';
-//}
+// if both are set redirect to the error page
+if(@isset($_POST['productQuantity']) && @isset($_POST['productWeight'])) {
+	header('Location: '. $errorPath);
+}
+
+try {
+
+	// connection
+	$configArray = readConfig($configFile);
+	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
+		$configArray["database"]);
+
+
+
+	$product = Product::getProductByProductId($mysqli, $productId);
+
+} catch(Exception $exception) {
+	echo '<p class="alert alert-danger">Exception: ' . $exception->getMessage() . '</p>';
+}
 
 // create the products session if it does not already exist
 if(!@isset($_SESSION['products'])) {
 	$_SESSION['products'] = array();
 }
 
-//
+// product quantity
 if(@isset($_POST['productQuantity'])) {
 	$productQuantity = filter_var($_POST['productQuantity'], FILTER_SANITIZE_NUMBER_INT);
 
+	$_SESSION['products'][$productId][] = array(
+		'quantity' => $productQuantity
+	);
+} else {
+	$productWeight = filter_var($_POST['productWeight'], FILTER_SANITIZE_NUMBER_FLOAT);
 
+	$_SESSION['products'][$productId][] = array(
+		'weight' => $productWeight
+	);
 }
 
-if(@isset($_POST['productWeight'])) {
-	$productQuantity = filter_var($_POST['productWeight'], FILTER_SANITIZE_NUMBER_FLOAT);
-}
-
-//$_SESSION['products'] = array(
-//	$product1->getProductId() => array(
-//		'quantity' => 7,
-//		'locations' => array(
-//			$location->getLocationId()
-//		)
-//	),
-//	$product2->getProductId() => array(
-//		'quantity' => 5,
-//		'locations' => array(
-//			$location->getLocationId()
-//		)
-//	)
-//);
-
+echo '<p class="alert alert-success">'. $product->getProductName(). ' has been added to the cart!</p>';
 
 ?>

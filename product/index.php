@@ -196,11 +196,10 @@ $storeImageSrc  = 'store-'. $store->getStoreId() .'.jpg';
 
 					?>
 					<br/>
-					<div id="outputArea" class="no-list-style"></div>
-					<br/>
 					<button class="btn btn-primary" type="submit" id="add-product-to-cart">Add to Cart</button>
 					<input name="product" type="hidden" value="<?php echo $product->getProductId(); ?>"/>
 				</div><!-- listing-page-cart -->
+				<div id="outputArea" class="no-list-style"></div>
 			</form>
 
 			<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count"></div>

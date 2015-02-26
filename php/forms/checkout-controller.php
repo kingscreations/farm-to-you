@@ -176,49 +176,4 @@ try {
 	echo "<p class=\"alert alert-danger\">Exception: " . $stripeException->getMessage() . "</p>";
 }
 
-
-
-
-/**
- * Temporary function which acts like a tear down method
- *
- * @param $mysqli the database connection
- */
-function clearDatabase($mysqli) {
-	$orderProducts = OrderProduct::getAllOrderProducts($mysqli);
-	if($orderProducts !== null) {
-		foreach($orderProducts as $orderProduct) {
-			$orderProduct->delete($mysqli);
-		}
-	}
-
-	$products = Product::getAllProducts($mysqli);
-	if($products !== null) {
-		foreach($products as $product) {
-			$product->delete($mysqli);
-		}
-	}
-
-	$orders = Order::getAllOrders($mysqli);
-	if($orders !== null) {
-		foreach($orders as $order) {
-			$order->delete($mysqli);
-		}
-	}
-
-	$profiles = Profile::getAllProfiles($mysqli);
-	if($profiles !== null) {
-		foreach($profiles as $profile) {
-			$profile->delete($mysqli);
-		}
-	}
-
-	$users = User::getAllUsers($mysqli);
-	if($users !== null) {
-		foreach($users as $user) {
-			$user->delete($mysqli);
-		}
-	}
-}
-
 ?>

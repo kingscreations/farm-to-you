@@ -604,6 +604,7 @@ class Product {
 		if($productId === false) {
 			throw(new mysqli_sql_exception("product id is not an integer"));
 		}
+
 		if($productId <= 0) {
 			throw(new mysqli_sql_exception("product id is not positive"));
 		}

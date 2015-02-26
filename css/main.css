@@ -347,7 +347,14 @@ h2 {
 }
 
 .count {
-	
+	font-size: 0.7em;
+	padding: 0.1em 0.3em;
+	border-radius: 3px;
+	color: white;
+	background-color: lightslategray;
+	position: absolute;
+	bottom: 40px;
+	left: 30px;
 }
 #multi-menu {
 	margin-top: 30px;

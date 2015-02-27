@@ -23,17 +23,12 @@ $profileImage = $profile->getImagePath();
 ?>
 
 
-	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
-	<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
-	<script src="../js/edit-profile.js"></script>
-
 
 	<div id="multi-menu" class="col-md-3">
 		<ul class="nav nav-pills nav-stacked">
 			<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
 			<li><a href="../add-store/index.php">Manage Stores</a></li>
-			<li><a href="#">List of Orders</a></li>
+			<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
 			<li><a href="#">Account Settings</a></li>
 		</ul>
 	</div>

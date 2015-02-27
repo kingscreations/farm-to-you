@@ -20,7 +20,7 @@ require_once("../php/classes/store.php");
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
 			<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
-			<li><a href="#">List of Orders</a></li>
+			<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
 			<li><a href="#">Account Settings</a></li>
 		</ul>
 	</div>

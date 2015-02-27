@@ -49,9 +49,8 @@ if(!@isset($_SESSION['products'])) {
 }
 
 $productQuantity = filter_var($_POST['productQuantity'], FILTER_SANITIZE_NUMBER_INT);
-$sessionProduct = $_SESSION['products'][$productId];
 
-if(@isset($sessionProduct) && @isset($sessionProduct['quantity'])) {
+if(@isset($_SESSION['products']) && @isset($sessionProduct[$productId])) {
 	$_SESSION['products'][$productId]['quantity'] = $sessionProduct['quantity'] + $productQuantity;
 } else {
 	$_SESSION['products'][$productId] = array(

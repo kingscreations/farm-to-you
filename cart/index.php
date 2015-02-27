@@ -1,7 +1,5 @@
 <?php
 
-//session_start();
-
 /**
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
@@ -38,7 +36,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 </div>
 
 <?php if(@isset($_SESSION) && @isset($_SESSION['products'])) { ?>
-	<div class="container-fluid cart-product white-container">
+	<div class="container-fluid cart-product white-container" id="cart">
 		<div class="row">
 			<div class="col-sm-12">
 				<form id="cartController" action="../php/forms/cart-controller.php" method="post">
@@ -47,10 +45,10 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 							<tr>
 								<th></th>
 								<th></th>
-								<th>weight</th>
-								<th>price</th>
-								<th>quantity</th>
-								<th>product total</th>
+								<th>Price</th>
+								<th>Weight</th>
+								<th>Quantity</th>
+								<th>Product total</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -86,7 +84,6 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 									}
 	//								echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product->getImagePath() . '"></td>';
 									echo '<td>' . $product->getProductName() . '</td>';
-									echo '<td id="product'. $counter .'-weight">' . $product->getProductWeight() . '</td>';
 
 									// price
 									echo '<td id="product'. $counter .'-price">$' . $product->getProductPrice();
@@ -98,6 +95,8 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 
 									echo '</td>';
 									// end price
+
+									echo '<td id="product'. $counter .'-weight">' . $product->getProductWeight() . '</td>';
 
 									$maxQuantity = 15;
 									$stockLimit  = $product->getStockLimit();
@@ -137,7 +136,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 
 								// last row (hacky hacky not pretty! :))
 								echo '<tr><td></td><td></td><td></td><td></td>';
-								echo '<td id="total-price-label">Total:</td>';
+								echo '<td id="total-price-label">Cart total:</td>';
 								echo '<td id="total-price-result"></td></tr>';
 
 								$mysqli->close();

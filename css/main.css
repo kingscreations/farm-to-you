@@ -352,6 +352,30 @@ h2 {
   margin-top: 30px;
 }
 
+#cart th,
+#cart #total-price-result {
+  color: #337ab7;
+  font-weight: bold;
+}
+
+#cart #total-price-label {
+  position: relative;
+  left: 10%;
+}
+
+#cart [id$=-final-price] {
+  width: 105px !important;
+  text-align: right;
+}
+
+#cart th:nth-child(6) {
+  text-align: right;
+}
+
+#cart td:last-child {
+  padding-left: 60px;
+}
+
 /* product page */
 .currency-value {
   font-size: 1.6em;

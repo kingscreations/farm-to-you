@@ -48,7 +48,12 @@ $(document).ready(function() {
 					$("#outputArea").html('<p class="alert alert-success">' + productName + ' has been added to the cart!</p>');
 
 					// update the cart icon count
-					$('#cart-main-menu-item a').append('<span class="count">' + cartCount + '</span>');
+					var $cartCount = $('#cart-main-menu-item a .count');
+					if($cartCount.length > 0) {
+						$cartCount.text(cartCount);
+					} else {
+						$('#cart-main-menu-item a').append('<span class="count">' + cartCount + '</span>');
+					}
 
 					if($(".alert-success").length >= 1) {
 						$(form)[0].reset();

@@ -57,7 +57,7 @@
 			 var result = productPrice * newQuantity * productWeight;
 
 			 // multiply by 100, round and then divide by 100 to get 2 decimal precision
-			 var totalProductPrice = String(Math.round(result * 100) / 100);
+			 var totalProductPrice = String((Math.round(result * 100) / 100).toFixed(2));
 
 			 $('#'+ elementIdPart1 +'-final-price').html('$'+totalProductPrice);
 		 } else {
@@ -69,7 +69,7 @@
 			 var result = productPrice * newQuantity;
 
 			 // multiply by 100, round and then divide by 100 to get 2 decimal precision
-			 var totalProductPrice = String(Math.round(result * 100) / 100);
+			 var totalProductPrice = String((Math.round(result * 100) / 100).toFixed(2));
 
 			 $('#'+ elementIdPart1 +'-final-price').html('$'+totalProductPrice);
 		 };
@@ -90,7 +90,7 @@
 		});
 
 		// round the total and put a dollar sign
-		totalPrice = '$'+String(Math.round(totalPrice * 100) / 100);
+		totalPrice = '$'+String((Math.round(totalPrice * 100) / 100).toFixed(2));
 
 		// show the result
 		$('#total-price-result').text(totalPrice);

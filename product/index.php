@@ -177,28 +177,29 @@ $storeImageSrc  = basename($store->getImagePath());
 					// get the # of options to create in the select box
 					$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
 
-					if($product->getProductPriceType() === 'u') {
+//					if($product->getProductPriceType() === 'u') {
 
-						// select box
-						echo 'Select a quantity: <select class="product-quantity" name="productQuantity[]">';
+					// select box
+					echo 'Select a quantity: <select class="product-quantity" name="productQuantity[]">';
 
-						// creating $quantityLimit # of options
-						for($i = 0; $i < $quantityLimit; $i++) {
-							if($i === 0) {
-								echo '<option selected="selected">' . ($i + 1) . '</option>';
-							} else {
-								echo '<option>' . ($i + 1) . '</option>';
-							}
+					// creating $quantityLimit # of options
+					for($i = 0; $i < $quantityLimit; $i++) {
+						if($i === 0) {
+							echo '<option selected="selected">' . ($i + 1) . '</option>';
+						} else {
+							echo '<option>' . ($i + 1) . '</option>';
 						}
-
-						echo '</select>';
-						// end select box
-					} else {
-
-						echo 'Select a weight:';
-						echo ' <input class="xs-input" type="text" name="productWeight" id=""/>';
-						echo ' lb';
 					}
+
+					echo '</select>';
+					// end select box
+
+//					} else {
+//
+//						echo 'Select a weight:';
+//						echo ' <input class="xs-input" type="text" name="productWeight" id=""/>';
+//						echo ' lb';
+//					}
 
 					?>
 					<button class="btn btn-primary" type="submit" id="add-product-to-cart">Add to Cart</button>

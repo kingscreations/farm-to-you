@@ -38,9 +38,6 @@ try {
 	$profile  = Profile::getProfileByProfileId($mysqli, 1);
 	$store    = Store::getStoreByStoreId($mysqli, 1);
 
-	$product1 = Product::getProductByProductId($mysqli, 1);
-	$product1 = Product::getProductByProductId($mysqli, 2);
-
 	$location = Location::getLocationByLocationId($mysqli, 1);
 
 	$mysqli->close();
@@ -50,27 +47,12 @@ try {
 	echo $exception->getFile() . ":" . $exception->getLine();
 }
 
-$_SESSION['products'] = array(
-	$product1->getProductId() => array(
-		'quantity' => 7,
-		'locations' => array(
-			$location->getLocationId()
-		)
-	),
-	$product2->getProductId() => array(
-		'quantity' => 5,
-		'locations' => array(
-			$location->getLocationId()
-		)
-	)
-);
-/////////////////////////////////////////////////////////////////////////
-
 // TODO add a delete button for each product
 
 ?>
 
-	<div class="row-fluid">
+<div class="container-fluid white-container">
+	<div class="row">
 		<div class="col-sm-12">
 			<h2>Shopping cart</h2>
 
@@ -88,7 +70,7 @@ $_SESSION['products'] = array(
 					</thead>
 					<tbody>
 						<?php
-
+//						var_dump($_SESSION['products']);
 						try {
 							// get the credentials information from the server and connect to the database
 							$configArray = readConfig($configFile);
@@ -104,7 +86,18 @@ $_SESSION['products'] = array(
 								$product = Product::getProductByProductId($mysqli, $sessionProductId);
 
 								echo '<tr>';
-								echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product->getImagePath() . '"></td>';
+
+
+								if(file_exists($product->getImagePath())) {
+									echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' . $product->getProductId() .'">
+												<img class="img-responsive" src="' . CONTENT_ROOT_URL . 'images/product/' . basename($product->getImagePath()) . '">
+											</a></td>';
+								} else {
+									echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' . $product->getProductId() .'">
+												<img class="img-responsive" src="' . $imagePlaceholderSrc . '">
+											</a></td>';
+								}
+//								echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product->getImagePath() . '"></td>';
 								echo '<td>' . $product->getProductName() . '</td>';
 								echo '<td id="product'. $counter .'-weight">' . $product->getProductWeight() . '</td>';
 
@@ -129,8 +122,10 @@ $_SESSION['products'] = array(
 								$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
 
 								// select box
-								echo '<td><select class="product-quantity" id="product'. $counter .'-quantity" name="productQuantity[]">';
+								echo '<td>';
 
+								// test what kind of product we are dealing with
+								echo '<select class="product-quantity" id="product' . $counter . '-quantity" name="productQuantity[]">';
 								// creating $quantityLimit # of options
 								for($i = 0; $i < $quantityLimit; $i++) {
 									if(($i + 1) === $sessionProduct['quantity']) {
@@ -140,7 +135,9 @@ $_SESSION['products'] = array(
 									}
 								}
 
-								echo '</select></td>';
+									echo '</select>';
+
+								echo '</td>';
 								// end select box
 
 								echo '<td id="product'. $counter .'-final-price"></td>';
@@ -149,7 +146,7 @@ $_SESSION['products'] = array(
 								$counter++;
 							}
 
-							// last row
+							// last row (hacky hacky not pretty! :))
 							echo '<tr><td></td><td></td><td></td><td></td>';
 							echo '<td id="total-price-label">Total:</td>';
 							echo '<td id="total-price-result"></td></tr>';
@@ -168,6 +165,7 @@ $_SESSION['products'] = array(
 				<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="cart-validate-button">
 			</form>
 		</div><!-- end col-sm-12 -->
-	</div><!-- end row-fluid -->
+	</div><!-- end row -->
+</div><!-- end container-fluid -->
 
 <?php require_once "../php/lib/footer.php"; ?>

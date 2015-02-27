@@ -107,6 +107,10 @@ $storeImageSrc  = 'store-'. $store->getStoreId() .'.jpg';
 			if($storeProducts !== null) {
 				echo '<li><a href="" class="thumbnail count-store-products"><span class="">'. count($storeProducts) . ' <small>products</small></a></li>';
 
+				// randomize the products
+				shuffle($storeProducts);
+
+				// show the products thumbnails
 				foreach($storeProducts as $index => $storeProduct) {
 					// show at max 4 items
 					if(($index + 1) > 4) {

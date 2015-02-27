@@ -52,10 +52,8 @@ $(document).ready(function() {
 					$("#outputArea").css("display", "");
 					$("#outputArea").html('<p class="alert alert-success">' + productName + ' has been added to the cart!</p>');
 
-					console.log(cartCount);
-					console.log($('#cart-main-menu-item a .count').text());
-
-					$('#cart-main-menu-item a .count').text(cartCount);
+					// update the cart icon count
+					$('#cart-main-menu-item a').append('<span class="count">' + cartCount + '</span>');
 
 					if($(".alert-success").length >= 1) {
 						$(form)[0].reset();

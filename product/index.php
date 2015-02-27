@@ -161,6 +161,8 @@ $storeImageSrc  = basename($store->getImagePath());
 					$stockLimit = $product->getStockLimit();
 					if($stockLimit < 15) {
 						echo 'Only '. $stockLimit .' available';
+					} else if($stockLimit > 60) {
+						echo 'A lot available';
 					} else {
 						echo $stockLimit .' available';
 					}

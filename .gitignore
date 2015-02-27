@@ -2,3 +2,6 @@
 .DS_Store
 doc
 external-libs
+.sass-cache/
+css/main.css.map
+node_modules/

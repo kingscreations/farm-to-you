@@ -1,0 +1,33 @@
+{
+  "name": "farm-to-you",
+  "version": "0.0.1",
+  "description": "store interface between farmers and clients",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kingscreations/farm-to-you.git"
+  },
+  "keywords": [
+    "farm",
+    "you",
+    "farm-to-you",
+    "merchant",
+    "client",
+    "farming",
+    "interface"
+  ],
+  "author": "",
+  "license": "Private",
+  "bugs": {
+    "url": "https://github.com/kingscreations/farm-to-you/issues"
+  },
+  "homepage": "https://bootcamp-coders.cnm.edu/~fgoussin/farm-to-you",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-sass": "~0.3.0",
+    "grunt-contrib-watch": "~0.4.4"
+  }
+}

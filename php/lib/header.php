@@ -15,6 +15,9 @@ $rootDepth = substr_count($rootPath, "/");
 $depthDifference = $currentDepth - $rootDepth;
 $prefix = str_repeat("../", $depthDifference);
 
+// paths constants
+require_once($prefix .'/paths.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,7 +80,7 @@ $prefix = str_repeat("../", $depthDifference);
 					<ul class="nav nav-pills" role="tablist">
 						<?php if(@isset($_SESSION['products'])) { ?>
 							<li id="cart-main-menu-item">
-								<a href="#">
+								<a href="<?php echo SITE_ROOT_URL . 'cart/' ?>">
 									<span class="glyphicon glyphicon-shopping-cart"></span>
 									<small>Cart</small>
 									<span class="count"><?php echo count($_SESSION['products']); ?></span>

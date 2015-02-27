@@ -39,7 +39,7 @@ try {
 		$order = Order::getOrderByOrderId($mysqli, $orderId);
 		$orders[] = $order;
 	}
-//	$orders = array_unique($orders);
+	$orders = array_unique($orders, SORT_REGULAR);
 
 	// create table of existing stores
 	if($orders !== null) {

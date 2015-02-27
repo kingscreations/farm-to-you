@@ -409,9 +409,9 @@ h2 {
   display: block;
 }
 
-.thumbnail-links .count-store-products * {
+.thumbnail-links .count-store-products span {
   position: relative;
-  bottom: 10px;
+  top: 20px;
 }
 
 #add-product-to-cart {

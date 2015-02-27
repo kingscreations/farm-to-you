@@ -90,10 +90,6 @@ $storeBaseUrl  = CONTENT_ROOT_URL . 'images/store/';
 $storeBasePath = CONTENT_ROOT_PATH . 'images/store/';
 $storeImageSrc  = basename($store->getImagePath());
 
-// TODO hash the get url /  mod rewrite
-//$salt = bin2hex(openssl_random_pseudo_bytes(16));
-//$hash = hash_pbkdf2("sha512", $_POST["password1"], $salt, 2048, 128);
-
 ?>
 
 <div class="container-fluid vertical-spacer-60" id="product-page">
@@ -102,9 +98,11 @@ $storeImageSrc  = basename($store->getImagePath());
 			<?php
 
 			if(file_exists($storeBasePath . $storeImageSrc)) {
-				echo '<a href="" class="thumbnail"><img src="' . $storeBaseUrl . $storeImageSrc .'" alt="'. $store->getStoreName() .'" class="img-responsive"/></a>';
+				echo '<a href="" class="thumbnail"><img src="' . $storeBaseUrl . $storeImageSrc .'" alt="'.
+					$store->getStoreName() .'" class="img-responsive"/></a>';
 			} else {
-				echo '<a href="" class="thumbnail"><img src="' . $imagePlaceholderSrc . '" alt="'. $store->getStoreName() .'" class="img-responsive"/></a>';
+				echo '<a href="" class="thumbnail"><img src="' . $imagePlaceholderSrc . '" alt="'. $store->getStoreName() .
+					'" class="img-responsive"/></a>';
 			}
 			echo '<span class="store-name">By <a href="">'. $store->getStoreName(). '</a></span>';
 
@@ -115,7 +113,8 @@ $storeImageSrc  = basename($store->getImagePath());
 			<ul class="thumbnail-links">
 			<?php
 			if($storeProducts !== null) {
-				echo '<li><a href="" class="thumbnail count-store-products"><span class="">'. count($storeProducts) . ' <small>products</small></a></li>';
+				echo '<li><a href="" class="count-store-products"><span class="">'. count($storeProducts) .
+					' <small>products</small></a></li>';
 
 				// randomize the products
 				shuffle($storeProducts);
@@ -133,7 +132,8 @@ $storeImageSrc  = basename($store->getImagePath());
 					echo '<li>';
 
 					// link to a product page
-					echo '<a href="'. SITE_ROOT_URL .'product/index.php?product='. $storeProduct->getProductId() .'" class="thumbnail">';
+					echo '<a href="'. SITE_ROOT_URL .'product/index.php?product='. $storeProduct->getProductId() .
+						'" class="thumbnail">';
 
 					if(file_exists($productBasePath . $thumbnailSrc)) {
 						echo '<img class="img-responsive" src="' . $productBaseUrl . $thumbnailSrc . '">';
@@ -155,9 +155,11 @@ $storeImageSrc  = basename($store->getImagePath());
 	<div class="row">
 		<div class="col-sm-7">
 			<?php if(file_exists($productBasePath . $productImageSrc)) { ?>
-				<img class="img-responsive" src="<?php echo $productBaseUrl . $productImageSrc; ?>" alt="<?php echo $product->getProductName(); ?>"/>
+				<img class="img-responsive" src="<?php echo $productBaseUrl . $productImageSrc; ?>"
+					  alt="<?php echo $product->getProductName(); ?>"/>
 			<?php } else { ?>
-				<img class="img-responsive" src="<?php echo $imagePlaceholderSrc; ?>" alt="<?php echo $product->getProductName(); ?>"/>
+				<img class="img-responsive" src="<?php echo $imagePlaceholderSrc; ?>"
+					  alt="<?php echo $product->getProductName(); ?>"/>
 			<?php } ?>
 		</div>
 		<div class="col-sm-5">
@@ -189,8 +191,6 @@ $storeImageSrc  = basename($store->getImagePath());
 					// get the # of options to create in the select box
 					$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
 
-//					if($product->getProductPriceType() === 'u') {
-
 					// select box
 					echo 'Select a quantity: <select class="product-quantity" name="productQuantity">';
 
@@ -206,13 +206,6 @@ $storeImageSrc  = basename($store->getImagePath());
 					echo '</select>';
 					// end select box
 
-//					} else {
-//
-//						echo 'Select a weight:';
-//						echo ' <input class="xs-input" type="text" name="productWeight" id=""/>';
-//						echo ' lb';
-//					}
-
 					?>
 					<button class="btn btn-primary" type="submit" id="add-product-to-cart">Add to Cart</button>
 					<input name="product" type="hidden" value="<?php echo $product->getProductId(); ?>"/>
@@ -220,7 +213,8 @@ $storeImageSrc  = basename($store->getImagePath());
 				<div id="outputArea" class="no-list-style"></div>
 			</form>
 
-			<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count"></div>
+			<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/"
+				  data-layout="button_count"></div>
 		</div>
 	</div>
 </div><!-- end container-fluid -->

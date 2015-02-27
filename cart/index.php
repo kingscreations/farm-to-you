@@ -53,16 +53,20 @@ try {
 <div class="container-fluid vertical-spacer-60">
 	<div class="row">
 		<div class="col-sm-12">
-			<h1><?php echo count($_SESSION['products']) ?> product in you cart</h1>
+			<?php if(@isset($_SESSION['products'])) { ?>
+				<h1><?php echo count($_SESSION['products']) ?> product in you cart</h1>
+			<?php } else { ?>
+				<h1>Your cart is empty</h1>
+				<p><a href="<?php echo SITE_ROOT_URL ?>">Back to the home page</a></p>
+			<?php } ?>
 		</div>
 	</div>
 </div>
 
-<div class="container-fluid cart-product white-container">
-	<div class="row">
-		<div class="col-sm-12">
-
-			<?php if(@isset($_SESSION) && @isset($_SESSION['products'])) { ?>
+<?php if(@isset($_SESSION) && @isset($_SESSION['products'])) { ?>
+	<div class="container-fluid cart-product white-container">
+		<div class="row">
+			<div class="col-sm-12">
 				<form id="cartController" action="../php/forms/cart-controller.php" method="post">
 					<table class="table">
 						<thead>
@@ -175,14 +179,10 @@ try {
 					<p id="outputArea"></p>
 					<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="cart-validate-button">
 				</form>
-
-			<!-- if the cart is empty: -->
-			<?php } else { ?>
-				<h2>Cart empty</h2>
-				<a href="<?php echo SITE_ROOT_URL ?>">Back to the index page</a>
-			<?php } ?>
-		</div><!-- end col-sm-12 -->
-	</div><!-- end row -->
-</div><!-- end container-fluid -->
+				<div id="outputArea"></div>
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end container-fluid -->
+<?php } ?>
 
 <?php require_once "../php/lib/footer.php"; ?>

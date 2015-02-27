@@ -111,7 +111,7 @@ $(document).ready(function() {
 
 		submitHandler: function(form) {
 			var $form = $(form);
-console.log('form submitted!');
+
 			// Disable the submit button to prevent repeated clicks
 			$form.find('button')
 				.prop('disabled', true)

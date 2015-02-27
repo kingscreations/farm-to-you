@@ -96,7 +96,23 @@
 		$('#total-price-result').text(totalPrice);
 	 }
 
-	 $('[id^=delete-product-]').click(function() {
+	 $deleteProduct = $('[id^=delete-product-]');
+	 $deleteProduct.click(function() {
 
+		 var product = $(this).prop('id')
+		 var data = {
+			 product: product
+		 }
+
+		 $.ajax({
+			 type: "post",
+			 url: "../php/forms/cart-delete-product.php",
+			 data: data
+		 })
+			 .done(function(message) {
+
+				 // refresh the page
+				 location.reload();
+			 });
 	 });
 });

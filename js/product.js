@@ -48,9 +48,9 @@ $(document).ready(function() {
 				url: "../php/forms/product-controller.php",
 				data: data,
 				success: function(cartCount) {
-					$productName = $("h1").text();
-					$("#outputArea").css("display", "block");
-					$("#outputArea").html('<p class="alert alert-success">' + $productName + ' has been added to the cart!</p>');
+					var productName = $("h1").text();
+					$("#outputArea").css("display", "");
+					$("#outputArea").html('<p class="alert alert-success">' + productName + ' has been added to the cart!</p>');
 
 					console.log(cartCount);
 					console.log($('#cart-main-menu-item a .count').text());

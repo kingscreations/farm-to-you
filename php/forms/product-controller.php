@@ -49,10 +49,15 @@ if(!@isset($_SESSION['products'])) {
 }
 
 $productQuantity = filter_var($_POST['productQuantity'], FILTER_SANITIZE_NUMBER_INT);
+$sessionProduct = $_SESSION['products'][$productId];
 
-$_SESSION['products'][$productId] = array(
-	'quantity' => $productQuantity
-);
+if(@isset($sessionProduct) && @isset($sessionProduct['quantity'])) {
+	$_SESSION['products'][$productId]['quantity'] = $sessionProduct['quantity'] + $productQuantity;
+} else {
+	$_SESSION['products'][$productId] = array(
+		'quantity' => $productQuantity
+	);
+}
 
 // return the number of product to the ajax call (update the cart icon)
 echo count($_SESSION['products']);

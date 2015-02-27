@@ -101,6 +101,7 @@ a:hover {
 
 #farm-to-you-logo a:hover {
 	text-decoration: none;
+	border: none;
 }
 
 #farm-to-you-logo a,
@@ -395,13 +396,13 @@ h2 {
 
 .count {
 	font-size: 0.7em;
-	padding: 0.1em 0.3em;
-	border-radius: 3px;
+	padding: 0.05em 0.15em;
+	border-radius: 2px;
 	color: white;
-	background-color: lightslategray;
+	background-color: #7AC142;
 	position: absolute;
-	bottom: 40px;
-	left: 30px;
+	bottom: 35px;
+	left: 26px;
 }
 #multi-menu {
 	margin-top: 30px;

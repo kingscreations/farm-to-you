@@ -30,11 +30,6 @@ $(document).ready(function() {
 		submitHandler: function(form) {
 			var $form = $(form);
 
-			// Disable the submit button to prevent repeated clicks
-			$form.find('button')
-				.prop('disabled', true)
-				.addClass('disabled');
-
 			var $product         = $('[name=product]');
 			var $productQuantity = $('[name=productQuantity]');
 

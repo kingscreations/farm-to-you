@@ -5,31 +5,19 @@
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
 ?>
-		<div class="container-fluid">
-			<footer>
+		<footer>
+			<div class="container-fluid">
 				<div class="row">
-					<div class="col-xs-3">
-						<p>
-							<a href="">Jason</a>
-						</p>
+					<div class="col-sm-12">
+						<ul class="inline-list">
+							<li>&copy;<?php echo date("Y"); ?> Farm to You</li>
+							<li><a href="">Terms</a></li>
+							<li><a href="">Privacy</a></li>
+							<li><a href="">Copyright</a></li>
+						</ul>
 					</div>
-					<div class="col-xs-3">
-						<p>
-							<a href="">Jay</a>
-						</p>
-					</div>
-					<div class="col-xs-3">
-						<p>
-							<a href="">Alonso</a>
-						</p>
-					</div>
-					<div class="col-xs-3">
-						<p>
-							<a href="">Florian</a>
-						</p>
-					</div>
-				</div>
-			</footer>
+				</footer>
+			</div>
 		</div><!-- end of container-fluid -->
 	</body>
 </html>

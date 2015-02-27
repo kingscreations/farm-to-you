@@ -25,23 +25,21 @@ try {
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 	$products = Product::getAllProductsFromMerchantByProfileId($mysqli, $profileId);
-	var_dump($products);
 	$allOrderProducts = array();
 	foreach ($products as $product) {
 		$merchantProductId = $product->getProductId();
 		$orderProducts = OrderProduct::getAllOrderProductsByProductId($mysqli, $merchantProductId);
-//		var_dump($orderProducts);
 		if($orderProducts !== null) {
-			array_push($allOrderProducts, $orderProducts);
+			$allOrderProducts = array_merge($allOrderProducts, $orderProducts);
 		}
 	}
-	var_dump($allOrderProducts);
 	$orders = array();
 	foreach ($allOrderProducts as $allOrderProduct) {
-		$orderId1 = $allOrderProduct['orderId']->getOrderId();
-		$order1 = Order::getOrderByOrderId($mysqli, $orderId1);
-		$orders[] = $order1;
+		$orderId = $allOrderProduct->getOrderId();
+		$order = Order::getOrderByOrderId($mysqli, $orderId);
+		$orders[] = $order;
 	}
+//	$orders = array_unique($orders);
 
 	// create table of existing stores
 	if($orders !== null) {

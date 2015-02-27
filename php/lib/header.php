@@ -71,51 +71,54 @@ require_once($prefix .'/paths.php');
 			}(document, 'script', 'facebook-jssdk'));
 		</script>
 
-		<!-- start of global container -->
-		<div class="container-fluid" id="main-menu">
-			<div class="row clearfix">
-				<div class="col-xs-6">
-					<div id="farm-to-you-logo" class="apply-nav-height">
-						<a href="<?php echo SITE_ROOT_URL ?>">Farm to You</a>
+		<!-- wrapper for the sticky footer -->
+		<div class="wrapper">
+
+			<!-- start of global container -->
+			<div class="container-fluid" id="main-menu">
+				<div class="row clearfix">
+					<div class="col-xs-6">
+						<div id="farm-to-you-logo" class="apply-nav-height">
+							<a href="<?php echo SITE_ROOT_URL ?>">Farm to You</a>
+						</div>
 					</div>
-				</div>
-				<div class="col-xs-6">
-					<ul class="nav nav-pills" role="tablist">
-						<?php if(@isset($_SESSION['products'])) { ?>
-							<li id="cart-main-menu-item">
-								<a href="<?php echo SITE_ROOT_URL . 'cart/' ?>">
-									<span class="glyphicon glyphicon-shopping-cart"></span>
-									<small>Cart</small>
-									<span class="count"><?php echo count($_SESSION['products']); ?></span>
-								</a>
-							</li>
-						<?php } else { ?>
-							<li id="cart-main-menu-item">
-								<a href="<?php echo SITE_ROOT_URL . 'cart/' ?>">
-									<span class="glyphicon glyphicon-shopping-cart"></span>
-									<small>Cart</small>
-								</a>
-							</li>
-						<?php } ?>
-						<?php if(@isset($_SESSION['user'])) { ?>
-							<li role="presentation" class="dropdown">
-								<a id="drop6" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-									My Account
-									<span class="caret"></span>
-								</a>
-								<ul id="my-account-dropdown-menu" class="dropdown-menu" role="menu" aria-labelledby="drop6">
-									<li role="presentation"><a role="menuitem" tabindex="-1" href="">Settings</a></li>
-									<li role="presentation"><a role="menuitem" tabindex="-1" href="">Order history</a></li>
-									<li role="presentation" class="divider"></li>
-									<li role="presentation"><a role="menuitem" tabindex="-1" href="">Sign out</a></li>
-								</ul>
-							</li>
-						<?php } else { ?>
-							<li><a href="#">Login</span></a></li>
-							<li><a href="#">Register</span></a></li>
-							<li><a href="#">Become a merchant</span></a></li>
-						<?php } ?>
-					</ul> <!-- end pills -->
-				</div>
-			</div><!-- end row main-menu -->
-		</div><!-- end container-fluid -->
+					<div class="col-xs-6">
+						<ul class="nav nav-pills" role="tablist">
+							<?php if(@isset($_SESSION['products'])) { ?>
+								<li id="cart-main-menu-item">
+									<a href="<?php echo SITE_ROOT_URL . 'cart/' ?>">
+										<span class="glyphicon glyphicon-shopping-cart"></span>
+										<small>Cart</small>
+										<span class="count"><?php echo count($_SESSION['products']); ?></span>
+									</a>
+								</li>
+							<?php } else { ?>
+								<li id="cart-main-menu-item">
+									<a href="<?php echo SITE_ROOT_URL . 'cart/' ?>">
+										<span class="glyphicon glyphicon-shopping-cart"></span>
+										<small>Cart</small>
+									</a>
+								</li>
+							<?php } ?>
+							<?php if(@isset($_SESSION['user'])) { ?>
+								<li role="presentation" class="dropdown">
+									<a id="drop6" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+										My Account
+										<span class="caret"></span>
+									</a>
+									<ul id="my-account-dropdown-menu" class="dropdown-menu" role="menu" aria-labelledby="drop6">
+										<li role="presentation"><a role="menuitem" tabindex="-1" href="">Settings</a></li>
+										<li role="presentation"><a role="menuitem" tabindex="-1" href="">Order history</a></li>
+										<li role="presentation" class="divider"></li>
+										<li role="presentation"><a role="menuitem" tabindex="-1" href="">Sign out</a></li>
+									</ul>
+								</li>
+							<?php } else { ?>
+								<li><a href="#">Login</span></a></li>
+								<li><a href="#">Register</span></a></li>
+								<li><a href="#">Become a merchant</span></a></li>
+							<?php } ?>
+						</ul> <!-- end pills -->
+					</div>
+				</div><!-- end row main-menu -->
+			</div><!-- end container-fluid -->

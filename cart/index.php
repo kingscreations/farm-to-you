@@ -16,37 +16,12 @@ require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 
 // model
 require_once("../php/classes/product.php");
-require_once("../php/classes/user.php");
-require_once("../php/classes/profile.php");
 require_once("../php/classes/store.php");
-require_once("../php/classes/location.php");
-require_once("../php/classes/storelocation.php");
 
 // path for the config file
 $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
 mysqli_report(MYSQLI_REPORT_STRICT);
-
-// TODO DELETE these next lines asap
-$userId = $_SESSION['user']['id'];
-$profileId = $_SESSION['profile']['id'];
-
-try {
-	// get the credentials information from the server and connect to the database
-	$configArray = readConfig($configFile);
-
-	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
-		$configArray["database"]);
-
-	$user     = User::getUserByUserId($mysqli, $userId);
-	$profile  = Profile::getProfileByProfileId($mysqli, $profileId);
-
-	$mysqli->close();
-
-} catch(Exception $exception) {
-	echo "Exception: " . $exception->getMessage() . "<br/>";
-	echo $exception->getFile() . ":" . $exception->getLine();
-}
 
 ?>
 <div class="container-fluid vertical-spacer-60">

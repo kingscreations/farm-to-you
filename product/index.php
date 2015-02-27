@@ -74,11 +74,11 @@ $imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
 
 $productBaseUrl      = CONTENT_ROOT_URL . 'images/product/';
 $productBasePath     = CONTENT_ROOT_PATH . 'images/product/';
-$productImageSrc     = 'product-'. $product->getProductId() .'.jpg';
+$productImageSrc     = basename($product->getImagePath());
 
 $storeBaseUrl  = CONTENT_ROOT_URL . 'images/store/';
 $storeBasePath = CONTENT_ROOT_PATH . 'images/store/';
-$storeImageSrc  = 'store-'. $store->getStoreId() .'.jpg';
+$storeImageSrc  = basename($store->getImagePath());
 
 // TODO hash the get url /  mod rewrite
 //$salt = bin2hex(openssl_random_pseudo_bytes(16));
@@ -116,7 +116,9 @@ $storeImageSrc  = 'store-'. $store->getStoreId() .'.jpg';
 					if(($index + 1) > 4) {
 						break;
 					}
-					$thumbnailSrc            = 'product-'. $storeProduct->getProductId() .'.jpg';
+
+					// rely only on the image path to get the file name
+					$thumbnailSrc = basename($storeProduct->getImagePath());
 
 					echo '<li>';
 

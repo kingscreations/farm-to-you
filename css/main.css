@@ -51,6 +51,10 @@ footer p {
   padding: 0;
 }
 
+.container-margin-sm {
+  width: 96%;
+}
+
 #main-menu {
   background-color: black;
   width: 100%;

@@ -71,7 +71,7 @@ try {
 						</thead>
 						<tbody>
 							<?php
-							var_dump($_SESSION['products']);
+
 							try {
 								// get the credentials information from the server and connect to the database
 								$configArray = readConfig($configFile);
@@ -79,8 +79,9 @@ try {
 								$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 									$configArray["database"]);
 
-								$maxQuantity = 15;
 								$counter = 1;
+
+								// for each product in the cart / session
 								foreach($_SESSION['products'] as $sessionProductId => $sessionProduct) {
 
 									// get the product from the database
@@ -113,10 +114,11 @@ try {
 									echo '</td>';
 									// end price
 
-									$stockLimit = $product->getStockLimit();
+									$maxQuantity = 15;
+									$stockLimit  = $product->getStockLimit();
 
 									if($stockLimit === null) {
-										$stockLimit = 15;
+										$stockLimit = $maxQuantity;
 									}
 
 									// get the # of options to create in the select box
@@ -129,7 +131,7 @@ try {
 									echo '<select class="product-quantity" id="product' . $counter . '-quantity" name="productQuantity[]">';
 									// creating $quantityLimit # of options
 									for($i = 0; $i < $quantityLimit; $i++) {
-										if(($i + 1) === $sessionProduct['quantity']) {
+										if(($i + 1) === intval($sessionProduct['quantity'])) {
 											echo '<option selected="selected">' . ($i + 1) . '</option>';
 										} else {
 											echo '<option>' . ($i + 1) . '</option>';

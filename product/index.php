@@ -39,19 +39,29 @@ try {
 
 	$user     = User::getUserByUserId($mysqli, 1);
 	$profile  = Profile::getProfileByProfileId($mysqli, 1);
-	$store    = Store::getStoreByStoreId($mysqli, 1);
 
 	// get the product id from the current url
-	if(!@isset($_GET['product'])) {
-		header('Location: ../index.php');
+	if(!@isset($_GET['store']) && !@isset($_GET['product'])) {
+		header('Location: ../php/lib/404.php');
 	}
 
 	$productId = filter_var($_GET['product'], FILTER_SANITIZE_NUMBER_INT);
-
 	$product  = Product::getProductByProductId($mysqli, $productId);
+
+	if(@isset($_GET['store'])) {
+		$storeId = filter_var($_GET['store'], FILTER_SANITIZE_NUMBER_INT);
+	} else {
+		$storeId = $product->getStoreId();
+	}
+
+	$store    = Store::getStoreByStoreId($mysqli, $storeId);
 
 	// get all the products of the current product store
 	$storeProducts = Product::getAllProductsByStoreId($mysqli, $store->getStoreId());
+
+	if(!in_array($product, $storeProducts)) {
+		header('Location: ../php/lib/404.php');
+	}
 
 	// get all the locations from the current store
 	$storeLocations = StoreLocation::getAllStoreLocationsByStoreId($mysqli, $store->getStoreId());

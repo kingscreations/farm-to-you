@@ -25,6 +25,11 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 // get the credentials information from the server
 $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
+$_SESSION['user']['id'] = 1;
+$_SESSION['profile']['id'] = 1;
+
+// TODO for the moment the order/orderProduct is inserted even if stripe fails: fix that!
+
 try {
 	// connection
 	$configArray = readConfig($configFile);

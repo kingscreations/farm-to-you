@@ -27,6 +27,10 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
 mysqli_report(MYSQLI_REPORT_STRICT);
 
+// TODO DELETE these next lines asap
+$userId = $_SESSION['user']['id'];
+$profileId = $_SESSION['profile']['id'];
+
 try {
 	// get the credentials information from the server and connect to the database
 	$configArray = readConfig($configFile);
@@ -34,11 +38,8 @@ try {
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
-	$user     = User::getUserByUserId($mysqli, 1);
-	$profile  = Profile::getProfileByProfileId($mysqli, 1);
-	$store    = Store::getStoreByStoreId($mysqli, 1);
-
-	$location = Location::getLocationByLocationId($mysqli, 1);
+	$user     = User::getUserByUserId($mysqli, $userId);
+	$profile  = Profile::getProfileByProfileId($mysqli, $profileId);
 
 	$mysqli->close();
 
@@ -46,8 +47,6 @@ try {
 	echo "Exception: " . $exception->getMessage() . "<br/>";
 	echo $exception->getFile() . ":" . $exception->getLine();
 }
-
-// TODO add a delete button for each product
 
 ?>
 <div class="container-fluid vertical-spacer-60">

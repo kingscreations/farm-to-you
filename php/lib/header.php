@@ -76,7 +76,7 @@ require_once($prefix .'/paths.php');
 			<div class="row clearfix">
 				<div class="col-xs-6">
 					<div id="farm-to-you-logo" class="apply-nav-height">
-						<a href="<?php SITE_ROOT_URL ?>">Farm to You</a>
+						<a href="<?php echo SITE_ROOT_URL ?>">Farm to You</a>
 					</div>
 				</div>
 				<div class="col-xs-6">
@@ -91,7 +91,7 @@ require_once($prefix .'/paths.php');
 							</li>
 						<?php } else { ?>
 							<li id="cart-main-menu-item">
-								<a href="#">
+								<a href="<?php echo SITE_ROOT_URL . 'cart/' ?>">
 									<span class="glyphicon glyphicon-shopping-cart"></span>
 									<small>Cart</small>
 								</a>

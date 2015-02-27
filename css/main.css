@@ -28,6 +28,14 @@ footer {
 
 #main-menu a {
 	color: white;
+	padding: 4px 10px;
+	margin-left: 4px;
+}
+
+#main-menu a:hover {
+	border: 2px solid #7AC142;
+	background-color: transparent;
+	color: white;
 }
 
 footer p {
@@ -46,7 +54,7 @@ footer p {
 	background-color: black;
 	width: 100%;
 	height: 60px;
-	padding-top: 10px;
+	padding-top: 15px;
 	padding-left: 10%;
 	padding-right: 10%;
 }
@@ -83,12 +91,20 @@ footer p {
 }
 
 a:hover {
-	text-decoration: none;
+	text-decoration: none !important;
 }
 
 #farm-to-you-logo a {
 	font-size: 2em;
 	font-family: serif;
+}
+
+#farm-to-you-logo a:hover {
+	text-decoration: none;
+}
+
+#farm-to-you-logo a,
+#farm-to-you-logo a:hover {
 	color: #7AC142;
 }
 

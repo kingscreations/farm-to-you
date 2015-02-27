@@ -27,6 +27,7 @@ require_once($prefix .'/paths.php');
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/2.7.5/idangerous.swiper.min.css"/>
 		<link rel="stylesheet" href="<?php echo $prefix; ?>css/main.css"/>
 
@@ -74,7 +75,9 @@ require_once($prefix .'/paths.php');
 		<div class="container-fluid" id="main-menu">
 			<div class="row clearfix">
 				<div class="col-xs-6">
-					<h1 class="no-margin">farm-to-you</h1>
+					<div id="farm-to-you-logo" class="apply-nav-height">
+						<a href="<?php SITE_ROOT_URL ?>">Farm to You</a>
+					</div>
 				</div>
 				<div class="col-xs-6">
 					<ul class="nav nav-pills" role="tablist">

@@ -50,11 +50,17 @@ try {
 // TODO add a delete button for each product
 
 ?>
-
-<div class="container-fluid white-container vertical-spacer-60">
+<div class="container-fluid vertical-spacer-60">
 	<div class="row">
 		<div class="col-sm-12">
-			<h1>Shopping cart</h1>
+			<h1><?php echo count($_SESSION['products']) ?> product in you cart</h1>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid cart-product white-container">
+	<div class="row">
+		<div class="col-sm-12">
 
 			<?php if(@isset($_SESSION) && @isset($_SESSION['products'])) { ?>
 				<form id="cartController" action="../php/forms/cart-controller.php" method="post">
@@ -66,7 +72,8 @@ try {
 								<th>weight</th>
 								<th>price</th>
 								<th>quantity</th>
-								<th>product total price</th>
+								<th>product total</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -144,6 +151,7 @@ try {
 									// end select box
 
 									echo '<td id="product'. $counter .'-final-price"></td>';
+									echo '<td><a id="delete-product-' . $product->getProductId() . '" class="delete-item"><i class="fa fa-times"></i></a></td>';
 
 									echo '</tr>';
 									$counter++;

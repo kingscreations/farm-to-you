@@ -32,7 +32,7 @@ try {
 		$newProductQuantity = filter_var($_POST['productQuantity'][$i], FILTER_SANITIZE_NUMBER_FLOAT);
 
 		// get the product id from the $_SESSION global variable
-		$productId          = $productIds[$i];
+		$productId = $productIds[$i];
 
 		// update the SESSION with the up to date quantities
 		$_SESSION['products'][$productId]['quantity'] = $newProductQuantity;

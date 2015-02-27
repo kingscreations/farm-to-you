@@ -50,6 +50,10 @@ footer p {
 	padding-right: 10%;
 }
 
+#main-menu ul.nav.nav-pills > li {
+	float: right;
+}
+
 .white-container {
 	background-color: white;
 	border-radius: 10px;
@@ -71,9 +75,9 @@ a:hover {
 	text-decoration: none;
 }
 
-/**
- * forms
- */
+/********************************************
+* forms
+********************************************/
 input[type=text] {
 	padding: 0.3em;
 	padding-left: 1em;
@@ -110,19 +114,26 @@ input[type=password]:focus {
 	width: 60px;
 }
 
-/**
- * Table
- */
+.form-group,
+.form-row {
+	margin-top: 20px;
+}
+
+.form-row:not(.center) {
+	margin-left: 1em;
+}
+
+/********************************************
+* tables
+********************************************/
 td {
 	vertical-align: middle !important;
 }
 
 
-/**
- *	bootstrap elements setup
- */
-
-
+/********************************************
+* bootstrap setup
+********************************************/
 li[role=presentation] a:hover,
 li[role=presentation] a:visited,
 li[role=presentation] a:active,
@@ -167,16 +178,9 @@ li[role=presentation].open a {
 	max-width: 80px;
 }
 
-/**
- * top main-menu
- */
-#main-menu ul.nav.nav-pills > li {
-	float: right;
-}
-
-/*
- * utilities classes
- */
+/********************************************
+* Utilities classes
+********************************************/
 .no-margin {
 	margin: 0 !important;
 }
@@ -277,24 +281,9 @@ h2 {
 	margin-right: 0;
 }
 
-/**
-* form changes
-**/
-.form-group {
-	margin-top: 20px
-}
-
-.form-row {
-	margin-top: 20px;
-}
-
-.form-row:not(.center) {
-	margin-left: 1em;
-}
-
-/**
- * information hierarchy
- */
+/********************************************
+* cart
+********************************************/
 .basic-information {
 	color: #aaa;
 }

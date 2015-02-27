@@ -35,27 +35,18 @@ $(document).ready(function() {
 				.prop('disabled', true)
 				.addClass('disabled');
 
-			var $product= $('[name=product]');
-			var $productWeight = $('[name=productWeight]');
+			var $product         = $('[name=product]');
 			var $productQuantity = $('[name=productQuantity]');
 
 			var data = {
-				product: $product.val()
+				product         : $product.val(),
+				$productQuantity: $productQuantity.val()
 			}
-
-			if($productQuantity.length !== 0) {
-				data.productQuantity = $productQuantity.val();
-			}
-
-			if($productWeight.length !== 0) {
-				data.productWeight = $productWeight.val();
-			}
-			console.log(data);
 
 			$form.ajaxSubmit({
 				type: "POST",
 				url: "../php/forms/product-controller.php",
-				data: $(form),
+				data: data,
 				success: function(cartCount) {
 					$productName = $("h1").text();
 					$("#outputArea").css("display", "block");

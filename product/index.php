@@ -180,7 +180,7 @@ $storeImageSrc  = basename($store->getImagePath());
 //					if($product->getProductPriceType() === 'u') {
 
 					// select box
-					echo 'Select a quantity: <select class="product-quantity" name="productQuantity[]">';
+					echo 'Select a quantity: <select class="product-quantity" name="productQuantity">';
 
 					// creating $quantityLimit # of options
 					for($i = 0; $i < $quantityLimit; $i++) {

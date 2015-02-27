@@ -39,7 +39,7 @@
 	 // select quantity on change ajax call to update the total price of each row
 	 $productQuantity.on('change', function() {
 		 // we don't want the event to be passed, so we do the call ourselves
-		 refreshFinalPrice($(this));
+		 refreshTotalProductPrice($(this));
 
 		 // refresh the total price at the bottom of the page
 		 refreshTotalPrice();
@@ -48,18 +48,18 @@
 	 // call the refreshTotalPrice when the page load for the first time
 	 //$productQuantity.change();
 
-	 // call the refreshFinalPrice for each product, when the page load for the first time
+	 // call the refreshTotalProductPrice for each product, when the page load for the first time
 	 $.each($productQuantity, function() {
-	 	refreshFinalPrice($(this));
+	 	refreshTotalProductPrice($(this));
 	 });
 
-	 // finally refresh the total price when all the final prices are calculated
+	 // finally refresh the total price when all the total product prices are calculated
 	 refreshTotalPrice();
 
 	 /**
-	  * refresh the final price of a product
+	  * refresh the total product price of a product
 	  */
-	 function refreshFinalPrice($current) {
+	 function refreshTotalProductPrice($current) {
 		 // set a default value
 		 $productQuantity = typeof $current === 'undefined' ? $(this) : $current;
 
@@ -87,9 +87,9 @@
 			 var result = productPrice * newQuantity * productWeight;
 
 			 // multiply by 100, round and then divide by 100 to get 2 decimal precision
-			 var finalPrice = String(Math.round(result * 100) / 100);
+			 var totalProductPrice = String(Math.round(result * 100) / 100);
 
-			 $('#'+ elementIdPart1 +'-final-price').html('$'+finalPrice);
+			 $('#'+ elementIdPart1 +'-final-price').html('$'+totalProductPrice);
 		 } else {
 
 			 // get just rid of the $ (first letter)
@@ -99,9 +99,9 @@
 			 var result = productPrice * newQuantity;
 
 			 // multiply by 100, round and then divide by 100 to get 2 decimal precision
-			 var finalPrice = String(Math.round(result * 100) / 100);
+			 var totalProductPrice = String(Math.round(result * 100) / 100);
 
-			 $('#'+ elementIdPart1 +'-final-price').html('$'+finalPrice);
+			 $('#'+ elementIdPart1 +'-final-price').html('$'+totalProductPrice);
 		 };
 	 }
 
@@ -110,10 +110,10 @@
 	  */
 	 function refreshTotalPrice() {
 		// get all the elements with id finishing by -final-price
-		var $finalPrices = $('table.table tbody tr [id$=-final-price]');
+		var $totalProductPrices = $('table.table tbody tr [id$=-final-price]');
 
 		var totalPrice = 0.0;
-		$.each($finalPrices, function() {
+		$.each($totalProductPrices, function() {
 			 // get rid of the $ (first letter)
 			 var price = parseFloat($(this).text().substring(1));
 			 totalPrice += price;

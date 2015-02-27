@@ -27,25 +27,17 @@ if(!@isset($_POST['product']) && ctype_digit($_POST['product'])) {
 }
 
 // check if at least productQuantity or productWeight exits
-if(!@isset($_POST['productQuantity']) && !@isset($_POST['productWeight'])) {
-	header('Location: '. $errorPath);
-}
-
-// if both are set redirect to the error page
-if(@isset($_POST['productQuantity']) && @isset($_POST['productWeight'])) {
+if(!@isset($_POST['productQuantity'])) {
 	header('Location: '. $errorPath);
 }
 
 try {
-
 	// connection
 	$configArray = readConfig($configFile);
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
 	$product = Product::getProductByProductId($mysqli, $productId);
-
-
 
 } catch(Exception $exception) {
 	echo '<p class="alert alert-danger">Exception: ' . $exception->getMessage() . '</p>';
@@ -56,21 +48,13 @@ if(!@isset($_SESSION['products'])) {
 	$_SESSION['products'] = array();
 }
 
-// product quantity
-if(@isset($_POST['productQuantity'])) {
-	$productQuantity = filter_var($_POST['productQuantity'], FILTER_SANITIZE_NUMBER_INT);
+$productQuantity = filter_var($_POST['productQuantity'], FILTER_SANITIZE_NUMBER_INT);
 
-	$_SESSION['products'][$productId][] = array(
-		'quantity' => $productQuantity
-	);
-} else {
-	$productWeight = filter_var($_POST['productWeight'], FILTER_SANITIZE_NUMBER_FLOAT);
+$_SESSION['products'][$productId] = array(
+	'quantity' => $productQuantity
+);
 
-	$_SESSION['products'][$productId][] = array(
-		'weight' => $productWeight
-	);
-}
-
+// return the number of product to the ajax call (update the cart icon)
 echo count($_SESSION['products']);
 
 ?>

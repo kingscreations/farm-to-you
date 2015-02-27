@@ -51,119 +51,126 @@ try {
 
 ?>
 
-<div class="container-fluid white-container">
+<div class="container-fluid white-container vertical-spacer-60">
 	<div class="row">
 		<div class="col-sm-12">
-			<h2>Shopping cart</h2>
+			<h1>Shopping cart</h1>
 
-			<form id="cartController" action="../php/forms/cart-controller.php" method="post">
-				<table class="table">
-					<thead>
-						<tr>
-							<th></th>
-							<th></th>
-							<th>weight</th>
-							<th>price</th>
-							<th>quantity</th>
-							<th>final price</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-//						var_dump($_SESSION['products']);
-						try {
-							// get the credentials information from the server and connect to the database
-							$configArray = readConfig($configFile);
+			<?php if(@isset($_SESSION) && @isset($_SESSION['products'])) { ?>
+				<form id="cartController" action="../php/forms/cart-controller.php" method="post">
+					<table class="table">
+						<thead>
+							<tr>
+								<th></th>
+								<th></th>
+								<th>weight</th>
+								<th>price</th>
+								<th>quantity</th>
+								<th>product total price</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							var_dump($_SESSION['products']);
+							try {
+								// get the credentials information from the server and connect to the database
+								$configArray = readConfig($configFile);
 
-							$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
-								$configArray["database"]);
+								$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
+									$configArray["database"]);
 
-							$maxQuantity = 15;
-							$counter = 1;
-							foreach($_SESSION['products'] as $sessionProductId => $sessionProduct) {
+								$maxQuantity = 15;
+								$counter = 1;
+								foreach($_SESSION['products'] as $sessionProductId => $sessionProduct) {
 
-								// get the product from the database
-								$product = Product::getProductByProductId($mysqli, $sessionProductId);
+									// get the product from the database
+									$product = Product::getProductByProductId($mysqli, $sessionProductId);
 
-								echo '<tr>';
+									echo '<tr>';
 
 
-								if(file_exists($product->getImagePath())) {
-									echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' . $product->getProductId() .'">
-												<img class="img-responsive" src="' . CONTENT_ROOT_URL . 'images/product/' . basename($product->getImagePath()) . '">
-											</a></td>';
-								} else {
-									echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' . $product->getProductId() .'">
-												<img class="img-responsive" src="' . $imagePlaceholderSrc . '">
-											</a></td>';
-								}
-//								echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product->getImagePath() . '"></td>';
-								echo '<td>' . $product->getProductName() . '</td>';
-								echo '<td id="product'. $counter .'-weight">' . $product->getProductWeight() . '</td>';
-
-								// price
-								echo '<td id="product'. $counter .'-price">$' . $product->getProductPrice();
-
-								$productPriceType = $product->getProductPriceType();
-								if($productPriceType === 'w') {
-									echo '/lb';
-								}
-
-								echo '</td>';
-								// end price
-
-								$stockLimit = $product->getStockLimit();
-
-								if($stockLimit === null) {
-									$stockLimit = 15;
-								}
-
-								// get the # of options to create in the select box
-								$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
-
-								// select box
-								echo '<td>';
-
-								// test what kind of product we are dealing with
-								echo '<select class="product-quantity" id="product' . $counter . '-quantity" name="productQuantity[]">';
-								// creating $quantityLimit # of options
-								for($i = 0; $i < $quantityLimit; $i++) {
-									if(($i + 1) === $sessionProduct['quantity']) {
-										echo '<option selected="selected">' . ($i + 1) . '</option>';
+									if(file_exists($product->getImagePath())) {
+										echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' . $product->getProductId() .'">
+													<img class="img-responsive" src="' . CONTENT_ROOT_URL . 'images/product/' . basename($product->getImagePath()) . '">
+												</a></td>';
 									} else {
-										echo '<option>' . ($i + 1) . '</option>';
+										echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' . $product->getProductId() .'">
+													<img class="img-responsive" src="' . $imagePlaceholderSrc . '">
+												</a></td>';
 									}
+	//								echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product->getImagePath() . '"></td>';
+									echo '<td>' . $product->getProductName() . '</td>';
+									echo '<td id="product'. $counter .'-weight">' . $product->getProductWeight() . '</td>';
+
+									// price
+									echo '<td id="product'. $counter .'-price">$' . $product->getProductPrice();
+
+									$productPriceType = $product->getProductPriceType();
+									if($productPriceType === 'w') {
+										echo '/lb';
+									}
+
+									echo '</td>';
+									// end price
+
+									$stockLimit = $product->getStockLimit();
+
+									if($stockLimit === null) {
+										$stockLimit = 15;
+									}
+
+									// get the # of options to create in the select box
+									$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
+
+									// select box
+									echo '<td>';
+
+									// test what kind of product we are dealing with
+									echo '<select class="product-quantity" id="product' . $counter . '-quantity" name="productQuantity[]">';
+									// creating $quantityLimit # of options
+									for($i = 0; $i < $quantityLimit; $i++) {
+										if(($i + 1) === $sessionProduct['quantity']) {
+											echo '<option selected="selected">' . ($i + 1) . '</option>';
+										} else {
+											echo '<option>' . ($i + 1) . '</option>';
+										}
+									}
+
+										echo '</select>';
+
+									echo '</td>';
+									// end select box
+
+									echo '<td id="product'. $counter .'-final-price"></td>';
+
+									echo '</tr>';
+									$counter++;
 								}
 
-									echo '</select>';
+								// last row (hacky hacky not pretty! :))
+								echo '<tr><td></td><td></td><td></td><td></td>';
+								echo '<td id="total-price-label">Total:</td>';
+								echo '<td id="total-price-result"></td></tr>';
 
-								echo '</td>';
-								// end select box
+								$mysqli->close();
 
-								echo '<td id="product'. $counter .'-final-price"></td>';
-
-								echo '</tr>';
-								$counter++;
+							} catch(Exception $exception) {
+								echo "Exception: " . $exception->getMessage() . "<br/>";
+								echo $exception->getFile() . ":" . $exception->getLine();
 							}
 
-							// last row (hacky hacky not pretty! :))
-							echo '<tr><td></td><td></td><td></td><td></td>';
-							echo '<td id="total-price-label">Total:</td>';
-							echo '<td id="total-price-result"></td></tr>';
+							?>
+						</tbody>
+					</table>
+					<p id="outputArea"></p>
+					<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="cart-validate-button">
+				</form>
 
-							$mysqli->close();
-
-						} catch(Exception $exception) {
-							echo "Exception: " . $exception->getMessage() . "<br/>";
-							echo $exception->getFile() . ":" . $exception->getLine();
-						}
-
-						?>
-					</tbody>
-				</table>
-				<p id="outputArea"></p>
-				<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="cart-validate-button">
-			</form>
+			<!-- if the cart is empty: -->
+			<?php } else { ?>
+				<h2>Cart empty</h2>
+				<a href="<?php echo SITE_ROOT_URL ?>">Back to the index page</a>
+			<?php } ?>
 		</div><!-- end col-sm-12 -->
 	</div><!-- end row -->
 </div><!-- end container-fluid -->

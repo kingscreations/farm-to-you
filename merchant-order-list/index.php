@@ -16,6 +16,8 @@ require_once("../php/classes/product.php");
 $profileId = $_SESSION['profileId'];
 
 ?>
+<div class="container-fluid">
+<div class="row">
 <div id="multi-menu" class="col-md-3">
 	<ul class="nav nav-pills nav-stacked">
 		<li><a href="../edit-profile/index.php">Edit Profile</a></li>
@@ -37,73 +39,76 @@ try {
 
 	$products = Product::getAllProductsFromMerchantByProfileId($mysqli, $profileId);
 	if($products !== null) {
+		echo '<div class="col-sm-9">';
 		$allOrderProducts = array();
-		foreach ($products as $product) {
+		foreach($products as $product) {
 			$merchantProductId = $product->getProductId();
 			$orderProducts = OrderProduct::getAllOrderProductsByProductId($mysqli, $merchantProductId);
 			if($orderProducts !== null) {
 				$allOrderProducts = array_merge($allOrderProducts, $orderProducts);
 			}
-			$orders = array();
-			foreach ($allOrderProducts as $allOrderProduct) {
-				$orderId = $allOrderProduct->getOrderId();
-				$order = Order::getOrderByOrderId($mysqli, $orderId);
-				$orders[] = $order;
-			}
-			$orders = array_unique($orders, SORT_REGULAR);
-			if($orders !== null) {
+		}
 
-				foreach($orders as $order) {
-					$orderId = $order->getOrderId();
-					$orderProducts = OrderProduct::getAllOrderProductsByOrderId($mysqli, $orderId);
-					$checkout = Checkout::getCheckoutByOrderId($mysqli, $orderId);
-					$checkoutDate = $checkout->getCheckoutDate();
-					$formattedDate = $checkoutDate->format("m/d/Y - H:i:s");
-					$checkoutFinalPrice = $checkout->getFinalPrice();
+		$orders = array();
+		foreach($allOrderProducts as $allOrderProduct) {
+			$orderId = $allOrderProduct->getOrderId();
+			$order = Order::getOrderByOrderId($mysqli, $orderId);
+			$orders[] = $order;
+		}
+		$orders = array_unique($orders, SORT_REGULAR);
+		if($orders !== null) {
 
-					echo '<table class="table table-responsive">';
-					echo '<tr>';
-					echo '<th>Order #' . $orderId . '</th>';
-					echo '<th></th>';
-					echo '</tr>';
-					echo '<tr>';
-					echo '<td>Date</td>';
-					echo '<td>' . $formattedDate . '</td>';
-					echo '</tr>';
+			foreach($orders as $order) {
+				$orderId = $order->getOrderId();
+				$orderProducts = OrderProduct::getAllOrderProductsByOrderId($mysqli, $orderId);
+				$checkout = Checkout::getCheckoutByOrderId($mysqli, $orderId);
+				$checkoutDate = $checkout->getCheckoutDate();
+				$formattedDate = $checkoutDate->format("m/d/Y - H:i:s");
+				$checkoutFinalPrice = $checkout->getFinalPrice();
 
-					echo '<tr>';
-					echo '<td>Products</td>';
-					echo '<td>';
-					foreach($orderProducts as $orderProduct) {
-						$productId = $orderProduct->getProductId();
-						$orderProductQuantity = $orderProduct->getProductQuantity();
-						$locationId = $orderProduct->getLocationId();
-						$product = Product::getProductByProductId($mysqli, $productId);
-						$productName = $product->getProductName();
-						$productWeight = $product->getProductWeight();
-						$productPrice = $product->getProductPrice();
-						$location = Location::getLocationByLocationId($mysqli, $locationId);
-						$locationName = $location->getLocationName();
+				echo '<table class="table table-responsive">';
+				echo '<tr>';
+				echo '<th>Order #' . $orderId . '</th>';
+				echo '<th></th>';
+				echo '</tr>';
+				echo '<tr>';
+				echo '<td>Date</td>';
+				echo '<td>' . $formattedDate . '</td>';
+				echo '</tr>';
 
-						echo "$orderProductQuantity order of $productWeight lbs. of $productName for  $$productPrice at $locationName location";
-						echo '<br>';
-					}
-					echo '</td>';
-					echo '</tr>';
+				echo '<tr>';
+				echo '<td>Products</td>';
+				echo '<td>';
+				foreach($orderProducts as $orderProduct) {
+					$productId = $orderProduct->getProductId();
+					$orderProductQuantity = $orderProduct->getProductQuantity();
+					$locationId = $orderProduct->getLocationId();
+					$product = Product::getProductByProductId($mysqli, $productId);
+					$productName = $product->getProductName();
+					$productWeight = $product->getProductWeight();
+					$productPrice = $product->getProductPrice();
+					$location = Location::getLocationByLocationId($mysqli, $locationId);
+					$locationName = $location->getLocationName();
 
-					echo '<tr>';
-					echo '<td>Final Price</td>';
-					echo '<td>$' . $checkoutFinalPrice . '</td>';
-					echo '</tr>';
-
-
-					echo '</table>';
-
+					echo "$orderProductQuantity order of $productWeight lbs. of $productName for  $$productPrice at $locationName location";
+					echo '<br>';
 				}
+				echo '</td>';
+				echo '</tr>';
+
+				echo '<tr>';
+				echo '<td>Final Price</td>';
+				echo '<td>$' . $checkoutFinalPrice . '</td>';
+				echo '</tr>';
+
+
+				echo '</table>';
+
 			}
 		}
+		echo '</div>';
 	} else {
-		echo '<div class="row-fluid">No orders found.</div>';
+		echo '<div class="col-sm-9">No orders found.</div>';
 	}
 
 } catch(Exception $exception) {
@@ -111,3 +116,4 @@ try {
 }
 
 ?>
+</div><!-- end row -->

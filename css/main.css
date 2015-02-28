@@ -16,15 +16,8 @@ footer, .push {
   height: 140px;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin: 0 0 100px;
   background-color: whitesmoke;
-  overflow-y: scroll;
 }
 
 footer {
@@ -37,10 +30,6 @@ footer {
 footer p {
   margin-top: 30px;
   text-align: center;
-}
-
-@media screen and (min-width: 768px) {
-
 }
 
 #main-menu {
@@ -101,12 +90,6 @@ footer p {
 
 #main-menu ul.nav.nav-pills > li {
   float: right;
-}
-
-.white-container {
-  background-color: white;
-  border-radius: 10px;
-  padding: 2em;
 }
 
 .inline-list,
@@ -318,6 +301,22 @@ li[role=presentation].open a {
   padding: 1em;
 }
 
+.screen-center {
+  margin-top: 10%;
+}
+
+.white-container {
+  background-color: white;
+  border-radius: 10px;
+  padding: 2em;
+}
+
+.white-transparent-container {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 2em;
+}
+
 /********************************************
 * Headings
 ********************************************/
@@ -428,6 +427,7 @@ h2 {
   background-image: url("../images/farm-not-found.jpg");
   background-size: cover;
   background-repeat: no-repeat;
+  height: 720px;
 }
 
 /********************************************

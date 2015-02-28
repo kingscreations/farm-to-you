@@ -31,52 +31,83 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 
 try {
 
-// get the credentials information from the server and connect to the database
-$configArray = readConfig($configFile);
+	// get the credentials information from the server and connect to the database
+	$configArray = readConfig($configFile);
 
-$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
-$configArray["database"]);
+	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
+	$configArray["database"]);
 
-$user     = User::getUserByUserId($mysqli, 1);
-$profile  = Profile::getProfileByProfileId($mysqli, 1);
+	$user     = User::getUserByUserId($mysqli, 1);
+	$profile  = Profile::getProfileByProfileId($mysqli, 1);
 
-// get the product id from the current url
-if(!@isset($_GET['store']) && !@isset($_GET['product'])) {
-header('Location: ../php/lib/404.php');
-}
+	// get the product id from the current url
+	if(!@isset($_GET['store'])) {
+		header('Location: ../php/lib/404.php');
+	} else {
+		$storeId = $_GET['store'];
+	}
 
-$productId = filter_var($_GET['product'], FILTER_SANITIZE_NUMBER_INT);
-$product  = Product::getProductByProductId($mysqli, $productId);
+	$storeId = filter_var($storeId, FILTER_SANITIZE_NUMBER_INT);
+	$store = Store::getStoreByStoreId($mysqli, $storeId);
 
-if(@isset($_GET['store'])) {
-$storeId = filter_var($_GET['store'], FILTER_SANITIZE_NUMBER_INT);
-} else {
-$storeId = $product->getStoreId();
-}
+	// get all the products of the current product store
+	$storeProducts = Product::getAllProductsByStoreId($mysqli, $store->getStoreId());
 
-$store    = Store::getStoreByStoreId($mysqli, $storeId);
+	// get all the locations from the current store
+	$storeLocations = StoreLocation::getAllStoreLocationsByStoreId($mysqli, $store->getStoreId());
 
-// get all the products of the current product store
-$storeProducts = Product::getAllProductsByStoreId($mysqli, $store->getStoreId());
-
-if(!in_array($product, $storeProducts)) {
-header('Location: ../php/lib/404.php');
-}
-
-// get all the locations from the current store
-$storeLocations = StoreLocation::getAllStoreLocationsByStoreId($mysqli, $store->getStoreId());
-
-$locations = [];
-if($storeLocations !== null) {
-foreach($storeLocations as $storeLocation) {
-$location = Location::getLocationByLocationId($mysqli, $storeLocation->getLocationId());
-$locations[] = $location;
-}
-}
+	$locations = [];
+	if($storeLocations !== null) {
+		foreach($storeLocations as $storeLocation) {
+			$location = Location::getLocationByLocationId($mysqli, $storeLocation->getLocationId());
+			$locations[] = $location;
+		}
+	}
 
 } catch(Exception $exception) {
-echo 'Exception: '. $exception->getMessage() .'<br/>';
-echo $exception->getFile(). ':' .$exception->getLine();
+	echo 'Exception: '. $exception->getMessage() .'<br/>';
+	echo $exception->getFile(). ':' .$exception->getLine();
 }
 
+$storeBaseUrl  = CONTENT_ROOT_URL . 'images/store/';
+$storeBasePath = CONTENT_ROOT_PATH . 'images/store/';
+$storeImageSrc  = basename($store->getImagePath());
+
 ?>
+
+<div class="container-fluid">
+	<div class="row">
+<!--		<div class="col-sm-3">-->
+<!--			<div class="list-group">-->
+<!--				<span class="list-group-item">Store Sections</span>-->
+<!--				<a href="#" class="list-group-item active">Store home</a>-->
+<!--				<a href="#" class="list-group-item">Fruits</a>-->
+<!--				<a href="#" class="list-group-item">Veggies</a>-->
+<!--				<a href="#" class="list-group-item">Nuts</a>-->
+<!--				<a href="#" class="list-group-item">Flowers</a>-->
+<!--			</div>-->
+<!--		</div>-->
+		<div class="col-sm-12">
+			<div class="row">
+				<div class="col-sm-12">
+					<?php
+
+					$storeLink = SITE_ROOT_URL . 'store/index.php?store='. $store->getStoreId();
+
+					if(file_exists($storeBasePath . $storeImageSrc)) {
+						echo '<a href="' . $storeLink . '"><img src="' . $storeBaseUrl . $storeImageSrc .'" alt="'.
+							$store->getStoreName() .'" class="img-responsive"/></a>';
+					} else {
+						echo '<a href="' . $storeLink . '""><img src="' . $imagePlaceholderSrc . '" alt="'. $store->getStoreName() .
+							'" class="img-responsive"/></a>';
+					}
+
+					?>
+				</div>
+			</div>
+			<div class="row">
+
+			</div>
+		</div>
+	</div>
+</div>

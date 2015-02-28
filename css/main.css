@@ -67,7 +67,7 @@ footer p {
 
 @media screen and (min-width: 768px) {
   .container-fluid {
-    width: 80%;
+	  width: 80%;
   }
 }
 

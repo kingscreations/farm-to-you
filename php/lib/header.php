@@ -60,16 +60,7 @@ require_once($prefix .'/paths.php');
 		<title>Farm To You</title>
 	</head>
 	<body>
-		<!-- facebook sdk -->
-<!--		<div id="fb-root"></div>-->
-<!--		<script>(function(d, s, id) {-->
-<!--				var js, fjs = d.getElementsByTagName(s)[0];-->
-<!--				if (d.getElementById(id)) return;-->
-<!--				js = d.createElement(s); js.id = id;-->
-<!--				js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";-->
-<!--				fjs.parentNode.insertBefore(js, fjs);-->
-<!--			}(document, 'script', 'facebook-jssdk'));-->
-<!--		</script>-->
+		<?php require_once('facebook-api.php'); ?>
 
 		<!-- wrapper for the sticky footer -->
 		<div class="wrapper">
@@ -83,6 +74,8 @@ require_once($prefix .'/paths.php');
 						</div>
 					</div>
 					<div class="col-sm-6 col-xs-4">
+
+						<!-- desktop pills -->
 						<ul class="nav nav-pills hidden-xs">
 							<?php
 
@@ -90,9 +83,11 @@ require_once($prefix .'/paths.php');
 							require('user-menu-items.php');
 
 							?>
-						</ul> <!-- end desktop pills -->
+						</ul><!-- end desktop pills -->
 
+						<!-- mobile pills -->
 						<ul class="nav nav-pills visible-xs">
+							<?php require('cart-icon.php'); ?>
 							<li role="presentation" class="dropdown">
 								<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
 									<span class="glyphicon glyphicon-menu-hamburger"></span>

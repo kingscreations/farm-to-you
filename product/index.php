@@ -97,14 +97,16 @@ $storeImageSrc  = basename($store->getImagePath());
 		<div class="col-sm-5 col-xs-7">
 			<?php
 
+			$storeLink = SITE_ROOT_URL . 'store/index.php?store='. $store->getStoreId();
+
 			if(file_exists($storeBasePath . $storeImageSrc)) {
-				echo '<a href="" class="thumbnail"><img src="' . $storeBaseUrl . $storeImageSrc .'" alt="'.
+				echo '<a href="' . $storeLink . '" class="thumbnail"><img src="' . $storeBaseUrl . $storeImageSrc .'" alt="'.
 					$store->getStoreName() .'" class="img-responsive"/></a>';
 			} else {
-				echo '<a href="" class="thumbnail"><img src="' . $imagePlaceholderSrc . '" alt="'. $store->getStoreName() .
+				echo '<a href="' . $storeLink . '" class="thumbnail"><img src="' . $imagePlaceholderSrc . '" alt="'. $store->getStoreName() .
 					'" class="img-responsive"/></a>';
 			}
-			echo '<span class="store-name">By <a href="">'. $store->getStoreName(). '</a></span>';
+			echo '<span class="store-name">By <a href="' . $storeLink . '">'. $store->getStoreName(). '</a></span>';
 
 			?>
 		</div>
@@ -113,7 +115,7 @@ $storeImageSrc  = basename($store->getImagePath());
 			<ul class="thumbnail-links">
 			<?php
 			if($storeProducts !== null) {
-				echo '<li class="hidden-xs"><a href="" class="count-store-products"><span class="">'. count($storeProducts) .
+				echo '<li class="hidden-xs"><a href="' . $storeLink . '" class="count-store-products"><span class="">'. count($storeProducts) .
 					' <small>products</small></a></li>';
 
 				// randomize the products

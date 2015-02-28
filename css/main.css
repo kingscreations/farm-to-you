@@ -265,6 +265,12 @@ li[role=presentation].open a {
   border-color: #e5e5e5 !important;
 }
 
+.outline {
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 1em;
+}
+
 /********************************************
 * Headings
 ********************************************/
@@ -356,6 +362,11 @@ h2 {
 #cart #total-price-result {
   color: #337ab7;
   font-weight: bold;
+}
+
+#cart #total-price-result {
+  position: relative;
+  left: 1em;
 }
 
 #cart #total-price-label {

@@ -93,7 +93,7 @@
 		totalPrice = '$'+String((Math.round(totalPrice * 100) / 100).toFixed(2));
 
 		// show the result
-		$('#total-price-result').text(totalPrice);
+		$('#total-price-result .outline').text(totalPrice);
 	 }
 
 	 $deleteProduct = $('[id^=delete-product-]');

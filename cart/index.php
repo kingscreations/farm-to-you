@@ -137,7 +137,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 								// last row (hacky hacky not pretty! :))
 								echo '<tr><td></td><td></td><td></td><td></td>';
 								echo '<td id="total-price-label">Cart total:</td>';
-								echo '<td id="total-price-result"></td></tr>';
+								echo '<td id="total-price-result"><div class="outline"></div></td></tr>';
 
 								$mysqli->close();
 
@@ -150,7 +150,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 						</tbody>
 					</table>
 					<p id="outputArea"></p>
-					<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="cart-validate-button">
+					<input type="submit" value="Continue to checkout" class="btn btn-success push-right" id="cart-validate-button">
 				</form>
 				<div id="outputArea"></div>
 			</div><!-- end col-sm-12 -->

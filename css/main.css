@@ -24,7 +24,7 @@ html {
 body {
   margin: 0 0 100px;
   background-color: whitesmoke;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 footer {
@@ -59,6 +59,11 @@ footer p {
   color: white;
 }
 
+#main-menu .dropdown-menu {
+  background-color: #000000;
+  right: 0px;
+  left: auto;
+}
 
 .container-fluid {
   width: 96%;
@@ -117,11 +122,11 @@ footer p {
   .inline-list {
     padding: inherit;
   }
-}
 
-.inline-list li {
-  display: inline-block;
-  margin-left: 30px;
+  .inline-list li {
+    display: inline-block;
+    margin-left: 30px;
+  }
 }
 
 .inline-list li:first-child {
@@ -238,10 +243,20 @@ li[role=presentation].open a {
 /********************************************
 * thumbnails
 ********************************************/
+.thumbnail {
+  padding: 2px;
+}
+
 .tiny-thumbnail,
 .thumbnail img {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
+}
+
+.thumbnail-links li {
+  display: inline-block;
+  margin-left: 0.1em;
+  float: right;
 }
 
 @media screen and (min-width: 768px) {
@@ -250,13 +265,16 @@ li[role=presentation].open a {
     width: 70px;
     height: 70px;
   }
+
+  .thumbnail {
+    padding: 4px;
+  }
+
+  .thumbnail-links li {
+    margin-left: 1em;
+  }
 }
 
-.thumbnail-links li {
-  display: inline-block;
-  margin-left: 1em;
-  float: right;
-}
 
 .thumbnail {
   display: inline-block;
@@ -315,65 +333,6 @@ h1 {
 
 h2 {
   font-size: 1.6em;
-}
-
-/**
- * Horizontal thumbnail
- */
-#wrapper {
-  position: relative;
-  z-index: 1;
-  overflow: scroll;
-}
-
-#scroller {
-  -webkit-tap-highlight-color: transparent;
-  width: 3770px;
-  /* 20 list item of 160px width and a margin-right of 30px: 20 * (160 + 30) - 30 */
-  height: 100%;
-  -webkit-transform: translateZ(0);
-  -moz-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  -o-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-text-size-adjust: none;
-  -moz-text-size-adjust: none;
-  -ms-text-size-adjust: none;
-  -o-text-size-adjust: none;
-  text-size-adjust: none;
-}
-
-#scroller ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  max-height: 100%;
-  text-align: center;
-}
-
-#scroller li {
-  display: block;
-  float: left;
-  width: 160px;
-  height: 160px;
-  font-size: 14px;
-  margin-right: 30px;
-  border: 1px solid black;
-}
-
-#scroller li > img {
-  width: 160px;
-  height: 160px;
-}
-
-#scroller li:last-child {
-  margin-right: 0;
 }
 
 /********************************************

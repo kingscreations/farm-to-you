@@ -28,7 +28,7 @@ require_once($prefix .'/paths.php');
 
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/2.7.5/idangerous.swiper.min.css"/>
+<!--		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/2.7.5/idangerous.swiper.min.css"/>-->
 		<link rel="stylesheet" href="<?php echo $prefix; ?>css/main.css"/>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -77,48 +77,34 @@ require_once($prefix .'/paths.php');
 			<!-- start of global container -->
 			<div class="container-fluid" id="main-menu">
 				<div class="row clearfix">
-					<div class="col-xs-6">
+					<div class="col-sm-6 col-xs-8">
 						<div id="farm-to-you-logo" class="apply-nav-height">
 							<a href="<?php echo SITE_ROOT_URL ?>">Farm to You</a>
 						</div>
 					</div>
-					<div class="col-xs-6">
-						<ul class="nav nav-pills" role="tablist">
-							<?php if(@isset($_SESSION['products'])) { ?>
-								<li id="cart-main-menu-item">
-									<a href="<?php echo SITE_ROOT_URL . 'cart/' ?>">
-										<span class="glyphicon glyphicon-shopping-cart"></span>
-										<small>Cart</small>
-										<span class="count"><?php echo count($_SESSION['products']); ?></span>
-									</a>
-								</li>
-							<?php } else { ?>
-								<li id="cart-main-menu-item">
-									<a href="<?php echo SITE_ROOT_URL . 'cart/' ?>">
-										<span class="glyphicon glyphicon-shopping-cart"></span>
-										<small>Cart</small>
-									</a>
-								</li>
-							<?php } ?>
-							<?php if(@isset($_SESSION['user'])) { ?>
-								<li role="presentation" class="dropdown">
-									<a id="drop6" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-										My Account
-										<span class="caret"></span>
-									</a>
-									<ul id="my-account-dropdown-menu" class="dropdown-menu" role="menu" aria-labelledby="drop6">
-										<li role="presentation"><a role="menuitem" tabindex="-1" href="">Settings</a></li>
-										<li role="presentation"><a role="menuitem" tabindex="-1" href="">Order history</a></li>
-										<li role="presentation" class="divider"></li>
-										<li role="presentation"><a role="menuitem" tabindex="-1" href="">Sign out</a></li>
-									</ul>
-								</li>
-							<?php } else { ?>
-								<li><a href="#">Login</span></a></li>
-								<li><a href="#">Register</span></a></li>
-								<li><a href="#">Become a merchant</span></a></li>
-							<?php } ?>
-						</ul> <!-- end pills -->
+					<div class="col-sm-6 col-xs-4">
+						<ul class="nav nav-pills hidden-xs">
+							<?php
+
+							require('cart-icon.php');
+							require('user-menu-items.php');
+
+							?>
+						</ul> <!-- end desktop pills -->
+
+						<ul class="nav nav-pills visible-xs">
+							<li role="presentation" class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+									<span class="glyphicon glyphicon-menu-hamburger"></span>
+								</a>
+								<ul class="dropdown-menu" role="menu">
+									<?php
+
+									require('user-menu-items.php');
+
+									?>
+								</ul>
+						</ul><!-- end mobile pills -->
 					</div>
 				</div><!-- end row main-menu -->
 			</div><!-- end container-fluid -->

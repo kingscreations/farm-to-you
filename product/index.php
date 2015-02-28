@@ -94,7 +94,7 @@ $storeImageSrc  = basename($store->getImagePath());
 
 <div class="container-fluid vertical-spacer-60" id="product">
 	<div class="row">
-		<div class="col-sm-5">
+		<div class="col-sm-5 col-xs-7">
 			<?php
 
 			if(file_exists($storeBasePath . $storeImageSrc)) {
@@ -108,12 +108,12 @@ $storeImageSrc  = basename($store->getImagePath());
 
 			?>
 		</div>
-		<div class="col-sm-7 hidden-xs">
+		<div class="col-sm-7 col-xs-5">
 			<!-- store products thumbnails -->
 			<ul class="thumbnail-links">
 			<?php
 			if($storeProducts !== null) {
-				echo '<li><a href="" class="count-store-products"><span class="">'. count($storeProducts) .
+				echo '<li class="hidden-xs"><a href="" class="count-store-products"><span class="">'. count($storeProducts) .
 					' <small>products</small></a></li>';
 
 				// randomize the products
@@ -122,14 +122,18 @@ $storeImageSrc  = basename($store->getImagePath());
 				// show the products thumbnails
 				foreach($storeProducts as $index => $storeProduct) {
 					// show at max 4 items
-					if(($index + 1) > 4) {
+					if($index > 3) {
 						break;
 					}
 
 					// rely only on the image path to get the file name
 					$thumbnailSrc = basename($storeProduct->getImagePath());
 
-					echo '<li>';
+					if($index > 1) {
+						echo '<li class="hidden-xs">';
+					} else {
+						echo '<li>';
+					}
 
 					// link to a product page
 					echo '<a href="'. SITE_ROOT_URL .'product/index.php?product='. $storeProduct->getProductId() .

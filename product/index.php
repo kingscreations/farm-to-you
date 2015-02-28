@@ -92,7 +92,7 @@ $storeImageSrc  = basename($store->getImagePath());
 
 ?>
 
-<div class="container-fluid vertical-spacer-60" id="product-page">
+<div class="container-fluid vertical-spacer-60" id="product">
 	<div class="row">
 		<div class="col-sm-5">
 			<?php
@@ -108,7 +108,7 @@ $storeImageSrc  = basename($store->getImagePath());
 
 			?>
 		</div>
-		<div class="col-sm-7">
+		<div class="col-sm-7 hidden-xs">
 			<!-- store products thumbnails -->
 			<ul class="thumbnail-links">
 			<?php
@@ -151,7 +151,7 @@ $storeImageSrc  = basename($store->getImagePath());
 	</div>
 </div><!-- end container-fluid -->
 
-	<div class="container-fluid white-container">
+<div class="container-fluid white-container">
 	<div class="row">
 		<div class="col-sm-7">
 			<?php if(file_exists($productBasePath . $productImageSrc)) { ?>

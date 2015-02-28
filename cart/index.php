@@ -74,11 +74,14 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 
 
 									if(file_exists($product->getImagePath())) {
-										echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' . $product->getProductId() .'">
-													<img class="img-responsive" src="' . CONTENT_ROOT_URL . 'images/product/' . basename($product->getImagePath()) . '">
+										echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
+											$product->getProductId() .'">
+													<img class="img-responsive" src="' . CONTENT_ROOT_URL . 'images/product/' .
+											basename($product->getImagePath()) . '">
 												</a></td>';
 									} else {
-										echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' . $product->getProductId() .'">
+										echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
+											$product->getProductId() .'">
 													<img class="img-responsive" src="' . $imagePlaceholderSrc . '">
 												</a></td>';
 									}
@@ -86,7 +89,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 									echo '<td>' . $product->getProductName() . '</td>';
 
 									// price
-									echo '<td id="product'. $counter .'-price">$' . $product->getProductPrice();
+									echo '<td id="product'. $counter .'-price">$' . number_format($product->getProductPrice(), 2, '.', '');
 
 									$productPriceType = $product->getProductPriceType();
 									if($productPriceType === 'w') {
@@ -96,7 +99,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 									echo '</td>';
 									// end price
 
-									echo '<td id="product'. $counter .'-weight">' . $product->getProductWeight() . '</td>';
+									echo '<td id="product'. $counter .'-weight">' . number_format($product->getProductWeight(), 2, '.', '') . 'lb</td>';
 
 									$maxQuantity = 15;
 									$stockLimit  = $product->getStockLimit();

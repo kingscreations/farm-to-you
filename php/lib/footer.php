@@ -5,6 +5,7 @@
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
 ?>
+			<div class="push"></div>
 			<footer>
 				<div class="container-fluid">
 					<div class="row">

@@ -99,6 +99,10 @@ try {
 			</div>
 			<br>
 			<div class="form-group">
+				<button id="<?php echo $_SESSION['storeId'];?>" class="btn btn-default linkStore">Link to store page</button>
+			</div>
+			<br>
+			<div class="form-group">
 					<input type="submit" class="form-control" id="editSubmit" name="editSubmit" value="Submit">
 			</div>
 			<br>

@@ -58,6 +58,16 @@ $(document).ready(
 			location.href = "../add-store/index.php";
 		};
 
+		$('.linkStore').click(function() {
+			var storeId = $(this).attr("id");
+			$.ajax({
+				type: "POST",
+				url: "../php/forms/add-store-add-to-session.php",
+				data: {storeId: storeId}
+			}).done(function() {
+				location.href = "../store/index.php?store="+storeId;
+			});
+		});
 
 		$('.addButton').click(function() {
 			var storeId = $(this).attr("id");

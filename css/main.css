@@ -3,17 +3,26 @@
 * Base html styling
 ********************************************/
 * {
-  margin: 0;
+	margin: 0;
 }
 html, body {
-  height: 100%;
+	height: 100%;
 }
 .wrapper {
-  min-height: 100%;
-  margin: 0 auto -140px;
+	min-height: 100%;
+	margin-bottom: -60px;
 }
-footer, .push {
-  height: 140px;
+
+.wrapper:after {
+	content: "";
+	display: block;
+}
+footer, .wrapper:after {
+	height: 60px;
+}
+
+footer {
+	margin-top: 30px;
 }
 
 body {
@@ -509,14 +518,14 @@ h2 {
 * errors
 ********************************************/
 #page-not-found {
-  background-image: url("../images/farm-not-found.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 720px;
+	background-image: url("../images/farm-not-found.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 720px;
 }
 
 #multi-menu {
-  margin-top: 30px;
+	margin-top: 30px;
 }
 
 /********************************************
@@ -525,6 +534,33 @@ h2 {
 .share-button {
 	display: inline-block;
 	vertical-align: middle;
+}
+
+/********************************************
+* home page new user
+********************************************/
+.home-top {
+	background: transparent url("../images/home-page.jpg") no-repeat fixed center center/cover;
+	position: absolute;
+	z-index: -1;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+.home-top-search-area {
+	background-color: rgba(0, 0, 0, 0.7);
+	text-align: center;
+	margin: auto;
+	margin-top: 20%;
+}
+
+@media screen and (min-width: 768px) {
+	.home-top-search-area {
+		width: 840px;
+		padding: 60px;
+		border-radius: 18px;
+	}
 }
 
 /********************************************

@@ -10,6 +10,17 @@ $(document).ready(
 			location.href = "../edit-store/index.php";
 		};
 
+		$('.linkProduct').click(function() {
+			var productId = $(this).attr("id");
+			$.ajax({
+				type: "POST",
+				url: "../php/forms/edit-product-add-to-session.php",
+				data: {productId: productId}
+			}).done(function() {
+				location.href = "../product/index.php?product="+productId;
+			});
+		});
+
 
 		// tell the validator to validate this form (by id)
 		$("#editProduct").validate({

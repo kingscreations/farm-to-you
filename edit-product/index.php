@@ -118,6 +118,11 @@ try {
 		<br>
 
 		<div class="form-group">
+			<button id="<?php echo $_SESSION['productId'];?>" class="btn btn-default linkProduct">Link to product page</button>
+		</div>
+		<br>
+
+		<div class="form-group">
 			<input type="submit" class="form-control" id="editSubmit" name="editSubmit" value="Submit">
 		</div>
 

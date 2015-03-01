@@ -148,8 +148,11 @@ $(document).ready(
 					// TL; DR: reformat POST data
 					data: $(form),
 					// success is an event that happens when the server replies
-					success: function(ajaxOutput) {
-						// clear the output area's formatting
+					success:
+						function(ajaxOutput) {
+						//document.location.reload(true);
+
+							// clear the output area's formatting
 						$("#outputArea").css("display", "block");
 						// write the server's reply to the output area
 						$("#outputArea").html(ajaxOutput);

@@ -40,14 +40,25 @@ try {
 <!--js validation + ajax call-->
 <script src="../js/edit-store.js"></script>
 
-	<div id="multi-menu" class="col-md-3">
+	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-			<li><a href="../add-store/index.php">Manage Stores</a></li>
-			<li><a href="#">List of Orders</a></li>
-			<li><a href="#">Account Settings</a></li>
+			<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+			<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+			<li class="disabled"><a href="#">Account Settings</a></li>
 		</ul>
 	</div>
+
+	<div class="dropdown hidden-lg hidden-md" style="position:relative">
+		<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
+		<ul class="dropdown-menu">
+			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+			<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+			<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+			<li class="disabled"><a href="#">Account Settings</a></li>
+		</ul>
+	</div>
+
 
 <div class="row-fluid">
 	<div class="col-sm-9">
@@ -80,9 +91,9 @@ try {
 				// show a placeholder if the product is not associated with an image
 				if(file_exists($basePath . $imageSrc)) {
 					?>
-					<img src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $storeName; ?>"/>
+					<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $storeName; ?>"/>
 				<?php } else { ?>
-					<img src="<?php echo $baseUrl . $imagePlaceholderSrc; ?>" alt="<?php echo $storeName; ?>"/>
+					<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imagePlaceholderSrc; ?>" alt="<?php echo $storeName; ?>"/>
 				<?php } ?>
 
 			</div>

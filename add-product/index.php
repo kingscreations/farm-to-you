@@ -7,22 +7,29 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 ?>
 
-
-	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
-	<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
 	<script src="../js/add-product.js"></script>
 
-	<div id="multi-menu" class="col-md-3">
+	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-			<li><a href="../add-store/index.php">Manage Stores</a></li>
-			<li><a href="#">List of Orders</a></li>
-			<li><a href="#">Account Settings</a></li>
+			<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+			<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+			<li class="disabled"><a href="#">Account Settings</a></li>
+		</ul>
+	</div>
+
+	<div class="dropdown hidden-lg hidden-md" style="position:relative">
+		<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
+		<ul class="dropdown-menu">
+			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+			<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+			<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+			<li class="disabled"><a href="#">Account Settings</a></li>
 		</ul>
 	</div>
 
 <!--Form for adding a new product-->
+	<div class="container-fluid">
 <div class="col-md-9">
 	<h2>Add Product</h2>
 
@@ -85,9 +92,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 		<p id="outputArea" style=""></p>
 
 	</form>
-</div>
-
-<div class="container">
+		<div class="form-group">
 	<?php
 
 	try {
@@ -129,8 +134,10 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 	<div class="form-group">
 		<button class="btn btn-default addButton" id="back">Back</button>
 	</div>
+		</div>
 
 </div>
+	</div>
 
 	<?php
 require_once("../php/lib/footer.php")

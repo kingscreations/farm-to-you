@@ -33,15 +33,24 @@ try {
 	<!-- JS for the page-->
 	<script src="../js/edit-product.js"></script>
 
-<div id="multi-menu" class="col-md-3">
+<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
 	<ul class="nav nav-pills nav-stacked">
 		<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-		<li><a href="../add-store/index.php">Manage Stores</a></li>
-		<li><a href="#">List of Orders</a></li>
-		<li><a href="#">Account Settings</a></li>
+		<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+		<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+		<li class="disabled"><a href="#">Account Settings</a></li>
 	</ul>
 </div>
 
+<div class="dropdown hidden-lg hidden-md" style="position:relative">
+	<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
+	<ul class="dropdown-menu">
+		<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+		<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+		<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+		<li class="disabled"><a href="#">Account Settings</a></li>
+	</ul>
+</div>
 
 <!--Form to edit a product-->
 <div class="col-md-9">

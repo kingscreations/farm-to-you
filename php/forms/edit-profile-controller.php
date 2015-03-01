@@ -9,11 +9,9 @@ require_once("../lib/utils.php");
 
 // verify the form values have been submitted
 if(@isset($_POST["inputFirstname"]) === false || @isset($_POST["inputLastname"]) === false
-	|| @isset($_POST["inputType"]) === false || @isset($_POST["inputPhone"]) === false)  {
+ || @isset($_POST["inputPhone"]) === false)  {
 	echo "<p class=\"alert alert-danger\">Form values not complete. Verify the form and try again.</p>";
 }
-
-
 
 try {
 	//
@@ -21,11 +19,18 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-	$profileId = $_SESSION['profile']['id'];
-	$userId = $_SESSION['user']['id'];
+//$profileId = $_SESSION['profileId'];
+
+	$profileId = 1;
+
+//	$userId = $_SESSION['user']['id'];
+
+	$userId = 1;
 
 
-		$profile = new Profile($profileId, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", null, $userId);
+//		$profile = new Profile($profileId, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", null, $userId);
+
+	$profile = Profile::getProfileByProfileId($mysqli, $profileId);
 
 
 	if(@isset($_FILES['inputImage'])) {

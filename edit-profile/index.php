@@ -24,7 +24,7 @@ $profileImage = $profile->getImagePath();
 
 ?>
 
-
+<script src="../js/edit-profile.js"></script>
 
 	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
 		<ul class="nav nav-pills nav-stacked">
@@ -84,8 +84,30 @@ $profileImage = $profile->getImagePath();
 			<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit" value="Submit">
 		</div>
 
+		<br>
+		<div class="form-group">
+
+			<?php
+
+			$baseUrl             = CONTENT_ROOT_URL . 'images/profile/';
+			$basePath            = CONTENT_ROOT_PATH . 'images/profile/';
+			$imagePlaceholderSrc = 'placeholder.jpg';
+			$imageSrc            = 'profile-'. $profileId .'.jpg';
+
+			// show a placeholder if the product is not associated with an image
+			if(file_exists($basePath . $imageSrc)) {
+				?>
+				<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
+			<?php } else { ?>
+				<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imagePlaceholderSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
+			<?php } ?>
+
+		</div>
+		<br>
+		<p id="outputArea" style=""></p>
+
 	</form>
-	<p id="outputArea" style=""></p>
+
 </div>
 
 <?php

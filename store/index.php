@@ -92,6 +92,7 @@ $storeImageSrc  = basename($store->getImagePath());
 
 			<div id="store-owner" class="section">
 				<h3>Store Owner</h3>
+				<a href="" class="avatar"></a>
 				<a href=""><?php echo $storeOwner->getFirstName() . ' ' . $storeOwner->getLastName(); ?></a>
 			</div>
 		</div>

@@ -116,6 +116,25 @@ try {
 		</div>
 
 		<br>
+		<div class="form-group">
+
+			<?php
+
+			$baseUrl             = CONTENT_ROOT_URL . 'images/product/';
+			$basePath            = CONTENT_ROOT_PATH . 'images/product/';
+			$imagePlaceholderSrc = 'placeholder.jpg';
+			$imageSrc            = 'product-'. $_SESSION['productId'] .'.jpg';
+
+			// show a placeholder if the product is not associated with an image
+			if(file_exists($basePath . $imageSrc)) {
+				?>
+				<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $productName; ?>"/>
+			<?php } else { ?>
+				<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imagePlaceholderSrc; ?>" alt="<?php echo $productName; ?>"/>
+			<?php } ?>
+
+		</div>
+		<br>
 
 		<div class="form-group">
 			<button id="<?php echo $_SESSION['productId'];?>" class="btn btn-default linkProduct">Link to product page</button>

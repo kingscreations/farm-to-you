@@ -109,7 +109,9 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 									}
 
 									// get the # of options to create in the select box
-									$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
+									$quantityLimit = ($stockLimit < $maxQuantity)
+										? $stockLimit
+										: $maxQuantity;
 
 									// select box
 									echo '<td>';

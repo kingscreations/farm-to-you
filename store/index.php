@@ -18,6 +18,7 @@ require_once('../paths.php');
 // model
 require_once("../php/classes/product.php");
 require_once("../php/classes/store.php");
+require_once("../php/classes/profile.php");
 require_once("../php/classes/location.php");
 require_once("../php/classes/storelocation.php");
 require_once("../php/classes/orderproduct.php");
@@ -50,6 +51,9 @@ try {
 
 	// get all the locations from the current store
 	$storeLocations = StoreLocation::getAllStoreLocationsByStoreId($mysqli, $store->getStoreId());
+
+	// get the store owner
+	$storeOwner = Profile::getProfileByProfileId($mysqli, $store->getProfileId());
 
 //	$locations = [];
 //	if($storeLocations !== null) {
@@ -87,7 +91,8 @@ $storeImageSrc  = basename($store->getImagePath());
 			</div>
 
 			<div id="store-owner" class="section">
-
+				<h3>Store Owner</h3>
+				<a href=""><?php echo $storeOwner->getFirstName() . ' ' . $storeOwner->getLastName(); ?></a>
 			</div>
 		</div>
 		<div class="col-sm-9" id="store-content">
@@ -121,7 +126,14 @@ $storeImageSrc  = basename($store->getImagePath());
 						<div class="announcement">
 							<a href="<?php echo $storeLink; ?> id="store-announcement>
 								<!-- show only the beginning of the description -->
-								<?php echo substr($store->getStoreDescription(), 0, 20) . '...'; ?>
+								<?php
+
+								$storeDescription = $store->getStoreDescription();
+								echo strlen($storeDescription) > 20
+									? substr($storeDescription, 0, 20) . '...'
+									: $storeDescription;
+
+								?>
 							</a>
 						</div>
 					</div><!-- end store-id-card -->
@@ -145,24 +157,32 @@ $storeImageSrc  = basename($store->getImagePath());
 
 							$productUrl = SITE_ROOT_URL.'product/index.php?product='.$storeProduct->getProductId();
 
+							$productDescription = $storeProduct->getProductDescription();
+
 							?>
 
 							<li id="<?php echo $storeProduct->getProductId(); ?>">
 								<div class="product-listing-card">
 									<a class="product-listing-thumbnail"
 										href="<?php echo $productUrl; ?>"
-										title="<?php echo $storeProduct->getProductDescription(); ?>"
+										title="<?php echo $productDescription; ?>"
 										>
 										<img src="<?php echo (file_exists($productImageBasePath.$productImageSrc)
 											? $productImageBaseUrl.$productImageSrc
 											: $imagePlaceholderSrc) ?>"
-											  alt="<?php echo $storeProduct->getProductDescription(); ?>"
+											  alt="<?php echo $productDescription; ?>"
 												class="img-responsive"/>
 									</a>
 									<div class="product-listing-detail">
 										<a href="<?php echo $productUrl ?>" class="product-listing-card-title"
-											title="<?php echo $storeProduct->getProductDescription(); ?>">
-											<?php echo $storeProduct->getProductDescription(); ?>
+											title="<?php echo $productDescription; ?>">
+											<?php
+
+											echo strlen($productDescription) > 26
+												? substr($productDescription, 0, 26) . '...'
+												: $productDescription;
+
+											?>
 										</a>
 									</div>
 								</div><!-- end product-listing card -->

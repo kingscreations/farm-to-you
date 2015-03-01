@@ -420,6 +420,31 @@ h2 {
   margin-bottom: 30px;
 }
 
+#cart-main-menu-item {
+	font-size: 1.2em;
+	position: relative;
+	bottom: 10px;
+}
+
+#cart-main-menu-item small {
+	font-size: 0.7em;
+	display: block;
+}
+
+.count {
+	font-size: 0.7em;
+	padding: 0.05em 0.15em;
+	border-radius: 2px;
+	color: white;
+	background-color: #7AC142;
+	position: absolute;
+	bottom: 35px;
+	left: 26px;
+}
+
+/********************************************
+* store
+********************************************/
 .store-name {
   font-size: 1em;
   position: relative;
@@ -437,6 +462,11 @@ h2 {
 	width: 100%;
 	height: 100px;
 	overflow: hidden;
+}
+
+.store-banner img {
+	position: relative;
+	bottom: 100px;
 }
 
 .count-store-products {
@@ -457,41 +487,32 @@ h2 {
   top: 20px;
 }
 
+.section {
+	background-color: white;
+	padding: 0.4em;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+}
+
+@media screen and (min-width: 768px) {
+	.section {
+		padding: 1em;
+	}
+}
+
 #add-product-to-cart {
   width: 100%;
   margin-top: 20px;
 }
 
+/********************************************
+* errors
+********************************************/
 #page-not-found {
   background-image: url("../images/farm-not-found.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   height: 720px;
-}
-
-/********************************************
-* cart icon
-********************************************/
-#cart-main-menu-item {
-  font-size: 1.2em;
-  position: relative;
-  bottom: 10px;
-}
-
-#cart-main-menu-item small {
-  font-size: 0.7em;
-  display: block;
-}
-
-.count {
-  font-size: 0.7em;
-  padding: 0.05em 0.15em;
-  border-radius: 2px;
-  color: white;
-  background-color: #7AC142;
-  position: absolute;
-  bottom: 35px;
-  left: 26px;
 }
 
 #multi-menu {

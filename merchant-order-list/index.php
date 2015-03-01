@@ -13,19 +13,33 @@ require_once("../php/classes/checkout.php");
 require_once("../php/classes/location.php");
 require_once("../php/classes/product.php");
 
-$profileId = $_SESSION['profileId'];
+//$profileId = $_SESSION['profileId'];
+
+$profileId = 1;
 
 ?>
-<div class="container-fluid">
-<div class="row">
-<div id="multi-menu" class="col-md-3">
+
+<!--<script src="../js/merchant-order-list.js"></script>-->
+
+<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
 	<ul class="nav nav-pills nav-stacked">
 		<li><a href="../edit-profile/index.php">Edit Profile</a></li>
 		<li><a href="../add-store/index.php">Manage Stores</a></li>
 		<li class="active"><a href="../merchant-order-list/index.php">List of Orders</a></li>
-		<li><a href="#">Account Settings</a></li>
+		<li class="disabled"><a href="#">Account Settings</a></li>
 	</ul>
 </div>
+
+<div class="dropdown hidden-lg hidden-md" style="position:relative">
+	<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
+	<ul class="dropdown-menu">
+		<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+		<li><a href="../add-store/index.php">Manage Stores</a></li>
+		<li class="active"><a href="../merchant-order-list/index.php">List of Orders</a></li>
+		<li class="disabled"><a href="#">Account Settings</a></li>
+	</ul>
+</div>
+
 <?php
 
 // credentials
@@ -39,7 +53,9 @@ try {
 
 	$products = Product::getAllProductsFromMerchantByProfileId($mysqli, $profileId);
 	if($products !== null) {
-		echo '<div class="col-sm-9">';
+		echo '<div class="col-md-9">';
+		echo '<h2>Orders</h2>';
+		echo '<br>';
 		$allOrderProducts = array();
 		foreach($products as $product) {
 			$merchantProductId = $product->getProductId();
@@ -108,7 +124,7 @@ try {
 		}
 		echo '</div>';
 	} else {
-		echo '<div class="col-sm-9">No orders found.</div>';
+		echo '<div class="col-sm-9"> <h2>Orders</h2> <h4>No orders found.</h4></div>';
 	}
 
 } catch(Exception $exception) {

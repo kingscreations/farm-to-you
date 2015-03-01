@@ -5,14 +5,16 @@ require_once("../php/lib/header.php");
 require_once("../php/classes/profile.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
-//require_once("../dummy-session-single.php");
+//$profileId = $_SESSION['profileId'];
+
+$profileId = 1;
 
 mysqli_report(MYSQLI_REPORT_STRICT);
 $configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 $mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 
-$profile = Profile::getProfileByProfileId($mysqli, $_SESSION["profileId"]);
+$profile = Profile::getProfileByProfileId($mysqli, $profileId);
 
 $profileFirstname = $profile->getFirstName();
 $profileLastname = $profile->getLastName();
@@ -24,14 +26,25 @@ $profileImage = $profile->getImagePath();
 
 
 
-	<div id="multi-menu" class="col-md-3">
+	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
 		<ul class="nav nav-pills nav-stacked">
 			<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
 			<li><a href="../add-store/index.php">Manage Stores</a></li>
 			<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
-			<li><a href="#">Account Settings</a></li>
+			<li class="disabled"><a href="#">Account Settings</a></li>
 		</ul>
 	</div>
+
+	<div class="dropdown hidden-lg hidden-md" style="position:relative">
+		<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
+		<ul class="dropdown-menu">
+			<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
+			<li><a href="../add-store/index.php">Manage Stores</a></li>
+			<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+			<li class="disabled"><a href="#">Account Settings</a></li>
+		</ul>
+	</div>
+
 <!--Form to edit a profile-->
 <div class="col-md-9">
 

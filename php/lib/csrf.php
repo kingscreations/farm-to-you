@@ -1,6 +1,6 @@
 <?php
 /**
- * generates a random token by hashing a randon number
+ * generates a random token by hashing a random number
  *
  * @return string random token
  **/

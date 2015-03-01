@@ -14,9 +14,8 @@ $currentDepth = substr_count($currentDir, "/");
 $rootDepth = substr_count($rootPath, "/");
 $depthDifference = $currentDepth - $rootDepth;
 $prefix = str_repeat("../", $depthDifference);
-
 // paths constants
-require_once($prefix .'/paths.php');
+require_once($prefix . 'paths.php');
 
 ?>
 <!DOCTYPE html>

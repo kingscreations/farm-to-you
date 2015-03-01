@@ -8,6 +8,19 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 ?>
 
 	<script src="../js/add-product.js"></script>
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.5.0/bootstrap-tagsinput.css" />
+	<script src="//cdn.jsdelivr.net/bootstrap.tagsinput/0.5.0/bootstrap-tagsinput.min.js"></script>
+
+	<style type="text/css">
+		.bootstrap-tagsinput {
+			width: 100%;
+		}
+		.label {
+			line-height: 2 !important;
+		}
+	</style>
+	<script src="../js/typeahead.bundle.js"></script>
+
 
 	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
 		<ul class="nav nav-pills nav-stacked">
@@ -85,7 +98,14 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 		<br>
 
-		<div class="form-group">
+			<div class="form-group">
+				<label for="addTags">Tags:</label>
+				<span><input type="text" class="form-control" id="addTags" name="addTags" data-role="tagsinput"></span>
+			</div>
+
+		<br>
+
+			<div class="form-group">
 			<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit" value="Submit">
 		</div>
 

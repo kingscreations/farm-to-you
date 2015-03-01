@@ -17,7 +17,8 @@ footer, .push {
 }
 
 body {
-  background-color: whitesmoke;
+	background-color: whitesmoke;
+	overflow-y: scroll;
 }
 
 footer {
@@ -103,9 +104,14 @@ footer p {
   padding: 0;
 }
 
+.inline-list li {
+	display: inline-block;
+}
+
 .product-listing li {
 	display: inline-block;
-	width: 24.5%;
+	vertical-align: middle;
+	width: 49%;
 }
 
 .product-listing-card {
@@ -126,14 +132,17 @@ footer p {
 }
 
 @media screen and (min-width: 768px) {
-  .inline-list {
-    padding: inherit;
-  }
+	.inline-list {
+	 	padding: inherit;
+	}
 
-  .inline-list li {
-    display: inline-block;
-    margin-left: 30px;
-  }
+	.inline-list li {
+	 	margin-left: 30px;
+	}
+
+	.product-listing li {
+		width: 24.5%;
+	}
 }
 
 .inline-list li:first-child {
@@ -424,6 +433,12 @@ h2 {
   }
 }
 
+.store-banner {
+	width: 100%;
+	height: 100px;
+	overflow: hidden;
+}
+
 .count-store-products {
   height: 80px;
   width: 80px;
@@ -482,4 +497,3 @@ h2 {
 #multi-menu {
   margin-top: 30px;
 }
-

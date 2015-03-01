@@ -17,8 +17,6 @@ require_once('../paths.php');
 
 // model
 require_once("../php/classes/product.php");
-require_once("../php/classes/user.php");
-require_once("../php/classes/profile.php");
 require_once("../php/classes/store.php");
 require_once("../php/classes/location.php");
 require_once("../php/classes/storelocation.php");
@@ -36,9 +34,6 @@ try {
 
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 	$configArray["database"]);
-
-	$user     = User::getUserByUserId($mysqli, 1);
-	$profile  = Profile::getProfileByProfileId($mysqli, 1);
 
 	// get the product id from the current url
 	if(!@isset($_GET['store'])) {
@@ -90,23 +85,39 @@ $storeImageSrc  = basename($store->getImagePath());
 				<a href="#" class="list-group-item">Nuts</a>
 				<a href="#" class="list-group-item">Flowers</a>
 			</div>
+
+			<div id="store-owner" class="section">
+
+			</div>
 		</div>
 		<div class="col-sm-9" id="store-content">
 			<div class="row">
 				<div class="col-sm-12">
-					<?php
+					<div id="store-id-card">
+						<?php $storeLink = SITE_ROOT_URL . 'store/index.php?store='. $store->getStoreId(); ?>
 
-					$storeLink = SITE_ROOT_URL . 'store/index.php?store='. $store->getStoreId();
+						<div class="store-banner">
+							<a href="<?php echo $storeLink; ?>"
+								title="<?php echo $store->getStoreDescription(); ?>">
+								<img src="<?php echo file_exists($storeBasePath.$storeImageSrc)
+									? $storeBaseUrl.$storeImageSrc
+									: $imagePlaceHolderSrc; ?>"
+									  alt="<?php echo $store->getStoreName(); ?>"
+										class="img-responsive"/>
+							</a>
+						</div><!-- end store-banner -->
 
-					if(file_exists($storeBasePath . $storeImageSrc)) {
-						echo '<a href="' . $storeLink . '"><img src="' . $storeBaseUrl . $storeImageSrc .'" alt="'.
-							$store->getStoreName() .'" class="img-responsive"/></a>';
-					} else {
-						echo '<a href="' . $storeLink . '""><img src="' . $imagePlaceholderSrc . '" alt="'. $store->getStoreName() .
-							'" class="img-responsive"/></a>';
-					}
+						<div class="store-info">
+							<h1><?php echo $store->getStoreName(); ?></h1>
+						</div>
 
-					?>
+						<div class="announcement">
+							<a href="<?php echo $storeLink; ?> id="store-announcement>
+								<!-- show only the beginning of the description -->
+								<?php echo substr($store->getStoreDescription(), 0, 20) . '...'; ?>
+							</a>
+						</div>
+					</div><!-- end store-id-card -->
 				</div>
 			</div>
 
@@ -137,7 +148,9 @@ $storeImageSrc  = basename($store->getImagePath());
 										>
 										<img src="<?php echo (file_exists($productImageBasePath.$productImageSrc)
 											? $productImageBaseUrl.$productImageSrc
-											: $imagePlaceholderSrc) ?>" alt="<?php echo $storeProduct->getProductDescription(); ?>"/>
+											: $imagePlaceholderSrc) ?>"
+											  alt="<?php echo $storeProduct->getProductDescription(); ?>"
+												class="img-responsive"/>
 									</a>
 									<div class="product-listing-detail">
 										<a href="<?php echo $productUrl ?>" class="product-listing-card-title"
@@ -148,10 +161,12 @@ $storeImageSrc  = basename($store->getImagePath());
 								</div><!-- end product-listing card -->
 							</li>
 
-						<?php } ?>
+						<?php } ?><!-- end of the for each store product loop -->
 					</ul>
 				</div>
 			</div>
 		</div><!-- end store-content -->
 	</div>
 </div>
+
+<?php require_once '../php/lib/footer.php' ?>

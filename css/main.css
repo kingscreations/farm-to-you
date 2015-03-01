@@ -103,17 +103,26 @@ footer p {
   padding: 0;
 }
 
+.product-listing li {
+	display: inline-block;
+	width: 24.5%;
+}
+
 .product-listing-card {
 	margin: 0 10px 10px 0;
 	padding: 0.2em;
-	display: inline-block;
-	border: 1px solid grey;
-	width: 25%;
+	border: 1px solid lightgray;
+	border-radius: 3px;
 }
 
 .product-listing-card img {
 	max-width: 100%;
 	height: 100px;
+}
+
+.product-listing-detail {
+	font-size: 0.8em;
+	height: 30px;
 }
 
 @media screen and (min-width: 768px) {

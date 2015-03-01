@@ -91,7 +91,7 @@ $storeImageSrc  = basename($store->getImagePath());
 				<a href="#" class="list-group-item">Flowers</a>
 			</div>
 		</div>
-		<div class="col-sm-7" id="store-content">
+		<div class="col-sm-9" id="store-content">
 			<div class="row">
 				<div class="col-sm-12">
 					<?php
@@ -129,21 +129,23 @@ $storeImageSrc  = basename($store->getImagePath());
 
 							?>
 
-							<li id="<?php echo $storeProduct->getProductId(); ?>" class="product-listing-card">
-								<a class="product-listing-thumbnail"
-									href="<?php echo $productUrl; ?>"
-									title="<?php echo $storeProduct->getProductDescription(); ?>"
-									>
-									<img src="<?php echo (file_exists($productImageBasePath.$productImageSrc)
-										? $productImageBaseUrl.$productImageSrc
-										: $imagePlaceholderSrc) ?>" alt="<?php echo $storeProduct->getProductDescription(); ?>"/>
-								</a>
-								<div class="product-listing-detail">
-									<a href="<?php echo $productUrl ?>" class="product-listing-card-title"
-										title="<?php echo $storeProduct->getProductDescription(); ?>">
-										<?php echo $storeProduct->getProductDescription(); ?>
+							<li id="<?php echo $storeProduct->getProductId(); ?>">
+								<div class="product-listing-card">
+									<a class="product-listing-thumbnail"
+										href="<?php echo $productUrl; ?>"
+										title="<?php echo $storeProduct->getProductDescription(); ?>"
+										>
+										<img src="<?php echo (file_exists($productImageBasePath.$productImageSrc)
+											? $productImageBaseUrl.$productImageSrc
+											: $imagePlaceholderSrc) ?>" alt="<?php echo $storeProduct->getProductDescription(); ?>"/>
 									</a>
-								</div>
+									<div class="product-listing-detail">
+										<a href="<?php echo $productUrl ?>" class="product-listing-card-title"
+											title="<?php echo $storeProduct->getProductDescription(); ?>">
+											<?php echo $storeProduct->getProductDescription(); ?>
+										</a>
+									</div>
+								</div><!-- end product-listing card -->
 							</li>
 
 						<?php } ?>

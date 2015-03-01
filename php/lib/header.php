@@ -60,7 +60,7 @@ require_once($prefix .'/paths.php');
 		<title>Farm To You</title>
 	</head>
 	<body>
-		<?php require_once('facebook-api.php'); ?>
+		<?php require_once('share-api.php'); ?>
 
 		<!-- wrapper for the sticky footer -->
 		<div class="wrapper">

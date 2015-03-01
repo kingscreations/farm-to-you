@@ -219,8 +219,7 @@ $storeImageSrc  = basename($store->getImagePath());
 				<div id="outputArea" class="no-list-style"></div>
 			</form>
 
-			<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/"
-				  data-layout="button_count"></div>
+			<?php include_once('../php/lib/share-view.php'); ?>
 		</div>
 	</div>
 </div><!-- end container-fluid -->

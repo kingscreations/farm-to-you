@@ -108,7 +108,14 @@ $storeImageSrc  = basename($store->getImagePath());
 						</div><!-- end store-banner -->
 
 						<div class="store-info">
-							<h1><?php echo $store->getStoreName(); ?></h1>
+							<div class="row">
+								<div class="col-sm-8">
+									<h1><?php echo $store->getStoreName(); ?></h1>
+								</div>
+								<div class="col-sm-4">
+									<?php include_once('../php/lib/share-view.php'); ?>
+								</div>
+							</div>
 						</div>
 
 						<div class="announcement">

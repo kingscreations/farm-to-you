@@ -11,7 +11,7 @@ require_once('../php/lib/header.php');
 		<h1 class="heading">Delicious products and fair trades directly from the farmers</h1>
 		<form class="mt30" action="../php/forms/search-controller.php" id="search" method="post">
 			<div class="input-group">
-				<input class="form-control search-field" type="text" id="inputSearch" name="inputSearch" placeholder="What are looking for today?" />
+				<input class="form-control search-field" type="text" id="inputSearch" name="inputSearch" placeholder="What are you looking for today?" />
 				<input type="hidden" value="yes" name="searching">
 				<span class="input-group-btn">
 				  <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
@@ -27,7 +27,7 @@ require_once('../php/lib/header.php');
 				<h1 class="heading">Delicious products and fair trades directly from the farmers</h1>
 				<form class="mt30" action="../php/forms/search-controller.php" id="search" method="post">
 					<div class="input-group">
-						<input class="form-control search-field" type="text" id="inputSearch" name="inputSearch" placeholder="What are looking for today?" />
+						<input class="form-control search-field" type="text" id="inputSearch" name="inputSearch" placeholder="What are you looking for today?" />
 						<input type="hidden" value="yes" name="searching">
 						<span class="input-group-btn">
 						  <button id="inputSubmit" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>

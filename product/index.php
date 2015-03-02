@@ -74,6 +74,8 @@ try {
 		}
 	}
 
+	$mysqli->close();
+
 } catch(Exception $exception) {
 	echo 'Exception: '. $exception->getMessage() .'<br/>';
 	echo $exception->getFile(). ':' .$exception->getLine();

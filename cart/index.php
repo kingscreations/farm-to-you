@@ -9,16 +9,15 @@ $currentDir = dirname(__FILE__);
 require_once '../root-path.php';
 require_once '../php/lib/header.php';
 
-// credentials
-require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
-
 // model
 require_once("../php/classes/product.php");
 require_once("../php/classes/store.php");
 
-// path for the config file
+// credentials
+require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
+// errors report
 mysqli_report(MYSQLI_REPORT_STRICT);
 
 ?>

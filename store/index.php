@@ -55,17 +55,11 @@ try {
 	// get the store owner
 	$storeOwner = Profile::getProfileByProfileId($mysqli, $store->getProfileId());
 
-//	$locations = [];
-//	if($storeLocations !== null) {
-//		foreach($storeLocations as $storeLocation) {
-//			$location = Location::getLocationByLocationId($mysqli, $storeLocation->getLocationId());
-//			$locations[] = $location;
-//		}
-//	}
-
 	if($storeProducts === null || $storeLocations === null) {
 		header('Location: ../php/lib/404.php');
 	}
+
+	$mysqli->close();
 
 } catch(Exception $exception) {
 	echo 'Exception: '. $exception->getMessage() .'<br/>';

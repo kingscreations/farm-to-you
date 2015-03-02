@@ -23,14 +23,9 @@ function testValidFields() {
 	// click the button once all the fields are filled in
 	F("#submit").click();
 
-	// wait for the login page to load
-	F('#autocomplete_results:first-child').visible()
-
 	// click the logout button
-	F("#logout").click();
-
-	// wait for the logout page to load
-	F('#autocomplete_results:first-child').visible()
+	F("#drop6").click();
+	F("#sign-out").click();
 
 	// try to access account
 
@@ -39,30 +34,10 @@ function testValidFields() {
 	F(".alert").visible(function() {
 		// create a expression that evaluates the successful text
 		ok(F(this).hasClass("alert-success"), "successful alert CSS");
-		ok(F(this).html().indexOf("You are signed in!") === 0, "successful message");
+		ok(F(this).html().indexOf("You are now signed out. Thank you for visiting farm-to-you. We hope to see you again soon.") === 0, "successful message");
 	});
 }
 
-/**
- * test filling in invalid form data
- **/
-function testInvalidFields() {
-
-	// delete default form value and fill in the form value
-	F("#email").type(INVALID_EMAIL);
-	F("#password2").type(INVALID_PASSWORD);
-
-	// click the button once field is filled in
-	F("#submit").click();
-
-	// assert we got the php error message from the AJAX call
-	F(".alert").visible(function() {
-		ok(F(this).hasClass("alert-danger"), "danger alert CSS");
-		ok(F(this).html().indexOf("Exception: password input does not match existing account") === 0, "unsuccessful message");
-	});
-
-}
 
 // the test function *MUST* be called in order for the test to execute
 test("test valid fields", testValidFields);
-test("test invalid fields", testInvalidFields);

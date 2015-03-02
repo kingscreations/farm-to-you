@@ -14,7 +14,7 @@
 			</li>
 			<li role="presentation" class="divider"></li>
 			<li role="presentation">
-				<a role="menuitem" tabindex="-1" href="<?php echo SITE_ROOT_URL . 'sign-out'; ?>">Sign out</a>
+				<a id="sign-out" role="menuitem" tabindex="-1" href="<?php echo SITE_ROOT_URL . 'sign-out'; ?>">Sign out</a>
 			</li>
 		</ul>
 	</li>

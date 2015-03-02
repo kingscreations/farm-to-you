@@ -57,7 +57,7 @@ try {
 	if($mysqlHash !== $hash) {
 		throw new Exception('password input does not match existing account');
 	} elseif($mysqlHash == $hash) {
-		header('Location: https://bootcamp-coders.cnm.edu/farm-to-you/new-user/index.php');
+		header('Location: https://bootcamp-coders.cnm.edu/~jrenteria/farm-to-you/new-user/index.php');
 	}
 //	catch any AJAX exceptions
 	echo "<div class=\"alert alert-success\" role=\"alert\">You are signed in!</div>";

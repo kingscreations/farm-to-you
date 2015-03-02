@@ -9,7 +9,7 @@ module("tabs", {
 var INVALID_SEARCH  = "you will find nothing";
 
 
-var VALID_SEARCH    = "Organic";
+var VALID_SEARCH    = "organic";
 
 
 /**
@@ -33,7 +33,7 @@ function testValidFields() {
 
 
 	F.wait(1000, function() {
-		ok(F('table').hasClass("table table-responsive"), "successful search");
+		ok(F('table').hasClass("table table-responsive table-striped table-hover"), "successful search");
 	});
 }
 

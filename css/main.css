@@ -699,3 +699,8 @@ h2 {
 #scroller li:last-child {
 	margin-right: 0;
 }
+
+#searchResultPage {
+	font-size: 25px;
+	font-weight: bold;
+}

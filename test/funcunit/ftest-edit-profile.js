@@ -8,13 +8,11 @@ module("tabs", {
 // global variables for form values
 var INVALID_PROFILEFNAME    = "Jsy";
 var INVALID_PROFILELNAME = "Rreterasd";
-var INVALID_PROFILETYPE = "m";
 var INVALID_PHONE = "459283423495823492348592348235923482349";
 var INVALID_IMAGE = "test.txt";
 
 var VALID_PROFILEFNAME     = "Jay";
 var VALID_PROFILELNAME   = "Renteria";
-var VALID_PROFILETYPE = "m";
 var VALID_PHONE = "505-994-3954";
 var VALID_IMAGE = "images/image.jpg";
 
@@ -25,7 +23,6 @@ function testValidFields() {
 	// fill in the form values
 	F("#inputFirstname").type(VALID_PROFILEFNAME);
 	F("#inputLastname").type(VALID_PROFILELNAME);
-	F("#inputType").click(VALID_PROFILETYPE);
 	F("#inputPhone").type(VALID_PHONE);
 	F("#inputImage").click(VALID_IMAGE);
 
@@ -52,7 +49,6 @@ function testInvalidFields() {
 	// fill in the form values
 	F("#inputFirstname").type(INVALID_PROFILEFNAME);
 	F("#inputLastname").type(INVALID_PROFILELNAME);
-	F("#inputType").click(INVALID_PROFILETYPE);
 	F("#inputPhone").type(INVALID_PHONE);
 	F("#inputImage").click(INVALID_IMAGE);
 

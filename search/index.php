@@ -40,7 +40,7 @@ try {
 <div class="container-fluid mt30">
 	<div class="row">
 		<div class="col-xs-12">
-			<p class="outputArea"><?php echo "<b>Search Results For:</b> " . $searchq; ?></p>
+			<p id="searchResultPage"><?php echo "Search Results For:\" " . $searchq; ?>"</p>
 		</div>
 	</div>
 <!--</div>-->
@@ -61,7 +61,7 @@ if($searchq == "") {
 // try to echo a table per each table searched by
 if($stores != null || $locations != null || $products != null) {
 	echo '<div class="table-responsive mt30">';
-	echo '<table id="searchResults" class="table table-striped table-hover">';
+	echo '<table id="searchResults" class="table table-responsive table-striped table-hover">';
 
 }
 

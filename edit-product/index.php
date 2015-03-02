@@ -69,7 +69,7 @@ try {
 		<br>
 
 		<div class="form-group">
-			<label for="editProductPrice">Product Price:</label>
+			<label for="editProductPrice">Product Price: $</label>
 			<input type="text" class="form-control" name="editProductPrice" id="editProductPrice" value="<?php echo $productPrice;?>">
 		</div>
 
@@ -83,7 +83,7 @@ try {
 		<br>
 
 		<div class="form-group">
-			<label for="editProductPriceType">Product Price Type:</label>
+			<label for="editProductPriceType">Sold By:</label>
 <!--			<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w" checked>By Weight-->
 <!--			<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u">Per Unit-->
 			<?php
@@ -100,7 +100,7 @@ try {
 		<br>
 
 		<div class="form-group">
-			<label for="editProductWeight">Product Weight:</label>
+			<label for="editProductWeight">Product Weight (lbs.):</label>
 			<input type="text" class="form-control" name="editProductWeight" id="editProductWeight" value="<?php echo $productWeight;?>">
 		</div>
 

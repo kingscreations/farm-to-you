@@ -56,7 +56,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 		<br>
 
 		<div class="form-group">
-			<label for="inputProductPrice">Product Price:</label>
+			<label for="inputProductPrice">Product Price : $</label>
 			<input type="text" class="form-control" name="inputProductPrice" id="inputProductPrice" placeholder="Price">
 		</div>
 
@@ -70,7 +70,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 		<br>
 
 		<div class="form-group">
-			<label for="inputProductPriceType">Product Price Type:</label>
+			<label for="inputProductPriceType">Sold By:</label>
 			<input type="radio" class="form-control" name="inputProductPriceType" id="inputProductPriceType" value="w">By Weight
 			<input type="radio" class="form-control" name="inputProductPriceType" id="inputProductPriceType" value="u">Per Unit
 		</div>
@@ -78,7 +78,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 		<br>
 
 		<div class="form-group">
-			<label for="inputProductWeight">Product Weight:</label>
+			<label for="inputProductWeight">Product Weight (lbs.):</label>
 			<input type="text" class="form-control" name="inputProductWeight" id="inputProductWeight" placeholder="Weight">
 		</div>
 

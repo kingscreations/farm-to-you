@@ -53,7 +53,7 @@ if($hasProfile === null) {
 		<div class="form-group">
 			<label for="inputType">Profile Type:</label>
 			<input type="radio" class="form-control" name="inputType" id="inputType" value="m">Merchant
-			<input type="radio" class="form-control" name="inputType" id="inputType" value="c">Client
+			<input type="radio" class="form-control" name="inputType" id="inputType" value="c">Customer
 		</div>
 
 		<br>

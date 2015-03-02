@@ -84,10 +84,10 @@ if($products !== null) {
 		echo '<tr>';
 		if(file_exists($product->getImagePath())) {
 			echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
-				$product->getProductId() .'">
-													<img class="img-responsive" src="' . CONTENT_ROOT_URL . 'images/product/' .
-				basename($product->getImagePath()) . '">
-												</a></td>';
+					$product->getProductId() .'">
+					<img class="img-responsive" src="' . CONTENT_ROOT_URL . 'images/product/' .
+					basename($product->getImagePath()) . '">
+					</a></td>';
 		} else {
 			echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
 					$product->getProductId() .'">

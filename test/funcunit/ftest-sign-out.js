@@ -24,7 +24,7 @@ function testValidFields() {
 	F("#submit").click();
 
 	// click the logout button
-	F("#drop6").click();
+	F("#my-account-dropdown-menu").click();
 	F("#sign-out").click();
 
 	// try to access account
@@ -33,7 +33,7 @@ function testValidFields() {
 	// here, we assert we got the success message from the AJAX call
 	F(".alert").visible(function() {
 		// create a expression that evaluates the successful text
-		ok(F(this).hasClass("alert-success"), "successful alert CSS");
+		//ok(F(this).hasClass("alert-success"), "successful alert CSS");
 		ok(F(this).html().indexOf("You are now signed out. Thank you for visiting farm-to-you. We hope to see you again soon.") === 0, "successful message");
 	});
 }

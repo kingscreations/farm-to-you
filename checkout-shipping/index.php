@@ -70,7 +70,7 @@ try {
 	foreach($stores as $store) {
 		$storeLocationsFromStore = StoreLocation::getAllStoreLocationsByStoreId($mysqli, $store);
 
-//		$storeLocationsFromAllStores[$store->getStoreId()] = $storeLocationsFromStore;
+		$storeLocationsFromAllStores[] = $storeLocationsFromStore;
 
 		// construct a giant array with all the storeLocations
 		$storeLocationsFromAllStores = array_merge($storeLocationsFromAllStores, $storeLocationsFromStore);

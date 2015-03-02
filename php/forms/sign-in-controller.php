@@ -19,9 +19,9 @@ try {
 		throw new Exception('invalid input post');
 	}
 	// verify the CSRF tokens
-//	if(verifyCsrf($_POST["csrfName"], $_POST["csrfToken"]) === false) {
-//		throw(new RuntimeException("CSRF tokens incorrect or missing. Make sure cookies are enabled."));
-//	}
+	if(verifyCsrf($_POST["csrfName"], $_POST["csrfToken"]) === false) {
+		throw(new RuntimeException("CSRF tokens incorrect or missing. Make sure cookies are enabled."));
+	}
 // connect to database
 try {
 	mysqli_report(MYSQLI_REPORT_STRICT);

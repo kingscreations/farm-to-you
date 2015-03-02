@@ -11,6 +11,8 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 // require CSRF protection
  require_once("../lib/csrf.php");
 
+require_once('../../paths.php');
+
 // CSRF requires sessions
 session_start();
 
@@ -57,7 +59,7 @@ try {
 	if($mysqlHash !== $hash) {
 		throw new Exception('password input does not match existing account');
 	} elseif($mysqlHash == $hash) {
-		header('Location: https://bootcamp-coders.cnm.edu/~jrenteria/farm-to-you/new-user/index.php');
+		header('Location: '.SITE_ROOT_URL. 'new-user/index.php');
 	}
 //	catch any AJAX exceptions
 	echo "<div class=\"alert alert-success\" role=\"alert\">You are signed in!</div>";

@@ -130,5 +130,9 @@ if($profileType === "m") {
 	</div>
 </div>
 <?php
+
+if($profileId !== false) {
+	$_SESSION["profileId"] = $profileId;
+}
 require_once("../php/lib/footer.php")
 ?>

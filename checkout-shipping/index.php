@@ -5,6 +5,10 @@
  */
 
 
+if(!@isset($_SESSION['products'])) {
+	header('Location: ../php/lib/404.php');
+}
+
 // header
 $currentDir = dirname(__FILE__);
 require_once '../root-path.php';
@@ -54,7 +58,7 @@ try {
 	$stores = [];
 
 	foreach($_SESSION['products'] as $sessionProductId => $sessionProduct) {
-		$product = Product::getProductByProductId($mysqli, $sessionProduct);
+		$product = Product::getProductByProductId($mysqli, $sessionProductId);
 		$store   = Store::getStoreByStoreId($mysqli, $product->getStoreId());
 
 		$products[] = $product;
@@ -66,21 +70,42 @@ try {
 
 	// get all the store locations from the stores
 	$storeLocationsFromAllStores = [];
+	$mergeStoreLocationsFromAllStores = [];
 
 	foreach($stores as $store) {
-		$storeLocationsFromStore = StoreLocation::getAllStoreLocationsByStoreId($mysqli, $store);
+		$storeLocations = StoreLocation::getAllStoreLocationsByStoreId($mysqli, $store->getStoreId());
 
-		$storeLocationsFromAllStores[] = $storeLocationsFromStore;
+		// construct a giant two dimension array with all the storeLocations
+		$storeLocationsFromAllStores[] = $storeLocations;
 
-		// construct a giant array with all the storeLocations
-		$storeLocationsFromAllStores = array_merge($storeLocationsFromAllStores, $storeLocationsFromStore);
+		// construct a giant one dimension array with all the storeLocations
+		$mergeStoreLocationsFromAllStores = array_merge($storeLocations, $mergeStoreLocationsFromAllStores);
 	}
 
-//	foreach($storeLocationsFromAllStores as $storeLocation) {
-//		foreach($storeLocationsFromAllStores as $storeLocationToCompare) {
-//			if($storeLocation === $storeLocationToCompare)
-//		}
-//	}
+	$commonLocations = [];
+	foreach($mergeStoreLocationsFromAllStores as $storeLocation) {
+
+		$matchCounter = 0;
+		$locationCompared = null;
+
+		// from the current location of this current store, see if the other stores have the same one
+		foreach($mergeStoreLocationsFromAllStores as $storeLocationToCompare) {
+			$location          = Location::getLocationByLocationId($mysqli, $storeLocation->getLocationId());
+			$locationToCompare = Location::getLocationByLocationId($mysqli, $storeLocationToCompare->getLocationId());
+
+			// same location from two different stores
+			if($location->equals($locationToCompare) && $storeLocation->getStoreId() !== $storeLocationToCompare->getStoreId()) {
+				$matchCounter++;
+				$locationCompared = $location;
+			}
+		}
+
+		// if the number of matches is the same than the number of stores but the current used to compare
+		if($matchCounter === (count($stores) - 1)) {
+			$commonLocations[] = $locationCompared;
+		}
+	}
+
 
 //	$storeLocations = array_unique($storeLocations);
 
@@ -99,6 +124,7 @@ try {
 			<form id="checkoutShippingController" action="../php/forms/checkout-shipping-controller.php" method="post" novalidate>
 				<h2>You don't have any choice for the pickup location even if you are supposed to</h2>
 				<p>The chosen location you "have chosen" is:</p>
+				<?php var_dump($commonLocations); ?>
 				<ul>
 					<li>Grower's Market</li>
 					<li>Robinson Park</li>
@@ -115,8 +141,6 @@ try {
 		<div class="col-sm-4">
 			<div class="list-group">
 				<span class="list-group-item">Pickup locations</span>
-<!--				foreach...-->
-
 				<a href="#" class="list-group-item active">Store home</a>
 			</div>
 		</div>

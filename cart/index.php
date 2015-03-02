@@ -112,10 +112,9 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 										? $stockLimit
 										: $maxQuantity;
 
-									// select box
 									echo '<td>';
 
-									// test what kind of product we are dealing with
+									// select box
 									echo '<select class="product-quantity" id="product' . $counter . '-quantity" name="productQuantity[]">';
 									// creating $quantityLimit # of options
 									for($i = 0; $i < $quantityLimit; $i++) {

@@ -50,15 +50,39 @@ if(!@isset($_SESSION['products'])) {
 
 $productQuantity = filter_var($_POST['productQuantity'], FILTER_SANITIZE_NUMBER_INT);
 
-if(@isset($_SESSION['products']) && @isset($sessionProduct[$productId])) {
-	$_SESSION['products'][$productId]['quantity'] = $sessionProduct['quantity'] + $productQuantity;
+$maxQuantity = 15;
+$stockLimit  = $product->getStockLimit();
+
+if($stockLimit === null) {
+	$stockLimit = $maxQuantity;
+}
+
+// get the # of options to create in the select box
+$quantityLimit = ($stockLimit < $maxQuantity)
+	? $stockLimit
+	: $maxQuantity;
+
+
+if(@isset($_SESSION['products'][$productId])) {
+	$_SESSION['products'][$productId]['quantity'] = $_SESSION['products'][$productId]['quantity'] + $productQuantity;
 } else {
 	$_SESSION['products'][$productId] = array(
 		'quantity' => $productQuantity
 	);
 }
 
+if($_SESSION['products'][$productId]['quantity'] >= $quantityLimit) {
+	$_SESSION['products'][$productId]['quantity'] = $quantityLimit;
+	$message = '<p class="alert alert-danger">' . $product->getProductName() . ' cannot been added to your cart! This product is out of stock!</p>';
+} else {
+	$message = '<p class="alert alert-success">' . $product->getProductName() . ' has been added to the cart!</p>';
+}
 // return the number of product to the ajax call (update the cart icon)
-echo count($_SESSION['products']);
+$output = array(
+	'cartCount' => count($_SESSION['products']),
+	'message' => $message
+);
+
+echo json_encode($output);
 
 ?>

@@ -69,6 +69,13 @@ class Store {
 	}
 
 	/**
+	 * @return String the store and its unique id
+	 */
+	public function __toString() {
+		return 'store-' . $this->getStoreId();
+	}
+
+	/**
 	 * accessor method for the storeId
 	 *
 	 * @return mixed value of storeId

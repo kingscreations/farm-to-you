@@ -563,7 +563,7 @@ h2 {
 /********************************************
 * home page new user
 ********************************************/
-.home-top {
+.home-top, {
 	background: transparent url("../images/home-page.jpg") no-repeat fixed center center/cover;
 	position: absolute;
 	z-index: 1;
@@ -572,7 +572,7 @@ h2 {
 	height: 100%;
 }
 
-.home-top-search-area {
+.home-top-search-area, {
 	background-color: rgba(255, 255, 255, 0.8);
 	text-align: center;
 	margin: auto;
@@ -588,7 +588,7 @@ h2 {
 	}
 }
 
-.home-top .heading {
+.home-top .heading, {
 	color: #497a2d;
 	font-family: ArchitectsDaughter;
 	font-size: 1.4em;
@@ -600,6 +600,47 @@ h2 {
 	border: none !important;
 	padding: 1em;
 }
+
+/********************************************
+*sign-up, sign-in, activation,
+********************************************/
+.sign-up {
+  background: transparent url("../images/home-page.jpg") no-repeat fixed center center/cover;
+  position: absolute;
+  z-index: 1;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.sign-up-form {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  margin: auto;
+  margin-top: 20%;
+  position: relative;
+}
+
+/*@media screen and (min-width: 768px) {*/
+  /*.home-top-search-area {*/
+    /*width: 840px;*/
+    /*padding: 40px;*/
+    /*border-radius: 18px;*/
+  /*}*/
+/*}*/
+
+.sign-up-form  {
+  color: #497a2d;
+  font-family: ArchitectsDaughter;
+  font-size: 1.4em;
+}
+
+/*.search-field {*/
+  /*border-top-left-radius: 6px !important;*/
+  /*border-bottom-left-radius: 6px !important;*/
+  /*border: none !important;*/
+  /*padding: 1em;*/
+/*}*/
 
 /********************************************
 * horizontal scroll

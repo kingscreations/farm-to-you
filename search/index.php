@@ -37,8 +37,15 @@ try {
 
 ?>
 
+<div class="container-fluid mt30">
+	<div class="row">
+		<div class="col-xs-12">
+			<p class="outputArea"><?php echo "<b>Search Results For:</b> " . $searchq; ?></p>
+		</div>
+	</div>
+<!--</div>-->
 
-<div class="container-fluid mt60">
+<!--<div class="container-fluid mt60">-->
 	<div class="row">
 		<div class="col-sm-12">
 
@@ -50,15 +57,15 @@ if($searchq == "") {
 	exit;
 }
 
+
 // try to echo a table per each table searched by
 if($stores != null || $locations != null || $products != null) {
-	echo '<div class="table-responsive">';
+	echo '<div class="table-responsive mt30">';
 	echo '<table id="searchResults" class="table table-striped table-hover">';
 
 }
 
 if($products !== null) {
-	echo '<h1>Products</h1>';
 	echo '<tr>';
 	echo '<th></th>';
 	echo '<th>Product</th>';
@@ -95,7 +102,6 @@ if($products !== null) {
 }
 
 if($stores !== null) {
-	echo '<h1>Stores</h1>';
 	echo '<tr>';
 	echo '<th></th>';
 	echo '<th>Store</th>';
@@ -129,7 +135,6 @@ if($stores !== null) {
 }
 
 	if($locations !== null) {
-		echo '<h1>Locations</h1>';
 		echo '<tr>';
 		echo '<th>Location</th>';
 		echo '<th>Address</th>';

@@ -68,12 +68,23 @@ require_once($prefix . 'paths.php');
 			<!-- start of global container -->
 			<div class="container-fluid" id="main-menu">
 				<div class="row clearfix">
-					<div class="col-sm-6 col-xs-8">
+					<div class="col-sm-4 col-xs-4">
 						<div id="farm-to-you-logo" class="apply-nav-height">
 							<a href="<?php echo SITE_ROOT_URL ?>">Farm to You</a>
 						</div>
 					</div>
-					<div class="col-sm-6 col-xs-4">
+					<div class="col-sm-4 col-xs-5">
+					<form  action="../php/forms/search-controller.php" id="search" method="post">
+						<div class="input-group">
+							<input class="form-control search-field" type="text" id="inputSearch" name="inputSearch" placeholder="What are looking for today?" />
+							<input type="hidden" value="yes" name="searching">
+						<span class="input-group-btn">
+						  <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+						</span>
+						</div>
+					</form>
+					</div>
+					<div class="col-sm-4 col-xs-3">
 
 						<!-- desktop pills -->
 						<ul class="nav nav-pills hidden-xs">

@@ -53,33 +53,52 @@ if($searchq == "") {
 // try to echo a table per each table searched by
 if($stores != null || $locations != null || $products != null) {
 	echo '<div class="table-responsive">';
-	echo '<table id="searchResults" class="table table-condensed table-striped table-bordered table-hover no-margin">';
+	echo '<table id="searchResults" class="table table-striped table-hover">';
+
 }
 
 if($products !== null) {
+	echo '<h1>Products</h1>';
 	echo '<tr>';
+	echo '<th></th>';
 	echo '<th>Product</th>';
 	echo '<th>Description</th>';
 	echo '<th>Price</th>';
 	echo '</tr>';
 
 	foreach($products as $product) {
+
+		$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
+
 		$productName = $product->getProductName();
 		$productDescription = $product->getProductDescription();
 		$productPrice = $product->getProductPrice();
 
 		echo '<tr>';
+		if(file_exists($product->getImagePath())) {
+			echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
+				$product->getProductId() .'">
+													<img class="img-responsive" src="' . CONTENT_ROOT_URL . 'images/product/' .
+				basename($product->getImagePath()) . '">
+												</a></td>';
+		} else {
+			echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
+					$product->getProductId() .'">
+					<img class="img-responsive" src="' . $imagePlaceholderSrc . '">
+					</a></td>';
+		}
 		echo '<td>' . $productName . '</td>';
 		echo '<td>' . $productDescription . '</td>';
-		echo '<td>' . $productPrice . '</td>';
+		echo '<td>$' . $productPrice . '</td>';
 		echo '</tr>';
 	}
 }
 
 if($stores !== null) {
+	echo '<h1>Stores</h1>';
 	echo '<tr>';
+	echo '<th></th>';
 	echo '<th>Store</th>';
-	echo '<th>Image</th>';
 	echo '<th>Description</th>';
 	echo '</tr>';
 
@@ -88,14 +107,29 @@ if($stores !== null) {
 		$storeImage = $store->getImagePath();
 		$storeDescription = $store->getStoreDescription();
 
+		$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
+
+
 		echo '<tr>';
+		if(file_exists($store->getImagePath())) {
+			echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'store/index.php?store=' .
+					$store->getStoreId() .'">
+					<img class="img-responsive" src="' . CONTENT_ROOT_URL . 'images/store/' .
+				basename($store->getImagePath()) . '">
+												</a></td>';
+		} else {
+			echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'store/index.php?store=' .
+				$store->getStoreId() .'">
+					<img class="img-responsive" src="' . $imagePlaceholderSrc . '">
+					</a></td>';
+		}
 		echo '<td>' . $storeName . '</td>';
-		echo '<td>' . $storeImage . '</td>';
 		echo '<td>' . $storeDescription . '</td>';
 	}
 }
 
 	if($locations !== null) {
+		echo '<h1>Locations</h1>';
 		echo '<tr>';
 		echo '<th>Location</th>';
 		echo '<th>Address</th>';

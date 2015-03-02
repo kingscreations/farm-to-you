@@ -44,6 +44,12 @@ try {
 
 <?php
 
+// check if any search was entered
+if($searchq == "") {
+	echo "<p>No search term entered</p>";
+	exit;
+}
+
 // try to echo a table per each table searched by
 if($stores != null || $locations != null || $products != null) {
 	echo '<div class="table-responsive">';

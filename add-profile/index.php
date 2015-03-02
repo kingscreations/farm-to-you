@@ -4,7 +4,6 @@ require_once ("../root-path.php");
 require_once("../php/lib/header.php");
 //require_once("../dummy-user-session.php");
 //require_once("../dummy-session-single.php");
-require_once("../php/lib/footer.php");
 require_once("../php/classes/profile.php");
 require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 
@@ -85,4 +84,7 @@ if($hasProfile === null) {
 				<h3>You already have a Profile, if you would like to edit your profile please click this button: <form action="../edit-profile/index.php"><input class ="form-control" type="submit" value="Edit Profile"></form></h3>
 				</div>';
 };
+
+require_once("../php/lib/footer.php");
+
 ?>

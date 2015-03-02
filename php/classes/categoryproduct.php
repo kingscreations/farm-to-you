@@ -340,6 +340,7 @@ class CategoryProduct {
 		}
 
 		// sanitize the description before searching
+		$categoryId = trim($categoryId);
 		$categoryId = filter_var($categoryId, FILTER_VALIDATE_INT);
 		if($categoryId === false) {
 			throw(new mysqli_sql_exception("category id is not an integer"));
@@ -348,6 +349,7 @@ class CategoryProduct {
 			throw(new mysqli_sql_exception("category id is not positive"));
 		}
 
+		$productId = trim($productId);
 		$productId = filter_var($productId, FILTER_VALIDATE_INT);
 		if($productId === false) {
 			throw(new mysqli_sql_exception("product id is not an integer"));

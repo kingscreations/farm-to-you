@@ -38,11 +38,23 @@ try {
 
 	// create new Location with form input
 
-	$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
-		$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
-	if($location->equals)
+	$locationsAddress1 = Location::getLocationByAddress1($mysqli, $_POST["address1"]);
 
-//	$locationsAddress1 = Location::getLocationByAddress1($mysqli, $_POST["address1"]);
+	$locationFound = null;
+	foreach($locationsAddress1 as $locationAddress1) {
+		if ($locationAddress1->getZipCode() === $_POST["zipCode"]) {
+			$locationFound = $locationAddress1;
+			break;
+		}
+	}
+	if($locationFound !== null) {
+		$location = $locationFound;
+	} else {
+		$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
+			$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
+	}
+
+
 //	if($locationsAddress1 !== null) {
 //		$locationZipCode = Location::getLocationByZipCode($locationsAddress1, $_POST["zipCode"]);
 //		if($locationZipCode !== null){

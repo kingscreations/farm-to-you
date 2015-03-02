@@ -4,15 +4,16 @@ require_once ("../root-path.php");
 require_once("../php/lib/header.php");
 //require_once("../dummy-session-single.php");
 require_once("../php/classes/product.php");
+require_once("../php/classes/category.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
-try {
 
+
+try {
 
 	mysqli_report(MYSQLI_REPORT_STRICT);
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
-
 
 	$product = Product::getProductByProductId($mysqli, $_SESSION['productId']);
 
@@ -25,6 +26,31 @@ try {
 	$productStockLimit = $product->getStockLimit();
 	$productPriceType = $product->getProductPriceType();
 
+	$category1 = Category::getCategoryByCategoryId($mysqli, $_SESSION["categoryId1"]);
+	$category2 = Category::getCategoryByCategoryId($mysqli, $_SESSION["categoryId2"]);
+	$category3 = Category::getCategoryByCategoryId($mysqli, $_SESSION["categoryId3"]);
+	$category4 = Category::getCategoryByCategoryId($mysqli, $_SESSION["categoryId4"]);
+
+	if($category1 !== null) {
+		$categoryName1 = $category1->getCategoryName();
+	} else {
+		$categoryName1 = "";
+	}
+	if($category2 !== null) {
+		$categoryName2 = $category2->getCategoryName();
+	} else {
+		$categoryName2 = "";
+	}
+	if($category3 !== null) {
+		$categoryName3 = $category3->getCategoryName();
+	} else {
+		$categoryName3 = "";
+	}
+	if($category4 !== null) {
+		$categoryName4 = $category4->getCategoryName();
+	} else {
+		$categoryName4 = "";
+	}
 
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
@@ -117,6 +143,17 @@ try {
 			<label for="editProductImage">Product Image:</label>
 			<input type="file" class="form-control" name="editProductImage" id="editProductImage">
 		</div>
+		<br>
+
+		<div class="form-group">
+			<label for="addTags">Tags:</label>
+			<span><input type="text" class="form-control" id="addTags1" name="addTags1" value="<?php echo $categoryName1;?>"></span>
+			<span><input type="text" class="form-control" id="addTags2" name="addTags2" value="<?php echo $categoryName2;?>"></span>
+			<span><input type="text" class="form-control" id="addTags3" name="addTags3" value="<?php echo $categoryName3;?>"></span>
+			<span><input type="text" class="form-control" id="addTags4" name="addTags4" value="<?php echo $categoryName4;?>"></span>
+		</div>
+
+
 
 		<br>
 		<div class="form-group">

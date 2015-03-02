@@ -10,6 +10,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../classes/user.php");
 require_once("../classes/store.php");
 require_once("../classes/category.php");
+require_once("../classes/categoryproduct.php");
 require_once("../classes/product.php");
 require_once("../lib/utils.php");
 
@@ -34,19 +35,70 @@ try {
 		$imageExtension = checkInputImage($_FILES['inputProductImage']);
 		$product = new Product(null, $storeId, "", $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductDescription"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
 		$product->insert($mysqli);
+		$productId = $product->getProductId();
 
-
-		$categoryName = Category::getCategoryByCategoryName($mysqli, $_POST["addTags1"]);
-		if($categoryName !== null) {
-			$category = $categoryName;
-		} else {
-			$category = new Category(null, $_POST["addTags1"]);
-			$category->insert($mysqli);
+		if(empty($_POST["addTags1"])=== false) {
+			$categoryName1 = Category::getCategoryByCategoryName($mysqli, $_POST["addTags1"]);
+			if($categoryName1 !== null) {
+				$category1 = $categoryName1;
+				$categoryId1 = $category1->getCategoryId();
+				$categoryProduct1 = new CategoryProduct($categoryId1, $productId);
+				$categoryProduct1->insert($mysqli);
+			} else {
+				$category1 = new Category(null, $_POST["addTags1"]);
+				$category1->insert($mysqli);
+				$categoryId1 = $category1->getCategoryId();
+				$categoryProduct1 = new CategoryProduct($categoryId1, $productId);
+				$categoryProduct1->insert($mysqli);
+			}
 		}
 
+		if(empty($_POST["addTags2"])=== false) {
+				$categoryName2 = Category::getCategoryByCategoryName($mysqli, $_POST["addTags2"]);
+			if($categoryName2 !== null) {
+				$category2 = $categoryName2;
+				$categoryId2 = $category2->getCategoryId();
+				$categoryProduct2 = new CategoryProduct($categoryId2, $productId);
+				$categoryProduct2->insert($mysqli);
+			} else {
+				$category2 = new Category(null, $_POST["addTags2"]);
+				$category2->insert($mysqli);
+				$categoryId2 = $category2->getCategoryId();
+				$categoryProduct2 = new CategoryProduct($categoryId2, $productId);
+				$categoryProduct2->insert($mysqli);
+			}
+		}
 
-
-		$productId = $product->getProductId();
+		if(empty($_POST["addTags3"])=== false) {
+			$categoryName3 = Category::getCategoryByCategoryName($mysqli, $_POST["addTags3"]);
+			if($categoryName3 !== null) {
+				$category3 = $categoryName3;
+				$categoryId3 = $category3->getCategoryId();
+				$categoryProduct3 = new CategoryProduct($categoryId3, $productId);
+				$categoryProduct3->insert($mysqli);
+			} else {
+				$category3 = new Category(null, $_POST["addTags3"]);
+				$category3->insert($mysqli);
+				$categoryId3 = $category3->getCategoryId();
+				$categoryProduct3 = new CategoryProduct($categoryId3, $productId);
+				$categoryProduct3->insert($mysqli);
+			}
+		}
+		if(empty($_POST["addTags4"])=== false) {
+			$categoryName4 = Category::getCategoryByCategoryName($mysqli, $_POST["addTags4"]);
+			if($categoryName4 !== null) {
+				$category4 = $categoryName4;
+				$categoryId4 = $category4->getCategoryId();
+				$categoryProduct4 = new CategoryProduct($categoryId4, $productId);
+				$categoryProduct4->insert($mysqli);
+			} else {
+				$category4 = new Category(null, $_POST["addTags4"]);
+				$category4->insert($mysqli);
+				$categoryId4 = $category4->getCategoryId();
+				$categoryProduct4 = new CategoryProduct($categoryId4, $productId);
+				$categoryProduct4->insert($mysqli);
+			}
+		}
 		$imageFileName = $imageBasePath . 'product-' . $productId . '.' . $imageExtension;
 		$product->setImagePath($imageFileName);
 		$product->update($mysqli);
@@ -55,6 +107,70 @@ try {
 		$product = new Product(null, $storeId, "", $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductDescription"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
 		$product->insert($mysqli);
 		$productId = $product->getProductId();
+
+		if(empty($_POST["addTags1"])=== false) {
+
+			$categoryName1 = Category::getCategoryByCategoryName($mysqli, $_POST["addTags1"]);
+			if($categoryName1 !== null) {
+				$category1 = $categoryName1;
+				$categoryId1 = $category1->getCategoryId();
+				$categoryProduct1 = new CategoryProduct($categoryId1, $productId);
+				$categoryProduct1->insert($mysqli);
+			} else {
+				$category1 = new Category(null, $_POST["addTags1"]);
+				$category1->insert($mysqli);
+				$categoryId1 = $category1->getCategoryId();
+				$categoryProduct1 = new CategoryProduct($categoryId1, $productId);
+				$categoryProduct1->insert($mysqli);
+			}
+		}
+
+		if(empty($_POST["addTags2"])=== false) {
+			$categoryName2 = Category::getCategoryByCategoryName($mysqli, $_POST["addTags2"]);
+			if($categoryName2 !== null) {
+				$category2 = $categoryName2;
+				$categoryId2 = $category2->getCategoryId();
+				$categoryProduct2 = new CategoryProduct($categoryId2, $productId);
+				$categoryProduct2->insert($mysqli);
+			} else {
+				$category2 = new Category(null, $_POST["addTags2"]);
+				$category2->insert($mysqli);
+				$categoryId2 = $category2->getCategoryId();
+				$categoryProduct2 = new CategoryProduct($categoryId2, $productId);
+				$categoryProduct2->insert($mysqli);
+			}
+		}
+
+		if(empty($_POST["addTags3"])=== false) {
+			$categoryName3 = Category::getCategoryByCategoryName($mysqli, $_POST["addTags3"]);
+			if($categoryName3 !== null) {
+				$category3 = $categoryName3;
+				$categoryId3 = $category3->getCategoryId();
+				$categoryProduct3 = new CategoryProduct($categoryId3, $productId);
+				$categoryProduct3->insert($mysqli);
+			} else {
+				$category3 = new Category(null, $_POST["addTags3"]);
+				$category3->insert($mysqli);
+				$categoryId3 = $category3->getCategoryId();
+				$categoryProduct3 = new CategoryProduct($categoryId3, $productId);
+				$categoryProduct3->insert($mysqli);
+			}
+		}
+		if(empty($_POST["addTags4"])=== false) {
+			$categoryName4 = Category::getCategoryByCategoryName($mysqli, $_POST["addTags4"]);
+			if($categoryName4 !== null) {
+				$category4 = $categoryName4;
+				$categoryId4 = $category4->getCategoryId();
+				$categoryProduct4 = new CategoryProduct($categoryId4, $productId);
+				$categoryProduct4->insert($mysqli);
+			} else {
+				$category4 = new Category(null, $_POST["addTags4"]);
+				$category4->insert($mysqli);
+				$categoryId4 = $category4->getCategoryId();
+				$categoryProduct4 = new CategoryProduct($categoryId4, $productId);
+				$categoryProduct4->insert($mysqli);
+			}
+		}
 	}
 
 	//store the product into the session to be able to edit

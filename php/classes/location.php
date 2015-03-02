@@ -85,6 +85,19 @@ class Location {
 			throw(new RangeException($range->getMessage(), 0, $range));
 		}
 	}
+
+	/**
+	 * check equality between two locations
+	 *
+	 * @param mixed $locationToCompare the location to compare with the current location object
+	 */
+	public function equals(Location $location) {
+		if($this->address1 === $location->getAddress1() && $this->zipCode === $this->getZipCode()) {
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * accessor method for the locationId
 	 *

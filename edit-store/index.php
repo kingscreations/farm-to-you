@@ -59,8 +59,8 @@ try {
 		</ul>
 	</div>
 
-
-<div class="row-fluid">
+	<div class="container-fluid">
+<div class="row">
 	<div class="col-sm-9">
 		<h2>Edit Store</h2>
 		<form class="form-inline" id="editStoreController" method="post" action="../php/forms/edit-store-controller.php" enctype="multipart/form-data">
@@ -216,6 +216,7 @@ try {
 		<br>
 		<div class="form-group">
 			<button class="btn btn-default addButton" id="back">Back</button>
+		</div>
 		</div>
 	</div>
 </div>

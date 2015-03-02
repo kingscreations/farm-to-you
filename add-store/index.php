@@ -39,7 +39,8 @@ $profileId = 1;
 		</ul>
 	</div>
 
-<div class="row-fluid">
+	<div class=container-fluid>
+<div class="row">
 	<div class="col-md-9">
 		<h2>Add Store</h2>
 		<form class="form-inline" id="storeController" method="post" action="../php/forms/add-store-controller.php" enctype="multipart/form-data">
@@ -121,7 +122,7 @@ try {
 
 	// create table of existing stores
 	if($stores !== null) {
-
+		echo '<div class=row>';
 		echo '<table class="table table-responsive">';
 		echo '<tr>';
 		echo '<th>Store</th>';
@@ -137,6 +138,8 @@ try {
 			echo '</tr>';
 		}
 		echo '</table>';
+		echo '</div>';
+		echo '</div>';
 	}
 
 } catch(Exception $exception) {
@@ -144,7 +147,7 @@ try {
 }
 
 ?>
-
+		</div>
 	</div>
 </div>
 

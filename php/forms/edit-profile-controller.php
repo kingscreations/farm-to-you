@@ -19,19 +19,20 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-$profileId = $_SESSION['profileId'];
+//$profileId = $_SESSION['profileId'];
 
-//	$profileId = 1;
+	$profileId = 1;
 
-	$userId = $_SESSION['user']['id'];
+//	$userId = $_SESSION['user']['id'];
 
-//	$userId = 1;
+	$userId = 1;
 
 
-//		$profile = new Profile($profileId, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $_POST["inputType"], "012345", null, $userId);
 
 	$profile = Profile::getProfileByProfileId($mysqli, $profileId);
+	$profileType = $profile->getProfileType();
 
+	$profile = new Profile($profileId, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $profileType, "012345", "", $userId);
 
 	if(@isset($_FILES['inputImage'])) {
 		$imageBasePath = '/var/www/html/farm-to-you/images/profile/';

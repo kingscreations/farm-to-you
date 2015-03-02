@@ -61,7 +61,7 @@ function testInvalidFields() {
 	F(".alert").visible(function() {
 		// the ok() function from qunit is equivalent to SimpleTest's assertTrue()
 		ok(F(this).hasClass("alert-danger"), "danger alert CSS");
-		ok(F(this).html().indexOf("Exception: phone content too large") === 0, "unsuccessful message");
+		ok(F(this).html().indexOf("Exception: The input image file should be either jpg, JPG, jpeg, or JPEG") === 0, "unsuccessful message");
 	});
 }
 

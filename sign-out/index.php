@@ -10,11 +10,19 @@ $currentDir = dirname(__FILE__);
 require_once '../root-path.php';
 require_once("../php/lib/header.php");
 
-// clear the session variables
-$_SESSION = array();
+// determine if session has variables we dont want to loose, clear session if not
+if(@isset($_SESSION) && @isset($_SESSION['products'])) {
+	// clear the session variables and destroy
+	session_unset();
+	session_destroy();
+	$_SESSION = array();
+	session_start();
+}
 
-// destroy the session
-session_destroy();
+
+
+
+
 ?>
 
 <div class="container-fluid">

@@ -23,15 +23,15 @@ try {
 		throw(new RuntimeException("CSRF tokens incorrect or missing. Make sure cookies are enabled."));
 	}
 // connect to database
-try {
-	mysqli_report(MYSQLI_REPORT_STRICT);
-	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
-	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
+	try {
+		mysqli_report(MYSQLI_REPORT_STRICT);
+		$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
+		$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-} catch(Exception $exception) {
-	echo "Exception: " . $exception->getMessage() . "<br/>";
-	echo $exception->getFile() . ":". $exception->getLine();
-}
+	} catch(Exception $exception) {
+		echo "Exception: " . $exception->getMessage() . "<br/>";
+		echo $exception->getFile() . ":" . $exception->getLine();
+	}
 	// filter _POSTed email variable
 	$email = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
 
@@ -49,25 +49,26 @@ try {
 	$currentPathExploded = explode("/", $_SERVER["PHP_SELF"]);
 	if(empty($currentPathExploded)) {
 		throw new RangeException('Impossible to explode the path');
-	}	$url = "https://". $_SERVER["SERVER_NAME"] . '/' . $currentPathExploded[1] . '/' .
+	}
+	$url = "https://" . $_SERVER["SERVER_NAME"] . '/' . $currentPathExploded[1] . '/' .
 		$currentPathExploded[2];
 
 	// compare hashes
-	if ($mysqlHash !== $hash) {
+	if($mysqlHash !== $hash) {
 		throw new Exception('password input does not match existing account');
-//	} elseif($mysqlHash == $hash) {
-//	header("../new-user/index.php");
-}
-	// catch any AJAX exceptions
+	} elseif($mysqlHash == $hash) {
+		header('Location: https://bootcamp-coders.cnm.edu/farm-to-you/new-user/index.php');
+	}
+//	catch any AJAX exceptions
 	echo "<div class=\"alert alert-success\" role=\"alert\">You are signed in!</div>";
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
 
 // create session id specific to this user
-$_SESSION['user'] = array(
-	'id' => $mysqlId->getUserId()
-);
+	$_SESSION['user'] = array(
+		'id' => $mysqlId->getUserId()
+	);
 
 
 

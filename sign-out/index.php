@@ -5,10 +5,10 @@
  * Date: 2/12/2015
  * Time: 9:03 AM
  */
-session_start();
+
 $currentDir = dirname(__FILE__);
 require_once '../root-path.php';
-require_once("../php/lib/signed-out-header.php");
+require_once("../php/lib/header.php");
 
 // clear the session variables
 $_SESSION = array();
@@ -16,15 +16,16 @@ $_SESSION = array();
 // destroy the session
 session_destroy();
 ?>
-<div class="row-fluid">
-	<div class="col-sm-12">
-		<h3>You are now signed out. Thank you for visiting farm-to-you. We hope to see you again soon.</h3>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<h3>You are now signed out. Thank you for visiting farm-to-you. We hope to see you again soon.</h3>
 
 
 
-	</div>
+		</div>
+	</div><!-- end row -->
+</div><!-- end container-fluid -->
 
-</div><!-- end row-fluid -->
-<?php
-require_once ("../php/lib/footer.php");
-?>
+<?php require_once ("../php/lib/footer.php"); ?>

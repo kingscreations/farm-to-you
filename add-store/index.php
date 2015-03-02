@@ -11,9 +11,9 @@ require_once("../php/lib/header.php");
 // classes
 require_once("../php/classes/store.php");
 
-//$profileId = $_SESSION['profileId'];
+$profileId = $_SESSION['profileId'];
 
-$profileId = 1;
+//$profileId = 1;
 
 ?>
 

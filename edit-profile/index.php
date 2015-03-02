@@ -114,7 +114,7 @@ if($profileType === "m") {
 				?>
 				<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
 			<?php } else { ?>
-				<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imagePlaceholderSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
+				<img class="thumbnail img-responsive" src="<?php echo "../images/placeholder.png"; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
 			<?php } ?>
 
 		</div>

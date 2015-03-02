@@ -93,7 +93,7 @@ try {
 					?>
 					<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $storeName; ?>"/>
 				<?php } else { ?>
-					<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imagePlaceholderSrc; ?>" alt="<?php echo $storeName; ?>"/>
+					<img class="thumbnail img-responsive" src="<?php echo "../images/placeholder.png"; ?>" alt="<?php echo $storeName; ?>"/>
 				<?php } ?>
 
 			</div>

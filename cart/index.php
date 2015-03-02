@@ -81,7 +81,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 									} else {
 										echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
 											$product->getProductId() .'">
-													<img class="img-responsive" src="' . $imagePlaceholderSrc . '">
+													<img class="img-responsive" src="../images/placeholder.png">
 												</a></td>';
 									}
 	//								echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product->getImagePath() . '"></td>';

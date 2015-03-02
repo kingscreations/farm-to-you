@@ -170,7 +170,7 @@ try {
 				?>
 				<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $productName; ?>"/>
 			<?php } else { ?>
-				<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imagePlaceholderSrc; ?>" alt="<?php echo $productName; ?>"/>
+				<img class="thumbnail img-responsive" src="<?php echo "../images/placeholder.png"; ?>" alt="<?php echo $productName; ?>"/>
 			<?php } ?>
 
 		</div>

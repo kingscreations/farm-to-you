@@ -1,9 +1,10 @@
 <?php
 
 $currentDir = dirname(__FILE__);
+
+$showSearch = false;
 require_once '../root-path.php';
 require_once('../php/lib/header.php');
-
 ?>
 
 <div class="home-top">

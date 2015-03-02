@@ -16,5 +16,6 @@ $rootUrl = "https://". $_SERVER["SERVER_NAME"] . '/' . $currentPathExploded[1] .
 	$currentPathExploded[2] . '/';
 
 define('SITE_ROOT_URL', $rootUrl);
+define('SITE_ROOT_PATH', dirname(__FILE__).'/');
 
 ?>

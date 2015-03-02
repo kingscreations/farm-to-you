@@ -12,6 +12,7 @@ require_once('../php/lib/header.php');
 		<form class="mt30" action="../php/forms/search-controller.php" id="search" method="post">
 			<div class="input-group">
 				<input class="form-control search-field" type="text" id="inputSearch" name="inputSearch" placeholder="What are looking for today?" />
+				<input type="hidden" value="yes" name="searching">
 				<span class="input-group-btn">
 				  <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
 				</span>
@@ -27,6 +28,7 @@ require_once('../php/lib/header.php');
 				<form class="mt30" action="../php/forms/search-controller.php" id="search" method="post">
 					<div class="input-group">
 						<input class="form-control search-field" type="text" id="inputSearch" name="inputSearch" placeholder="What are looking for today?" />
+						<input type="hidden" value="yes" name="searching">
 						<span class="input-group-btn">
 						  <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
 						</span>

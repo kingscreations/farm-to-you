@@ -1,6 +1,6 @@
 <?php
 $currentDir = dirname(__FILE__);
-
+session_start();
 require_once ("../../root-path.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 //require_once("../../dummy-session-single.php");
@@ -19,35 +19,49 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-//$profileId = $_SESSION['profileId'];
+$profileId = $_SESSION['profileId'];
 
-	$profileId = 1;
+//	$profileId = 1;
 
-//	$userId = $_SESSION['user']['id'];
+	$userId = $_SESSION['user']['id'];
 
-	$userId = 1;
+//	$userId = 1;
 
 
 
 	$profile = Profile::getProfileByProfileId($mysqli, $profileId);
 	$profileType = $profile->getProfileType();
+	$profileFirstname = $profile->getFirstName();
+	$profileLastname = $profile->getLastName();
+	$profilePhone = $profile->getPhone();
+	$profileImage = $profile->getImagePath();
 
-	$profile = new Profile($profileId, $_POST["inputFirstname"], $_POST["inputLastname"], $_POST["inputPhone"], $profileType, "012345", "", $userId);
+	// if user makes edits, update in profile
+	if($_POST['inputFirstname'] !== '') {
+		$profileFirstname = $_POST['inputFirstname'];
+		$profile->setFirstName($profileFirstname);
+	}
 
-	if(@isset($_FILES['inputImage'])) {
+	// if user makes edits, update in product
+	if($_POST['inputLastname'] !== '') {
+		$profileLastname = $_POST['inputLastname'];
+		$profile->setLastName($profileLastname);
+	}
+
+	if($_POST['inputPhone'] !== '') {
+		$profilePhone = $_POST['inputPhone'];
+		$profile->setPhone($profilePhone);
+	}
+	// if user makes edits, update in product and upload image
+	if(@isset($_FILES['inputImage']) === true) {
 		$imageBasePath = '/var/www/html/farm-to-you/images/profile/';
 		$imageExtension = checkInputImage($_FILES['inputImage']);
-		$profile->update($mysqli);
-		$profileId = $profile->getProfileId();
 		$imageFileName = $imageBasePath . 'profile-' . $profileId . '.' . $imageExtension;
 		$profile->setImagePath($imageFileName);
-		$profile->update($mysqli);
 		move_uploaded_file($_FILES['inputImage']['tmp_name'], $imageFileName);
-	} else {
-		$profile->setImagePath(null);
-		$profile->update($mysqli);
-		$profileId = $profile->getProfileId();
 	}
+		$profile->update($mysqli);
+
 
 	echo "<p class=\"alert alert-success\">Profile (id = " . $profile->getProfileId() . ") updated!</p>";
 } catch(Exception $exception) {

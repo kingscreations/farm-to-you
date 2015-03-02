@@ -92,7 +92,7 @@ $storeImageSrc  = basename($store->getImagePath());
 
 ?>
 
-<div class="container-fluid vertical-spacer-60" id="product">
+<div class="container-fluid mt60" id="product">
 	<div class="row">
 		<div class="col-sm-5 col-xs-7">
 			<?php

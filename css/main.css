@@ -1,3 +1,15 @@
+/********************************************
+* Fonts
+********************************************/
+@font-face {
+	font-family: 'Biko';
+	src: url('../fonts/Biko_Regular.otf') format('opentype')
+}
+
+@font-face {
+	font-family: 'ArchitectsDaughter';
+	src: url('../fonts/ArchitectsDaughter.ttf') format('truetype')
+}
 
 /********************************************
 * Base html styling
@@ -23,11 +35,14 @@ footer, .wrapper:after {
 
 footer {
 	margin-top: 30px;
+	position: relative;
+	z-index: 3;
 }
 
 body {
 	background-color: whitesmoke;
 	overflow-y: scroll;
+	font-family: Biko;
 }
 
 footer {
@@ -43,19 +58,27 @@ footer p {
 }
 
 #main-menu {
-  color: white;
+	color: black;
+	position: relative;
+	z-index: 3;
 }
 
 #main-menu a {
-  color: white;
+  color: black;
   padding: 4px 10px;
   margin-left: 4px;
 }
 
 #main-menu a:hover {
-  border: 2px solid #7AC142;
-  background-color: transparent;
-  color: white;
+	background-color: transparent;
+	color: #497a2d;
+	outline: none;
+}
+
+#main-menu a:visited,
+#main-menu a:focus {
+	background-color: transparent;
+	outline: none;
 }
 
 #main-menu .dropdown-menu {
@@ -82,17 +105,14 @@ footer p {
 }
 
 #main-menu {
-  background-color: black;
+  background-color: rgba(255, 255, 255, 1);
   width: 100%;
   height: 60px;
-  padding-top: 15px;
-  padding-left: 1%;
-  padding-right: 1%;
+  padding: 15px 1%;
 }
 
 @media screen and (min-width: 768px) {
   #main-menu {
-    height: 50px;
     padding-left: 10%;
     padding-right: 10%;
   }
@@ -187,7 +207,7 @@ a:hover {
 
 #farm-to-you-logo a,
 #farm-to-you-logo a:hover {
-  color: #7AC142;
+  color: #497a2d;
 }
 
 .delete-item {
@@ -316,7 +336,11 @@ li[role=presentation].open a {
   margin: 0 !important;
 }
 
-.vertical-spacer-60 {
+.mt30 {
+	margin-top: 30px;
+}
+
+.mt60 {
   margin-top: 60px;
 }
 
@@ -542,25 +566,39 @@ h2 {
 .home-top {
 	background: transparent url("../images/home-page.jpg") no-repeat fixed center center/cover;
 	position: absolute;
-	z-index: -1;
+	z-index: 1;
 	top: 0px;
 	width: 100%;
 	height: 100%;
 }
 
 .home-top-search-area {
-	background-color: rgba(0, 0, 0, 0.7);
+	background-color: rgba(255, 255, 255, 0.8);
 	text-align: center;
 	margin: auto;
 	margin-top: 20%;
+	position: relative;
 }
 
 @media screen and (min-width: 768px) {
 	.home-top-search-area {
 		width: 840px;
-		padding: 60px;
+		padding: 40px;
 		border-radius: 18px;
 	}
+}
+
+.home-top .heading {
+	color: #497a2d;
+	font-family: ArchitectsDaughter;
+	font-size: 1.4em;
+}
+
+.search-field {
+	border-top-left-radius: 6px !important;
+	border-bottom-left-radius: 6px !important;
+	border: none !important;
+	padding: 1em;
 }
 
 /********************************************

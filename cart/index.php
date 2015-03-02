@@ -22,7 +22,7 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 mysqli_report(MYSQLI_REPORT_STRICT);
 
 ?>
-<div class="container-fluid vertical-spacer-60">
+<div class="container-fluid mt60">
 	<div class="row">
 		<div class="col-sm-12">
 			<?php if(@isset($_SESSION['products'])) { ?>

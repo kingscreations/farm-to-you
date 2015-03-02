@@ -8,7 +8,7 @@
 
 <div class="container-fluid">
 	<div id="main-search">
-		<div class="vertical-spacer-60"></div>
+		<div class="mt60"></div>
 		<div class="row clearfix">
 			<form action="php/forms/search-controller.php" id="search" method="post">
 				<div class="col-xs-10 col-sm-11 no-padding-right">

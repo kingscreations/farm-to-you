@@ -15,6 +15,9 @@ require_once '../php/lib/header.php';
 require_once("../php/classes/location.php");
 require_once("../php/classes/user.php");
 require_once("../php/classes/profile.php");
+require_once("../php/classes/store.php");
+require_once("../php/classes/storelocation.php");
+require_once("../php/classes/product.php");
 
 // credentials
 require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
@@ -45,6 +48,41 @@ try {
 
 	$user = User::getUserByUserId($mysqli, $userId);
 	$profile = User::getUserByUserId($mysqli, $profileId);
+
+	// get all the products from the cart and get the stores (one store per product)
+	$products = [];
+	$stores = [];
+
+	foreach($_SESSION['products'] as $sessionProductId => $sessionProduct) {
+		$product = Product::getProductByProductId($mysqli, $sessionProduct);
+		$store   = Store::getStoreByStoreId($mysqli, $product->getStoreId());
+
+		$products[] = $product;
+		$stores[]   = $store;
+	}
+
+	// get rid of all the duplicates entries (2 products could be from the same store)
+	$stores = array_unique($stores);
+
+	// get all the store locations from the stores
+	$storeLocationsFromAllStores = [];
+
+	foreach($stores as $store) {
+		$storeLocationsFromStore = StoreLocation::getAllStoreLocationsByStoreId($mysqli, $store);
+
+//		$storeLocationsFromAllStores[$store->getStoreId()] = $storeLocationsFromStore;
+
+		// construct a giant array with all the storeLocations
+		$storeLocationsFromAllStores = array_merge($storeLocationsFromAllStores, $storeLocationsFromStore);
+	}
+
+//	foreach($storeLocationsFromAllStores as $storeLocation) {
+//		foreach($storeLocationsFromAllStores as $storeLocationToCompare) {
+//			if($storeLocation === $storeLocationToCompare)
+//		}
+//	}
+
+//	$storeLocations = array_unique($storeLocations);
 
 	$mysqli->close();
 

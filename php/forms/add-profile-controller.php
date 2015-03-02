@@ -50,6 +50,7 @@ try {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
 
+
 header("Location: ../../edit-profile/index.php");
 //// make a table/list to show their new profile
 //if(@isset($profile) === true && $profile !== null) {

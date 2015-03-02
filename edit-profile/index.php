@@ -5,9 +5,9 @@ require_once("../php/lib/header.php");
 require_once("../php/classes/profile.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
-//$profileId = $_SESSION['profileId'];
+$profileId = $_SESSION['profileId'];
 
-$profileId = 1;
+//$profileId = 1;
 
 mysqli_report(MYSQLI_REPORT_STRICT);
 $configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
@@ -20,20 +20,33 @@ $profileFirstname = $profile->getFirstName();
 $profileLastname = $profile->getLastName();
 $profilePhone = $profile->getPhone();
 $profileImage = $profile->getImagePath();
+$profileType = $profile->getProfileType();
 
 
 ?>
 
 <script src="../js/edit-profile.js"></script>
 
-	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
+<?php
+if($profileType === "m") {
+	echo '<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
 		<ul class="nav nav-pills nav-stacked">
 			<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
 			<li><a href="../add-store/index.php">Manage Stores</a></li>
 			<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
 			<li class="disabled"><a href="#">Account Settings</a></li>
 		</ul>
-	</div>
+	</div>';
+		}else{
+	echo '<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
+		<ul class="nav nav-pills nav-stacked">
+			<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
+			<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+			<li class="disabled"><a href="#">Account Settings</a></li>
+		</ul>
+	</div>';
+}
+?>
 
 	<div class="dropdown hidden-lg hidden-md" style="position:relative">
 		<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>

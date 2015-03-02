@@ -59,6 +59,8 @@ if($profileType === "m") {
 	</div>
 
 <!--Form to edit a profile-->
+<div class="container-fluid">
+	<div class="row">
 <div class="col-md-9">
 
 	<h2>Edit Profile</h2>
@@ -122,7 +124,8 @@ if($profileType === "m") {
 	</form>
 
 </div>
-
+	</div>
+</div>
 <?php
 require_once("../php/lib/footer.php")
 ?>

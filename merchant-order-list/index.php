@@ -13,9 +13,9 @@ require_once("../php/classes/checkout.php");
 require_once("../php/classes/location.php");
 require_once("../php/classes/product.php");
 
-//$profileId = $_SESSION['profileId'];
+$profileId = $_SESSION['profileId'];
 
-$profileId = 1;
+//$profileId = 1;
 
 ?>
 
@@ -53,6 +53,8 @@ try {
 
 	$products = Product::getAllProductsFromMerchantByProfileId($mysqli, $profileId);
 	if($products !== null) {
+		echo '<div class="container-fluid">';
+		echo '<div class="row">';
 		echo '<div class="col-md-9">';
 		echo '<h2>Orders</h2>';
 		echo '<br>';
@@ -123,8 +125,17 @@ try {
 			}
 		}
 		echo '</div>';
+		echo '</div>';
+		echo '</div>';
 	} else {
-		echo '<div class="col-sm-9"> <h2>Orders</h2> <h4>No orders found.</h4></div>';
+		echo '<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-9">
+							<h2>Orders</h2>
+							<h4>No orders found.</h4>
+						</div>
+					</div>
+				</div>';
 	}
 
 } catch(Exception $exception) {
@@ -132,4 +143,3 @@ try {
 }
 
 ?>
-</div><!-- end row -->

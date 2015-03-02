@@ -52,6 +52,9 @@ try {
 	</ul>
 </div>
 
+<div class="container-fluid">
+	<div class="row">
+
 <!--Form to edit a product-->
 <div class="col-md-9">
 	<h2>Edit Product</h2>
@@ -154,7 +157,8 @@ try {
 		<button class="btn btn-default addButton" id="back">Back</button>
 	</div>
 </div>
-
+</div>
+	</div>
 
 	<?php
 require_once("../php/lib/footer.php")

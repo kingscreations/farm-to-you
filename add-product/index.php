@@ -8,18 +8,18 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 ?>
 
 	<script src="../js/add-product.js"></script>
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.5.0/bootstrap-tagsinput.css" />
-	<script src="//cdn.jsdelivr.net/bootstrap.tagsinput/0.5.0/bootstrap-tagsinput.min.js"></script>
-
-	<style type="text/css">
-		.bootstrap-tagsinput {
-			width: 100%;
-		}
-		.label {
-			line-height: 2 !important;
-		}
-	</style>
-	<script src="../js/typeahead.bundle.js"></script>
+<!--	<link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.5.0/bootstrap-tagsinput.css" />-->
+<!--	<script src="//cdn.jsdelivr.net/bootstrap.tagsinput/0.5.0/bootstrap-tagsinput.min.js"></script>-->
+<!---->
+<!--	<style type="text/css">-->
+<!--		.bootstrap-tagsinput {-->
+<!--			width: 100%;-->
+<!--		}-->
+<!--		.label {-->
+<!--			line-height: 2 !important;-->
+<!--		}-->
+<!--	</style>-->
+<!--	<script src="../js/typeahead.bundle.js"></script>-->
 
 
 	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
@@ -43,6 +43,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 <!--Form for adding a new product-->
 	<div class="container-fluid">
+		<div class="row">
 <div class="col-md-9">
 	<h2>Add Product</h2>
 
@@ -100,7 +101,10 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 			<div class="form-group">
 				<label for="addTags">Tags:</label>
-				<span><input type="text" class="form-control" id="addTags" name="addTags" data-role="tagsinput"></span>
+				<span><input type="text" class="form-control" id="addTags1" name="addTags1"></span>
+				<span><input type="text" class="form-control" id="addTags2" name="addTags2"></span>
+				<span><input type="text" class="form-control" id="addTags3" name="addTags3"></span>
+				<span><input type="text" class="form-control" id="addTags4" name="addTags4"></span>
 			</div>
 
 		<br>
@@ -158,7 +162,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 </div>
 	</div>
-
+	</div>
 	<?php
 require_once("../php/lib/footer.php")
 ?>

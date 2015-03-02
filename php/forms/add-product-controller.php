@@ -9,6 +9,7 @@ require_once("../classes/profile.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../classes/user.php");
 require_once("../classes/store.php");
+require_once("../classes/category.php");
 require_once("../classes/product.php");
 require_once("../lib/utils.php");
 
@@ -33,6 +34,18 @@ try {
 		$imageExtension = checkInputImage($_FILES['inputProductImage']);
 		$product = new Product(null, $storeId, "", $_POST["inputProductName"], $_POST["inputProductPrice"], $_POST["inputProductDescription"], $_POST["inputProductPriceType"], $_POST["inputProductWeight"], $_POST["inputStockLimit"]);
 		$product->insert($mysqli);
+
+
+		$categoryName = Category::getCategoryByCategoryName($mysqli, $_POST["addTags1"]);
+		if($categoryName !== null) {
+			$category = $categoryName;
+		} else {
+			$category = new Category(null, $_POST["addTags1"]);
+			$category->insert($mysqli);
+		}
+
+
+
 		$productId = $product->getProductId();
 		$imageFileName = $imageBasePath . 'product-' . $productId . '.' . $imageExtension;
 		$product->setImagePath($imageFileName);

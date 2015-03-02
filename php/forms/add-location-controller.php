@@ -37,11 +37,26 @@ try {
 	}
 
 	// create new Location with form input
+
 	$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
 		$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
+	if($location->equals)
 
-	// insert location
-	$location->insert($mysqli);
+//	$locationsAddress1 = Location::getLocationByAddress1($mysqli, $_POST["address1"]);
+//	if($locationsAddress1 !== null) {
+//		$locationZipCode = Location::getLocationByZipCode($locationsAddress1, $_POST["zipCode"]);
+//		if($locationZipCode !== null){
+//			$location = $locationZipCode;
+//		} else {
+//			$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
+//				$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
+//			$location->insert($mysqli);
+//		}
+//	} else {
+//		$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
+//			$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
+//		$location->insert($mysqli);
+//	}
 
 	// create variable for location id
 	$locationId = $location->getLocationId();

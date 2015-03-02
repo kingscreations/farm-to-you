@@ -12,7 +12,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
  require_once("../lib/csrf.php");
 
 // CSRF requires sessions
-//session_start();
+session_start();
 
 try {
 	if(!@isset($_POST["email"]) || !@isset($_POST["password2"])) {

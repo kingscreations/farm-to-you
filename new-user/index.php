@@ -13,7 +13,7 @@ require_once('../php/lib/header.php');
 			<div class="input-group">
 				<input class="form-control search-field" type="text" id="inputSearch" name="inputSearch" placeholder="What are looking for today?" />
 				<span class="input-group-btn">
-				  <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+				  <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
 				</span>
 			</div><!-- end input-group -->
 		</form>

@@ -69,14 +69,24 @@ try {
 	$stores = array_unique($stores);
 
 	// get all the store locations from the stores
-	$storeLocationsFromAllStores = [];
+	$storeLocationsByStore = [];
+	$locationsByStore = [];
+
 	$mergeStoreLocationsFromAllStores = [];
 
 	foreach($stores as $store) {
 		$storeLocations = StoreLocation::getAllStoreLocationsByStoreId($mysqli, $store->getStoreId());
 
 		// construct a giant two dimension array with all the storeLocations
-		$storeLocationsFromAllStores[] = $storeLocations;
+		$storeLocationsByStore[] = $storeLocations;
+
+		$locations = [];
+		foreach($storeLocations as $storeLocation) {
+			$locations[] = Location::getLocationByLocationId($mysqli, $storeLocation->getLocationId());
+		}
+
+		// save the locations by store
+		$locationsByStore[] = $locations;
 
 		// construct a giant one dimension array with all the storeLocations
 		$mergeStoreLocationsFromAllStores = array_merge($storeLocations, $mergeStoreLocationsFromAllStores);
@@ -123,69 +133,141 @@ try {
 
 	<div class="row">
 		<div class="col-sm-12">
-			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+			<h1>Pickup locations</h1>
+			<?php if(count($commonLocations) !== 0) { ?>
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-				<!--	same pick up location -->
-				<div class="panel panel-default">
-					<div class="panel-heading" role="tab" id="headingOne">
-						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-								Common pick up location
-							</a>
-						</h4>
-					</div>
-					<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-sm-4">
-									<div class="list-group">
-										<span class="list-group-item">
-											<?php echo count($commonLocations) > 1 ? 'Pickup locations' : 'Pickup location' ?>
-										</span>
-										<?php foreach($commonLocations as $commonLocation) { ?>
-										<a href="#" class="list-group-item active">
-											<?php echo $commonLocation->getLocationName() ?><br/>
-											<?php echo $commonLocation->getAddress1(); ?><br/>
-											<?php echo ($commonLocation->getAddress2() !== '')
-												? $commonLocation->getAddress2() . '<br/>'
-												: ''; ?>
-											<?php echo $commonLocation->getCity() . ' ' . $commonLocation->getState() . ' ' .
-												$commonLocation->getZipCode(); ?><br/>
-										</a>
-										<?php } ?>
+					<!--	same pick up location -->
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingOne">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+									Common pick up location
+								</a>
+							</h4>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="list-group">
+											<span class="list-group-item">
+												<?php echo count($commonLocations) > 1 ? 'Pickup locations' : 'Pickup location'; ?>
+											</span>
+											<?php foreach($commonLocations as $commonLocation) { ?>
+											<a href="#" class="list-group-item active">
+												<?php echo $commonLocation->getLocationName() ?><br/>
+												<?php echo $commonLocation->getAddress1(); ?><br/>
+												<?php echo ($commonLocation->getAddress2() !== '')
+													? $commonLocation->getAddress2() . '<br/>'
+													: ''; ?>
+												<?php echo $commonLocation->getCity() . ' ' . $commonLocation->getState() . ' ' .
+													$commonLocation->getZipCode(); ?><br/>
+											</a>
+											<?php } ?>
+										</div>
 									</div>
-								</div>
-								<div class="col-sm-8">
+									<div class="col-sm-8">
 
-								</div>
+									</div>
+								</div><!-- end row -->
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<!-- pick up location per store -->
-				<div class="panel panel-default">
-					<div class="panel-heading" role="tab" id="headingTwo">
-						<h4 class="panel-title">
-							<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-								Pick-up location per store
-							</a>
-						</h4>
-					</div>
-					<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-						<div class="panel-body">
+					<!-- pick up location per store -->
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingTwo">
+							<h4 class="panel-title">
+								<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+									Pick-up location per store
+								</a>
+							</h4>
+						</div>
+						<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+							<div class="panel-body">
+								<?php for($i = 0; $i < count($stores); $i++) {
 
+									// get the array of store locations for this store
+									$locations = $locationsByStore[$i];
+									?>
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="list-group">
+																<span class="list-group-item">
+																	<?php echo $store->getStoreName(); ?>
+																</span>
+												<?php foreach($locations as $location) { ?>
+													<a href="#" class="list-group-item">
+														<?php echo $location->getLocationName() ?><br/>
+														<?php echo $location->getAddress1(); ?><br/>
+														<?php echo ($location->getAddress2() !== '')
+															? $location->getAddress2() . '<br/>'
+															: ''; ?>
+														<?php echo $location->getCity() . ' ' . $location->getState() . ' ' .
+															$location->getZipCode(); ?><br/>
+													</a>
+												<?php } ?>
+											</div>
+										</div>
+										<div class="col-sm-8">
+
+											<!-- google map canvas -->
+											<div id="map-canvas"></div>
+										</div>
+									</div><!-- end row -->
+								<?php } ?>
+
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div><!-- end row that contains accordion -->
+				</div><!-- end accordion -->
+
+			<?php } else {
+				for($i = 0; $i < count($stores); $i++) {
+
+					// get the array of store locations for this store
+					$locations = $locationsByStore[$i];
+					?>
+					<div class="row mt30">
+						<div class="col-sm-12">
+							<h3><?php echo $store->getStoreName() . ' pickup locations'; ?></h3>
+						</div>
+					</div>
+					<div class="row mt30">
+						<div class="col-sm-4">
+							<div class="list-group">
+								<span class="list-group-item">
+									Select a pickup location
+								</span>
+								<?php foreach($locations as $location) { ?>
+									<a href="#" class="list-group-item">
+										<?php echo $location->getLocationName() ?><br/>
+										<?php echo $location->getAddress1(); ?><br/>
+										<?php echo ($location->getAddress2() !== '')
+											? $location->getAddress2() . '<br/>'
+											: ''; ?>
+										<?php echo $location->getCity() . ' ' . $location->getState() . ' ' .
+											$location->getZipCode(); ?><br/>
+									</a>
+								<?php } ?>
+							</div>
+						</div>
+						<div class="col-sm-8">
+
+							<!-- google map canvas -->
+							<div id="map-canvas"></div>
+						</div>
+					</div><!-- end row -->
+				<?php }
+			} ?>
+		</div><!-- end col-sm-12 -->
+	</div><!-- end row -->
 
 	<div class="row">
 		<div class="col-sm-12">
 			<form id="checkoutShippingController" action="../php/forms/checkout-shipping-controller.php" method="post" novalidate>
-				<h2>Current pick-up location</h2>
+				<h3>Current pick-up location</h3>
 				<p>Here is the currently selected pick-up location:</p>
 				<ul>
 					<li>Grower's Market</li>

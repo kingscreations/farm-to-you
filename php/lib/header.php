@@ -37,8 +37,10 @@ require_once($prefix . 'paths.php');
 		<script type="text/javascript" src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<!--		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
+		<!-- google maps -->
+		<script src="https://maps.googleapis.com/maps/api/js"></script>
+		<script src="<?php echo $prefix; ?>js/google-maps.js"></script>
+
 		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
 		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
@@ -52,7 +54,6 @@ require_once($prefix . 'paths.php');
 		<script src="<?php echo $prefix; ?>js/checkout-shipping.js"></script>
 		<script src="https://js.stripe.com/v2/"></script><!--	stripe api	-->
 		<script src="<?php echo $prefix; ?>js/checkout.js"></script>
-<!--		<script src="--><?php //echo $prefix; ?><!--js/main.js"></script>-->
 
 		<!-- Latest compiled and minified Bootstrap JavaScript, all compiled plugins included -->
 		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>

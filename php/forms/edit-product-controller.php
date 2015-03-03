@@ -49,6 +49,11 @@ try {
 	$categoryProduct3 = null;
 	$categoryProduct4 = null;
 
+	$categoryProductNew1 = null;
+	$categoryProductNew2 = null;
+	$categoryProductNew3 = null;
+	$categoryProductNew4 = null;
+
 	if($category1 !== null) {
 		$categoryName1 = $category1->getCategoryName();
 	} else {
@@ -133,21 +138,23 @@ try {
 		if($categoryNameDatabase !== null) {
 			$category1 = $categoryNameDatabase;
 			$categoryId1 = $category1->getCategoryId();
-			$categoryProductNew = new CategoryProduct($categoryId1, $productId);
-			$categoryProductNewDatabase = CategoryProduct::getCategoryProductByCategoryIdAndProductId($mysqli, $categoryId1, $productId);
-			var_dump($categoryProductNew);
-			var_dump($categoryProductNewDatabase);
-			var_dump($categoryProductNew == $categoryProductNewDatabase);
-			if($categoryProductNew != $categoryProductNewDatabase) {
-				$categoryProductNew->insert($mysqli);
+			$categoryProductNew1 = new CategoryProduct($categoryId1, $productId);
+			$categoryProductNewDatabase1 = CategoryProduct::getCategoryProductByCategoryIdAndProductId($mysqli, $categoryId1, $productId);
+			if($categoryProductNew1 != $categoryProductNewDatabase1) {
+				$categoryProductNew1->insert($mysqli);
+				if($categoryProduct1 !== null) {
+					$categoryProduct1->delete($mysqli);
+				}
 			}
 		} else {
 			$category1 = new Category(null, $_POST["addTags1"]);
 			$category1->insert($mysqli);
 			$categoryId1 = $category1->getCategoryId();
-			$categoryProduct1 = new CategoryProduct($categoryId1, $productId);
-			$categoryProduct1->insert($mysqli);
-		}
+			$categoryProductNew1 = new CategoryProduct($categoryId1, $productId);
+			$categoryProductNew1->insert($mysqli);
+			if($categoryProduct1 !== null) {
+				$categoryProduct1->delete($mysqli);
+			}		}
 	} else {
 		if($categoryProduct1 !== null) {
 			$categoryProduct1->delete($mysqli);
@@ -159,17 +166,23 @@ try {
 		if($categoryNameDatabase !== null) {
 			$category2 = $categoryNameDatabase;
 			$categoryId1 = $category2->getCategoryId();
-			$categoryProductNew = new CategoryProduct($categoryId1, $productId);
-			$categoryProductNewDatabase = CategoryProduct::getCategoryProductByCategoryIdAndProductId($mysqli, $categoryId1, $productId);
-			if($categoryProductNew != $categoryProductNewDatabase) {
-				$categoryProductNew->insert($mysqli);
+			$categoryProductNew2 = new CategoryProduct($categoryId1, $productId);
+			$categoryProductNewDatabase2 = CategoryProduct::getCategoryProductByCategoryIdAndProductId($mysqli, $categoryId1, $productId);
+			if($categoryProductNew2 != $categoryProductNewDatabase2) {
+				$categoryProductNew2->insert($mysqli);
+				if($categoryProduct2 !== null) {
+					$categoryProduct2->delete($mysqli);
+				}
 			}
 		} else {
 			$category2 = new Category(null, $_POST["addTags2"]);
 			$category2->insert($mysqli);
 			$categoryId1 = $category2->getCategoryId();
-			$categoryProduct2 = new CategoryProduct($categoryId1, $productId);
-			$categoryProduct2->insert($mysqli);
+			$categoryProductNew2 = new CategoryProduct($categoryId1, $productId);
+			$categoryProductNew2->insert($mysqli);
+			if($categoryProduct2 !== null) {
+				$categoryProduct2->delete($mysqli);
+			}
 		}
 	} else {
 		if($categoryProduct2 !== null) {
@@ -182,18 +195,23 @@ try {
 		if($categoryNameDatabase !== null) {
 			$category3 = $categoryNameDatabase;
 			$categoryId1 = $category3->getCategoryId();
-			$categoryProductNew = new CategoryProduct($categoryId1, $productId);
-			$categoryProductNewDatabase = CategoryProduct::getCategoryProductByCategoryIdAndProductId($mysqli, $categoryId1, $productId);
-			if($categoryProductNew != $categoryProductNewDatabase) {
-				$categoryProductNew->insert($mysqli);
+			$categoryProductNew3 = new CategoryProduct($categoryId1, $productId);
+			$categoryProductNewDatabase3 = CategoryProduct::getCategoryProductByCategoryIdAndProductId($mysqli, $categoryId1, $productId);
+			if($categoryProductNew3 != $categoryProductNewDatabase3) {
+				$categoryProductNew3->insert($mysqli);
+				if($categoryProduct3 !== null) {
+					$categoryProduct3->delete($mysqli);
+				}
 			}
 		} else {
 			$category3 = new Category(null, $_POST["addTags3"]);
 			$category3->insert($mysqli);
 			$categoryId1 = $category3->getCategoryId();
-			$categoryProduct3 = new CategoryProduct($categoryId1, $productId);
-			$categoryProduct3->insert($mysqli);
-		}
+			$categoryProductNew3 = new CategoryProduct($categoryId1, $productId);
+			$categoryProductNew3->insert($mysqli);
+			if($categoryProduct3 !== null) {
+				$categoryProduct3->delete($mysqli);
+			}		}
 	} else {
 		if($categoryProduct3 !== null) {
 			$categoryProduct3->delete($mysqli);
@@ -205,17 +223,23 @@ try {
 		if($categoryNameDatabase !== null) {
 			$category4 = $categoryNameDatabase;
 			$categoryId1 = $category4->getCategoryId();
-			$categoryProductNew = new CategoryProduct($categoryId1, $productId);
-			$categoryProductNewDatabase = CategoryProduct::getCategoryProductByCategoryIdAndProductId($mysqli, $categoryId1, $productId);
-			if($categoryProductNew != $categoryProductNewDatabase) {
-				$categoryProductNew->insert($mysqli);
+			$categoryProductNew4 = new CategoryProduct($categoryId1, $productId);
+			$categoryProductNewDatabase4 = CategoryProduct::getCategoryProductByCategoryIdAndProductId($mysqli, $categoryId1, $productId);
+			if($categoryProductNew4 != $categoryProductNewDatabase4) {
+				$categoryProductNew4->insert($mysqli);
+				if($categoryProduct4 !== null) {
+					$categoryProduct4->delete($mysqli);
+				}
 			}
 		} else {
 			$category4 = new Category(null, $_POST["addTags4"]);
 			$category4->insert($mysqli);
 			$categoryId1 = $category4->getCategoryId();
-			$categoryProduct4 = new CategoryProduct($categoryId1, $productId);
-			$categoryProduct4->insert($mysqli);
+			$categoryProductNew4 = new CategoryProduct($categoryId1, $productId);
+			$categoryProductNew4->insert($mysqli);
+			if($categoryProduct4 !== null) {
+				$categoryProduct4->delete($mysqli);
+			}
 		}
 	} else {
 		if($categoryProduct4 !== null) {
@@ -223,34 +247,43 @@ try {
 		}
 	}
 
-	if($category1 !== null) {
-		$_SESSION["categoryId1"] = $category1->getCategoryId();
+//	if($categoryProductNew1 !== null) {
+//		$_SESSION["categoryId1"] = $categoryProductNew1->getCategoryId();
+////	} else {
+////		$_SESSION["categoryId1"] = null;
+//	}
+
+	if($categoryProductNew1 !== null) {
+		$_SESSION["categoryId1"] = $categoryProductNew1->getCategoryId();
+	} else if ($categoryProduct1 !== null) {
+		$_SESSION["categoryId1"] = $categoryProduct1->getCategoryId();
 	} else {
 		$_SESSION["categoryId1"] = null;
 	}
 
-	if($category2 !== null) {
-		$_SESSION["categoryId2"] = $category2->getCategoryId();
+	if($categoryProductNew2 !== null) {
+		$_SESSION["categoryId2"] = $categoryProductNew2->getCategoryId();
+	} else if ($categoryProduct2 !== null) {
+		$_SESSION["categoryId2"] = $categoryProduct2->getCategoryId();
 	} else {
 		$_SESSION["categoryId2"] = null;
 	}
 
-	if($category3 !== null) {
-		$_SESSION["categoryId3"] = $category3->getCategoryId();
+	if($categoryProductNew3 !== null) {
+		$_SESSION["categoryId3"] = $categoryProductNew3->getCategoryId();
+	} else if ($categoryProduct3 !== null) {
+		$_SESSION["categoryId3"] = $categoryProduct3->getCategoryId();
 	} else {
 		$_SESSION["categoryId3"] = null;
 	}
 
-	if($category4 !== null) {
-		$_SESSION["categoryId4"] = $category4->getCategoryId();
+	if($categoryProductNew4 !== null) {
+		$_SESSION["categoryId4"] = $categoryProductNew4->getCategoryId();
+	} else if ($categoryProduct4 !== null) {
+		$_SESSION["categoryId4"] = $categoryProduct4->getCategoryId();
 	} else {
 		$_SESSION["categoryId4"] = null;
 	}
-
-	var_dump($categoryProduct1);
-	var_dump($categoryProduct2);
-	var_dump($categoryProduct3);
-	var_dump($categoryProduct4);
 
 	// update product in database
 		$product->update($mysqli);

@@ -563,7 +563,7 @@ h2 {
 /********************************************
 * home page new user
 ********************************************/
-.home-top, {
+.home-top {
 	background: transparent url("../images/home-page.jpg") no-repeat fixed center center/cover;
 	position: absolute;
 	z-index: 1;
@@ -572,7 +572,7 @@ h2 {
 	height: 100%;
 }
 
-.home-top-search-area, {
+.home-top-search-area {
 	background-color: rgba(255, 255, 255, 0.8);
 	text-align: center;
 	margin: auto;
@@ -588,7 +588,7 @@ h2 {
 	}
 }
 
-.home-top .heading, {
+.home-top .heading {
 	color: #497a2d;
 	font-family: ArchitectsDaughter;
 	font-size: 1.4em;

@@ -496,11 +496,13 @@ class Location {
 
 		// create query template
 		$query = "SELECT locationId, locationName, country, state, city, zipCode, address1, address2 FROM location WHERE locationId = ?";
+//		var_dump('before');
 		$statement = $mysqli->prepare($query);
 		if($statement === false) {
 			throw(new mysqli_sql_exception("unable to prepare statement"));
 		}
 
+//		var_dump($statement);
 		// bind the location id to the place holder in the template
 		$wasClean = $statement->bind_param("i", $locationId);
 		if($wasClean === false) {

@@ -5,9 +5,9 @@
  */
 
 
-if(!@isset($_SESSION['products'])) {
-	header('Location: ../php/lib/404.php');
-}
+//if(!@isset($_SESSION['products'])) {
+//	header('Location: ../php/lib/404.php');
+//}
 
 // header
 $currentDir = dirname(__FILE__);
@@ -83,31 +83,32 @@ try {
 	}
 
 	$commonLocations = [];
-	foreach($mergeStoreLocationsFromAllStores as $storeLocation) {
+	for($i = 0; $i < count($mergeStoreLocationsFromAllStores); $i++) {
+		$storeLocation = $mergeStoreLocationsFromAllStores[$i];
 
 		$matchCounter = 0;
 		$locationCompared = null;
 
 		// from the current location of this current store, see if the other stores have the same one
-		foreach($mergeStoreLocationsFromAllStores as $storeLocationToCompare) {
+		// $j = $i + 1 to not waste time comparing duplicates entries :)
+		for($j = $i + 1; $j < count($mergeStoreLocationsFromAllStores); $j++) {
+			$storeLocationToCompare = $mergeStoreLocationsFromAllStores[$j];
+
 			$location          = Location::getLocationByLocationId($mysqli, $storeLocation->getLocationId());
 			$locationToCompare = Location::getLocationByLocationId($mysqli, $storeLocationToCompare->getLocationId());
 
 			// same location from two different stores
-			if($location->equals($locationToCompare) && $storeLocation->getStoreId() !== $storeLocationToCompare->getStoreId()) {
+			if($location->equals($locationToCompare)) { // && $storeLocation->getStoreId() !== $storeLocationToCompare->getStoreId()) {
 				$matchCounter++;
 				$locationCompared = $location;
 			}
 		}
 
 		// if the number of matches is the same than the number of stores but the current used to compare
-		if($matchCounter === (count($stores) - 1)) {
+		if($matchCounter !== 0 && $matchCounter === (count($stores) - 1)) {
 			$commonLocations[] = $locationCompared;
 		}
 	}
-
-
-//	$storeLocations = array_unique($storeLocations);
 
 	$mysqli->close();
 
@@ -124,7 +125,6 @@ try {
 			<form id="checkoutShippingController" action="../php/forms/checkout-shipping-controller.php" method="post" novalidate>
 				<h2>You don't have any choice for the pickup location even if you are supposed to</h2>
 				<p>The chosen location you "have chosen" is:</p>
-				<?php var_dump($commonLocations); ?>
 				<ul>
 					<li>Grower's Market</li>
 					<li>Robinson Park</li>

@@ -191,19 +191,14 @@ $storeImageSrc  = basename($store->getImagePath());
 
 					echo '<p>'.$product->getProductDescription(). '</p>';
 					if($stockLimit === null) {
-						$stockLimit = 15;
+						$stockLimit = 99;
 					}
-
-					$maxQuantity = 15;
-
-					// get the # of options to create in the select box
-					$quantityLimit = ($stockLimit < $maxQuantity) ? $stockLimit : $maxQuantity;
 
 					// select box
 					echo 'Select a quantity: <select class="product-quantity" name="productQuantity">';
 
 					// creating $quantityLimit # of options
-					for($i = 0; $i < $quantityLimit; $i++) {
+					for($i = 0; $i < $stockLimit; $i++) {
 						if($i === 0) {
 							echo '<option selected="selected">' . ($i + 1) . '</option>';
 						} else {

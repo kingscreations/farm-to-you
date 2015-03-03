@@ -84,7 +84,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 													<img class="img-responsive" src="../images/placeholder.png">
 												</a></td>';
 									}
-	//								echo '<td><img class="thumbnail tiny-thumbnail" src="' . $product->getImagePath() . '"></td>';
+
 									echo '<td>' . $product->getProductName() . '</td>';
 
 									// price
@@ -100,24 +100,19 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 
 									echo '<td id="product'. $counter .'-weight">' . number_format($product->getProductWeight(), 2, '.', '') . 'lb</td>';
 
-									$maxQuantity = 15;
+									$maxQuantity = 99; // TODO not sure we need that ==> change the select to an input field will fix the problem
 									$stockLimit  = $product->getStockLimit();
 
 									if($stockLimit === null) {
 										$stockLimit = $maxQuantity;
 									}
 
-									// get the # of options to create in the select box
-									$quantityLimit = ($stockLimit < $maxQuantity)
-										? $stockLimit
-										: $maxQuantity;
-
 									echo '<td>';
 
 									// select box
 									echo '<select class="product-quantity" id="product' . $counter . '-quantity" name="productQuantity[]">';
-									// creating $quantityLimit # of options
-									for($i = 0; $i < $quantityLimit; $i++) {
+									// creating $stockLimit # of options
+									for($i = 0; $i < $stockLimit; $i++) {
 										if(($i + 1) === intval($sessionProduct['quantity'])) {
 											echo '<option selected="selected">' . ($i + 1) . '</option>';
 										} else {

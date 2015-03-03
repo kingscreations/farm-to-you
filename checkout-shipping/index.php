@@ -87,7 +87,7 @@ try {
 		$storeLocation = $mergeStoreLocationsFromAllStores[$i];
 
 		$matchCounter = 0;
-		$locationCompared = null;
+		$commonLocation = null;
 
 		// from the current location of this current store, see if the other stores have the same one
 		// $j = $i + 1 to not waste time comparing duplicates entries :)
@@ -100,13 +100,13 @@ try {
 			// same location from two different stores
 			if($location->equals($locationToCompare)) { // && $storeLocation->getStoreId() !== $storeLocationToCompare->getStoreId()) {
 				$matchCounter++;
-				$locationCompared = $location;
+				$commonLocation = $location;
 			}
 		}
 
 		// if the number of matches is the same than the number of stores but the current used to compare
 		if($matchCounter !== 0 && $matchCounter === (count($stores) - 1)) {
-			$commonLocations[] = $locationCompared;
+			$commonLocations[] = $commonLocation;
 		}
 	}
 
@@ -119,12 +119,74 @@ try {
 
 ?>
 
-<div class="container fluid">
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+				<!--	same pick up location -->
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								Common pick up location
+							</a>
+						</h4>
+					</div>
+					<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="list-group">
+										<span class="list-group-item">
+											<?php echo count($commonLocations) > 1 ? 'Pickup locations' : 'Pickup location' ?>
+										</span>
+										<?php foreach($commonLocations as $commonLocation) { ?>
+										<a href="#" class="list-group-item active">
+											<?php echo $commonLocation->getLocationName() ?><br/>
+											<?php echo $commonLocation->getAddress1(); ?><br/>
+											<?php echo ($commonLocation->getAddress2() !== '')
+												? $commonLocation->getAddress2() . '<br/>'
+												: ''; ?>
+											<?php echo $commonLocation->getCity() . ' ' . $commonLocation->getState() . ' ' .
+												$commonLocation->getZipCode(); ?><br/>
+										</a>
+										<?php } ?>
+									</div>
+								</div>
+								<div class="col-sm-8">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- pick up location per store -->
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingTwo">
+						<h4 class="panel-title">
+							<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+								Pick-up location per store
+							</a>
+						</h4>
+					</div>
+					<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+						<div class="panel-body">
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- end row that contains accordion -->
+
 	<div class="row">
 		<div class="col-sm-12">
 			<form id="checkoutShippingController" action="../php/forms/checkout-shipping-controller.php" method="post" novalidate>
-				<h2>You don't have any choice for the pickup location even if you are supposed to</h2>
-				<p>The chosen location you "have chosen" is:</p>
+				<h2>Current pick-up location</h2>
+				<p>Here is the currently selected pick-up location:</p>
 				<ul>
 					<li>Grower's Market</li>
 					<li>Robinson Park</li>
@@ -137,17 +199,6 @@ try {
 		</div>
 	</div><!-- end row -->
 
-	<div class="row">
-		<div class="col-sm-4">
-			<div class="list-group">
-				<span class="list-group-item">Pickup locations</span>
-				<a href="#" class="list-group-item active">Store home</a>
-			</div>
-		</div>
-		<div class="col-sm-8">
-
-		</div>
-	</div>
 </div><!-- end container-fluid -->
 
 <?php require_once('../php/lib/footer.php'); ?>

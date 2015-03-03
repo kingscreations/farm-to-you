@@ -62,21 +62,21 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 			?>
 
 			<div id="new-card">
-				<div class="form-row">
+				<div class="form-group">
 					<label>
 						<span>Card Number</span>
 						<input type="text" name="creditCardNumber" size="20" data-stripe="number"/>
 					</label>
 				</div>
 
-				<div class="form-row">
+				<div class="form-group">
 					<label>
 						<span>CVC</span>
 						<input type="text" name="cardSecurityCode" size="4" data-stripe="cvc"/>
 					</label>
 				</div>
 
-				<div class="form-row">
+				<div class="form-group">
 					<label>
 						<span>Expiration (MM/YYYY)</span>
 						<input type="text" name="cardExpirationMonth" size="2" data-stripe="exp-month"/>
@@ -84,13 +84,13 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 					<span> / </span>
 					<input type="text" name="cardExpirationYear" size="4" data-stripe="exp-year"/>
 				</div>
-				<div class="form-row center">
+				<div class="form-group center">
 					<input type="checkbox" id="remember-user" name="rememberUser" value="Yes" />
 					<label for="remember-user">Remember my card information for the next time</label>
 				</div>
 			</div><!-- end new-card -->
 
-			<div class="form-row center">
+			<div class="form-group center">
 				<button id="validate-payment" type="submit"  class="btn btn-success">Submit Payment</button>
 			</div>
 			<p id="outputArea"></p>

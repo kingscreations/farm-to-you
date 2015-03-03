@@ -30,6 +30,8 @@ try {
 	$stores = Store::getStoreByStoreName($mysqli, $searchq);
 	$locations = Location::getLocationByNameOrAddress($mysqli, $searchq);
 
+
+
 } catch(Exception $exception) {
 	echo 'Exception: ' . $exception->getMessage() . '<br/>';
 	echo $exception->getFile() . ':' . $exception->getLine();
@@ -47,7 +49,16 @@ try {
 
 <!--<div class="container-fluid mt60">-->
 	<div class="row">
-		<div class="col-sm-12">
+
+		<div class="col-sm-3 list-group" id="filter-categories">
+			<p>Categories</p>
+			<a href="#" class="list-group-item">Vegetables</a>
+			<a href="#" class="list-group-item">Fruits</a>
+			<a href="#" class="list-group-item">Organic</a>
+			<a href="#" class="list-group-item">Shit</a>
+		</div>
+
+		<div class="col-sm-9">
 
 <?php
 
@@ -71,6 +82,7 @@ if($products !== null) {
 	echo '<th>Product</th>';
 	echo '<th>Description</th>';
 	echo '<th>Price</th>';
+	echo '<th>Categories</th>';
 	echo '</tr>';
 
 	foreach($products as $product) {
@@ -80,6 +92,23 @@ if($products !== null) {
 		$productName = $product->getProductName();
 		$productDescription = $product->getProductDescription();
 		$productPrice = $product->getProductPrice();
+		$productId = $product->getProductId();
+
+		$getCategories = CategoryProduct::getCategoryProductByProductId($mysqli, $productId);
+
+		foreach($getCategories as $getCategory) {
+			$categoryId = $getCategory->getCategoryId();
+			$getCategoryNames = Category::getCategoryByCategoryId($mysqli, $categoryId);
+
+			$categoryNames = $getCategoryNames->getCategoryName();
+
+			var_dump($categoryNames);
+
+			foreach($getCategoryNames as $categoryName) {
+				$categoryNames = $categoryName->getCategoryName();
+				var_dump($categoryNames);
+			}
+		}
 
 		echo '<tr>';
 		if(file_exists($product->getImagePath())) {
@@ -97,6 +126,7 @@ if($products !== null) {
 		echo '<td>' . $productName . '</td>';
 		echo '<td>' . $productDescription . '</td>';
 		echo '<td>$' . $productPrice . '</td>';
+		echo '<td>' . $categoryNames . $categoryNames . '</td>';
 		echo '</tr>';
 	}
 }

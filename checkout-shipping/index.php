@@ -216,13 +216,14 @@ try {
 											<div id="map-canvas"></div>
 										</div>
 									</div><!-- end row -->
-								<?php } ?>
+								<?php } ?><!-- end for each store -->
 
 							</div>
 						</div>
 					</div>
 				</div><!-- end accordion -->
 
+			<!-- no common location -->
 			<?php } else {
 				for($i = 0; $i < count($stores); $i++) {
 

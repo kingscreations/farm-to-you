@@ -39,6 +39,8 @@ try {
 	// create new Location with form input
 
 	$locationsAddress1 = Location::getLocationByAddress1($mysqli, $_POST["address1"]);
+if($locationsAddress1 !== null) {
+
 
 	$locationFound = null;
 	foreach($locationsAddress1 as $locationAddress1) {
@@ -47,11 +49,22 @@ try {
 			break;
 		}
 	}
+} else {
+	$locationFound = null;
+}
 	if($locationFound !== null) {
 		$location = $locationFound;
 	} else {
 		$location = new Location(null, $_POST["locationName"], $_POST["country"], $_POST["state"], $_POST["city"],
 			$_POST["zipCode"], $_POST["address1"], $_POST["address2"]);
+		$location->insert($mysqli);
+		$locationId = $location->getLocationId();
+
+		// create new StoreLocation
+		$storeLocation = new StoreLocation($storeId, $locationId);
+
+		// insert storeLocation
+		$storeLocation->insert($mysqli);
 	}
 
 
@@ -71,13 +84,13 @@ try {
 //	}
 
 	// create variable for location id
-	$locationId = $location->getLocationId();
-
-	// create new StoreLocation
-	$storeLocation = new StoreLocation($storeId, $locationId);
-
-	// insert storeLocation
-	$storeLocation->insert($mysqli);
+//	$locationId = $location->getLocationId();
+//
+//	// create new StoreLocation
+//	$storeLocation = new StoreLocation($storeId, $locationId);
+//
+//	// insert storeLocation
+//	$storeLocation->insert($mysqli);
 
 	echo "<p class=\"alert alert-success\">" . $location->getLocationName() . " added!</p>";
 

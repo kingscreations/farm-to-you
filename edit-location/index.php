@@ -60,7 +60,7 @@ try {
 			<li class="disabled"><a href="#">Account Settings</a></li>
 		</ul>
 	</div>
-
+<div class="container-fluid">
 	<div class="row-fluid">
 		<div class="col-sm-9">
 			<h2>Edit Location</h2>
@@ -110,7 +110,7 @@ try {
 			<div class="form-group">
 				<button class="btn btn-default addButton" id="back">Back</button>
 			</div>
-
+		</div>
 		</div>
 	</div>
 

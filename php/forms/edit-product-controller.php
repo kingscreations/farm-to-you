@@ -154,10 +154,6 @@ try {
 		}
 	}
 
-//	var_dump($categoryProduct1);
-//	var_dump($category1);
-
-
 	if (empty($_POST["addTags2"])=== false){
 		$categoryNameDatabase = Category::getCategoryByCategoryName($mysqli, $_POST["addTags2"]);
 		if($categoryNameDatabase !== null) {
@@ -225,6 +221,30 @@ try {
 		if($categoryProduct4 !== null) {
 			$categoryProduct4->delete($mysqli);
 		}
+	}
+
+	if($category1 !== null) {
+		$_SESSION["categoryId1"] = $category1->getCategoryId();
+	} else {
+		$_SESSION["categoryId1"] = null;
+	}
+
+	if($category2 !== null) {
+		$_SESSION["categoryId2"] = $category2->getCategoryId();
+	} else {
+		$_SESSION["categoryId2"] = null;
+	}
+
+	if($category3 !== null) {
+		$_SESSION["categoryId3"] = $category3->getCategoryId();
+	} else {
+		$_SESSION["categoryId3"] = null;
+	}
+
+	if($category4 !== null) {
+		$_SESSION["categoryId4"] = $category4->getCategoryId();
+	} else {
+		$_SESSION["categoryId4"] = null;
 	}
 
 	var_dump($categoryProduct1);

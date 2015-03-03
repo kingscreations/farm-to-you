@@ -19,8 +19,8 @@ if(@isset($_POST["locationId"]) === true) {
 			foreach($storeLocations as $storeLocation) {
 				$storeLocation->delete($mysqli);
 			}
-			$location = Location::getLocationByLocationId($mysqli, $locationId);
-			$location->delete($mysqli);
+//			$location = Location::getLocationByLocationId($mysqli, $locationId);
+//			$location->delete($mysqli);
 
 		} catch (Exception $exception) {
 			echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";

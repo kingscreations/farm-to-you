@@ -9,9 +9,12 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 // classes
 require_once("../classes/location.php");
+require_once("../classes/storelocation.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
 
+$storeId = $_SESSION['storeId'];
+$storeLocationOriginal = new StoreLocation($storeId, $_SESSION['locationId']);
 try {
 
 	// get the credentials information from the server and connect to the database
@@ -26,17 +29,19 @@ try {
 	}
 
 	// grab location with id 1
-	$location = Location::getLocationByLocationId($mysqli, $_SESSION['locationId']);
+	$locationOriginal = Location::getLocationByLocationId($mysqli, $_SESSION['locationId']);
 
 	// create variables for location attributes
-	$locationName = $location->getLocationName();
-	$locationCountry = $location->getCountry();
-	$locationState = $location->getState();
-	$locationCity = $location->getCity();
-	$locationZipCode = $location->getZipCode();
-	$locationAddress1 = $location->getAddress1();
-	$locationAddress2 = $location->getAddress2();
+	$locationName = $locationOriginal->getLocationName();
+	$locationCountry = $locationOriginal->getCountry();
+	$locationState = $locationOriginal->getState();
+	$locationCity = $locationOriginal->getCity();
+	$locationZipCode = $locationOriginal->getZipCode();
+	$locationAddress1 = $locationOriginal->getAddress1();
+	$locationAddress2 = $locationOriginal->getAddress2();
 
+	$location = new Location(null, $_POST['locationName'], $_POST['country'], $_POST['state'], $_POST['city'],
+									 $_POST['zipCode'], $_POST['address1'], $_POST['address2']);
 	// if user makes edits, update in location
 	if($_POST['locationName'] !== '') {
 		$locationName = $_POST['locationName'];
@@ -87,8 +92,42 @@ try {
 		$location->setAddress2($locationAddress2);
 	}
 
-	// update location in database
-	$location->update($mysqli);
+	$locationsAddress1 = Location::getLocationByAddress1($mysqli, $_POST["address1"]);
+	if($locationsAddress1 !== null) {
+		$locationFound = null;
+		foreach($locationsAddress1 as $locationAddress1) {
+			if ($locationAddress1->getZipCode() === $_POST["zipCode"]) {
+				$locationFound = $locationAddress1;
+				break;
+			}
+		}
+	} else {
+		$locationFound = null;
+	}
+	if($locationFound !== null) {
+		$location = $locationFound;
+		$locationId = $location->getLocationId();
+		$storeLocation = new StoreLocation($storeId, $locationId);
+		$storeLocationsDatabase = StoreLocation::getStoreLocationByStoreIdAndLocationId($mysqli, $storeId, $locationId);
+		if($storeLocationsDatabase === null) {
+			$storeLocation->insert($mysqli);
+			$storeLocationOriginal->delete($mysqli);
+		}
+	} else {
+		var_dump($location);
+		$location->insert($mysqli);
+		$locationId = $location->getLocationId();
+
+		// create new StoreLocation
+		$storeLocation = new StoreLocation($storeId, $locationId);
+
+		// insert storeLocation
+		$storeLocation->insert($mysqli);
+		$storeLocationOriginal->delete($mysqli);
+	}
+//
+//	// update location in database
+//	$location->update($mysqli);
 
 	echo "<p class=\"alert alert-success\">" . $location->getLocationName() . " updated!</p>";
 

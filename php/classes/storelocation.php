@@ -182,7 +182,7 @@ class StoreLocation {
 	 * @param resource $mysqli pointer to mySQL connection, by reference
 	 * @throws mysqli_sql_exception when mySQL related errors occur
 	 */
-	public function getStoreLocationByStoreIdAndLocationId(&$mysqli, $storeId, $locationId) {
+	public static function getStoreLocationByStoreIdAndLocationId(&$mysqli, $storeId, $locationId) {
 		if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
 			throw(new mysqli_sql_exception("input is not a mysqli object"));
 		}

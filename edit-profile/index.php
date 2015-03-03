@@ -8,14 +8,14 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 //$profileId = $_SESSION['profileId'];
 
-//$profileId = 1;
+$profileId = 1;
 
 mysqli_report(MYSQLI_REPORT_STRICT);
 $configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 $mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-$profileFromUser = Profile::getProfileByUserId($mysqli,$_SESSION['user']['id']);
-$profileId = $profileFromUser->getProfileId();
+//$profileFromUser = Profile::getProfileByUserId($mysqli,$_SESSION['user']['id']);
+//$profileId = $profileFromUser->getProfileId();
 
 $profile = Profile::getProfileByProfileId($mysqli, $profileId);
 

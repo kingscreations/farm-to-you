@@ -135,7 +135,7 @@ class CategoryProduct {
 
 		// execute the statement
 		if($statement->execute() === false) {
-			throw(new mysqli_sql_exception("unable to execute mySQL statement"));
+			throw(new mysqli_sql_exception("unable to execute mySQL statement" . $statement->error));
 		}
 
 		$this->inserted = true;

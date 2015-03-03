@@ -11,10 +11,8 @@ require_once("../classes/categoryproduct.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../lib/utils.php");
 
-var_dump(($_SESSION["categoryId1"]));
-var_dump(($_SESSION["categoryId2"]));
-var_dump(($_SESSION["categoryId3"]));
-var_dump(($_SESSION["categoryId4"]));
+//var_dump($_SESSION);
+//var_dump($_POST);
 
 // verify the form values have been submitted
 if(@isset($_POST["editProductName"]) === false || @isset($_POST["editProductPrice"]) === false
@@ -130,14 +128,19 @@ try {
 		$product->setImagePath($imageFileName);
 		move_uploaded_file($_FILES['editProductImage']['tmp_name'], $imageFileName);
 	}
-
 	if (empty($_POST["addTags1"])=== false){
 		$categoryNameDatabase = Category::getCategoryByCategoryName($mysqli, $_POST["addTags1"]);
 		if($categoryNameDatabase !== null) {
 			$category1 = $categoryNameDatabase;
 			$categoryId1 = $category1->getCategoryId();
-			$categoryProduct1 = new CategoryProduct($categoryId1, $productId);
-			$categoryProduct1->insert($mysqli);
+			$categoryProductNew = new CategoryProduct($categoryId1, $productId);
+			$categoryProductNewDatabase = CategoryProduct::getCategoryProductByCategoryIdAndProductId($mysqli, $categoryId1, $productId);
+			var_dump($categoryProductNew);
+			var_dump($categoryProductNewDatabase);
+			var_dump($categoryProductNew == $categoryProductNewDatabase);
+			if($categoryProductNew != $categoryProductNewDatabase) {
+				$categoryProductNew->insert($mysqli);
+			}
 		} else {
 			$category1 = new Category(null, $_POST["addTags1"]);
 			$category1->insert($mysqli);
@@ -151,13 +154,20 @@ try {
 		}
 	}
 
+//	var_dump($categoryProduct1);
+//	var_dump($category1);
+
+
 	if (empty($_POST["addTags2"])=== false){
 		$categoryNameDatabase = Category::getCategoryByCategoryName($mysqli, $_POST["addTags2"]);
 		if($categoryNameDatabase !== null) {
 			$category2 = $categoryNameDatabase;
 			$categoryId1 = $category2->getCategoryId();
-			$categoryProduct2 = new CategoryProduct($categoryId1, $productId);
-			$categoryProduct2->insert($mysqli);
+			$categoryProductNew = new CategoryProduct($categoryId1, $productId);
+			$categoryProductNewDatabase = CategoryProduct::getCategoryProductByCategoryIdAndProductId($mysqli, $categoryId1, $productId);
+			if($categoryProductNew != $categoryProductNewDatabase) {
+				$categoryProductNew->insert($mysqli);
+			}
 		} else {
 			$category2 = new Category(null, $_POST["addTags2"]);
 			$category2->insert($mysqli);
@@ -176,8 +186,11 @@ try {
 		if($categoryNameDatabase !== null) {
 			$category3 = $categoryNameDatabase;
 			$categoryId1 = $category3->getCategoryId();
-			$categoryProduct3 = new CategoryProduct($categoryId1, $productId);
-			$categoryProduct3->insert($mysqli);
+			$categoryProductNew = new CategoryProduct($categoryId1, $productId);
+			$categoryProductNewDatabase = CategoryProduct::getCategoryProductByCategoryIdAndProductId($mysqli, $categoryId1, $productId);
+			if($categoryProductNew != $categoryProductNewDatabase) {
+				$categoryProductNew->insert($mysqli);
+			}
 		} else {
 			$category3 = new Category(null, $_POST["addTags3"]);
 			$category3->insert($mysqli);
@@ -196,8 +209,11 @@ try {
 		if($categoryNameDatabase !== null) {
 			$category4 = $categoryNameDatabase;
 			$categoryId1 = $category4->getCategoryId();
-			$categoryProduct4 = new CategoryProduct($categoryId1, $productId);
-			$categoryProduct4->insert($mysqli);
+			$categoryProductNew = new CategoryProduct($categoryId1, $productId);
+			$categoryProductNewDatabase = CategoryProduct::getCategoryProductByCategoryIdAndProductId($mysqli, $categoryId1, $productId);
+			if($categoryProductNew != $categoryProductNewDatabase) {
+				$categoryProductNew->insert($mysqli);
+			}
 		} else {
 			$category4 = new Category(null, $_POST["addTags4"]);
 			$category4->insert($mysqli);
@@ -211,6 +227,10 @@ try {
 		}
 	}
 
+	var_dump($categoryProduct1);
+	var_dump($categoryProduct2);
+	var_dump($categoryProduct3);
+	var_dump($categoryProduct4);
 
 	// update product in database
 		$product->update($mysqli);

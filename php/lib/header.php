@@ -54,6 +54,7 @@ require_once($prefix . 'paths.php');
 		<script src="<?php echo $prefix; ?>js/checkout-shipping.js"></script>
 		<script src="https://js.stripe.com/v2/"></script><!--	stripe api	-->
 		<script src="<?php echo $prefix; ?>js/checkout.js"></script>
+		<script src="<?php echo $prefix; ?>js/main.js"></script>
 
 		<!-- Latest compiled and minified Bootstrap JavaScript, all compiled plugins included -->
 		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>

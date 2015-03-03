@@ -193,7 +193,7 @@ try {
 									?>
 									<div class="row">
 										<div class="col-sm-4">
-											<div class="list-group">
+											<div class="list-group pickup-locations">
 																<span class="list-group-item">
 																	<?php echo $store->getStoreName(); ?>
 																</span>
@@ -237,16 +237,16 @@ try {
 					</div>
 					<div class="row mt30">
 						<div class="col-sm-4">
-							<div class="list-group">
+							<div class="list-group pickup-locations">
 								<span class="list-group-item">
 									Select a pickup location
 								</span>
 								<?php foreach($locations as $location) { ?>
-									<a href="#" class="list-group-item">
+									<a href="#" class="list-group-item" id="location-<?php echo $location->getLocationId(); ?>">
 										<?php echo $location->getLocationName() ?><br/>
 										<?php echo $location->getAddress1(); ?><br/>
 										<?php echo ($location->getAddress2() !== '')
-											? $location->getAddress2() . '<br/>'
+											? ''
 											: ''; ?>
 										<?php echo $location->getCity() . ' ' . $location->getState() . ' ' .
 											$location->getZipCode(); ?><br/>

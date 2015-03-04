@@ -147,10 +147,10 @@ try {
 
 		<div class="form-group">
 			<label for="addTags">Tags:</label>
-			<span><input type="text" class="form-control" id="addTags1" name="addTags1" value="<?php echo $categoryName1;?>"></span>
-			<span><input type="text" class="form-control" id="addTags2" name="addTags2" value="<?php echo $categoryName2;?>"></span>
-			<span><input type="text" class="form-control" id="addTags3" name="addTags3" value="<?php echo $categoryName3;?>"></span>
-			<span><input type="text" class="form-control" id="addTags4" name="addTags4" value="<?php echo $categoryName4;?>"></span>
+			<span><input type="text" class="form-control distinctTags" id="addTags1" name="addTags1" value="<?php echo $categoryName1;?>"></span>
+			<span><input type="text" class="form-control distinctTags" id="addTags2" name="addTags2" value="<?php echo $categoryName2;?>"></span>
+			<span><input type="text" class="form-control distinctTags" id="addTags3" name="addTags3" value="<?php echo $categoryName3;?>"></span>
+			<span><input type="text" class="form-control distinctTags" id="addTags4" name="addTags4" value="<?php echo $categoryName4;?>"></span>
 		</div>
 
 
@@ -176,10 +176,6 @@ try {
 		</div>
 		<br>
 
-		<div class="form-group">
-			<button id="<?php echo $_SESSION['productId'];?>" class="btn btn-default linkProduct">Link to product page</button>
-		</div>
-		<br>
 
 		<div class="form-group">
 			<input type="submit" class="form-control" id="editSubmit" name="editSubmit" value="Submit">
@@ -188,6 +184,11 @@ try {
 	</form>
 
 	<p id="outputArea" style=""></p>
+
+	<div class="form-group">
+		<button id="<?php echo $_SESSION['productId'];?>" class="btn btn-default linkProduct">Link to product page</button>
+	</div>
+	<br>
 
 
 	<div class="form-group">

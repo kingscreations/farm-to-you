@@ -17,16 +17,13 @@ $(document).ready(function() {
 
 	$('.list-group-item').on('click', function() {
 
-		$.each($productsCardId, function() {
-			$(this).show();
-		});
-
 		// the default link should not trigger the ajax callback
 		if($(this).hasClass('static')) {
+			$productsCardId.each(function() {
+				$(this).show();
+			});
 			return;
 		}
-
-		//console.log('storeId: '+getURLParameter('store'));
 
 		var data = {
 			'category': $(this).text(),
@@ -51,15 +48,23 @@ $(document).ready(function() {
 				console.log(productIds);
 
 				// loop for each product card from the store view
-				$.each($productsCardId, function() {
+				$productsCardId.each(function() {
+					var $current = $(this);
+					var hide     = false;
+
 					for(var i = 0; i < productIds.length; i++) {
-						var $current = $(this);
 
 						// get the id integer from the html id property
 						var id = parseInt($current.prop('id').split('product-')[1]);
 						if(id === productIds[i]) {
-							$current.hide();
+							hide = true;
 						}
+					}
+
+					if(hide === true) {
+						$current.hide();
+					} else {
+						$current.show();
 					}
 				});
 			});

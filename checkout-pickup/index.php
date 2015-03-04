@@ -235,7 +235,7 @@ try {
 							<h3><?php echo $store->getStoreName() . ' pickup locations'; ?></h3>
 						</div>
 					</div>
-					<div class="row mt30">
+					<div class="row mt30" id="store-<?php echo $store->getStoreId(); ?>">
 						<div class="col-sm-4">
 							<div class="list-group pickup-locations">
 								<span class="list-group-item">

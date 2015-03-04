@@ -51,7 +51,7 @@ require_once($prefix . 'paths.php');
 		<script src="<?php echo $prefix; ?>js/product.js"></script>
 		<script src="<?php echo $prefix; ?>js/cart.js"></script>
 		<script src="<?php echo $prefix; ?>js/sign-up.js"></script>
-		<script src="<?php echo $prefix; ?>js/checkout-shipping.js"></script>
+		<script src="<?php echo $prefix; ?>js/checkout-pickup.js"></script>
 		<script src="https://js.stripe.com/v2/"></script><!--	stripe api	-->
 		<script src="<?php echo $prefix; ?>js/checkout.js"></script>
 		<script src="<?php echo $prefix; ?>js/store.js"></script>

@@ -6,7 +6,7 @@ module("tabs", {
 });
 
 // global variables for form values
-var INVALID_PRODUCTNAME    = "R";
+var INVALID_PRODUCTNAME    = "Rosemary";
 var INVALID_PRODUCTPRICE = "1.2999.0000";
 var INVALID_PRODUCTDESCRIPTION = "please fail";
 var INVALID_PRODUCTPRICETYPE = "w";
@@ -15,25 +15,40 @@ var INVALID_PRODUCTSTOCKLIMIT = "56";
 var INVALID_IMAGE = "yes.txt";
 
 var VALID_PRODUCTNAME    = "Rosemary";
-var VALID_PRODUCTPRICE = " ";
+var VALID_PRODUCTPRICE = "1.00";
 var VALID_PRODUCTDESCRIPTION = "Description Here";
 var VALID_PRODUCTPRICETYPE = "w";
-var VALID_PRODUCTWEIGHT = " ";
+var VALID_PRODUCTWEIGHT = "1";
 var VALID_PRODUCTSTOCKLIMIT = "52";
 var VALID_IMAGE = "images/image.jpg";
+var VALID_TAG1 = "organic";
+var VALID_TAG2 = "";
+var VALID_TAG3 = "";
+var VALID_TAG4 = "";
+
 
 /**
  * test filling in only valid form data
  **/
 function testValidFields() {
 	// fill in the form values
+	F("#editProductName").type('[ctrl]a[ctrl-up][delete]');
 	F("#editProductName").type(VALID_PRODUCTNAME);
+	F("#editProductPrice").type('[ctrl]a[ctrl-up][delete]');
 	F("#editProductPrice").type(VALID_PRODUCTPRICE);
+	F("#editProductDescription").type('[ctrl]a[ctrl-up][delete]');
 	F("#editProductDescription").type(VALID_PRODUCTDESCRIPTION);
 	F("#editProductPriceType").click(VALID_PRODUCTPRICETYPE);
+	F("#editProductWeight").type('[ctrl]a[ctrl-up][delete]');
 	F("#editProductWeight").type(VALID_PRODUCTWEIGHT);
+	F("#editStockLimit").type('[ctrl]a[ctrl-up][delete]');
 	F("#editStockLimit").type(VALID_PRODUCTSTOCKLIMIT);
 	F("#editProductImage").click(VALID_IMAGE);
+	F("#addTags1").type('[ctrl]a[ctrl-up][delete]');
+	F("#addTags1").type(VALID_TAG1);
+	F("#addTags2").type(VALID_TAG2);
+	F("#addTags3").type(VALID_TAG3);
+	F("#addTags4").type(VALID_TAG4);
 
 	F.wait(10000);
 	// click the button once all the fields are filled in
@@ -55,11 +70,16 @@ function testValidFields() {
  * test filling in invalid form data
  **/
 function testInvalidFields() {
+	F("#editProductName").type('[ctrl]a[ctrl-up][delete]');
 	F("#editProductName").type(INVALID_PRODUCTNAME);
+	F("#editProductPrice").type('[ctrl]a[ctrl-up][delete]');
 	F("#editProductPrice").type(INVALID_PRODUCTPRICE);
+	F("#editProductDescription").type('[ctrl]a[ctrl-up][delete]');
 	F("#editProductDescription").type(INVALID_PRODUCTDESCRIPTION);
 	F("#editProductPriceType").click(INVALID_PRODUCTPRICETYPE);
+	F("#editProductWeight").type('[ctrl]a[ctrl-up][delete]');
 	F("#editProductWeight").type(INVALID_PRODUCTWEIGHT);
+	F("#editStockLimit").type('[ctrl]a[ctrl-up][delete]');
 	F("#editStockLimit").type(INVALID_PRODUCTSTOCKLIMIT);
 
 	F("#editSubmit").click();
@@ -72,13 +92,17 @@ function testInvalidFields() {
 		ok(F(this).html().indexOf("Exception: product price is not a valid float") === 0, "unsuccessful message");
 	});
 
+	F("#editProductPrice").type('[ctrl]a[ctrl-up][delete]');
 	F("#editProductPrice").type(VALID_PRODUCTPRICE);
+	F("#editProductName").type('[ctrl]a[ctrl-up][delete]');
 	F("#editProductName").type(VALID_PRODUCTNAME);
+	F("#editProductDescription").type('[ctrl]a[ctrl-up][delete]');
 	F("#editProductDescription").type(VALID_PRODUCTDESCRIPTION);
 	F("#editProductPriceType").click(VALID_PRODUCTPRICETYPE);
+	F("#editProductWeight").type('[ctrl]a[ctrl-up][delete]');
 	F("#editProductWeight").type(VALID_PRODUCTWEIGHT);
+	F("#editStockLimit").type('[ctrl]a[ctrl-up][delete]');
 	F("#editStockLimit").type(VALID_PRODUCTSTOCKLIMIT);
-
 	F("#editProductImage").click(INVALID_IMAGE);
 
 	F.wait(10000);
@@ -88,7 +112,7 @@ function testInvalidFields() {
 	F(".alert").visible(function() {
 		// the ok() function from qunit is equivalent to SimpleTest's assertTrue()
 		ok(F(this).hasClass("alert-danger"), "danger alert CSS");
-		ok(F(this).html().indexOf("Exception: The input image file should be either jpg, JPG, jpeg, JPEG, png or PNG") === 0, "unsuccessful message");
+		ok(F(this).html().indexOf("Exception: The input image file should be either jpg, JPG, jpeg, or JPEG") === 0, "unsuccessful message");
 	});
 
 

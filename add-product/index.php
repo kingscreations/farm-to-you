@@ -125,6 +125,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
+	$_SESSION["storeId"] = 1;
 	// grab all stores by profile id in dummy session
 	$products = Product::getAllProductsByStoreId($mysqli, $_SESSION["storeId"]);
 

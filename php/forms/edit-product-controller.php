@@ -2,7 +2,6 @@
 session_start();
 
 $currentDir = dirname(__FILE__);
-//require_once("../../dummy-session-single.php");
 require_once ("../../root-path.php");
 
 require_once("../classes/product.php");
@@ -10,9 +9,6 @@ require_once("../classes/category.php");
 require_once("../classes/categoryproduct.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../lib/utils.php");
-
-//var_dump($_SESSION);
-//var_dump($_POST);
 
 // verify the form values have been submitted
 if(@isset($_POST["editProductName"]) === false || @isset($_POST["editProductPrice"]) === false

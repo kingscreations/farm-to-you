@@ -21,6 +21,10 @@ var VALID_PRODUCTPRICETYPE = "w";
 var VALID_PRODUCTWEIGHT = "4.2";
 var VALID_PRODUCTSTOCKLIMIT = "52";
 var VALID_IMAGE = "images/image.jpg";
+var VALID_TAG1 = "organic";
+var VALID_TAG2 = "";
+var VALID_TAG3 = "";
+var VALID_TAG4 = "";
 
 /**
  * test filling in only valid form data
@@ -34,6 +38,10 @@ function testValidFields() {
 	F("#inputProductWeight").type(VALID_PRODUCTWEIGHT);
 	F("#inputStockLimit").type(VALID_PRODUCTSTOCKLIMIT);
 	F("#inputProductImage").click(VALID_IMAGE);
+	F("#addTags1").type(VALID_TAG1);
+	F("#addTags2").type(VALID_TAG2);
+	F("#addTags3").type(VALID_TAG3);
+	F("#addTags4").type(VALID_TAG4);
 
 	F.wait(10000);
 	// click the button once all the fields are filled in
@@ -94,7 +102,7 @@ function testInvalidFields() {
 	F(".alert").visible(function() {
 		// the ok() function from qunit is equivalent to SimpleTest's assertTrue()
 		ok(F(this).hasClass("alert-danger"), "danger alert CSS");
-		ok(F(this).html().indexOf("Exception: The input image file should be either jpg, JPG, jpeg, JPEG, png or PNG") === 0, "unsuccessful message");
+		ok(F(this).html().indexOf("Exception: The input image file should be either jpg, JPG, jpeg, or JPEG") === 0, "unsuccessful message");
 	});
 
 }

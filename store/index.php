@@ -49,10 +49,10 @@ try {
 	$store = Store::getStoreByStoreId($mysqli, $storeId);
 
 	// get all the products of the current product store
-	$storeProducts = Product::getAllProductsByStoreId($mysqli, $store->getStoreId());
+	$products = Product::getAllProductsByStoreId($mysqli, $store->getStoreId());
 
 	$categoryProducts = [];
-	foreach($storeProducts as $product) {
+	foreach($products as $product) {
 		$resultCategoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $product->getProductId());
 
 		$categoryProducts = array_merge($categoryProducts, $resultCategoryProducts);
@@ -73,7 +73,7 @@ try {
 	// get the store owner
 	$storeOwner = Profile::getProfileByProfileId($mysqli, $store->getProfileId());
 
-	if($storeProducts === null || $storeLocations === null) {
+	if($products === null || $storeLocations === null) {
 		header('Location: ../php/lib/404.php');
 	}
 
@@ -160,29 +160,29 @@ $storeImageSrc  = basename($store->getImagePath());
 			<div class="row" id="products">
 				<div class="col-sm-12">
 					<ul class="products product-listing">
-						<?php foreach($storeProducts as $index => $storeProduct) { ?>
+						<?php foreach($products as $index => $product) { ?>
 
 							<?php
 
 							$productImageBaseUrl  = CONTENT_ROOT_URL . 'images/product/';
 							$productImageBasePath = CONTENT_ROOT_PATH . 'images/product/';
-							$productImageSrc  = basename($storeProduct->getImagePath());
+							$productImageSrc      = basename($product->getImagePath());
+							$imagePlaceHolderSrc  = '../images/placeholder.png';
 
-							$productUrl = SITE_ROOT_URL.'product/index.php?product='.$storeProduct->getProductId();
+							$productUrl = SITE_ROOT_URL.'product/index.php?product='.$product->getProductId();
 
-							$productDescription = $storeProduct->getProductDescription();
-
+							$productDescription = $product->getProductDescription();
 							?>
 
-							<li id="<?php echo $storeProduct->getProductId(); ?>">
+							<li id="<?php echo $product->getProductId(); ?>">
 								<div class="product-listing-card">
 									<a class="product-listing-thumbnail"
 										href="<?php echo $productUrl; ?>"
 										title="<?php echo $productDescription; ?>"
 										>
-										<img src="<?php echo (file_exists($productImageBasePath.$productImageSrc)
+										<img src="<?php echo ($productImageSrc !== '' && file_exists($productImageBasePath.$productImageSrc)
 											? $productImageBaseUrl.$productImageSrc
-											: $imagePlaceholderSrc) ?>"
+											: $imagePlaceHolderSrc) ?>"
 											  alt="<?php echo $productDescription; ?>"
 												class="img-responsive"/>
 									</a>

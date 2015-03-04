@@ -7,9 +7,6 @@
 // start session as the first statement
 session_start();
 
-// credentials
-require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-
 // model
 require_once("../classes/checkout.php");
 require_once("../classes/orderproduct.php");
@@ -23,6 +20,7 @@ require_once("../classes/location.php");
 mysqli_report(MYSQLI_REPORT_STRICT);
 
 // get the credentials information from the server
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
 $_SESSION['user']['id'] = 1;

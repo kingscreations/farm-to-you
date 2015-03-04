@@ -22,6 +22,8 @@ require_once("../php/classes/profile.php");
 require_once("../php/classes/location.php");
 require_once("../php/classes/storelocation.php");
 require_once("../php/classes/orderproduct.php");
+require_once("../php/classes/categoryproduct.php");
+require_once("../php/classes/category.php");
 
 // path for the config file
 $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
@@ -48,6 +50,22 @@ try {
 
 	// get all the products of the current product store
 	$storeProducts = Product::getAllProductsByStoreId($mysqli, $store->getStoreId());
+
+	$categoryProducts = [];
+	foreach($storeProducts as $product) {
+		$resultCategoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $product->getProductId());
+
+		$categoryProducts = array_merge($categoryProducts, $resultCategoryProducts);
+	}
+
+	// get all the categories
+	$categories = [];
+	foreach($categoryProducts as $categoryProduct) {
+		$categories[] = Category::getCategoryByCategoryId($mysqli, $categoryProduct->getCategoryId());
+	}
+
+	// delete duplicates
+	$categories = array_unique($categories, SORT_REGULAR);
 
 	// get all the locations from the current store
 	$storeLocations = StoreLocation::getAllStoreLocationsByStoreId($mysqli, $store->getStoreId());
@@ -77,11 +95,11 @@ $storeImageSrc  = basename($store->getImagePath());
 		<div class="col-sm-3" id="store-menu">
 			<div class="list-group">
 				<span class="list-group-item">Store Sections</span>
-				<a href="#" class="list-group-item active">Store home</a>
-				<a href="#" class="list-group-item">Fruits</a>
-				<a href="#" class="list-group-item">Veggies</a>
-				<a href="#" class="list-group-item">Nuts</a>
-				<a href="#" class="list-group-item">Flowers</a>
+				<a href="#" class="list-group-item active">Home</a>
+				<?php foreach($categories as $category) { ?>
+					<a href="#" class="list-group-item"><?php echo $category->getCategoryName(); ?></a>
+				<?php } ?>
+
 			</div>
 
 			<div id="store-owner" class="section">

@@ -66,7 +66,7 @@ try {
 	}
 
 	// get rid of all the duplicates entries (2 products could be from the same store)
-	$stores = array_unique($stores);
+	$stores = array_unique($stores, SORT_REGULAR);
 
 	// get all the store locations from the stores
 	$storeLocationsByStore = [];

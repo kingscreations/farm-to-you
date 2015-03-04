@@ -16,7 +16,10 @@ require_once("../php/classes/store.php");
 require_once("../php/classes/category.php");
 require_once("../php/classes/location.php");
 require_once("../php/classes/categoryproduct.php");
+?>
 
+
+<?php
 // get the input from the session
 $searchq = $_SESSION['search'];
 
@@ -30,6 +33,32 @@ try {
 	$stores = Store::getStoreByStoreName($mysqli, $searchq);
 	$locations = Location::getLocationByNameOrAddress($mysqli, $searchq);
 
+	if($products !== null) {
+		// test each of the products of the store to see if it matches the category
+		$categoryProducts = [];
+		foreach($products as $product) {
+
+			$productId = $product->getProductId();
+
+			$categoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $productId);
+
+			if($categoryProducts !== null) {
+
+				$resultCategoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $productId);
+
+				$categoryProducts = array_merge($categoryProducts, $resultCategoryProducts);
+			}
+		}
+
+		// get all the categories
+		$categories = [];
+		foreach($categoryProducts as $categoryProduct) {
+			$categories[] = Category::getCategoryByCategoryId($mysqli, $categoryProduct->getCategoryId());
+		}
+
+		// delete duplicates
+		$categories = array_unique($categories, SORT_REGULAR);
+	}
 
 
 } catch(Exception $exception) {
@@ -42,7 +71,7 @@ try {
 <div class="container-fluid mt30">
 	<div class="row">
 		<div class="col-xs-12">
-			<p id="searchResultPage"><?php echo "Search Results For:\" " . $searchq; ?>"</p>
+			<p id="searchResultPage"><?php echo 'Search Results For: <span id="search-term">' . $searchq . '</span>'; ?></p>
 		</div>
 	</div>
 <!--</div>-->
@@ -51,11 +80,19 @@ try {
 	<div class="row">
 
 		<div class="col-sm-3 list-group" id="filter-categories">
-			<p>Categories</p>
-			<a href="#" class="list-group-item">Vegetables</a>
-			<a href="#" class="list-group-item">Fruits</a>
-			<a href="#" class="list-group-item">Organic</a>
-			<a href="#" class="list-group-item">Shit</a>
+			<p class="list-group-item">Categories</p>
+			</br>
+			<?php
+			if($products !== null) { ?>
+			<p class="list-group-item list-group-item-info">Products</p>
+			<?php } ?>
+			<a href="#" id="category-list" class="list-group-item active static">All</a>
+			<?php
+			if($products !== null) {
+				foreach($categories as $category) { ?>
+					<a href="#" id="category-list" class="list-group-item"><?php echo $category->getCategoryName(); ?></a>
+				<?php }
+			}?>
 		</div>
 
 		<div class="col-sm-9">
@@ -82,7 +119,6 @@ if($products !== null) {
 	echo '<th>Product</th>';
 	echo '<th>Description</th>';
 	echo '<th>Price</th>';
-	echo '<th>Categories</th>';
 	echo '</tr>';
 
 	foreach($products as $product) {
@@ -94,21 +130,6 @@ if($products !== null) {
 		$productPrice = $product->getProductPrice();
 		$productId = $product->getProductId();
 
-		$getCategories = CategoryProduct::getCategoryProductByProductId($mysqli, $productId);
-
-		foreach($getCategories as $getCategory) {
-			$categoryId = $getCategory->getCategoryId();
-			$getCategoryNames = Category::getCategoryByCategoryId($mysqli, $categoryId);
-
-			$categoryNames = $getCategoryNames->getCategoryName();
-
-			var_dump($categoryNames);
-
-			foreach($getCategoryNames as $categoryName) {
-				$categoryNames = $categoryName->getCategoryName();
-				var_dump($categoryNames);
-			}
-		}
 
 		echo '<tr>';
 		if(file_exists($product->getImagePath())) {
@@ -126,7 +147,6 @@ if($products !== null) {
 		echo '<td>' . $productName . '</td>';
 		echo '<td>' . $productDescription . '</td>';
 		echo '<td>$' . $productPrice . '</td>';
-		echo '<td>' . $categoryNames . $categoryNames . '</td>';
 		echo '</tr>';
 	}
 }
@@ -195,7 +215,8 @@ if($stores !== null) {
 	if($stores === null && $locations === null && $products === null) {
 		echo "<p class=\"alert alert-danger\">Sorry, but we can not find an entry to match your query</p><br><br>";
 //and we remind them what they searched for
-		echo "<b>Searched For:</b> " . $searchq;
+		echo "<b>Searched For:</b>" . $searchq;
+
 	}
 
 
@@ -204,5 +225,6 @@ if($stores !== null) {
 		</div>
 	</div>
 </div><!-- end container-fluid -->
+	<script src="../js/search.js"></script>
 
 <?php require_once('../php/lib/footer.php');

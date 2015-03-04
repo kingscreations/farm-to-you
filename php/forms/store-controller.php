@@ -28,7 +28,8 @@ $output = [];
 if(!@isset($_POST['category']) || !@isset($_POST['store'])) {
 
 	$output['error'] = 'Exception: problem with the inputs';
-	json_encode($output);
+	echo json_encode($output);
+	exit();
 
 } else {
 	$categoryName = filter_var($_POST['category'], FILTER_SANITIZE_STRING);

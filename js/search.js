@@ -27,6 +27,63 @@ $(document).ready(
 					required: "Please enter a search term"
 				}
 			}
+		});
+
+		$productsCardId = $('[id^=product-]');
+
+		$('.list-group-item').on('click', function() {
+
+			// the default link should not trigger the ajax callback
+			if($(this).hasClass('static')) {
+				$productsCardId.each(function() {
+					$(this).show();
+				});
+				return;
+			}
+
+			var data = {
+				'category': $(this).text(),
+				'searchTerm': $('#search-term').text()
+			}
+
+			$.ajax({
+				type: "post",
+				url: "../php/forms/category-search-controller.php",
+				data: data
+			})
+				.done(function(jsonOutput) {
+					var jsonOutput = jQuery.parseJSON(jsonOutput);
+
+					// if there is an error
+					if(typeof(jsonOutput.error) !== 'undefined') {
+						console.log(jsonOutput.error);
+						return;
+					}
+					var productIds = jsonOutput.products;
+
+					// loop for each product card from the store view
+					$productsCardId.each(function() {
+						var $current = $(this);
+						var hide = false;
+
+						for(var i = 0; i < productIds.length; i++) {
+
+							// get the id integer from the html id property
+							var id = parseInt($current.prop('id').split('product-')[1]);
+							if(id === productIds[i]) {
+								hide = true;
+							}
+						}
+
+						if(hide === true) {
+							$current.hide();
+						} else {
+							$current.show();
+						}
+					});
+				});
+		})
+	});
 
 			// setup an AJAX call to submit the form without reloading
 			//submitHandler: function(form) {
@@ -53,5 +110,4 @@ $(document).ready(
 			//		}
 			//	});
 			//}
-		});
-	});
+

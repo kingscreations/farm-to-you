@@ -22,7 +22,7 @@ for($i = 0; $i < count($_POST["productQuantity"]); $i++) {
 }
 
 // redirect the client to the checkout shipping selection page
-header("Location: ../../checkout-shipping/");
+header("Location: ../../checkout-pickup/");
 
 
 ?>

@@ -45,7 +45,6 @@ $(document).ready(function() {
 					return;
 				}
 				var productIds = jsonOutput.products;
-				console.log(productIds);
 
 				// loop for each product card from the store view
 				$productsCardId.each(function() {

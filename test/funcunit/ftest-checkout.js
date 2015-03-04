@@ -34,7 +34,7 @@ function testValidFields() {
 	F("#cart-validate-button").click();
 
 	F.wait(2000, function(){
-		F('#checkout-shipping-submit').click()
+		F('#checkout-pickup-submit').click()
 
 		F.wait(2000, function() {
 			if(F('#checkout-radio-new-card').length) {
@@ -76,7 +76,7 @@ function testInvalidFields() {
 	F("#cart-validate-button").click();
 
 	F.wait(2000, function(){
-		F('#checkout-shipping-submit').click()
+		F('#checkout-pickup-submit').click()
 
 		F.wait(2000, function() {
 			if(F('#checkout-radio-new-card').length) {
@@ -116,7 +116,7 @@ function testValidFieldsAndRememberUser() {
 	F("#cart-validate-button").click();
 
 	F.wait(2000, function(){
-		F('#checkout-shipping-submit').click()
+		F('#checkout-pickup-submit').click()
 
 		F.wait(2000, function() {
 			if(F('#checkout-radio-new-card').length) {
@@ -162,7 +162,7 @@ function testSubmitOldCreditCard() {
 	F("#cart-validate-button").click();
 
 	F.wait(2000, function(){
-		F('#checkout-shipping-submit').click()
+		F('#checkout-pickup-submit').click()
 
 		F.wait(2000, function() {
 			if(F('#checkout-radio-remember').length) {

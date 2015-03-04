@@ -267,7 +267,7 @@ try {
 
 	<div class="row">
 		<div class="col-sm-12">
-			<form id="checkoutShippingController" action="../php/forms/checkout-shipping-controller.php" method="post" novalidate>
+			<form id="checkoutShippingController" action="../php/forms/checkout-pickup-controller.php" method="post" novalidate>
 				<h3>Current pick-up location</h3>
 				<p>Here is the currently selected pick-up location:</p>
 				<ul>
@@ -277,7 +277,7 @@ try {
 				</ul>
 
 				<p id="outputArea"></p>
-				<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="checkout-shipping-submit">
+				<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="checkout-pickup-submit">
 			</form>
 		</div>
 	</div><!-- end row -->

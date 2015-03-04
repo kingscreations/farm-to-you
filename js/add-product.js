@@ -82,7 +82,32 @@ $(document).ready(
 
 					maxlength: 255,
 					required: false
+				},
+
+				addTags1: {
+					maxlength: 20,
+					notEqualTo: ".distinctTags",
+					required: false
+				},
+
+				addTags2: {
+					maxlength: 20,
+					notEqualTo: ".distinctTags",
+					required: false
+				},
+
+				addTags3: {
+					maxlength: 20,
+					notEqualTo: ".distinctTags",
+					required: false
+				},
+
+				addTags4: {
+					maxlength: 20,
+					notEqualTo: ".distinctTags",
+					required: false
 				}
+
 			},
 
 			// error messages to display to the end user
@@ -117,10 +142,25 @@ $(document).ready(
 				},
 
 				inputProductImage: {
-
 					maxlength: "Image directory is too long!"
+				},
 
+				addTags1: {
+					maxlength: "Tag is too long!"
+				},
+
+				addTags2: {
+					maxlength: "Tag is too long!"
+				},
+
+				addTags3: {
+					maxlength: "Tag is too long!"
+				},
+
+				addTags4: {
+					maxlength: "Tag is too long!"
 				}
+
 			},
 
 			//setup an AJAX call to submit the form without reloading

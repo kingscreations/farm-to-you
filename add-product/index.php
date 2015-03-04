@@ -101,10 +101,10 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 			<div class="form-group">
 				<label for="addTags">Tags:</label>
-				<span><input type="text" class="form-control" id="addTags1" name="addTags1"></span>
-				<span><input type="text" class="form-control" id="addTags2" name="addTags2"></span>
-				<span><input type="text" class="form-control" id="addTags3" name="addTags3"></span>
-				<span><input type="text" class="form-control" id="addTags4" name="addTags4"></span>
+				<span><input type="text" class="form-control distinctTags" id="addTags1" name="addTags1"></span>
+				<span><input type="text" class="form-control distinctTags" id="addTags2" name="addTags2"></span>
+				<span><input type="text" class="form-control distinctTags" id="addTags3" name="addTags3"></span>
+				<span><input type="text" class="form-control distinctTags" id="addTags4" name="addTags4"></span>
 			</div>
 
 		<br>

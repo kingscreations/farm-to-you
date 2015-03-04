@@ -131,9 +131,7 @@ $(document).ready(
 				},
 
 				editProductImage: {
-
 					maxlength: "Image directory is too long!"
-
 				},
 
 				addTags1: {

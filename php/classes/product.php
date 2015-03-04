@@ -88,6 +88,13 @@ class Product {
 	}
 
 	/**
+	 * @return String the product and its unique id
+	 */
+	public function __toString() {
+		return 'product-' . $this->getProductId();
+	}
+
+	/**
 	 * accessor for the product id
 	 *
 	 * @return int value for the product id

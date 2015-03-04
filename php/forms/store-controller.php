@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This controller returns the product ids to hide from a particular category
+ * This controller returns the products (product ids) to hide from a particular category
  *
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
@@ -44,18 +44,28 @@ try {
 	$products = Product::getAllProductsByStoreId($mysqli, $storeId);
 
 	// test each of the products of the store to see if it matches the category
-	$productIdsToHide = [];
+	$productsToShow = [];
 	foreach($products as $product) {
 		$categoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $product->getProductId());
 
 		foreach($categoryProducts as $categoryProduct) {
 			$category = Category::getCategoryByCategoryId($mysqli, $categoryProduct->getCategoryId());
 
-			// if NO match, add the current product to the product result set
-			if($category->getCategoryName() !== $categoryName) {
-				$productIdsToHide[] = $product->getProductId();
+			// if there is a match, then grab the product id inside $productIds
+			if($category->getCategoryName() === $categoryName) {
+				$productsToShow[] = $product;
+				break;
 			}
 		}
+	}
+
+	// finally, get the difference to only have the products we want to hide
+	$productsToHide = array_diff($products, $productsToShow);
+
+	// get the product ids
+	$productIds = [];
+	foreach($productsToHide as $productToHide) {
+		$productIds[] = $productToHide->getProductId();
 	}
 
 	$mysqli->close();
@@ -68,7 +78,7 @@ try {
 
 // result array will be return as a json object
 $output = array(
-	'products' => $productIdsToHide
+	'products' => $productIds
 );
 
 echo json_encode($output);

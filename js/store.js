@@ -17,11 +17,12 @@ $(document).ready(function() {
 
 	$('.list-group-item').on('click', function() {
 
+		$.each($productsCardId, function() {
+			$(this).show();
+		});
+
 		// the default link should not trigger the ajax callback
 		if($(this).hasClass('static')) {
-			$.each($productsCardId, function() {
-				$(this).show();
-			});
 			return;
 		}
 

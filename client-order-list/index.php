@@ -27,6 +27,8 @@ try {
 	// grab all stores by profile id in dummy session
 	$orders = Order::getAllOrdersByProfileId($mysqli, $profileId);
 
+	sort($orders);
+
 	// create table of existing stores
 	if($orders !== null) {
 

@@ -45,6 +45,13 @@ class Order {
 	}
 
 	/**
+	 * @return String the order and its unique id
+	 */
+	public function __toString() {
+		return 'order-' . $this->getOrderId();
+	}
+
+	/**
 	 * accessor for the order id
 	 *
 	 * @return int value for the order id

@@ -7,7 +7,8 @@ module("tabs", {
 
 var VALID_QUANTITY      = "12";
 
-var $cartQuantities = $('table.table tbody tr [id$=-quantity]');
+// thanks dylan!!
+var $cartQuantities = $('[id$=-quantity]');
 
 /**
  * test filling in only valid form data

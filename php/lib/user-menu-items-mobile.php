@@ -16,5 +16,5 @@
 <?php } else { ?>
 	<li><a href="<?php echo SITE_ROOT_URL . 'sign-in'; ?>">Login</span></a></li>
 	<li><a href="<?php echo SITE_ROOT_URL . 'sign-up'; ?>">Register</span></a></li>
-	<li><a href="<?php echo SITE_ROOT_URL . 'sign-up'; ?>">Become a merchant</span></a></li>
+<!--	<li><a href="--><?php //echo SITE_ROOT_URL . 'sign-up'; ?><!--">Become a merchant</span></a></li>-->
 <?php } ?>

@@ -90,12 +90,12 @@ $storeImageSrc  = basename($store->getImagePath());
 
 ?>
 
-<div class="container-fluid">
+<div class="container-fluid" id="store-view">
 	<div class="row">
 		<div class="col-sm-3" id="store-menu">
 			<div class="list-group">
 				<span class="list-group-item">Store Sections</span>
-				<a href="#" class="list-group-item active">Home</a>
+				<a href="#" class="list-group-item active static">Home</a>
 				<?php foreach($categories as $category) { ?>
 					<a href="#" class="list-group-item"><?php echo $category->getCategoryName(); ?></a>
 				<?php } ?>
@@ -174,7 +174,7 @@ $storeImageSrc  = basename($store->getImagePath());
 							$productDescription = $product->getProductDescription();
 							?>
 
-							<li id="<?php echo $product->getProductId(); ?>">
+							<li id="<?php echo 'product-' . $product->getProductId(); ?>">
 								<div class="product-listing-card">
 									<a class="product-listing-thumbnail"
 										href="<?php echo $productUrl; ?>"

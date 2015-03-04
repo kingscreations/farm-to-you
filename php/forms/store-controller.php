@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This controller returns the products to show from a particular category
+ * This controller returns the product ids to hide from a particular category
  *
  * @author Florian Goussin <florian.goussin@gmail.com>
  */
@@ -22,10 +22,13 @@ require_once('../classes/store.php');
 require_once('/etc/apache2/capstone-mysql/encrypted-config.php');
 $configFile = '/etc/apache2/capstone-mysql/farmtoyou.ini';
 
-// the result is an
-$results = [];
+// output array
+$output = [];
 
 if(!@isset($_POST['category']) || !@isset($_POST['store'])) {
+
+	$output['error'] = 'Exception: problem with the inputs';
+	json_encode($output);
 
 } else {
 	$categoryName = filter_var($_POST['category'], FILTER_SANITIZE_STRING);
@@ -40,18 +43,34 @@ try {
 
 	$products = Product::getAllProductsByStoreId($mysqli, $storeId);
 
-	$categoryProducts = [];
+	// test each of the products of the store to see if it matches the category
+	$productIdsToHide = [];
 	foreach($products as $product) {
-		$resultCategoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $product->getProductId());
-		$categoryProducts = array_merge($categoryProducts, $resultCategoryProducts);
+		$categoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $product->getProductId());
+
+		foreach($categoryProducts as $categoryProduct) {
+			$category = Category::getCategoryByCategoryId($mysqli, $categoryProduct->getCategoryId());
+
+			// if NO match, add the current product to the product result set
+			if($category->getCategoryName() !== $categoryName) {
+				$productIdsToHide[] = $product->getProductId();
+			}
+		}
 	}
-
-
 
 	$mysqli->close();
 
 } catch(Exception $exception) {
-	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
+
+	$output['error'] = 'Exception: ' . $exception->getMessage();
+	json_encode($output);
 }
+
+// result array will be return as a json object
+$output = array(
+	'products' => $productIdsToHide
+);
+
+echo json_encode($output);
 
 ?>

@@ -42,19 +42,19 @@ $(document).ready(function() {
 				type: "POST",
 				url: "../php/forms/product-controller.php",
 				data: data,
-				success: function(output_json) {
+				success: function(jsonOutput) {
 
-					var output_json = jQuery.parseJSON(output_json);
+					var jsonOutput = jQuery.parseJSON(jsonOutput);
 
 					$("#outputArea").css("display", "");
-					$("#outputArea").html(output_json.message);
+					$("#outputArea").html(jsonOutput.message);
 
 					// update the cart icon count
 					var $cartCount = $('#cart-main-menu-item a .count');
 					if($cartCount.length > 0) {
-						$cartCount.text(output_json.cartCount);
+						$cartCount.text(jsonOutput.cartCount);
 					} else {
-						$('#cart-main-menu-item a').append('<span class="count">' + output_json.cartCount + '</span>');
+						$('#cart-main-menu-item a').append('<span class="count">' + jsonOutput.cartCount + '</span>');
 					}
 
 					if($(".alert-success").length >= 1) {

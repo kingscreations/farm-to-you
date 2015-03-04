@@ -3,12 +3,12 @@
 ********************************************/
 @font-face {
 	font-family: 'Biko';
-	src: url('../fonts/Biko_Regular.otf') format('opentype')
+	src: url('../fonts/Biko_Regular.otf') format('opentype');
 }
 
 @font-face {
 	font-family: 'ArchitectsDaughter';
-	src: url('../fonts/ArchitectsDaughter.ttf') format('truetype')
+	src: url('../fonts/ArchitectsDaughter.ttf') format('truetype');
 }
 
 /********************************************

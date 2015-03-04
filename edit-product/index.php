@@ -6,11 +6,11 @@ require_once("../php/classes/product.php");
 require_once("../php/classes/category.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
-$_SESSION['productId'] = 1;
-$_SESSION["categoryId1"] = 1;
-$_SESSION["categoryId2"] = 2;
-$_SESSION["categoryId2"] = 3;
-$_SESSION["categoryId2"] = 4;
+//$_SESSION['productId'] = 1;
+//$_SESSION["categoryId1"] = 1;
+//$_SESSION["categoryId2"] = 2;
+//$_SESSION["categoryId2"] = 3;
+//$_SESSION["categoryId2"] = 4;
 
 try {
 
@@ -159,21 +159,22 @@ try {
 
 
 		<br>
-		<div class="form-group">
+		<div class="form-group edit-product">
 
 			<?php
 
-			$baseUrl             = CONTENT_ROOT_URL . 'images/product/';
-			$basePath            = CONTENT_ROOT_PATH . 'images/product/';
-			$imagePlaceholderSrc = 'placeholder.jpg';
-			$imageSrc            = 'product-'. $_SESSION['productId'] .'.jpg';
+			$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
+
+			$productBaseUrl      = CONTENT_ROOT_URL . 'images/product/';
+			$productBasePath     = CONTENT_ROOT_PATH . 'images/product/';
+			$productImageSrc     = basename($product->getImagePath());
 
 			// show a placeholder if the product is not associated with an image
-			if(file_exists($basePath . $imageSrc)) {
+			if(file_exists($productBasePath . $productImageSrc)) {
 				?>
-				<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $productName; ?>"/>
+				<img class="thumbnail img-responsive" src="<?php echo $productBaseUrl . $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
 			<?php } else { ?>
-				<img class="thumbnail img-responsive" src="<?php echo "../images/placeholder.png"; ?>" alt="<?php echo $productName; ?>"/>
+				<img class="thumbnail img-responsive" src="<?php echo $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
 			<?php } ?>
 
 		</div>

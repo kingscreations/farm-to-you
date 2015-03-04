@@ -160,6 +160,12 @@ footer p {
 	height: 30px;
 }
 
+.edit-product img {
+
+	max-width: 100%;
+	height: 200px;
+}
+
 @media screen and (min-width: 768px) {
 	.inline-list {
 	 	padding: inherit;

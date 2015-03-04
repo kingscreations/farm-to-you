@@ -103,21 +103,21 @@ if($profileType === "m") {
 		</div>
 
 		<br>
-		<div class="form-group">
+		<div class="form-group edit-product">
 
 			<?php
 
 			$baseUrl             = CONTENT_ROOT_URL . 'images/profile/';
 			$basePath            = CONTENT_ROOT_PATH . 'images/profile/';
-			$imagePlaceholderSrc = 'placeholder.jpg';
-			$imageSrc            = 'profile-'. $profileId .'.jpg';
+			$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
+			$imageSrc            = basename($profile->getImagePath());
 
 			// show a placeholder if the product is not associated with an image
 			if(file_exists($basePath . $imageSrc)) {
 				?>
 				<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
 			<?php } else { ?>
-				<img class="thumbnail img-responsive" src="<?php echo "../images/placeholder.png"; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
+				<img class="thumbnail img-responsive" src="<?php echo $imagePlaceholderSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
 			<?php } ?>
 
 		</div>

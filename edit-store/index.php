@@ -79,21 +79,21 @@ try {
 				<input type="file" class="form-control" name="editInputImage" id="editInputImage">
 			</div>
 			<br>
-			<div class="form-group">
+			<div class="form-group edit-product">
 
 				<?php
 
 				$baseUrl             = CONTENT_ROOT_URL . 'images/store/';
 				$basePath            = CONTENT_ROOT_PATH . 'images/store/';
-				$imagePlaceholderSrc = 'placeholder.jpg';
-				$imageSrc            = 'store-'. $_SESSION['storeId'] .'.jpg';
+				$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
+				$imageSrc            = basename($store->getImagePath());
 
 				// show a placeholder if the product is not associated with an image
 				if(file_exists($basePath . $imageSrc)) {
 					?>
 					<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $storeName; ?>"/>
 				<?php } else { ?>
-					<img class="thumbnail img-responsive" src="<?php echo "../images/placeholder.png"; ?>" alt="<?php echo $storeName; ?>"/>
+					<img class="thumbnail img-responsive" src="<?php echo $imagePlaceholderSrc; ?>" alt="<?php echo $storeName; ?>"/>
 				<?php } ?>
 
 			</div>

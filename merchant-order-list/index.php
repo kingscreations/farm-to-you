@@ -75,16 +75,7 @@ try {
 		}
 		$orders = array_unique($orders, SORT_REGULAR);
 
-		function intcmp($a,$b)
-		{
-			return ($a-$b) ? ($a-$b)/abs($a-$b) : 0;
-		}
-
-
-		function cmp($a, $b) {
-			return intcmp($a->getOrderId(), $b->getOrderId());
-		}
-		usort($orders, "cmp");
+		sort($orders);
 
 		if($orders !== null) {
 

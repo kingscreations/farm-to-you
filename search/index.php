@@ -184,7 +184,8 @@ if($products !== null) {
 					<img class="img-responsive" src="' . $imagePlaceholderSrc . '">
 					</a></td>';
 		}
-		echo '<td>' . $productName . '</td>';
+		echo '<td><a href="'. SITE_ROOT_URL . 'product/index.php?product=' .
+			$product->getProductId(). '">'. $productName . '</a></td>';
 		echo '<td>' . $productDescription . '</td>';
 		echo '<td>$' . $productPrice . '</td>';
 		echo '</tr>';

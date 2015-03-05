@@ -87,10 +87,15 @@ if($_SESSION['products'][$productId]['quantity'] >= $stockLimit) {
 		This product is out of stock now.</p>';
 	}
 } else {
+	$numberProductsAdded = $productQuantity;
 	$text = ($productQuantity === 1) ? ' has been added.' : ' have been added to your cart.';
 	$message = '<p class="alert alert-success">' . $productQuantity . ' ' . $product->getProductName() .
 		$text . '</p>';
 }
+
+// set the new stock limit
+$_SESSION['products'][$productId]['stockLimit'] = $stockLimit - $numberProductsAdded;
+
 // return the number of product to the ajax call (update the cart icon)
 $output = array(
 	'cartCount' => count($_SESSION['products']),

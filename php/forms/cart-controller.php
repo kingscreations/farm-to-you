@@ -14,7 +14,7 @@ for($i = 0; $i < count($_POST["productQuantity"]); $i++) {
 	// get the new product quantities from the $_POST global variable
 	$newProductQuantity = filter_var($_POST['productQuantity'][$i], FILTER_SANITIZE_NUMBER_FLOAT);
 
-	// get the product id from the $_SESSION global variable
+// get the product id from the $_SESSION global variable
 	$productId = $productIds[$i];
 
 	// update the SESSION with the up to date quantities

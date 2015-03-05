@@ -18,10 +18,11 @@ if(!@isset($_POST['storeLocation']) || is_array($_POST['storeLocation'])) {
 } else {
 	$storeLocationsMapping = filter_var($_POST['storeLocation'], FILTER_SANITIZE_STRING);
 
-	$storesId = [];
-
+	$storesId    = [];
+	$locationsId = [];
 	foreach($storeLocationsMapping as $storeLocationMapping) {
-		$storeLocationMapping;
+		$storeLocationMappingExploded = explode('|', $storeLocationMapping);
+		var_dump($storeLocationMappingExploded);
 	}
 }
 
@@ -46,7 +47,7 @@ try {
 	$_SESSION['order-location'] = $location->getLocationId();
 
 	// redirect the client to the checkout page
-	header("Location: ../../checkout/");
+//	header("Location: ../../checkout/");
 
 	echo "<p class=\"alert alert-success\">Location (id = " . $location->getLocationId() . ") used successfully!</p>";
 

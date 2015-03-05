@@ -75,6 +75,7 @@ try {
 //		$productsToShow[] = $product;
 //		continue;
 
+
 		foreach($categoryProducts as $categoryProduct) {
 			$category = Category::getCategoryByCategoryId($mysqli, $categoryProduct->getCategoryId());
 

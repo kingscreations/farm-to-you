@@ -69,8 +69,11 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 									// get the product from the database
 									$product = Product::getProductByProductId($mysqli, $sessionProductId);
 
-									echo '<tr>';
+									if($product === null) {
+										continue;
+									}
 
+									echo '<tr>';
 
 									if(file_exists($product->getImagePath())) {
 										echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
@@ -110,7 +113,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 									echo '<td>';
 
 									// select box
-									echo '<select class="product-quantity" id="product' . $counter . '-quantity" name="productQuantity[]">';
+									echo '<select class="product-quantity" id="product' . $counter . '-quantity" name="productQuantity[]" ' . (($stockLimit === 0) ? 'disabled' : '') .' >';
 									// creating $stockLimit # of options
 									for($i = 0; $i < $stockLimit; $i++) {
 										if(($i + 1) === intval($sessionProduct['quantity'])) {

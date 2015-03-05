@@ -44,11 +44,11 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 <!--Form for adding a new product-->
 	<div class="container-fluid">
 		<div class="row">
-<div class="col-md-9">
+	<div class="col-md-9">
 	<h2>Add Product</h2>
 
 	<form id="addProduct" class="form-inline" method="post" action="../php/forms/add-product-controller.php" novalidate>
-
+		<?php echo generateInputTags(); ?>
 		<div class="form-group">
 			<label for="inputProductName">Product Name:</label>
 			<input type="text" class="form-control" name="inputProductName" id="inputProductName" placeholder="Product Name">

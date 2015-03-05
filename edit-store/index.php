@@ -60,10 +60,11 @@ try {
 	</div>
 
 	<div class="container-fluid">
-<div class="row">
+	<div class="row">
 	<div class="col-sm-9">
 		<h2>Edit Store</h2>
 		<form class="form-inline" id="editStoreController" method="post" action="../php/forms/edit-store-controller.php" enctype="multipart/form-data">
+			<?php echo generateInputTags(); ?>
 			<div class="form-group">
 				<label for="editStoreName">Store Name</label>
 				<input type="text" class="form-control" name="editStoreName" id="editStoreName" value="<?php echo $storeName;?>">

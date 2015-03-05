@@ -82,7 +82,7 @@ try {
 }
 
 // image path and url setup
-$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
+$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.png';
 
 $productBaseUrl      = CONTENT_ROOT_URL . 'images/product/';
 $productBasePath     = CONTENT_ROOT_PATH . 'images/product/';

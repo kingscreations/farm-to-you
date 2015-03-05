@@ -89,7 +89,7 @@ try {
 	<h2>Edit Product</h2>
 
 	<form id="editProduct" class="form-inline" method="post" action="../php/forms/edit-product-controller.php"  enctype="multipart/form-data">
-
+		<?php echo generateInputTags(); ?>
 		<div class="form-group">
 			<label for="editProductName">Product Name:</label>
 			<input type="text" class="form-control" name="editProductName" id="editProductName" value="<?php echo $productName;?>">

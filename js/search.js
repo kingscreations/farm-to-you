@@ -1,11 +1,4 @@
 
-//$('.list-group-item').on('click', function(event) {
-//
-//	// force the link to be triggered
-//	window.location.href = $(this).prop('href');
-//});
-
-
 //tell the validator to validate this form (by id)
 $("#search").validate({
 	// setup the formatting for the errors

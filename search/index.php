@@ -68,33 +68,33 @@ try {
 		$categories = array_unique($categories, SORT_REGULAR);
 	}
 
-
+// FEATURE THAT ALLOW UNIQUE URL by search term AND category name
 	// filter the products by the category name
-	if($products !== null && $categoryNameFromUrl !== '') {
-		// test each of the products of the store to see if it matches the category
-		$productsToShow = [];
-		foreach($products as $product) {
-
-			$categoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $product->getProductId());
-
-			// just go directly to the next iteration since no category is available for this product
-			if($categoryProducts === null) {
-				continue;
-			}
-
-			foreach($categoryProducts as $categoryProduct) {
-				$category = Category::getCategoryByCategoryId($mysqli, $categoryProduct->getCategoryId());
-
-				// if there is a match, then grab the product id inside $productIds
-				if($category->getCategoryName() === $categoryNameFromUrl) {
-					$productsToShow[] = $product;
-					break;
-				}
-			}
-		}
-
-		$products = $productsToShow;
-	}
+//	if($products !== null && $categoryNameFromUrl !== '') {
+//		// test each of the products of the store to see if it matches the category
+//		$productsToShow = [];
+//		foreach($products as $product) {
+//
+//			$categoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $product->getProductId());
+//
+//			// just go directly to the next iteration since no category is available for this product
+//			if($categoryProducts === null) {
+//				continue;
+//			}
+//
+//			foreach($categoryProducts as $categoryProduct) {
+//				$category = Category::getCategoryByCategoryId($mysqli, $categoryProduct->getCategoryId());
+//
+//				// if there is a match, then grab the product id inside $productIds
+//				if($category->getCategoryName() === $categoryNameFromUrl) {
+//					$productsToShow[] = $product;
+//					break;
+//				}
+//			}
+//		}
+//
+//		$products = $productsToShow;
+//	}
 
 
 } catch(Exception $exception) {

@@ -49,6 +49,10 @@ try {
 	foreach($products as $product) {
 		$categoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $product->getProductId());
 
+		if($categoryProducts === null) {
+			continue;
+		}
+
 		foreach($categoryProducts as $categoryProduct) {
 			$category = Category::getCategoryByCategoryId($mysqli, $categoryProduct->getCategoryId());
 

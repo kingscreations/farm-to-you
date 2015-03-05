@@ -39,6 +39,7 @@ require_once("../php/classes/location.php");
 	<div class="col-sm-9">
 		<h2>Add Location</h2>
 		<form class="form-inline" id="locationController" method="post" action="../php/forms/add-location-controller.php">
+			<?php echo generateInputTags(); ?>
 			<div class="form-group">
 				<label for="locationName">Location Name</label>
 				<input type="text" id="locationName" name="locationName" value="Home">

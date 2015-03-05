@@ -123,7 +123,7 @@ if($products !== null) {
 
 	foreach($products as $product) {
 
-		$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
+		$imagePlaceholderSrc = SITE_ROOT_URL. 'images/placeholder.png';
 
 		$productName = $product->getProductName();
 		$productDescription = $product->getProductDescription();
@@ -163,7 +163,7 @@ if($stores !== null) {
 		$storeImage = $store->getImagePath();
 		$storeDescription = $store->getStoreDescription();
 
-		$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
+		$imagePlaceholderSrc = SITE_ROOT_URL. 'images/placeholder.png';
 
 
 		echo '<tr>';

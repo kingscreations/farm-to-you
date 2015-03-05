@@ -80,8 +80,11 @@ if($hasProfile === null) {
 </div>';
 } else {
 	echo '<div class="container">
-				<h3>You already have a Profile, if you would like to edit your profile please click this button: <form action="../edit-profile/index.php"><input class ="form-control" type="submit" value="Edit Profile"></form></h3>
-				</div>';
+				<h3>You already have a Profile, if you would like to edit your profile please click this button: <form action="../edit-profile/index.php"><input class ="form-control" type="submit" value="Edit Profile">';
+				echo generateInputTags();
+				echo '</form>
+						</h3>
+			</div>';
 };
 
 require_once("../php/lib/footer.php");

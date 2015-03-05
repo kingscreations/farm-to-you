@@ -11,6 +11,7 @@ require_once('../php/lib/header.php');
 	<div class="home-top-search-area hidden-xs">
 		<h1 class="heading">Delicious products and fair trades directly from the farmers</h1>
 		<form class="mt30" action="../php/forms/search-controller.php" id="search" method="post">
+			<?php echo generateInputTags(); ?>
 			<div class="input-group">
 				<input class="form-control search-field" type="text" id="inputSearch" name="inputSearch" placeholder="What are you looking for today?" />
 				<input type="hidden" value="yes" name="searching">
@@ -27,6 +28,7 @@ require_once('../php/lib/header.php');
 			<div class="col-xs-12">
 				<h1 class="heading">Delicious products and fair trades directly from the farmers</h1>
 				<form class="mt30" action="../php/forms/search-controller.php" id="search" method="post">
+					<?php echo generateInputTags(); ?>
 					<div class="input-group">
 						<input class="form-control search-field" type="text" id="inputSearch" name="inputSearch" placeholder="What are you looking for today?" />
 						<input type="hidden" value="yes" name="searching">

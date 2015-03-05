@@ -65,6 +65,7 @@ try {
 		<div class="col-sm-9">
 			<h2>Edit Location</h2>
 			<form class="form-inline" id="editLocationController" method="post" action="../php/forms/edit-location-controller.php">
+				<?php echo generateInputTags(); ?>
 				<div class="form-group">
 					<label for="locationName">Location Name</label>
 					<input type="text" class="form-control" name="locationName" id="locationName" value="<?php echo $locationName;?>">

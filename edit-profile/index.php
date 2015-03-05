@@ -69,7 +69,7 @@ if($profileType === "m") {
 	<h2>Edit Profile</h2>
 
 	<form id="editProfile" class="form-inline" method="post" action="../php/forms/edit-profile-controller.php" enctype="multipart/form-data">
-
+		<?php echo generateInputTags(); ?>
 		<div class="form-group">
 			<label for="inputFirstname">First Name:</label>
 			<input type="text" class="form-control" id="inputFirstname" name="inputFirstname" placeholder="<?php echo $profileFirstname ?>" value="<?php echo $profileFirstname ?>">

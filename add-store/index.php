@@ -44,6 +44,7 @@ $profileId = $_SESSION['profileId'];
 	<div class="col-md-9">
 		<h2>Add Store</h2>
 		<form class="form-inline" id="storeController" method="post" action="../php/forms/add-store-controller.php" enctype="multipart/form-data">
+			<?php echo generateInputTags(); ?>
 			<div class="form-group">
 				<label for="storeName">Store Name</label>
 				<input type="text" id="storeName" name="storeName" value="Pass Farms">

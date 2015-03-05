@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $currentDir = dirname(__FILE__);
 require_once("../classes/profile.php");
 require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
@@ -27,11 +27,28 @@ try {
 
 	$userId = 1;
 
-	// Set your secret key: remember to change this to your live secret key in production
-// See your keys here https://dashboard.stripe.com/account
-	\Stripe\Stripe::setApiKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2");
+	/**
+	 * Stripe API calls
+	 */
 
-// Get the bank account details submitted by the form
+// auto load includes all the API files
+	require_once('../../external-libs/autoload.php');
+
+// setup
+	\Stripe\Stripe::setApiKey($configArray['stripe']);
+	$error = '';
+	$success = '';
+
+
+	$profile = Profile::getProfileByProfileId($mysqli, $profileId);
+	$profileType = $profile->getProfileType();
+	$profileFirstname = $profile->getFirstName();
+	$profileLastname = $profile->getLastName();
+	$profilePhone = $profile->getPhone();
+	$profileImage = $profile->getImagePath();
+	$profileToken = $profile->getCustomerToken();
+
+	// Get the bank account details submitted by the form
 	$token_id = $_POST['stripeToken'];
 
 // Create a Recipient
@@ -43,15 +60,7 @@ try {
 			"email" => "payee@example.com")
 	);
 
-
-
-	$profile = Profile::getProfileByProfileId($mysqli, $profileId);
-	$profileType = $profile->getProfileType();
-	$profileFirstname = $profile->getFirstName();
-	$profileLastname = $profile->getLastName();
-	$profilePhone = $profile->getPhone();
-	$profileImage = $profile->getImagePath();
-	$profileToken = $profile->getCustomerToken();
+	var_dump($recipient);
 
 	// if user makes edits, update in profile
 	if($_POST['stripeToken'] !== '') {

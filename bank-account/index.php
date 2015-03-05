@@ -55,6 +55,12 @@ if($profileType !== "m") {
 					<input type="text" class="form-control" id="stripeToken" name="stripeToken">
 				</div>
 
+				<br>
+
+				<div class="form-group">
+					<input type="submit" class="form-control">
+				</div>
+
 				</form>
 		</div>
 	</div>

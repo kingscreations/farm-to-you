@@ -77,10 +77,6 @@ try {
 	// get the store owner
 	$storeOwner = Profile::getProfileByProfileId($mysqli, $store->getProfileId());
 
-	if($products === null || $storeLocations === null) {
-		header('Location: ../php/lib/404.php');
-	}
-
 	$mysqli->close();
 
 } catch(Exception $exception) {
@@ -114,6 +110,12 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 			</div>
 		</div>
 		<div class="col-sm-9" id="store-content">
+			<?php
+				if($products === null || $storeLocations === null) {
+					throw new Exception('products are null and store location are null');
+					exit();
+				}
+			?>
 			<div class="row">
 				<div class="col-sm-12">
 					<div id="store-id-card">

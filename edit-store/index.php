@@ -85,7 +85,7 @@ try {
 
 				$baseUrl             = CONTENT_ROOT_URL . 'images/store/';
 				$basePath            = CONTENT_ROOT_PATH . 'images/store/';
-				$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
+				$imagePlaceholderSrc = CONTENT_ROOT_URL . 'images/placeholder.png';
 				$imageSrc            = basename($store->getImagePath());
 
 				// show a placeholder if the product is not associated with an image

@@ -52,11 +52,13 @@ try {
 	$products = Product::getAllProductsByStoreId($mysqli, $store->getStoreId());
 
 	$categoryProducts = [];
-	foreach($products as $product) {
-		$resultCategoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $product->getProductId());
+	if($products !== null) {
+		foreach($products as $product) {
+			$resultCategoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $product->getProductId());
 
-		if($resultCategoryProducts !== null) {
-			$categoryProducts = array_merge($categoryProducts, $resultCategoryProducts);
+			if($resultCategoryProducts !== null) {
+				$categoryProducts = array_merge($categoryProducts, $resultCategoryProducts);
+			}
 		}
 	}
 
@@ -89,6 +91,7 @@ try {
 $storeBaseUrl  = CONTENT_ROOT_URL . 'images/store/';
 $storeBasePath = CONTENT_ROOT_PATH . 'images/store/';
 $storeImageSrc  = basename($store->getImagePath());
+$bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 
 ?>
 
@@ -121,7 +124,7 @@ $storeImageSrc  = basename($store->getImagePath());
 								title="<?php echo $store->getStoreDescription(); ?>">
 								<img src="<?php echo file_exists($storeBasePath.$storeImageSrc)
 									? $storeBaseUrl.$storeImageSrc
-									: $imagePlaceHolderSrc; ?>"
+									: $bannerImagePlaceHolderSrc; ?>"
 									  alt="<?php echo $store->getStoreName(); ?>"
 										class="img-responsive"/>
 							</a>
@@ -162,7 +165,8 @@ $storeImageSrc  = basename($store->getImagePath());
 			<div class="row" id="products">
 				<div class="col-sm-12">
 					<ul class="products product-listing">
-						<?php foreach($products as $index => $product) { ?>
+						<?php if($products !== null) {
+									foreach($products as $index => $product) { ?>
 
 							<?php
 
@@ -203,7 +207,7 @@ $storeImageSrc  = basename($store->getImagePath());
 								</div><!-- end product-listing card -->
 							</li>
 
-						<?php } ?><!-- end of the for each store product loop -->
+						<?php } }?><!-- end of the for each store product loop -->
 					</ul>
 				</div>
 			</div>

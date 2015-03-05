@@ -58,7 +58,7 @@ $('.list-group-item').on('click', function() {
 		data: data
 	})
 		.done(function(jsonOutput) {
-			console.log(jsonOutput);
+			//console.log(jsonOutput);
 			var jsonOutput = jQuery.parseJSON(jsonOutput);
 
 			// if there is an error

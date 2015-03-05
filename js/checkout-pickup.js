@@ -4,13 +4,8 @@
 
 $(document).ready(function() {
 
-	//$('.collapsed').on('click', function() {
-	//
-	//});
-
 	/**
-	 * will only work with js activated
-	 * checkout-pickup needs eventually to be old-browser compatible
+	 * click on the "Continue to checkout" button
 	 */
 	$('#checkout-pickup-submit').on('click', function() {
 
@@ -31,19 +26,18 @@ $(document).ready(function() {
 					// get the location id
 					location = $current.prop('id').split('location-')[1];
 					return;
+				} else {
+					location = null;
 				}
 			});
 
-			// format the store location
-			var storeLocation = {
-				'store': store,
-				'location': location
+			if(location !== null) {
+				// store everything in a home made map
+				$('store-'+ store + '_location-' + location).val(store + '|' + location);
 			}
-
-			// finally put the store location in the store locations array
-			storeLocations = array_push(storeLocation);
 		});
 
+		this.submit();
 
 	});
 

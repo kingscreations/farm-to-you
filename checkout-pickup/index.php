@@ -252,7 +252,9 @@ try {
 											<?php echo $location->getCity() . ' ' . $location->getState() . ' ' .
 												$location->getZipCode(); ?><br/>
 										</a>
-										<input type="hidden" name="location[]" id=""/>
+										<input type="hidden"
+												 name="storeLocation[]"
+												 id="store-<?php echo $store->getStoreId(); ?>_location-<?php echo $location->getLocationId(); ?>" />
 									<?php } ?>
 								</div>
 							</div>

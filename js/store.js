@@ -38,7 +38,7 @@ $(document).ready(function() {
 		})
 			.done(function(jsonOutput) {
 
-				var jsonOutput = jQuery.parseJSON(jsonOutput);
+				//var jsonOutput = jQuery.parseJSON(jsonOutput);
 
 				// if there is an error
 				if(typeof(jsonOutput.error) !== 'undefined') {

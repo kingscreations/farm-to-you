@@ -74,7 +74,7 @@ try {
 } catch(Exception $exception) {
 
 	$output['error'] = 'Exception: ' . $exception->getMessage();
-	json_encode($output);
+	echo json_encode($output);
 }
 
 // result array will be return as a json object

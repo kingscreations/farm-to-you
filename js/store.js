@@ -33,6 +33,7 @@ $(document).ready(function() {
 		$.ajax({
 			type: "post",
 			url: "../php/forms/store-controller.php",
+			dataType: 'json',
 			data: data
 		})
 			.done(function(jsonOutput) {

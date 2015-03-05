@@ -20,8 +20,20 @@ require_once("../php/classes/categoryproduct.php");
 
 
 <?php
-// get the input from the session
-$searchq = $_SESSION['search'];
+
+// get the variables from the URL
+if(@isset($_GET['searchq'])) {
+	$searchq = filter_var($_GET['searchq'], FILTER_SANITIZE_STRING);
+} else {
+	throw new InvalidArgumentException('searchq missing in the URL');
+	exit();
+}
+
+if(@isset($_GET['category'])) {
+	$categoryNameFromUrl = filter_var($_GET['category'], FILTER_SANITIZE_STRING);
+} else {
+	$categoryNameFromUrl = '';
+}
 
 // connect to database and filter search
 try {
@@ -39,13 +51,9 @@ try {
 		foreach($products as $product) {
 
 			$productId = $product->getProductId();
+			$resultCategoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $productId);
 
-			$categoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $productId);
-
-			if($categoryProducts !== null) {
-
-				$resultCategoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $productId);
-
+			if($resultCategoryProducts !== null) {
 				$categoryProducts = array_merge($categoryProducts, $resultCategoryProducts);
 			}
 		}
@@ -58,6 +66,34 @@ try {
 
 		// delete duplicates
 		$categories = array_unique($categories, SORT_REGULAR);
+	}
+
+
+	// filter the products by the category name
+	if($products !== null && $categoryNameFromUrl !== '') {
+		// test each of the products of the store to see if it matches the category
+		$productsToShow = [];
+		foreach($products as $product) {
+
+			$categoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $product->getProductId());
+
+			// just go directly to the next iteration since no category is available for this product
+			if($categoryProducts === null) {
+				continue;
+			}
+
+			foreach($categoryProducts as $categoryProduct) {
+				$category = Category::getCategoryByCategoryId($mysqli, $categoryProduct->getCategoryId());
+
+				// if there is a match, then grab the product id inside $productIds
+				if($category->getCategoryName() === $categoryNameFromUrl) {
+					$productsToShow[] = $product;
+					break;
+				}
+			}
+		}
+
+		$products = $productsToShow;
 	}
 
 
@@ -84,13 +120,17 @@ try {
 			</br>
 			<?php
 			if($products !== null) { ?>
-			<p class="list-group-item list-group-item-info">Products</p>
+			<p class="list-group-item list-group-item-info static">Products</p>
 			<?php } ?>
-			<a href="#" id="category-list" class="list-group-item active static">All</a>
+			<a href="<?php echo SITE_ROOT_URL . 'search/index.php?searchq=' . $searchq; ?>"
+				id="category-list"
+				class="list-group-item <?php echo ($categoryNameFromUrl === '') ? 'active' : ''; ?> static">All</a>
 			<?php
 			if($products !== null) {
 				foreach($categories as $category) { ?>
-					<a href="#" id="category-list" class="list-group-item"><?php echo $category->getCategoryName(); ?></a>
+					<a href="<?php echo SITE_ROOT_URL . 'search/index.php?searchq=' . $searchq . '&category=' . $category->getCategoryName(); ?>"
+						id="category-list"
+						class="list-group-item <?php echo ($categoryNameFromUrl === $category->getCategoryName()) ? 'active' : ''; ?>"><?php echo $category->getCategoryName(); ?></a>
 				<?php }
 			}?>
 		</div>
@@ -131,7 +171,7 @@ if($products !== null) {
 		$productId = $product->getProductId();
 
 
-		echo '<tr>';
+		echo '<tr id="product-' . $productId . '">';
 		if(file_exists($product->getImagePath())) {
 			echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
 					$product->getProductId() .'">
@@ -225,6 +265,7 @@ if($stores !== null) {
 		</div>
 	</div>
 </div><!-- end container-fluid -->
-	<script src="../js/search.js"></script>
+
+<script src="../js/search.js"></script>
 
 <?php require_once('../php/lib/footer.php');

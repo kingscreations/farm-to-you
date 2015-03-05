@@ -55,11 +55,9 @@ try {
 	foreach($products as $product) {
 		$resultCategoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $product->getProductId());
 
-		if($resultCategoryProducts === null) {
-			continue;
+		if($resultCategoryProducts !== null) {
+			$categoryProducts = array_merge($categoryProducts, $resultCategoryProducts);
 		}
-
-		$categoryProducts = array_merge($categoryProducts, $resultCategoryProducts);
 	}
 
 	// get all the categories
@@ -212,5 +210,7 @@ $storeImageSrc  = basename($store->getImagePath());
 		</div><!-- end store-content -->
 	</div>
 </div>
+
+<script src="../js/store.js"></script>
 
 <?php require_once '../php/lib/footer.php' ?>

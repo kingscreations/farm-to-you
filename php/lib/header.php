@@ -26,9 +26,9 @@ require_once($prefix . 'paths.php');
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
+		<!-- css files -->
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<!--		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/2.7.5/idangerous.swiper.min.css"/>-->
 		<link rel="stylesheet" href="<?php echo $prefix; ?>css/main.css"/>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -43,20 +43,22 @@ require_once($prefix . 'paths.php');
 
 <!--		<script src="--><?php //echo $prefix; ?><!--js/iscroll.js"></script>-->
 
+		<!-- js libraries -->
 		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
 		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
 		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/additional-methods.min.js"></script>
 		<script src="<?php echo $prefix; ?>js/validate-exact-length.js"></script>
+		<script src="<?php echo $prefix; ?>js/main.js"></script>
+
+		<!-- view/controller js files TODO move that to related view right before the footer -->
 		<script src="<?php echo $prefix; ?>js/add-profile.js"></script>
 		<script src="<?php echo $prefix; ?>js/product.js"></script>
 		<script src="<?php echo $prefix; ?>js/cart.js"></script>
 		<script src="<?php echo $prefix; ?>js/sign-up.js"></script>
 		<script src="<?php echo $prefix; ?>js/checkout-pickup.js"></script>
 		<script src="<?php echo $prefix; ?>js/checkout.js"></script>
-		<script src="<?php echo $prefix; ?>js/store.js"></script>
-		<script src="<?php echo $prefix; ?>js/search.js"></script>
-		<script src="<?php echo $prefix; ?>js/main.js"></script>
+
 
 		<!--	stripe api	-->
 		<script src="https://js.stripe.com/v2/"></script>

@@ -37,23 +37,24 @@ if(empty($currentPathExploded)) {
 }	$url = "https://". $_SERVER["SERVER_NAME"] . '/' . $currentPathExploded[1] . '/' .
 		$currentPathExploded[2];
 ?>
+	<div class="activation">
+		<div class="activation-form">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-12">
+						<h3>Your registration is complete. <br> Thank you for signing up with farm to you!</h3>
+						<p>
+							<ul>
+								<li>
+									<a href="../add-profile/index.php">Continue to make your profile!</a>
+								</li>
+							</ul>
 
-<div class="row-fluid">
-	<div class="col-sm-12">
-		<h3>Your registration is complete. <br> Thank you for signing up with farm to you!</h3>
-
-
-<p>
-	<ul>
-		<li>
-			<a href="../add-profile/index.php">Continue to make your profile!</a>
-		</li>
-	</ul>
-</p>
-
-	</div>
-
-</div><!-- end row-fluid -->
+					</div><!-- end col-sm-12 -->
+				</div><!-- end row -->
+			</div><!-- end container-fluid -->
+		</div><!-- end activation-form -->
+	</div><!-- end activation -->
 <?php
 require_once ("../php/lib/footer.php");
 ?>

@@ -610,7 +610,9 @@ h2 {
 /********************************************
 *sign-up, sign-in, activation,
 ********************************************/
-.sign-up {
+.sign-up,
+.signIn,
+.activation {
   background: transparent url("../images/home-page.jpg") no-repeat fixed center center/cover;
   position: absolute;
   z-index: 1;
@@ -619,34 +621,22 @@ h2 {
   height: 100%;
 }
 
-.sign-up-form {
+.sign-up-form,
+.signIn-form,
+.activation-form {
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
   margin: auto;
-  margin-top: 20%;
+  width: 70%;
+  margin-top: 12%;
   position: relative;
-}
-
-/*@media screen and (min-width: 768px) {*/
-  /*.home-top-search-area {*/
-    /*width: 840px;*/
-    /*padding: 40px;*/
-    /*border-radius: 18px;*/
-  /*}*/
-/*}*/
-
-.sign-up-form  {
   color: #497a2d;
   font-family: ArchitectsDaughter;
   font-size: 1.4em;
+  border: 1px solid lightgray;
+  border-radius: 5px;
 }
 
-/*.search-field {*/
-  /*border-top-left-radius: 6px !important;*/
-  /*border-bottom-left-radius: 6px !important;*/
-  /*border: none !important;*/
-  /*padding: 1em;*/
-/*}*/
 
 /********************************************
 * horizontal scroll

@@ -10,8 +10,6 @@ module("tabs", {
 
 // global variables for form values
 
-var VALID_EMAIL = "big@dog2";
-var VALID_PASSWORD = "dog";
 /**
  * test filling in only valid form data
  **/
@@ -24,7 +22,7 @@ function testValidFields() {
 	F("#submit").click();
 
 	// click the logout button
-	F("#my-account-dropdown-menu").click();
+	//F("#my-account-dropdown-menu").click();
 	F("#sign-out").click();
 
 	// try to access account

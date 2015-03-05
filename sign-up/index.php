@@ -34,13 +34,13 @@ require_once("../php/lib/header.php");
 							<input type="password" name="passwordCheck" id="passwordCheck" value="" size="29" />
 							<br><br>
 							<input type="submit" value="Let's get started!" id="submit">
-						</fieldset>
-					</form>
+						</fieldset><!-- fieldset -->
+					</form><!-- form -->
 
 					<p id="outputArea"></p>
-				</div>
-			</div>
-		</div><!-- end row -->
+				</div> <!-- col xs12 -->
+			</div> <!-- end row -->
+		</div><!-- end container fluid -->
 	</div><!--.sign-up-form-->
 
 

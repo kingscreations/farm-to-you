@@ -39,6 +39,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 		<div class="row">
 			<div class="col-sm-12">
 				<form id="cartController" action="../php/forms/cart-controller.php" method="post">
+					<?php echo generateInputTags(); ?>
 					<table class="table">
 						<thead>
 							<tr>

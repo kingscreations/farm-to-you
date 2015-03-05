@@ -22,6 +22,7 @@ require_once("../php/lib/header.php");
 				<br>
 
 				<form class= "form" method="post" name="signIn" id="signIn" action="../php/forms/sign-in-controller.php">
+					<?php echo generateInputTags(); ?>
 					<fieldset>
 						<?php
 						echo generateInputTags();

@@ -124,6 +124,7 @@ require_once($prefix . 'paths.php');
 
 					<div class="col-sm-4 col-xs-5">
 						<form  action="../php/forms/search-controller.php" id="search" method="post">
+							<?php echo generateInputTags(); ?>
 							<div class="input-group">
 								<input class="form-control search-field" type="text" id="inputSearch" name="inputSearch" placeholder="What are you looking for today?" />
 								<input type="hidden" value="yes" name="searching">

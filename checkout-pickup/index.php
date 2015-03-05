@@ -129,7 +129,7 @@ try {
 
 <div class="container-fluid">
 	<form id="checkoutShippingController" action="../php/forms/checkout-pickup-controller.php" method="post" novalidate>
-
+		<?php echo generateInputTags(); ?>
 		<div class="row">
 			<div class="col-sm-12">
 				<h1>Pickup locations</h1>

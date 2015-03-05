@@ -36,6 +36,8 @@ $productsCardId = $('[id^=product-]');
 
 $('.list-group-item').on('click', function() {
 
+	event.preventDefault();
+
 	// the default link should not trigger the ajax callback
 	if($(this).hasClass('static')) {
 		$productsCardId.each(function() {

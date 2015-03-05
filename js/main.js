@@ -11,9 +11,10 @@
 	$(document).ready(function() {
 
 		$('.list-group-item').on('click', function(event) {
-			event.preventDefault();
-			$('.list-group-item').removeClass('active');
-			$(this).addClass('active');
+			if($(this).hasClass('disabled') === false) {
+				$('.list-group-item').removeClass('active');
+				$(this).addClass('active');
+			}
 		});
 
 

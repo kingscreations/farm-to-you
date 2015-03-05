@@ -120,7 +120,7 @@ try {
 			</br>
 			<?php
 			if($products !== null) { ?>
-			<p class="list-group-item list-group-item-info static">Products</p>
+			<p class="disabled list-group-item list-group-item-info static">Products</p>
 			<?php } ?>
 			<a href="<?php echo SITE_ROOT_URL . 'search/index.php?searchq=' . $searchq; ?>"
 				id="category-list"

@@ -38,27 +38,30 @@ require_once($prefix . 'paths.php');
 		<![endif]-->
 
 		<!-- google maps -->
-		<script src="https://maps.googleapis.com/maps/api/js"></script>
-		<script src="<?php echo $prefix; ?>js/google-maps.js"></script>
+<!--		<script src="https://maps.googleapis.com/maps/api/js"></script>-->
+<!--		<script src="--><?php //echo $prefix; ?><!--js/google-maps.js"></script>-->
+
+<!--		<script src="--><?php //echo $prefix; ?><!--js/iscroll.js"></script>-->
 
 		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
 		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
 		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/additional-methods.min.js"></script>
 		<script src="<?php echo $prefix; ?>js/validate-exact-length.js"></script>
-		<script src="<?php echo $prefix; ?>js/iscroll.js"></script>
 		<script src="<?php echo $prefix; ?>js/add-profile.js"></script>
 		<script src="<?php echo $prefix; ?>js/product.js"></script>
 		<script src="<?php echo $prefix; ?>js/cart.js"></script>
 		<script src="<?php echo $prefix; ?>js/sign-up.js"></script>
 		<script src="<?php echo $prefix; ?>js/checkout-pickup.js"></script>
-		<script src="https://js.stripe.com/v2/"></script><!--	stripe api	-->
 		<script src="<?php echo $prefix; ?>js/checkout.js"></script>
 		<script src="<?php echo $prefix; ?>js/store.js"></script>
-		<script src="<?php echo $prefix; ?>js/search.js>"</script>
+		<script src="<?php echo $prefix; ?>js/search.js"></script>
 		<script src="<?php echo $prefix; ?>js/main.js"></script>
 
-		<!-- Latest compiled and minified Bootstrap JavaScript, all compiled plugins included -->
+		<!--	stripe api	-->
+		<script src="https://js.stripe.com/v2/"></script>
+
+		<!-- bootstrap js -->
 		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 		<title>Farm To You</title>

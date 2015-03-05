@@ -140,7 +140,7 @@ footer p {
 .product-listing li {
 	display: inline-block;
 	vertical-align: middle;
-	width: 49%;
+	width: 20%;
 }
 
 .product-listing-card {
@@ -176,7 +176,7 @@ footer p {
 	}
 
 	.product-listing li {
-		width: 24.5%;
+		width: 20%;
 	}
 }
 

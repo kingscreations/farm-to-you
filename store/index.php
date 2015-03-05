@@ -55,6 +55,10 @@ try {
 	foreach($products as $product) {
 		$resultCategoryProducts = CategoryProduct::getCategoryProductByProductId($mysqli, $product->getProductId());
 
+		if($resultCategoryProducts === null) {
+			continue;
+		}
+
 		$categoryProducts = array_merge($categoryProducts, $resultCategoryProducts);
 	}
 

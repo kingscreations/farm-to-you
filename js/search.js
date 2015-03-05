@@ -1,7 +1,5 @@
 // document ready event
-$(document).ready(
-	// inner function for the ready() event
-	function() {
+$(document).ready(function() {
 
 		// tell the validator to validate this form (by id)
 		$("#search").validate({
@@ -82,32 +80,5 @@ $(document).ready(
 						}
 					});
 				});
-		})
+		});
 	});
-
-			// setup an AJAX call to submit the form without reloading
-			//submitHandler: function(form) {
-			//	$(form).ajaxSubmit({
-			//		// GET or POST
-			//		type: "POST",
-			//		// where to submit data
-			//		url: "../php/forms/add-profile-controller.php",
-			//		// TL; DR: reformat POST data
-			//		data: $(form),
-			//		// success is an event that happens when the server replies
-			//		success: function(ajaxOutput) {
-			//			// clear the output area's formatting
-			//			$("#outputArea").css("display", "block");
-			//			// write the server's reply to the output area
-			//			$("#outputArea").html(ajaxOutput);
-			//
-			//
-			//			// reset the form if it was successful
-			//			// this makes it easier to reuse the form again
-			//			if($(".alert-success").length >= 1) {
-			//				$(form)[0].reset();
-			//			}
-			//		}
-			//	});
-			//}
-

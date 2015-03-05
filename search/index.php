@@ -116,7 +116,7 @@ try {
 	<div class="row">
 
 		<div class="col-sm-3 list-group" id="filter-categories">
-			<p class="list-group-item">Categories</p>
+			<p class="list-group-item list-group-item-info">Categories</p>
 			</br>
 			<?php
 			if($products !== null) { ?>

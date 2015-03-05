@@ -82,7 +82,7 @@ try {
 }
 
 // image path and url setup
-$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.png';
+$imagePlaceholderSrc = '../images/placeholder.png';
 
 $productBaseUrl      = CONTENT_ROOT_URL . 'images/product/';
 $productBasePath     = CONTENT_ROOT_PATH . 'images/product/';
@@ -100,8 +100,7 @@ $storeImageSrc  = basename($store->getImagePath());
 			<?php
 
 			$storeLink = SITE_ROOT_URL . 'store/index.php?store='. $store->getStoreId();
-
-			if(file_exists($storeBasePath . $storeImageSrc)) {
+			if(is_file($storeBasePath . $storeImageSrc)) {
 				echo '<a href="' . $storeLink . '" class="thumbnail"><img src="' . $storeBaseUrl . $storeImageSrc .'" alt="'.
 					$store->getStoreName() .'" class="img-responsive"/></a>';
 			} else {
@@ -143,7 +142,7 @@ $storeImageSrc  = basename($store->getImagePath());
 					echo '<a href="'. SITE_ROOT_URL .'product/index.php?product='. $storeProduct->getProductId() .
 						'" class="thumbnail">';
 
-					if(file_exists($productBasePath . $thumbnailSrc)) {
+					if(is_file($productBasePath . $thumbnailSrc)) {
 						echo '<img class="img-responsive" src="' . $productBaseUrl . $thumbnailSrc . '">';
 					} else {
 						echo '<img class="img-responsive" src="' . $imagePlaceholderSrc . '">';
@@ -162,7 +161,7 @@ $storeImageSrc  = basename($store->getImagePath());
 <div class="container-fluid white-container">
 	<div class="row">
 		<div class="col-sm-7">
-			<?php if(file_exists($productBasePath . $productImageSrc)) { ?>
+			<?php if(is_file($productBasePath . $productImageSrc)) { ?>
 				<img class="img-responsive" src="<?php echo $productBaseUrl . $productImageSrc; ?>"
 					  alt="<?php echo $product->getProductName(); ?>"/>
 			<?php } else { ?>

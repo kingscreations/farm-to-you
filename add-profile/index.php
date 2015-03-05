@@ -2,8 +2,7 @@
 $currentDir = dirname(__FILE__);
 require_once ("../root-path.php");
 require_once("../php/lib/header.php");
-//require_once("../dummy-user-session.php");
-//require_once("../dummy-session-single.php");
+
 require_once("../php/classes/profile.php");
 require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 
@@ -25,8 +24,8 @@ $configArray = readConfig($configFile);
 // connection
 $mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"], $configArray["database"]);
 
-
-$userId = $_SESSION['user']['id'];
+$userId = 1;
+//$userId = $_SESSION['user']['id'];
 $hasProfile = Profile::getProfileByUserId($mysqli, $userId);
 
 if($hasProfile === null) {
@@ -34,9 +33,9 @@ if($hasProfile === null) {
 	echo '<div class="container">
 	<h2>Create Profile</h2>
 
-	<form id="addProfile" class="form-inline" method="post" action="../php/forms/add-profile-controller.php" enctype="multipart/form-data" >
-
-		<div class="form-group">
+	<form id="addProfile" class="form-inline" method="post" action="../php/forms/add-profile-controller.php" enctype="multipart/form-data">';
+		echo generateInputTags();
+		echo '<div class="form-group">
 			<label for="inputFirstname">First Name:</label>
 			<input type="text" maxlength="45" size="45" aria-required="true" aria-invalid ="false" id="inputFirstname" name="inputFirstname" placeholder="Enter First Name">
 		</div>

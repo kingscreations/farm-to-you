@@ -111,7 +111,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 		</div>
 		<div class="col-sm-9" id="store-content">
 			<?php
-				if($products === null || $storeLocations === null) {
+				if($storeLocations === null) {
 					throw new Exception('products are null and store location are null');
 					exit();
 				}
@@ -124,7 +124,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 						<div class="store-banner">
 							<a href="<?php echo $storeLink; ?>"
 								title="<?php echo $store->getStoreDescription(); ?>">
-								<img src="<?php echo file_exists($storeBasePath.$storeImageSrc)
+								<img src="<?php echo is_file($storeBasePath.$storeImageSrc)
 									? $storeBaseUrl.$storeImageSrc
 									: $bannerImagePlaceHolderSrc; ?>"
 									  alt="<?php echo $store->getStoreName(); ?>"

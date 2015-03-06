@@ -37,7 +37,7 @@ if($hasProfile === null) {
 		echo generateInputTags();
 		echo '<div class="form-group">
 			<label for="inputFirstname">First Name:</label>
-			<input type="text" maxlength="45" size="45" aria-required="true" aria-invalid ="false" id="inputFirstname" name="inputFirstname" placeholder="Enter First Name">
+			<input class="form-control" type="text" maxlength="45" size="45" aria-required="true" aria-invalid ="false" id="inputFirstname" name="inputFirstname" placeholder="Enter First Name">
 		</div>
 
 		<br>

@@ -37,7 +37,7 @@ require_once("../php/classes/location.php");
 
 <div class="row-fluid">
 	<div class="col-sm-9">
-		<form class="form-inline" id="locationController" method="post" action="../php/forms/add-location-controller.php">
+		<form class="form-inline transparent-form" id="locationController" method="post" action="../php/forms/add-location-controller.php">
 			<h2>Add Location</h2>
 			<?php echo generateInputTags(); ?>
 			<div class="form-group">

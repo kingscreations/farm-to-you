@@ -82,7 +82,7 @@ if($hasProfile === null) {
 } else {
 
 
-	echo '<div class="container" id="existingProfile">
+	echo '<div class="container transparent-form">
 				<h3>You already have a Profile, </br>if you would like to edit your profile </br>please click here: <form action="../edit-profile/index.php"><input class ="submit" id="inputSubmit" type="submit" value="Edit Profile">';
 				echo generateInputTags();
 				echo '</form>

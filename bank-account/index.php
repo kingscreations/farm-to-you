@@ -42,7 +42,7 @@ if((preg_match('/^rp/', $profileToken) === 0)) { ?>
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12">
-			<form id="bankInfo" class="form-inline" method="post" action="../php/forms/bank-account-controller.php" enctype="multipart/form-data">
+			<form id="bankInfo" class="form-inline transparent-form" method="post" action="../php/forms/bank-account-controller.php" enctype="multipart/form-data">
 				<h2>Add Bank Account</h2>
 				<?php echo generateInputTags(); ?>
 				<div class="form-group">

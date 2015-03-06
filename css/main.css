@@ -246,8 +246,8 @@ a:hover {
   text-align: center;
   margin: auto;
   width: 70%;
-  margin-top: 12%;
-  margin-bottom: 12%;
+  margin-top: 8%;
+  margin-bottom: 8%;
   position: relative;
   color: #497a2d;
   font-family: Biko, sans-serif;
@@ -445,12 +445,6 @@ li[role=presentation].open a {
   margin-top: 10%;
 }
 
-.white-container {
-  background-color: white;
-  border-radius: 10px;
-  padding: 2em;
-}
-
 .white-transparent-container {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 10px;
@@ -575,7 +569,7 @@ h2 {
 
 .store-banner img {
   position: relative;
-  bottom: 100px;
+  bottom: 10px;
 }
 
 .count-store-products {

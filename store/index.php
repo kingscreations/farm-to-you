@@ -91,7 +91,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 
 ?>
 
-<div class="container-fluid" id="store-view">
+<div class="container-fluid transparent-form" id="store-view">
 	<div class="row">
 		<div class="col-sm-3 transparent-menu" id="store-menu">
 			<div class="list-group">

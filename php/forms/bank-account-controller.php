@@ -4,7 +4,7 @@ $currentDir = dirname(__FILE__);
 require_once("../classes/profile.php");
 require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 
-$profileId = $_SESSION['profileId'];
+//$profileId = $_SESSION['profileId'];
 ?>
 
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
@@ -21,11 +21,11 @@ try {
 
 //$profileId = $_SESSION['profileId'];
 
-	$profileId = 1;
+	$profileId = 2;
 
 //	$userId = $_SESSION['user']['id'];
 
-	$userId = 1;
+	$userId = 7;
 
 	/**
 	 * Stripe API calls
@@ -48,27 +48,41 @@ try {
 	$profileImage = $profile->getImagePath();
 	$profileToken = $profile->getCustomerToken();
 
-	// Get the bank account details submitted by the form
-	$token_id = $_POST['stripeToken'];
+	$country = $_POST['country'];
+	$bankAcct = $_POST['bank-acct'];
+	$routingNmb = $_POST['routing-nmb'];
 
-// Create a Recipient
-	$recipient = \Stripe\Recipient::create(array(
-			"first name" => $profileFirstname,
-			"last name" => $profileLastname,
-			"type" => "individual",
-			"bank_account" => $token_id,
-			"email" => "payee@example.com")
+	$name = $profileFirstname . ' ' . $profileLastname;
+	var_dump($name);
+
+if((preg_match('/^rp/', $profileToken) === false)) {
+	// create bank account associative array
+	$bankAccount = array(
+		"country" => $country,
+		"routing_number" => $routingNmb,
+		"account_number" => $bankAcct
 	);
 
-	var_dump($recipient);
 
-	// if user makes edits, update in profile
-	if($_POST['stripeToken'] !== '') {
-		$profileToken = $token_id;
+// Create a Recipient
+
+	$recipient = \Stripe\Recipient::create(array(
+			"name" => $name,
+			"type" => "individual",
+			"bank_account" => $bankAccount,)
+	);
+
+	echo $recipient->id;
+
+	if($recipient->id !== '') {
+		$profileToken = $recipient->id;
 		$profile->setCustomerToken($profileToken);
 	}
 
 	$profile->update($mysqli);
+} else{
+	echo 'You already have a bank account added! Click here to edit.';
+}
 
 
 	echo "<p class=\"alert alert-success\">Profile (id = " . $profile->getProfileId() . ") updated!</p>";

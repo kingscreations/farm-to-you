@@ -79,6 +79,9 @@ $('.list-group-item').on('click', function(event) {
 				} else {
 					$current.show();
 				}
+
+				$('[id^=store-]').hide();
+				$('[id^=location-]').hide();
 			});
 		});
 });

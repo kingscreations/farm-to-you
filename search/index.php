@@ -104,6 +104,8 @@ try {
 
 ?>
 
+<script src="../js/search.js"></script>
+
 <div class="container-fluid mt30">
 	<div class="row">
 		<div class="col-xs-12">
@@ -193,7 +195,7 @@ if($products !== null) {
 }
 
 if($stores !== null) {
-	echo '<tr>';
+	echo '<tr id="store-">';
 	echo '<th></th>';
 	echo '<th>Store</th>';
 	echo '<th>Description</th>';
@@ -203,11 +205,12 @@ if($stores !== null) {
 		$storeName = $store->getStoreName();
 		$storeImage = $store->getImagePath();
 		$storeDescription = $store->getStoreDescription();
+		$storeId= $store->getStoreId();
 
 		$imagePlaceholderSrc = SITE_ROOT_URL. 'images/placeholder.png';
 
 
-		echo '<tr>';
+		echo '<tr id="store-' . $storeId . '">';
 		if(file_exists($store->getImagePath())) {
 			echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'store/index.php?store=' .
 					$store->getStoreId() .'">
@@ -226,7 +229,7 @@ if($stores !== null) {
 }
 
 	if($locations !== null) {
-		echo '<tr>';
+		echo '<tr id="location-">';
 		echo '<th>Location</th>';
 		echo '<th>Address</th>';
 		echo '<th>City</th>';
@@ -236,8 +239,9 @@ if($stores !== null) {
 			$locationName = $location->getLocationName();
 			$locationAddress1 = $location->getAddress1();
 			$locationCity = $location->getCity();
+			$locationId = $location->getLocationId();
 
-			echo '<tr>';
+			echo '<tr id="location-' . $locationId . '">';
 			echo '<td>' . $locationName . '</td>';
 			echo '<td>' . $locationAddress1 . '</td>';
 			echo '<td>' . $locationCity . '</td>';

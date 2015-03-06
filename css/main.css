@@ -247,7 +247,9 @@ a:hover {
 #addProductOrPickupLocation,
 #manageStores,
 #existingProfile,
-#locationController {
+#locationController,
+#addProduct,
+#productEdit{
   background-color: rgba(255, 255, 255, .8);
   text-align: center;
   margin: auto;

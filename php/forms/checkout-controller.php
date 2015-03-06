@@ -26,8 +26,6 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 $_SESSION['user']['id'] = 1;
 $_SESSION['profile']['id'] = 1;
 
-// TODO for the moment the order/orderProduct is inserted even if stripe fails: fix that!
-
 try {
 	// connection
 	$configArray = readConfig($configFile);
@@ -41,42 +39,32 @@ try {
 		echo '<p class=\"alert alert-danger\">Internal server error.</p>';
 	}
 
-	// create and insert a new order
-	$order = new Order(null, $_SESSION['profile']['id'], new DateTime());
-	$order->insert($mysqli);
-
 	$count = 1;
 	$totalPrice = 0.0;
 	foreach($_SESSION['products'] as $sessionProductId => $sessionProduct) {
 		$product = Product::getProductByProductId($mysqli, $sessionProductId);
 
-		// create and insert a new order product
-		$orderProduct = new OrderProduct($order->getOrderId(), $product->getProductId(), $_SESSION['order-location'], $sessionProduct['quantity']);
-		$orderProduct->insert($mysqli);
-
 		// calculate the final price (per product) and the total order price
-		$productPrice = $product->getProductPrice();
+		$productPrice     = $product->getProductPrice();
 		$productPriceType = $product->getProductPriceType();
-		$productWeight = $product->getProductWeight();
+		$productWeight    = $product->getProductWeight();
 
-		// TODO round the price to two digits
-		$finalPrice = 0.0;
+		// calculate the total price per product
+		$productTotalPrice = 0.0;
 		if($productPriceType === 'w') {
-			$finalPrice = $productPrice * $sessionProduct['quantity'] * $productWeight;
+			$productTotalPrice = $productPrice * $sessionProduct['quantity'] * $productWeight;
 		} else if($productPriceType === 'u') {
-			$finalPrice = $productPrice * $sessionProduct['quantity'];
+			$productTotalPrice = $productPrice * $sessionProduct['quantity'];
 		} else {
 			throw(new RangeException($productPriceType .
 				' is not a valid product price type. The value should be either w or u.'));
 		}
-		$totalPrice = $totalPrice + $finalPrice;
+
+		// calculate the total to charge
+		$totalPrice = $totalPrice + $productTotalPrice;
 
 		$count++;
 	}
-
-	// create and insert the checkout with the current date and the total price
-	$checkout = new Checkout(null, $order->getOrderId(), new DateTime(), $totalPrice);
-	$checkout->insert($mysqli);
 
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
@@ -140,13 +128,13 @@ try {
 
 			// first create a new customer
 			$customer = \Stripe\Customer::create(array(
-				"card" => $stripeToken,
+				"card"        => $stripeToken,
 				"description" => $user->getEmail()
 			));
 
 			// then charge the new customer
 			\Stripe\Charge::create(array(
-				"amount" => $totalPrice, // amount in cents
+				"amount"   => $totalPrice, // amount in cents
 				"currency" => "usd",
 				"customer" => $customer->id
 			));
@@ -160,9 +148,9 @@ try {
 			// charge directly the user
 			$charge = \Stripe\Charge::create(
 				array(
-					"amount" => $totalPrice, // amount in cents
-					"currency" => "usd",
-					"card" => $stripeToken,
+					"amount"      => $totalPrice, // amount in cents
+					"currency"    => "usd",
+					"card"        => $stripeToken,
 					"description" => $user->getEmail()
 				)
 			);
@@ -170,6 +158,25 @@ try {
 	}
 
 	echo "<p class=\"alert alert-success\">Payment done.</p>";
+
+
+	/**
+	 * Create the order, the order products and the checkout objects and insert them to the database
+	 */
+	$order = new Order(null, $_SESSION['profile']['id'], new DateTime());
+	$order->insert($mysqli);
+
+	foreach($_SESSION['products'] as $sessionProductId => $sessionProduct) {
+		$product = Product::getProductByProductId($mysqli, $sessionProductId);
+
+		// create and insert a new order product
+		$orderProduct = new OrderProduct($order->getOrderId(), $product->getProductId(), $_SESSION['order-location'], $sessionProduct['quantity']);
+		$orderProduct->insert($mysqli);
+	}
+
+	// create and insert the checkout with the current date and the total price
+	$checkout = new Checkout(null, $order->getOrderId(), new DateTime(), $totalPrice);
+	$checkout->insert($mysqli);
 
 	//close the database connection
 	$mysqli->close();

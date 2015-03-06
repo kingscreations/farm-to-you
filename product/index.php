@@ -176,7 +176,7 @@ $storeImageSrc  = basename($store->getImagePath());
 				<div id="listing-page-cart">
 					<h1><?php echo $product->getProductName(); ?></h1>
 
-					<span class="currency-value">$<?php echo $product->getProductPrice(); ?></span><br/>
+					<span class="currency-value">$<?php echo number_format((float)$product->getProductPrice(), 2, '.', '');; ?></span><br/>
 					<?php
 
 					if(@isset($_SESSION['products'][$productId]['availableQuantity'])) {

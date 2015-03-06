@@ -245,7 +245,8 @@ a:hover {
 #storeController,
 #editStoreController,
 #addProductOrPickupLocation,
-#manageStores{
+#manageStores,
+#existingProfile {
   background-color: rgba(255, 255, 255, .8);
   text-align: center;
   margin: auto;
@@ -262,7 +263,7 @@ a:hover {
 input[type=text],
 input[type=password],
 input[type=tel],
-input[type=file] {
+input[type=file], {
   padding: 0.3em;
   padding-left: 1em;
   border: 2px solid lightgray;
@@ -307,7 +308,25 @@ input[type=password]:focus {
 .form-row:not(.center) {
   margin-left: 1em;
 }
-
+/********************************************
+* buttons
+********************************************/
+.submit {
+  padding: 0.3em;
+  padding-left: 1em;
+  border: 2px solid lightgray;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 1.0);
+  text-align: center;
+  margin: auto;
+  width: relative;
+  /*margin-top: 12%;*/
+  /*margin-bottom: 12%;*/
+  position: relative;
+  color: #497a2d;
+  font-family: Biko;
+  font-size: 1em;
+}
 /********************************************
 * tables
 ********************************************/

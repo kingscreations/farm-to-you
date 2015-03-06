@@ -72,6 +72,19 @@ console.log(jsonOutput);
 					}
 				}
 
+				// finally update the number of product available (just underneath the price)
+				var message = '';
+				if(jsonOutput.availableQuantity < 15 && jsonOutput.availableQuantity !== 0) {
+					message = 'Only ' + jsonOutput.availableQuantity + ' available';
+				} else if(jsonOutput.availableQuantity === 0) {
+					message = jsonOutput.availableQuantity + ' available';
+				} else if(jsonOutput.availableQuantity > 60) {
+					message = 'A lot available';
+				} else {
+					message = jsonOutput.availableQuantity +' available';
+				}
+				$('#available-quantity').text(message);
+
 				if($(".alert-success").length >= 1) {
 					$productController[0].reset();
 				}

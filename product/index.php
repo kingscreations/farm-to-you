@@ -179,19 +179,23 @@ $storeImageSrc  = basename($store->getImagePath());
 					<span class="currency-value">$<?php echo $product->getProductPrice(); ?></span><br/>
 					<?php
 
-					if(@isset($_SESSION['products'][$productId]['stockLimit'])) {
-						$stockLimit = $_SESSION['products'][$productId]['stockLimit'];
+					if(@isset($_SESSION['products'][$productId]['availableQuantity'])) {
+						$stockLimit = $_SESSION['products'][$productId]['availableQuantity'];
 					} else {
 						$stockLimit = $product->getStockLimit();
 					}
 
-					if($stockLimit < 15) {
-						echo 'Only '. $stockLimit .' available';
+					echo '<span id="available-quantity">';
+					if($stockLimit < 15 && $stockLimit !== 0) {
+						echo 'Only ' . $stockLimit . ' available';
+					} else if($stockLimit === 0) {
+						echo $stockLimit . ' available';
 					} else if($stockLimit > 60) {
 						echo 'A lot available';
 					} else {
 						echo $stockLimit .' available';
 					}
+					echo '</span>';
 
 					echo '<br/><br/>';
 
@@ -203,6 +207,9 @@ $storeImageSrc  = basename($store->getImagePath());
 					// select box
 					echo 'Select a quantity: <select id="product-quantity" class="product-quantity" name="productQuantity">';
 
+					if($stockLimit === 0) {
+						echo '<option selected="selected">0</option>';
+					}
 					// creating $quantityLimit # of options
 					for($i = 0; $i < $stockLimit; $i++) {
 						if($i === 0) {

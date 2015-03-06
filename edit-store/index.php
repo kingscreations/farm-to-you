@@ -210,6 +210,7 @@ try {
 								echo '<th>Pick-Up Locations</th>';
 								echo '<th></th>';
 								echo '</tr>';
+								$locationCount = 0;
 								foreach($storeLocations as $storeLocation) {
 									$locationId = $storeLocation->getLocationId();
 									$location = Location::getLocationByLocationId($mysqli, $locationId);
@@ -217,7 +218,10 @@ try {
 									echo '<tr>';
 									echo '<td>'. $locationName . '</td>';
 									echo '<td><button id="'.$locationId.'" class="btn btn-default editButton">Edit</button></td>';
-									echo '<td><button id="'.$locationId.'" class="btn btn-default deleteButton">Delete</button></td>';
+									if($locationCount !== 0 ) {
+										echo '<td><button id="' . $locationId . '" class="btn btn-default deleteButton">Delete</button></td>';
+									}
+									$locationCount = 1;
 									echo '</tr>';
 								}
 								echo '</table>';
@@ -239,3 +243,20 @@ try {
 
 <!--footer-->
 <?php require_once "../php/lib/footer.php";?>
+
+<!--$productName = $products[0]->getProductName();-->
+<!--$productId = $products[0]->getProductId();-->
+<!--echo '<tr>';-->
+<!--	echo '<td>'. $productName . '</td>';-->
+<!--	echo '<td><button id="'.$productId.'" class="btn btn-default editProductButton">Edit</button></td>';-->
+<!--	echo '</tr>';-->
+<!--for($i = 1; $i < count($products); $i++) {-->
+<!--$productName = $products[$i]->getProductName();-->
+<!--$productId = $products[$i]->getProductId();-->
+<!--echo '<tr>';-->
+<!--	echo '<td>'. $productName . '</td>';-->
+<!--	echo '<td><button id="'.$productId.'" class="btn btn-default editProductButton">Edit</button></td>';-->
+<!--	echo '<td><button id="'.$productId.'" class="btn btn-default deleteProductButton">Delete</button></td>';-->
+<!--	echo '</tr>';-->
+<!--}-->
+<!--						-->

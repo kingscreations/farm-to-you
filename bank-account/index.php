@@ -22,6 +22,7 @@ $profileLastname = $profile->getLastName();
 $profilePhone = $profile->getPhone();
 $profileImage = $profile->getImagePath();
 $profileType = $profile->getProfileType();
+$profileToken = $profile->getCustomerToken();
 
 
 if($profileType !== "m") {
@@ -33,6 +34,9 @@ if($profileType !== "m") {
 
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
+<?php
+// check if they already have a bank account added by looking at the token and comparing to the 'rp' id
+if((preg_match('/^rp/', $profileToken) === false)) { ?>
 
 <div class="container">
 	<div class="row">
@@ -77,3 +81,15 @@ if($profileType !== "m") {
 		</div>
 	</div>
 </div>
+
+<?php } else { ?>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<h3>You already have a bank account added. Please click here to edit it.</h3>
+		</div>
+	</div>
+</div>
+
+<?php } ?>

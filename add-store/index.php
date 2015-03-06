@@ -40,10 +40,10 @@ $profileId = $_SESSION['profileId'];
 	</div>
 
 	<div class=container-fluid>
-<div class="row">
-	<div class="col-md-9">
+		<div class="row">
+			<div class="col-md-9">
 
-		<form class="form-inline" id="storeController" method="post" action="../php/forms/add-store-controller.php" enctype="multipart/form-data">
+			<form class="form-inline" id="storeController" method="post" action="../php/forms/add-store-controller.php" enctype="multipart/form-data">
 			<h2>Add Store</h2>
 			<?php echo generateInputTags(); ?>
 			<div class="form-group">
@@ -102,7 +102,13 @@ $profileId = $_SESSION['profileId'];
 			<p id="outputArea"></p>
 			<br>
 		</form>
+			</div><!-- col-md-9-->
+		</div><!-- row-->
+	</div><!-- container-fluid-->
 
+	<div class=container-fluid>
+		<div class="row">
+			<div class="col-md-9" id="manageStores">
 <?php
 
 
@@ -127,7 +133,7 @@ try {
 		echo '<div class=row>';
 		echo '<table class="table table-responsive">';
 		echo '<tr>';
-		echo '<th>Store</th>';
+		echo '<th>Manage your Stores</th>';
 		echo '<th></th>';
 		echo '</tr>';
 		foreach($stores as $store) {
@@ -149,9 +155,9 @@ try {
 }
 
 ?>
+			</div>
 		</div>
 	</div>
-</div>
 
 <!--footer-->
 <?php require_once "../php/lib/footer.php"; ?>

@@ -14,6 +14,11 @@ $currentDir = dirname(__FILE__);
 require_once '../root-path.php';
 require_once '../php/lib/header.php';
 
+?>
+
+<div class="container-fluid">
+
+<?php
 
 // model
 require_once("../php/classes/location.php");
@@ -127,8 +132,8 @@ try {
 
 ?>
 
-<div class="container-fluid">
-	<form id="checkoutShippingController" action="../php/forms/checkout-pickup-controller.php" method="post" novalidate>
+
+	<form id="checkoutShippingController" action="../php/forms/checkout-pickup-controller.php" method="post" novalidate onsubmit="event.preventDefault()">
 		<?php echo generateInputTags(); ?>
 		<div class="row">
 			<div class="col-sm-12">
@@ -240,10 +245,10 @@ try {
 									<span class="list-group-item">
 										Select a pickup location
 									</span>
-									<?php foreach($locations as $location) {
+									<?php foreach($locations as $index => $location) {
 
 										?>
-										<a href="#" class="list-group-item" id="location-<?php echo $location->getLocationId(); ?>">
+										<a href="#" class="list-group-item <?php echo ($index === 0) ? 'active' : ''; ?>" id="location-<?php echo $location->getLocationId(); ?>">
 											<?php echo $location->getLocationName() ?><br/>
 											<?php echo $location->getAddress1(); ?><br/>
 											<?php echo ($location->getAddress2() !== '')
@@ -252,8 +257,8 @@ try {
 											<?php echo $location->getCity() . ' ' . $location->getState() . ' ' .
 												$location->getZipCode(); ?><br/>
 										</a>
-										<input type="hidden"
-												 name="storeLocation[]"
+										<input type="text"
+												 class="hidden"
 												 id="store-<?php echo $store->getStoreId(); ?>_location-<?php echo $location->getLocationId(); ?>" />
 									<?php } ?>
 								</div>

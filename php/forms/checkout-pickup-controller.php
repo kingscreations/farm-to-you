@@ -13,11 +13,13 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 // model
 require_once("../classes/location.php");
 
-if(!@isset($_POST['storeLocation']) || is_array($_POST['storeLocation'])) {
+if(!@isset($_POST['storeLocation']) || !is_array($_POST['storeLocation'])) {
 	header('Location: ../lib/404.php');
 } else {
+	var_dump($_POST['storeLocation']);
 	$storeLocationsMapping = filter_var($_POST['storeLocation'], FILTER_SANITIZE_STRING);
-
+var_dump($storeLocationsMapping);
+	exit();
 	$storesId    = [];
 	$locationsId = [];
 	foreach($storeLocationsMapping as $storeLocationMapping) {

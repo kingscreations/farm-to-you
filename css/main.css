@@ -240,19 +240,9 @@ a:hover {
   border: 1px solid lightgray;
   border-radius: 12px;
 }
-#editProduct,
-#editProfile,
-#storeController,
-#editStoreController,
-#addProductOrPickupLocation,
-#manageStores,
 #existingProfile,
 #locationController,
-#addProduct,
-#productEdit,
 #bankInfo,
-#existingBankAccount,
-#cart,
 .transparent-form {
   background-color: rgba(255, 255, 255, .8);
   text-align: center;

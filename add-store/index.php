@@ -43,7 +43,7 @@ $profileId = $_SESSION['profileId'];
 		<div class="row">
 			<div class="col-md-9">
 
-			<form class="form-inline" id="storeController" method="post" action="../php/forms/add-store-controller.php" enctype="multipart/form-data">
+			<form class="form-inline transparent-form" id="storeController" method="post" action="../php/forms/add-store-controller.php" enctype="multipart/form-data">
 			<h2>Add Store</h2>
 			<?php echo generateInputTags(); ?>
 			<div class="form-group">
@@ -108,7 +108,7 @@ $profileId = $_SESSION['profileId'];
 
 	<div class=container-fluid>
 		<div class="row">
-			<div class="col-md-9" id="manageStores">
+			<div class="col-md-9 transparent-form">
 <?php
 
 

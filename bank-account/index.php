@@ -88,7 +88,7 @@ if((preg_match('/^rp/', $profileToken) === 0)) { ?>
 
 <div class="container">
 	<div class="row">
-		<div class="col-sm-12" id="existingBankAccount">
+		<div class="col-sm-12" class="transparent-form" id="existingBankAccount">
 			<h3 class="text-muted">You already have a bank account added. Please click here to edit it.</h3>
 			<p>Feature coming soon!</p>
 		</div>

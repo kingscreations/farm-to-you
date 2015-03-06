@@ -46,7 +46,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 		<div class="row">
 	<div class="col-md-9">
 
-		<form id="addProduct" class="form-inline" method="post" action="../php/forms/add-product-controller.php" novalidate>
+		<form id="addProduct" class="form-inline transparent-form" method="post" action="../php/forms/add-product-controller.php" novalidate>
 			<h2>Add Product</h2>
 			<?php echo generateInputTags(); ?>
 		<div class="form-group">
@@ -123,7 +123,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 <div class="form-group">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-9" id="productEdit">
+			<div class="col-md-9 transparent-form" id="productEdit">
 				<?php
 
 				try {

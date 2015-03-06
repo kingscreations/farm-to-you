@@ -68,7 +68,7 @@ if($profileType === "m") {
 
 
 
-	<form id="editProfile" class="form-inline" method="post" action="../php/forms/edit-profile-controller.php" enctype="multipart/form-data">
+	<form id="editProfile" class="form-inline transparent-form" method="post" action="../php/forms/edit-profile-controller.php" enctype="multipart/form-data">
 		<h2>Edit Profile</h2>
 		<?php echo generateInputTags(); ?>
 		<div class="form-group">

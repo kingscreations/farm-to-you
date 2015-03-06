@@ -63,7 +63,7 @@ try {
 	<div class="row">
 	<div class="col-sm-9">
 
-		<form class="form-inline" id="editStoreController" method="post" action="../php/forms/edit-store-controller.php" enctype="multipart/form-data">
+		<form class="form-inline transparent-form" id="editStoreController" method="post" action="../php/forms/edit-store-controller.php" enctype="multipart/form-data">
 			<h2>Edit Store</h2>
 			<?php echo generateInputTags(); ?>
 			<div class="form-group">
@@ -83,7 +83,7 @@ try {
 			<br>
 
 
-			<div class="form-group edit-product">
+			<div class="form-group edit-product transparent-form">
 
 				<?php
 
@@ -119,7 +119,7 @@ try {
 	</div><!-- container fluid -->
 
 
-	<div class="container-fluid" id="addProductOrPickupLocation">
+	<div class="container-fluid transparent-form">
 		<div class="row">
 			<div class="col-sm-9">
 

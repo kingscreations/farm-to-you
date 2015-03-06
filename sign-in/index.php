@@ -28,10 +28,10 @@ require_once("../php/lib/header.php");
 						echo generateInputTags();
 						?>
 						<label>Your email:</label>
-						<input type="text" name="email" id="email" value="" size="45" />
-						<br><br>
+						<input type="text" name="email" id="email" value="" size="relative" />
+						</br></br>
 						<label>Enter your password:</label>
-						<input type="password" name="password2" id="password2" value="" size="38" />
+						<input type="password" name="password2" id="password2" value="" size="relative" />
 						<br><br>
 						<input type="submit" value="Log In" id="submit">
 					</fieldset>

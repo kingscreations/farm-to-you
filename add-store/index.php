@@ -42,12 +42,13 @@ $profileId = $_SESSION['profileId'];
 	<div class=container-fluid>
 <div class="row">
 	<div class="col-md-9">
-		<h2>Add Store</h2>
+
 		<form class="form-inline" id="storeController" method="post" action="../php/forms/add-store-controller.php" enctype="multipart/form-data">
+			<h2>Add Store</h2>
 			<?php echo generateInputTags(); ?>
 			<div class="form-group">
 				<label for="storeName">Store Name</label>
-				<input type="text" id="storeName" name="storeName" value="Pass Farms">
+				<input type="text" id="storeName" name="storeName" value="">
 			</div>
 			<br>
 			<div class="form-group">
@@ -62,22 +63,22 @@ $profileId = $_SESSION['profileId'];
 			<br>
 			<div class="form-group">
 				<label for="locationName">Location Name</label>
-				<input type="text" id="locationName" name="locationName" value="Home">
+				<input type="text" id="locationName" name="locationName" value="">
 			</div>
 			<br>
 			<div class="form-group">
 				<label for="address1">Address</label>
-				<input type="text" id="address1" name="address1" value="1228 W La Entrada">
+				<input type="text" id="address1" name="address1" value="Business Address">
 			</div>
 			<br>
 			<div class="form-group">
 				<label for="address2"></label>
-				<input type="text" id="address2" name="address2">
+				<input type="text" id="address2" name="address2" value="Address Cont.">
 			</div>
 			<br>
 			<div class="form-group">
 				<label for="city">City</label>
-				<input type="text" id="city" name="city" value="Corrales">
+				<input type="text" id="city" name="city" value="">
 			</div>
 			<div class="form-group">
 				<label for="state">State</label>
@@ -85,11 +86,11 @@ $profileId = $_SESSION['profileId'];
 			</div>
 			<div class="form-group">
 				<label for="zipCode">Zip Code</label>
-				<input type="text" id="zipCode" name="zipCode" value="87048">
+				<input type="text" id="zipCode" name="zipCode" value="">
 			</div>
 			<div class="form-group">
 				<label for="country">Country</label>
-				<input type="text" id="country" name="country">
+				<input type="text" id="country" name="country" value="US">
 			</div>
 			<br>
 			<br>

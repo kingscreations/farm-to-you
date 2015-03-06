@@ -2,47 +2,48 @@
 * Fonts
 ********************************************/
 @font-face {
-	font-family: 'Biko';
-	src: url('../fonts/Biko_Regular.otf') format('opentype');
+  font-family: 'Biko';
+  src: url('../fonts/Biko_Regular.otf') format('opentype');
 }
 
 @font-face {
-	font-family: 'ArchitectsDaughter';
-	src: url('../fonts/ArchitectsDaughter.ttf') format('truetype');
+  font-family: 'ArchitectsDaughter';
+  src: url('../fonts/ArchitectsDaughter.ttf') format('truetype');
 }
 
 /********************************************
 * Base html styling
 ********************************************/
 * {
-	margin: 0;
+  margin: 0;
 }
 html, body {
-	height: 100%;
+  height: 100%;
 }
 .wrapper {
-	min-height: 100%;
-	margin-bottom: -60px;
+  background: transparent url("../images/dull-home-page.jpg") no-repeat fixed center center/cover;
+  min-height: 100%;
+  margin-bottom: -60px;
 }
 
 .wrapper:after {
-	content: "";
-	display: block;
+  content: "";
+  display: block;
 }
 footer, .wrapper:after {
-	height: 60px;
+  height: 60px;
 }
 
 footer {
-	margin-top: 30px;
-	position: relative;
-	z-index: 3;
+  margin-top: 30px;
+  position: relative;
+  z-index: 3;
 }
 
 body {
-	background-color: whitesmoke;
-	overflow-y: scroll;
-	font-family: Biko;
+  background-color: whitesmoke;
+  overflow-y: scroll;
+  font-family: Biko;
 }
 
 footer {
@@ -58,9 +59,9 @@ footer p {
 }
 
 #main-menu {
-	color: black;
-	position: relative;
-	z-index: 3;
+  color: black;
+  position: relative;
+  z-index: 3;
 }
 
 #main-menu a {
@@ -70,15 +71,15 @@ footer p {
 }
 
 #main-menu a:hover {
-	background-color: transparent;
-	color: #497a2d;
-	outline: none;
+  background-color: transparent;
+  color: #497a2d;
+  outline: none;
 }
 
 #main-menu a:visited,
 #main-menu a:focus {
-	background-color: transparent;
-	outline: none;
+  background-color: transparent;
+  outline: none;
 }
 
 #main-menu .dropdown-menu {
@@ -100,7 +101,7 @@ footer p {
 
 @media screen and (min-width: 768px) {
   .container-fluid {
-	  width: 80%;
+    width: 80%;
   }
 }
 
@@ -134,50 +135,50 @@ footer p {
 }
 
 .inline-list li {
-	display: inline-block;
+  display: inline-block;
 }
 
 .product-listing li {
-	display: inline-block;
-	vertical-align: middle;
-	width: 20%;
+  display: inline-block;
+  vertical-align: middle;
+  width: 20%;
 }
 
 .product-listing-card {
-	margin: 0 10px 10px 0;
-	padding: 0.2em;
-	border: 1px solid lightgray;
-	border-radius: 3px;
+  margin: 0 10px 10px 0;
+  padding: 0.2em;
+  border: 1px solid lightgray;
+  border-radius: 3px;
 }
 
 .product-listing-card img {
-	max-width: 100%;
-	height: 100px;
+  max-width: 100%;
+  height: 100px;
 }
 
 .product-listing-detail {
-	font-size: 0.8em;
-	height: 30px;
+  font-size: 0.8em;
+  height: 30px;
 }
 
 .edit-product img {
 
-	max-width: 100%;
-	height: 300px;
+  max-width: 100%;
+  height: 300px;
 }
 
 @media screen and (min-width: 768px) {
-	.inline-list {
-	 	padding: inherit;
-	}
+  .inline-list {
+    padding: inherit;
+  }
 
-	.inline-list li {
-	 	margin-left: 30px;
-	}
+  .inline-list li {
+    margin-left: 30px;
+  }
 
-	.product-listing li {
-		width: 20%;
-	}
+  .product-listing li {
+    width: 20%;
+  }
 }
 
 .inline-list li:first-child {
@@ -223,24 +224,61 @@ a:hover {
 /********************************************
 * forms
 ********************************************/
-input[type=text] {
+.sign-up-form,
+.signIn-form,
+.activation-form {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  margin: auto;
+  width: 70%;
+  margin-top: 12%;
+  margin-bottom: 12%;
+  position: relative;
+  color: #497a2d;
+  font-family: ArchitectsDaughter;
+  font-size: 1em;
+  border: 1px solid lightgray;
+  border-radius: 12px;
+}
+#editProduct,
+#editProfile,
+#storeController,
+#editStoreController,
+#addProductOrPickupLocation {
+  background-color: rgba(255, 255, 255, .8);
+  text-align: center;
+  margin: auto;
+  width: 70%;
+  margin-top: 12%;
+  margin-bottom: 12%;
+  position: relative;
+  color: #497a2d;
+  font-family: Biko;
+  font-size: 1em;
+  border: 1px solid lightgray;
+  border-radius: 12px;
+}
+input[type=text],
+input[type=password],
+input[type=tel],
+input[type=file] {
   padding: 0.3em;
   padding-left: 1em;
   border: 2px solid lightgray;
   border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  margin: auto;
+  width: 70%;
+  /*margin-top: 12%;*/
+  /*margin-bottom: 12%;*/
+  position: relative;
+  color: #497a2d;
+  font-family: Biko;
+  font-size: 1em;
 }
 
-input[type=text]:focus {
-  outline: none;
-}
-
-input[type=password] {
-  padding: 0.3em;
-  padding-left: 1em;
-  border: 2px solid lightgray;
-  border-radius: 12px;
-}
-
+input[type=text]:focus,
 input[type=password]:focus {
   outline: none;
 }
@@ -343,7 +381,7 @@ li[role=presentation].open a {
 }
 
 .mt30 {
-	margin-top: 30px;
+  margin-top: 30px;
 }
 
 .mt60 {
@@ -460,25 +498,25 @@ h2 {
 }
 
 #cart-main-menu-item {
-	font-size: 1.2em;
-	position: relative;
-	bottom: 10px;
+  font-size: 1.2em;
+  position: relative;
+  bottom: 10px;
 }
 
 #cart-main-menu-item small {
-	font-size: 0.7em;
-	display: block;
+  font-size: 0.7em;
+  display: block;
 }
 
 .count {
-	font-size: 0.7em;
-	padding: 0.05em 0.15em;
-	border-radius: 2px;
-	color: white;
-	background-color: #7AC142;
-	position: absolute;
-	bottom: 35px;
-	left: 26px;
+  font-size: 0.7em;
+  padding: 0.05em 0.15em;
+  border-radius: 2px;
+  color: white;
+  background-color: #7AC142;
+  position: absolute;
+  bottom: 35px;
+  left: 26px;
 }
 
 /********************************************
@@ -498,14 +536,14 @@ h2 {
 }
 
 .store-banner {
-	width: 100%;
-	height: 100px;
-	overflow: hidden;
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
 }
 
 .store-banner img {
-	position: relative;
-	bottom: 100px;
+  position: relative;
+  bottom: 100px;
 }
 
 .count-store-products {
@@ -527,16 +565,16 @@ h2 {
 }
 
 .section {
-	background-color: white;
-	padding: 0.4em;
-	border: 1px solid lightgray;
-	border-radius: 5px;
+  background-color: white;
+  padding: 0.4em;
+  border: 1px solid lightgray;
+  border-radius: 5px;
 }
 
 @media screen and (min-width: 768px) {
-	.section {
-		padding: 1em;
-	}
+  .section {
+    padding: 1em;
+  }
 }
 
 #add-product-to-cart {
@@ -548,63 +586,63 @@ h2 {
 * errors
 ********************************************/
 #page-not-found {
-	background-image: url("../images/farm-not-found.jpg");
-	background-size: cover;
-	background-repeat: no-repeat;
-	height: 720px;
+  background-image: url("../images/farm-not-found.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 720px;
 }
 
 #multi-menu {
-	margin-top: 30px;
+  margin-top: 30px;
 }
 
 /********************************************
 * social networks
 ********************************************/
 .share-button {
-	display: inline-block;
-	vertical-align: middle;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 /********************************************
 * home page new user
 ********************************************/
 .home-top {
-	background: transparent url("../images/home-page.jpg") no-repeat fixed center center/cover;
-	position: absolute;
-	z-index: 1;
-	top: 0px;
-	width: 100%;
-	height: 100%;
+  background: transparent url("../images/home-page.jpg") no-repeat fixed center center/cover;
+  position: absolute;
+  z-index: 1;
+  top: 0px;
+  width: 100%;
+  height: 100%;
 }
 
 .home-top-search-area {
-	background-color: rgba(255, 255, 255, 0.8);
-	text-align: center;
-	margin: auto;
-	margin-top: 20%;
-	position: relative;
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  margin: auto;
+  margin-top: 20%;
+  position: relative;
 }
 
 @media screen and (min-width: 768px) {
-	.home-top-search-area {
-		width: 840px;
-		padding: 40px;
-		border-radius: 18px;
-	}
+  .home-top-search-area {
+    width: 840px;
+    padding: 40px;
+    border-radius: 18px;
+  }
 }
 
 .home-top .heading {
-	color: #497a2d;
-	font-family: ArchitectsDaughter;
-	font-size: 1.4em;
+  color: #497a2d;
+  font-family: ArchitectsDaughter;
+  font-size: 1.4em;
 }
 
 .search-field {
-	border-top-left-radius: 6px !important;
-	border-bottom-left-radius: 6px !important;
-	border: none !important;
-	padding: 1em;
+  border-top-left-radius: 6px !important;
+  border-bottom-left-radius: 6px !important;
+  border: none !important;
+  padding: 1em;
 }
 
 /********************************************
@@ -621,104 +659,89 @@ h2 {
   height: 100%;
 }
 
-.sign-up-form,
-.signIn-form,
-.activation-form {
-  background-color: rgba(255, 255, 255, 0.8);
-  text-align: center;
-  margin: auto;
-  width: 70%;
-  margin-top: 12%;
-  position: relative;
-  color: #497a2d;
-  font-family: ArchitectsDaughter;
-  font-size: 1.4em;
-  border: 1px solid lightgray;
-  border-radius: 5px;
-}
 
 
 /********************************************
 * horizontal scroll
 ********************************************/
 #wrapper {
-	position: relative;
-	z-index: 1;
-	overflow: scroll;
+  position: relative;
+  z-index: 1;
+  overflow: scroll;
 }
 
 #scroller {
-	-webkit-tap-highlight-color: rgba(0,0,0,0);
-	width: 3770px; /* 20 list item of 160px width and a margin-right of 30px: 20 * (160 + 30) - 30 */
-	height: 100%;
-	-webkit-transform: translateZ(0);
-	-moz-transform: translateZ(0);
-	-ms-transform: translateZ(0);
-	-o-transform: translateZ(0);
-	transform: translateZ(0);
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	-webkit-text-size-adjust: none;
-	-moz-text-size-adjust: none;
-	-ms-text-size-adjust: none;
-	-o-text-size-adjust: none;
-	text-size-adjust: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  width: 3770px; /* 20 list item of 160px width and a margin-right of 30px: 20 * (160 + 30) - 30 */
+  height: 100%;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  -o-text-size-adjust: none;
+  text-size-adjust: none;
 }
 
 #scroller ul {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	width: 100%;
-	max-height: 100%;
-	text-align: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-height: 100%;
+  text-align: center;
 }
 
 #scroller li {
-	display: block;
-	float: left;
-	width: 160px;
-	height: 160px;
-	font-size: 14px;
-	margin-right: 30px;
-	border: 1px solid black;
+  display: block;
+  float: left;
+  width: 160px;
+  height: 160px;
+  font-size: 14px;
+  margin-right: 30px;
+  border: 1px solid black;
 }
 
 #scroller li > img {
-	width: 160px;
-	height: 160px;
+  width: 160px;
+  height: 160px;
 }
 
 #scroller li:last-child {
-	margin-right: 0;
+  margin-right: 0;
 }
 
 #searchResultPage {
-	font-size: 25px;
-	font-weight: bold;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 #filter-categories {
-	margin-top: 20px;
+  margin-top: 20px;
 }
 
 #category-list {
-	text-indent: 25px;
+  text-indent: 25px;
 }
 
 /********************************************
 * google maps
 ********************************************/
 #map-canvas {
-	width: 500px;
-	height: 400px;
-	background-color: #CCC;
+  width: 500px;
+  height: 400px;
+  background-color: #CCC;
 }
 
 
 .pickup-locations {
-	width: 280px;
+  width: 280px;
 }

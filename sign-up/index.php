@@ -23,13 +23,13 @@ require_once("../php/lib/header.php");
 						<?php echo generateInputTags(); ?>
 						<fieldset>
 							<label>Your email!:</label>
-							<input type="text" name="inputEmail" id="inputEmail" value="" size="45" />
+							<input type="text" name="inputEmail" id="inputEmail" value="" size="relative" />
 							<br><br>
 							<label>Enter a password:</label>
-							<input type="password" name="password1" id="password1" value="" size="38" />
+							<input type="password" name="password1" id="password1" value="" size="relative" />
 							<br><br>
 							<label>Please re-Enter Password:</label>
-							<input type="password" name="passwordCheck" id="passwordCheck" value="" size="29" />
+							<input type="password" name="passwordCheck" id="passwordCheck" value="" size="relative" />
 							<br><br>
 							<input type="submit" value="Let's get started!" id="submit">
 						</fieldset><!-- fieldset -->

@@ -106,9 +106,9 @@ try {
 
 <script src="../js/search.js"></script>
 
-<div class="container-fluid mt30">
+<div class="container-fluid mt30 white-container" >
 	<div class="row">
-		<div class="col-xs-12 transparent-form">
+		<div class="col-xs-12">
 			<p id="searchResultPage"><?php echo 'Search Results For: <span id="search-term">' . $searchq . '</span>'; ?></p>
 		</div>
 	</div>

@@ -73,15 +73,18 @@ try {
 			echo '<td>Final Price</td>';
 			echo '<td>$'.$checkoutFinalPrice.'</td>';
 			echo '</tr>';
-
-
 			echo '</table>';
 
 		}
 //		echo '</table>';
 
 	} else {
+		echo '<div class="container-fluid">';
+		echo '<div class="row">';
 		echo 'No orders found.';
+		echo '</div>';
+		echo '</div>';
+
 	}
 
 } catch(Exception $exception) {

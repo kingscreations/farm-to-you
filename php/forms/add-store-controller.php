@@ -24,9 +24,9 @@ try {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-	// get profile id from dummy session
-//	$profileId = $_SESSION['profileId'];
-	$profileId = 1;
+	// get profile id from session
+	$profileId = $_SESSION['profileId'];
+//	$profileId = 1;
 
 	// throw exception if missing a required field
 	if(!@isset($_POST["locationName"]) || !@isset($_POST["address1"]) ||

@@ -75,5 +75,4 @@ try {
 	);
 	$_SESSION['profileId'] = $profile->getProfileId();
 
-
 ?>

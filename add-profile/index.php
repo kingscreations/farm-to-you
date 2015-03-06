@@ -24,8 +24,8 @@ $configArray = readConfig($configFile);
 // connection
 $mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"], $configArray["database"]);
 
-$userId = 1;
-//$userId = $_SESSION['user']['id'];
+//$userId = 1;
+$userId = $_SESSION['user']['id'];
 $hasProfile = Profile::getProfileByUserId($mysqli, $userId);
 
 if($hasProfile === null) {

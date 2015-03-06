@@ -85,7 +85,7 @@ try {
 				$checkout = Checkout::getCheckoutByOrderId($mysqli, $orderId);
 				$checkoutDate = $checkout->getCheckoutDate();
 				$formattedDate = $checkoutDate->format("m/d/Y - H:i:s");
-				$checkoutFinalPrice = $checkout->getFinalPrice();
+				$checkoutFinalPrice = number_format((float)$checkout->getFinalPrice(), 2, '.', '');
 
 				echo '<table class="table table-responsive">';
 				echo '<tr>';
@@ -107,7 +107,8 @@ try {
 					$product = Product::getProductByProductId($mysqli, $productId);
 					$productName = $product->getProductName();
 					$productWeight = $product->getProductWeight();
-					$productPrice = $product->getProductPrice();
+					$productPrice = number_format((float)$product->getProductPrice(), 2, '.', '');
+//					$productPrice = $product->getProductPrice();
 					$location = Location::getLocationByLocationId($mysqli, $locationId);
 					$locationName = $location->getLocationName();
 

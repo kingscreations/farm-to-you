@@ -242,7 +242,7 @@ try {
 						<div class="row mt30" id="store-<?php echo $store->getStoreId(); ?>">
 							<div class="col-sm-4">
 								<div class="list-group pickup-locations">
-									<span class="list-group-item">
+									<span class="list-group-item disabled static">
 										Select a pickup location
 									</span>
 									<?php foreach($locations as $index => $location) {
@@ -274,17 +274,8 @@ try {
 			</div><!-- end col-sm-12 -->
 		</div><!-- end row -->
 
-		<div class="row">
+		<div class="row mt30">
 			<div class="col-sm-12">
-				<h3>Current pick-up location</h3>
-				<p>Here is the currently selected pick-up location:</p>
-				<ul>
-					<li>Grower's Market</li>
-					<li>Robinson Park</li>
-					<li>87102, Albuquerque NM</li>
-				</ul>
-
-				<p id="outputArea"></p>
 				<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="checkout-pickup-submit">
 			</div>
 		</div><!-- end row -->

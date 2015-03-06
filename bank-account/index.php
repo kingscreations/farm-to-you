@@ -7,7 +7,7 @@ require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 
 //$profileId = $_SESSION['profileId'];
 
-$profileId = 2;
+$profileId = 3;
 mysqli_report(MYSQLI_REPORT_STRICT);
 $configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 $mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
@@ -33,16 +33,17 @@ if($profileType !== "m") {
 ?>
 
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript" src="../js/bank-account.js"></script>
 
 <?php
 // check if they already have a bank account added by looking at the token and comparing to the 'rp' id
-if((preg_match('/^rp/', $profileToken) === false)) { ?>
+if((preg_match('/^rp/', $profileToken) === 0)) { ?>
 
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12">
 			<h2>Add Bank Account</h2>
-			<form id="bank-info" class="form-inline" method="post" action="../php/forms/bank-account-controller.php" enctype="multipart/form-data">
+			<form id="bankInfo" class="form-inline" method="post" action="../php/forms/bank-account-controller.php" enctype="multipart/form-data">
 				<?php echo generateInputTags(); ?>
 				<div class="form-group">
 					<label for="inputName">Name: <?php echo $profileFirstname . ' ' . $profileLastname ?></label>
@@ -78,6 +79,7 @@ if((preg_match('/^rp/', $profileToken) === false)) { ?>
 				</div>
 
 				</form>
+			<p id="outputArea"></p>
 		</div>
 	</div>
 </div>
@@ -87,7 +89,8 @@ if((preg_match('/^rp/', $profileToken) === false)) { ?>
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12">
-			<h3>You already have a bank account added. Please click here to edit it.</h3>
+			<h3 class="text-muted">You already have a bank account added. Please click here to edit it.</h3>
+			<p>Feature coming soon!</p>
 		</div>
 	</div>
 </div>

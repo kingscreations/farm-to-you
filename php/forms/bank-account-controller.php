@@ -20,11 +20,11 @@ require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 
 //$profileId = $_SESSION['profileId'];
 
-		$profileId = 2;
+		$profileId = 3;
 
 //	$userId = $_SESSION['user']['id'];
 
-		$userId = 7;
+		$userId = 16;
 
 		/**
 		 * Stripe API calls
@@ -54,7 +54,7 @@ require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 		$name = $profileFirstname . ' ' . $profileLastname;
 
 		//check if they have a token with an rp id already
-		if((preg_match('/^rp/', $profileToken) === false)) {
+		if((preg_match('/^rp/', $profileToken) === 0)) {
 			// create bank account associative array
 			$bankAccount = array(
 				"country" => $country,

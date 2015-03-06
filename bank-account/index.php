@@ -39,6 +39,7 @@ if($profileType !== "m") {
 		<div class="col-sm-12">
 			<h2>Add Bank Account</h2>
 			<form id="bank-info" class="form-inline" method="post" action="../php/forms/bank-account-controller.php" enctype="multipart/form-data">
+				<?php echo generateInputTags(); ?>
 				<div class="form-group">
 					<label for="inputName">Name: <?php echo $profileFirstname . ' ' . $profileLastname ?></label>
 				</div>

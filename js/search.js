@@ -27,7 +27,7 @@ $("#search").validate({
 
 $productsCardId = $('[id^=product-]');
 
-$('.list-group-item').on('click', function() {
+$('.list-group-item').on('click', function(event) {
 
 	event.preventDefault();
 
@@ -47,12 +47,11 @@ $('.list-group-item').on('click', function() {
 	$.ajax({
 		type: "post",
 		url: "../php/forms/category-search-controller.php",
-		//dataType: 'json',
+		dataType: 'json',
 		data: data
 	})
 		.done(function(jsonOutput) {
-			//console.log(jsonOutput);
-			var jsonOutput = jQuery.parseJSON(jsonOutput);
+			//var jsonOutput = jQuery.parseJSON(jsonOutput);
 
 			// if there is an error
 			if(typeof(jsonOutput.error) !== 'undefined') {

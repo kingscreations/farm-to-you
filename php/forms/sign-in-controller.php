@@ -10,8 +10,7 @@ require_once("../classes/user.php");
 require_once("../classes/profile.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 // require CSRF protection
- require_once("../lib/csrf.php");
-
+require_once("../lib/csrf.php");
 require_once('../../paths.php');
 
 // CSRF requires sessions

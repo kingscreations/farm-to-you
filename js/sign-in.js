@@ -35,30 +35,30 @@ $(document).ready(
 					maxlength: "Password is too long.",
 					required: "please enter a password."
 				}
-			}
+			},
 			// THIS WAS CAUSING THE INDEX TO DISPLAY IN THE WINDOW OF THE SIGNUP, FIXED BY TAKING THIS OUT.
-			// setup an AJAX call to submit the form without reloading
-			//submitHandler: function(form) {
-			//	$(form).ajaxSubmit({
-			//		// GET or POST
-			//		type: "POST",
-			//		// where to submit data
-			//		url: "../php/forms/sign-in-controller.php",
-			//		// TL; DR: reformat POST data
-			//		data: $(form),
-			//		// success is an event that happens when the server replies
-			//		success: function(ajaxOutput) {
-			//			// clear the output area's formatting
-			//			$("#outputArea").css("display", "");
-			//			// write the server's reply to the output area
-			//			$("#outputArea").html(ajaxOutput);
-			//			// reset the form if it was successful
-			//			// this makes it easier to reuse the form again
-			//			if($(".alert-success").length >= 1) {
-			//				$(form)[0].reset();
-			//			}
-			//		}
-			//	});
-			//}
+			//setup an AJAX call to submit the form without reloading
+			submitHandler: function(form) {
+				$(form).ajaxSubmit({
+					// GET or POST
+					type: "POST",
+					// where to submit data
+					url: "../php/forms/sign-in-controller.php",
+					// TL; DR: reformat POST data
+					data: $(form),
+					// success is an event that happens when the server replies
+					success: function(ajaxOutput) {
+						// clear the output area's formatting
+						$("#outputArea").css("display", "");
+						// write the server's reply to the output area
+						$("#outputArea").html(ajaxOutput);
+						// reset the form if it was successful
+						// this makes it easier to reuse the form again
+						if($(".alert-success").length >= 1) {
+							$(form)[0].reset();
+						}
+					}
+				});
+			}
 		});
 	});

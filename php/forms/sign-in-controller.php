@@ -58,7 +58,7 @@ try {
 
 	// compare hashes
 	if($mysqlHash !== $hash) {
-		throw new Exception('password input does not match existing account');
+		throw new Exception('Wrong Password, Redirecting back to the sign in page!');
 	} elseif($mysqlHash == $hash) {
 		header('Location: '.SITE_ROOT_URL. 'new-user/index.php');
 	}

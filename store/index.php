@@ -93,7 +93,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 
 <div class="container-fluid" id="store-view">
 	<div class="row">
-		<div class="col-sm-3" id="store-menu">
+		<div class="col-sm-3 transparent-menu" id="store-menu">
 			<div class="list-group">
 				<span class="list-group-item">Store Sections</span>
 				<a href="#" class="list-group-item active static">Home</a>
@@ -109,7 +109,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 				<a href=""><?php echo $storeOwner->getFirstName() . ' ' . $storeOwner->getLastName(); ?></a>
 			</div>
 		</div>
-		<div class="col-sm-9" id="store-content">
+		<div class="col-sm-9 transparent-form" id="store-content">
 			<?php
 				if($storeLocations === null) {
 					throw new Exception('products are null and store location are null');

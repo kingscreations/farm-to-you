@@ -255,6 +255,21 @@ a:hover {
   border: 1px solid lightgray;
   border-radius: 12px;
 }
+.transparent-menu {
+  background-color: rgba(255, 255, 255, .8);
+  text-align: left;
+  margin: auto;
+  width: 20%;
+  margin-top: 12%;
+  margin-bottom: 12%;
+  position: relative;
+  color: #497a2d;
+  font-family: Biko, sans-serif;
+  font-size: 1em;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+}
+
 input[type=text],
 input[type=password],
 input[type=tel],
@@ -340,9 +355,9 @@ li[role=presentation].open a {
   background-color: transparent !important;
 }
 
-#my-account-dropdown-menu {
-  background-color: darkgrey;
-}
+/*#my-account-dropdown-menu {*/
+  /*background-color: darkgrey;*/
+/*}*/
 
 /********************************************
 * thumbnails
@@ -626,6 +641,7 @@ h2 {
 ********************************************/
 .home-top {
   background: transparent url("../images/home-page.jpg") no-repeat fixed center center/cover;
+  font-family: ArchitectsDaughter, Biko;
   position: absolute;
   z-index: 1;
   top: 0px;
@@ -651,7 +667,7 @@ h2 {
 
 .home-top .heading {
   color: #497a2d;
-  font-family: ArchitectsDaughter;
+  font-family: ArchitectsDaughter, Biko;
   font-size: 1.4em;
 }
 

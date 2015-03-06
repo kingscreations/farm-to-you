@@ -32,7 +32,7 @@ $profileType = $profile->getProfileType();
 
 <?php
 if($profileType === "m") {
-	echo '<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
+	echo '<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
 		<ul class="nav nav-pills nav-stacked">
 			<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
 			<li><a href="../add-store/index.php">Manage Stores</a></li>

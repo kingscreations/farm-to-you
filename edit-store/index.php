@@ -40,7 +40,7 @@ try {
 <!--js validation + ajax call-->
 <script src="../js/edit-store.js"></script>
 
-	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
+	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
 			<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
@@ -61,7 +61,7 @@ try {
 
 	<div class="container-fluid">
 	<div class="row">
-	<div class="col-sm-9">
+	<div class="col-sm-9 transparent-form">
 
 		<form class="form-inline transparent-form" id="editStoreController" method="post" action="../php/forms/edit-store-controller.php" enctype="multipart/form-data">
 			<h2>Edit Store</h2>

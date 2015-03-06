@@ -108,7 +108,7 @@ try {
 
 <div class="container-fluid mt30">
 	<div class="row">
-		<div class="col-xs-12">
+		<div class="col-xs-12 transparent-form">
 			<p id="searchResultPage"><?php echo 'Search Results For: <span id="search-term">' . $searchq . '</span>'; ?></p>
 		</div>
 	</div>

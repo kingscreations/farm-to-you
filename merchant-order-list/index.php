@@ -21,7 +21,7 @@ $profileId = $_SESSION['profileId'];
 
 <!--<script src="../js/merchant-order-list.js"></script>-->
 
-<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
+<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
 	<ul class="nav nav-pills nav-stacked">
 		<li><a href="../edit-profile/index.php">Edit Profile</a></li>
 		<li><a href="../add-store/index.php">Manage Stores</a></li>
@@ -55,7 +55,7 @@ try {
 	if($products !== null) {
 		echo '<div class="container-fluid">';
 		echo '<div class="row">';
-		echo '<div class="col-md-9">';
+		echo '<div class="col-md-9 transparent-form">';
 		echo '<h2>Orders</h2>';
 		echo '<br>';
 		$allOrderProducts = array();
@@ -134,7 +134,7 @@ try {
 	} else {
 		echo '<div class="container-fluid">
 					<div class="row">
-						<div class="col-sm-9">
+						<div class="col-sm-9 transparent-form">
 							<h2>Orders</h2>
 							<h4>No orders found.</h4>
 						</div>

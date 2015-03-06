@@ -42,7 +42,7 @@ try {
 	<!--js validation + ajax call-->
 	<script src="../js/edit-location.js"></script>
 
-	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
+	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
 			<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
@@ -62,7 +62,7 @@ try {
 	</div>
 <div class="container-fluid">
 	<div class="row-fluid">
-		<div class="col-sm-9">
+		<div class="col-sm-9 transparent-form">
 			<h2>Edit Location</h2>
 			<form class="form-inline" id="editLocationController" method="post" action="../php/forms/edit-location-controller.php">
 				<?php echo generateInputTags(); ?>

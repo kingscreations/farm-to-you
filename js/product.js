@@ -31,7 +31,7 @@ $(document).ready(function() {
 			data: data
 		})
 			.done(function(jsonOutput) {
-console.log(jsonOutput);
+
 				// if there is an error
 				if(typeof(jsonOutput.error) !== 'undefined') {
 					console.error(jsonOutput.error);
@@ -57,14 +57,15 @@ console.log(jsonOutput);
 					$(this).remove();
 				});
 
-				if(jsonOutput.availableQuantity === 0) {
-					console.log('debug');
+				var availableQuantity = jsonOutput.availableQuantity;
+
+				if(availableQuantity === 0) {
 					$productQuantitySelect.append('<option selected="selected">0</option>');
 					$productQuantitySelect.disable();
 				}
 
 				// recreate all the options in the same select html parent tag
-				for(var i = 0; i < jsonOutput.availableQuantity; i++) {
+				for(var i = 0; i < availableQuantity; i++) {
 					if(i === 0) {
 						$productQuantitySelect.append('<option selected="selected">' + (i + 1) + '</option>');
 					} else {
@@ -74,14 +75,14 @@ console.log(jsonOutput);
 
 				// finally update the number of product available (just underneath the price)
 				var message = '';
-				if(jsonOutput.availableQuantity < 15 && jsonOutput.availableQuantity !== 0) {
-					message = 'Only ' + jsonOutput.availableQuantity + ' available';
-				} else if(jsonOutput.availableQuantity === 0) {
-					message = jsonOutput.availableQuantity + ' available';
-				} else if(jsonOutput.availableQuantity > 60) {
+				if(availableQuantity < 15 && availableQuantity !== 0) {
+					message = 'Only ' + availableQuantity + ' available';
+				} else if(availableQuantity === 0) {
+					message = availableQuantity + ' available';
+				} else if(availableQuantity > 60) {
 					message = 'A lot available';
 				} else {
-					message = jsonOutput.availableQuantity +' available';
+					message = availableQuantity +' available';
 				}
 				$('#available-quantity').text(message);
 

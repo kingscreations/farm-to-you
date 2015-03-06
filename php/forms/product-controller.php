@@ -39,6 +39,17 @@ try {
 
 	$product = Product::getProductByProductId($mysqli, $productId);
 
+	// get the stock limit
+	$stockLimit = $product->getStockLimit();
+
+	// a user can choose only between 1 to 99 elements if there is not stock limit set by the merchant
+	// TODO stock limit should probably be a required field
+	$maxQuantity = 99;
+
+	if($stockLimit === null) {
+		$stockLimit = $maxQuantity;
+	}
+
 } catch(Exception $exception) {
 	echo '<p class="alert alert-danger">Exception: ' . $exception->getMessage() . '</p>';
 }
@@ -48,60 +59,93 @@ if(!@isset($_SESSION['products'])) {
 	$_SESSION['products'] = array();
 }
 
-$productQuantity = filter_var($_POST['productQuantity'], FILTER_SANITIZE_NUMBER_INT);
+// malicious and incompetent users
+$newProductQuantityToAdd = intval(filter_var($_POST['productQuantity'], FILTER_SANITIZE_NUMBER_INT));
 
-$maxQuantity = 99; // TODO not sure we need a max quantity
-$stockLimit  = $product->getStockLimit();
-
-if($stockLimit === null) {
-	$stockLimit = $maxQuantity;
+if($newProductQuantityToAdd === 0) {
+	$output = [];
+	$output['error'] = 'Exception: newProductQuantityToAdd cannot be equal to 0';
 }
 
 // keep the old quantity to calculate how many products have been added
-$old_quantity = 0;
+// we initialize it at 0 if we add a new product to the cart (not just a quantity update)
+$oldProductQuantity = 0;
 
-if(@isset($_SESSION['products'][$productId])) {
+$simpleQuantityUpdate = @isset($_SESSION['products'][$productId])
+	&& @isset($_SESSION['products'][$productId]['quantity'])
+	&& @isset($_SESSION['products'][$productId]['availableQuantity']);
 
-	$old_quantity = $_SESSION['products'][$productId]['quantity'];
 
-	$_SESSION['products'][$productId]['quantity'] = $_SESSION['products'][$productId]['quantity'] + $productQuantity;
+// update the product quantity
+if($simpleQuantityUpdate === true) {
+
+	$availableQuantity = $_SESSION['products'][$productId]['availableQuantity'];
+
+	// save the old product quantity and get the new quantity
+	$oldProductQuantity = $_SESSION['products'][$productId]['quantity'];
+
+	// $newProductQuantity is the new up to date quantity in our products session array
+	$newProductQuantity = $oldProductQuantity + $newProductQuantityToAdd;
+
+
+	// OR new product added to the cart
 } else {
-	$_SESSION['products'][$productId] = array(
-		'quantity' => $productQuantity
-	);
+
+	$availableQuantity = $stockLimit;
+
+	// first time the user clicks on the add to cart button for this product
+	$newProductQuantity = $newProductQuantityToAdd;
 }
 
-if($_SESSION['products'][$productId]['quantity'] >= $stockLimit) {
+// check if the new quantity is not greater than the stock limit decided by the merchant
+if($newProductQuantity > $stockLimit) {
 
 	// fix the quantity if there is more than the stock limit
-	$_SESSION['products'][$productId]['quantity'] = $stockLimit;
+	$newProductQuantity = $stockLimit;
+	$availableQuantity = 0;
 
-	// Setup the message for the end user
-	$numberProductsAdded = $stockLimit - $old_quantity;
+	// setup the failure message for the end user
+	$numberProductsAdded = $newProductQuantity - $oldProductQuantity;
+
 	if($numberProductsAdded > 0) {
 		$text = ($numberProductsAdded === 1) ? ' has been added to your cart.' : ' have been added to your cart.';
-		$message = '<p class="alert alert-danger">Only' . $numberProductsAdded . ' ' . $product->getProductName() .
+		$message = '<p class="alert alert-danger">Only ' . $numberProductsAdded . ' ' . $product->getProductName() .
 			$text . '<br/> This product is out of stock now.</p>';
+
 	} else {
 		$message = '<p class="alert alert-danger">No ' . $product->getProductName() . ' have been added to your cart.<br/>
 		This product is out of stock now.</p>';
 	}
+
+	// new product or new quantity added successfully
 } else {
-	$numberProductsAdded = $productQuantity;
-	$text = ($productQuantity === 1) ? ' has been added.' : ' have been added to your cart.';
-	$message = '<p class="alert alert-success">' . $productQuantity . ' ' . $product->getProductName() .
+
+	// setup the success message for the end user
+	$numberProductsAdded = $newProductQuantityToAdd;
+	$availableQuantity = $availableQuantity - $numberProductsAdded;
+
+	$text = ($newProductQuantityToAdd === 1) ? ' has been added.' : ' have been added to your cart.';
+	$message = '<p class="alert alert-success">' . $newProductQuantityToAdd . ' ' . $product->getProductName() .
 		$text . '</p>';
 }
 
-// set the new stock limit
-$_SESSION['products'][$productId]['stockLimit'] = $stockLimit - $numberProductsAdded;
+// finally update the products session array
+$_SESSION['products'][$productId]['quantity'] = $newProductQuantity;
+$_SESSION['products'][$productId]['availableQuantity'] = $availableQuantity;
 
-// return the number of product to the ajax call (update the cart icon)
+// return the number of product to js (update the cart icon)
 $output = array(
-	'cartCount' => count($_SESSION['products']),
-	'message' => $message
+
+	// the cart count is related only to the number of different products
+	'cartCount'         => count($_SESSION['products']),
+
+	// communicate the available quantity to js to update the select dropdown
+	'availableQuantity' => $_SESSION['products'][$productId]['availableQuantity'],
+
+	'message'           => $message
 );
 
+// send the data to js
 echo json_encode($output);
 
 ?>

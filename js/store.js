@@ -38,11 +38,9 @@ $(document).ready(function() {
 		})
 			.done(function(jsonOutput) {
 
-				//var jsonOutput = jQuery.parseJSON(jsonOutput);
-
 				// if there is an error
 				if(typeof(jsonOutput.error) !== 'undefined') {
-					console.log(jsonOutput.error);
+					console.error(jsonOutput.error);
 					return;
 				}
 				var productIds = jsonOutput.products;

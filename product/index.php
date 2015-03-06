@@ -171,13 +171,20 @@ $storeImageSrc  = basename($store->getImagePath());
 		</div>
 		<div class="col-sm-5">
 			<form id="product-controller" action="../php/forms/product-controller.php" method="post">
+				<!-- Cross Site Request Forgery (csrf) token -->
+				<?php echo generateInputTags(); ?>
 				<div id="listing-page-cart">
 					<h1><?php echo $product->getProductName(); ?></h1>
 
-					<span class="currency-value">$<?php echo $product->getProductPrice(); ?> USD</span><br/>
+					<span class="currency-value">$<?php echo $product->getProductPrice(); ?></span><br/>
 					<?php
 
-					$stockLimit = $product->getStockLimit();
+					if(@isset($_SESSION['products'][$productId]['stockLimit'])) {
+						$stockLimit = $_SESSION['products'][$productId]['stockLimit'];
+					} else {
+						$stockLimit = $product->getStockLimit();
+					}
+
 					if($stockLimit < 15) {
 						echo 'Only '. $stockLimit .' available';
 					} else if($stockLimit > 60) {
@@ -194,7 +201,7 @@ $storeImageSrc  = basename($store->getImagePath());
 					}
 
 					// select box
-					echo 'Select a quantity: <select class="product-quantity" name="productQuantity">';
+					echo 'Select a quantity: <select id="product-quantity" class="product-quantity" name="productQuantity">';
 
 					// creating $quantityLimit # of options
 					for($i = 0; $i < $stockLimit; $i++) {

@@ -110,8 +110,7 @@ try {
 	<div class="row">
 		<div class="col-xs-12">
 			<p id="searchResultPage"><?php echo 'Search Results For: <span id="search-term">' . $searchq . '</span>'; ?></p>
-		</div>
-	</div>
+
 <!--</div>-->
 
 <!--<div class="container-fluid mt60">-->
@@ -268,6 +267,8 @@ if($stores !== null) {
 ?>
 
 		</div>
+	</div>
+	</div>
 	</div>
 </div><!-- end container-fluid -->
 

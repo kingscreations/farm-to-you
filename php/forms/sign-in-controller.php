@@ -7,6 +7,7 @@
  */
 
 require_once("../classes/user.php");
+require_once("../classes/profile.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 // require CSRF protection
  require_once("../lib/csrf.php");
@@ -38,11 +39,12 @@ try {
 	$email = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
 
 	// search for the login email from mysqli
-	$mysqlId = User::getUserByEmail($mysqli, $email);
+	$user = User::getUserByEmail($mysqli, $email);
+	$profile = Profile::getProfileByUserId($mysqli, $user->getUserId());
 
 	//get the mysqli hash and salt
-	$mysqlSalt = $mysqlId->getSalt();
-	$mysqlHash = $mysqlId->getHash();
+	$mysqlSalt = $user->getSalt();
+	$mysqlHash = $user->getHash();
 
 	// generate hash from users password using mysqli salt
 	$hash = hash_pbkdf2("sha512", $_POST["password2"], $mysqlSalt, 2048, 128);
@@ -69,9 +71,9 @@ try {
 
 // create session id specific to this user
 	$_SESSION['user'] = array(
-		'id' => $mysqlId->getUserId()
+		'id' => $user->getUserId()
 	);
-
+	$_SESSION['profileId'] = $profile->getProfileId();
 
 
 ?>

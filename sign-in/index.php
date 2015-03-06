@@ -11,6 +11,9 @@ require_once '../root-path.php';
 require_once("../php/lib/header.php");
 
 ?>
+<script src="../js/sign-in.js"></script>
+
+
 <div class="signIn">
 	<div class="signIn-form">
 	<div class="container-fluid">

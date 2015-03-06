@@ -92,7 +92,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 ?>
 
 <div class="container-fluid transparent-form" id="store-view">
-	<div class="row">
+
 		<div class="col-sm-3 transparent-menu" id="store-menu">
 			<div class="list-group">
 				<span class="list-group-item">Store Sections</span>
@@ -160,9 +160,6 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 				</div>
 			</div>
 
-			<div class="row" id="featured">
-
-			</div>
 
 			<div class="row" id="products">
 				<div class="col-sm-12">
@@ -214,7 +211,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 				</div>
 			</div>
 		</div><!-- end store-content -->
-	</div>
+
 </div>
 
 <script src="../js/store.js"></script>

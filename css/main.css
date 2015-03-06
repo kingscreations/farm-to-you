@@ -41,7 +41,7 @@ footer {
 }
 
 body {
-  background-color: whitesmoke;
+  /*background-color: whitesmoke;*/
   overflow-y: scroll;
   font-family: Biko;
 }
@@ -89,7 +89,7 @@ footer p {
 }
 
 .container-fluid {
-  width: 96%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   padding: 0;
@@ -246,8 +246,8 @@ a:hover {
   text-align: center;
   margin: auto;
   width: 70%;
-  margin-top: 8%;
-  margin-bottom: 8%;
+  margin-top: 10%;
+  margin-bottom: 10%;
   position: relative;
   color: #497a2d;
   font-family: Biko, sans-serif;
@@ -260,8 +260,8 @@ a:hover {
   text-align: left;
   margin: auto;
   width: 20%;
-  margin-top: 12%;
-  margin-bottom: 12%;
+  margin-top: 10%;
+  margin-bottom: 10%;
   position: relative;
   color: #497a2d;
   font-family: Biko, sans-serif;

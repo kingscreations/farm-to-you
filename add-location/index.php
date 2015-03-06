@@ -37,17 +37,17 @@ require_once("../php/classes/location.php");
 
 <div class="row-fluid">
 	<div class="col-sm-9">
-		<h2>Add Location</h2>
 		<form class="form-inline" id="locationController" method="post" action="../php/forms/add-location-controller.php">
+			<h2>Add Location</h2>
 			<?php echo generateInputTags(); ?>
 			<div class="form-group">
 				<label for="locationName">Location Name</label>
-				<input type="text" id="locationName" name="locationName" value="Home">
+				<input type="text" id="locationName" name="locationName" value="Store Location">
 			</div>
 			<br>
 			<div class="form-group">
 				<label for="address1">Address</label>
-				<input type="text" id="address1" name="address1" value="1228 W La Entrada">
+				<input type="text" id="address1" name="address1" value="Location Cont.">
 			</div>
 			<br>
 			<div class="form-group">
@@ -57,7 +57,7 @@ require_once("../php/classes/location.php");
 			<br>
 			<div class="form-group">
 				<label for="city">City</label>
-				<input type="text" id="city" name="city" value="Corrales">
+				<input type="text" id="city" name="city" value="Albuquerque">
 			</div>
 			<div class="form-group">
 				<label for="state">State</label>
@@ -69,7 +69,7 @@ require_once("../php/classes/location.php");
 			</div>
 			<div class="form-group">
 				<label for="country">Country</label>
-				<input type="text" id="country" name="country">
+				<input type="text" id="country" name="country" value="US">
 			</div>
 			<br>
 			<br>

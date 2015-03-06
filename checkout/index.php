@@ -27,7 +27,7 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 <div class="row-fluid" xmlns="http://www.w3.org/1999/html">
 	<div class="col-sm-4 col-sm-offset-4">
 
-		<form id="payment-form" action="../php/forms/checkout-controller.php" method="post" onsubmit="event.preventDefault()" novalidate>
+		<form class="transparent-form" id="payment-form" action="../php/forms/checkout-controller.php" method="post" onsubmit="event.preventDefault()" novalidate>
 			<?php echo generateInputTags(); ?>
 			<h2>Secure payment via stripe</h2>
 

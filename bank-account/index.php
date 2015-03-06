@@ -42,8 +42,8 @@ if((preg_match('/^rp/', $profileToken) === 0)) { ?>
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12">
-			<h2>Add Bank Account</h2>
 			<form id="bankInfo" class="form-inline" method="post" action="../php/forms/bank-account-controller.php" enctype="multipart/form-data">
+				<h2>Add Bank Account</h2>
 				<?php echo generateInputTags(); ?>
 				<div class="form-group">
 					<label for="inputName">Name: <?php echo $profileFirstname . ' ' . $profileLastname ?></label>
@@ -88,7 +88,7 @@ if((preg_match('/^rp/', $profileToken) === 0)) { ?>
 
 <div class="container">
 	<div class="row">
-		<div class="col-sm-12">
+		<div class="col-sm-12" id="existingBankAccount">
 			<h3 class="text-muted">You already have a bank account added. Please click here to edit it.</h3>
 			<p>Feature coming soon!</p>
 		</div>

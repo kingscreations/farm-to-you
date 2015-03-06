@@ -249,7 +249,11 @@ a:hover {
 #existingProfile,
 #locationController,
 #addProduct,
-#productEdit{
+#productEdit,
+#bankInfo,
+#existingBankAccount,
+#cart,
+.transparent-form {
   background-color: rgba(255, 255, 255, .8);
   text-align: center;
   margin: auto;
@@ -322,7 +326,7 @@ input[type=password]:focus {
   background-color: rgba(255, 255, 255, 1.0);
   text-align: center;
   margin: auto;
-  width: 50px;
+  width: 200px;
   /*margin-top: 12%;*/
   /*margin-bottom: 12%;*/
   position: relative;
@@ -482,6 +486,10 @@ h2 {
 #cart #total-price-result {
   color: #337ab7;
   font-weight: bold;
+}
+
+.transparent-form label {
+  color
 }
 
 #cart #total-price-result {

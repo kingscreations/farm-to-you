@@ -1,29 +1,29 @@
 
 //tell the validator to validate this form (by id)
-$("#search").validate({
-	// setup the formatting for the errors
-	errorClass: "label-danger",
-	errorLabelContainer: "#outputArea",
-	wrapper: "li",
-
-	// rules define what is good/bad input
-	rules: {
-		// each rule starts with the inputs name (NOT id)
-		inputSearch: {
-			minlength: 1,
-			required: true
-		}
-	},
-
-	// error messages to display to the end user
-	messages: {
-		inputFirstname: {
-
-			minlength: "Search must have at least 1 character",
-			required: "Please enter a search term"
-		}
-	}
-});
+//$("#search").validate({
+//	// setup the formatting for the errors
+//	errorClass: "label-danger",
+//	errorLabelContainer: "#outputArea",
+//	wrapper: "li",
+//
+//	// rules define what is good/bad input
+//	rules: {
+//		// each rule starts with the inputs name (NOT id)
+//		inputSearch: {
+//			minlength: 1,
+//			required: true
+//		}
+//	},
+//
+//	// error messages to display to the end user
+//	messages: {
+//		inputFirstname: {
+//
+//			minlength: "Search must have at least 1 character",
+//			required: "Please enter a search term"
+//		}
+//	}
+//});
 
 $productsCardId = $('[id^=product-]');
 

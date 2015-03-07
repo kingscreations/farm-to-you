@@ -12,6 +12,16 @@
 // header
 $currentDir = dirname(__FILE__);
 require_once '../root-path.php';
+
+session_start();
+
+if(!@isset($_SESSION['profileId']) || ($_SESSION['user']['id'])) {
+	header('Location: ../sign-in/index.php');
+	exit();
+}
+
+session_abort();
+
 require_once '../php/lib/header.php';
 
 ?>
@@ -35,18 +45,11 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 // errors report
 mysqli_report(MYSQLI_REPORT_STRICT);
 
-// TODO get rid of the following hardcoded variables:
-if(@isset($_SESSION['user']['id'])) {
-	$userId = $_SESSION['user']['id'];
-} else {
-	$userId = 1;
-}
+// TODO get rid of the following hardcoded variables: DONE!
 
-if(@isset($_SESSION['profile']['id'])) {
-	$profileId = $_SESSION['profile']['id'];
-} else {
-	$profileId = 1;
-}
+$userId = $_SESSION['user']['id'];
+
+$profileId = $_SESSION['profileId'];
 
 try {
 	// get the credentials information from the server and connect to the database

@@ -24,8 +24,8 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
-$_SESSION['user']['id'] = 1;
-$_SESSION['profile']['id'] = 1;
+//$_SESSION['user']['id'] = 1;
+//$_SESSION['profile']['id'] = 1;
 
 // format the store location association nicely by creation objects
 $storeLocations = [];
@@ -47,7 +47,7 @@ try {
 		$configArray["database"]);
 
 	$user = User::getUserByUserId($mysqli, $_SESSION['user']['id']);
-	$profile = Profile::getProfileByProfileId($mysqli, $_SESSION['profile']['id']);
+	$profile = Profile::getProfileByProfileId($mysqli, $_SESSION['profileId']);
 
 	if($profile === null) {
 		echo '<p class=\"alert alert-danger\">Internal server error.</p>';

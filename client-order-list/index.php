@@ -27,6 +27,16 @@ try {
 	// grab all stores by profile id in dummy session
 	$orders = Order::getAllOrdersByProfileId($mysqli, $profileId);
 
+	 echo '	<div class="container-fluid container-margin-sm transparent-form">
+					<div class="row">
+						<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+								<li class="active"><a href="../client-order-list/index.php">List of Orders</a></li>
+								<li class="disabled"><a href="#">Account Settings</a></li>
+							</ul>
+						</div>';
+
 
 	// create table of existing stores
 	if($orders !== null) {
@@ -74,14 +84,13 @@ try {
 			echo '<td>$'.$checkoutFinalPrice.'</td>';
 			echo '</tr>';
 			echo '</table>';
-
+			echo '</div>';
+			echo '</div>';
 		}
 //		echo '</table>';
 
 	} else {
-		echo '<div class="container-fluid">';
-		echo '<div class="row">';
-		echo 'No orders found.';
+		echo '<h4>No orders found.</h4>';
 		echo '</div>';
 		echo '</div>';
 

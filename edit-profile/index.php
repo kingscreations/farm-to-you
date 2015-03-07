@@ -2,13 +2,17 @@
 $currentDir = dirname(__FILE__);
 require_once ("../root-path.php");
 require_once("../php/lib/header.php");
+
+if($_SESSION['profileId'] === null) {
+	header('Location: ../sign-in/index.php');
+	exit;
+}
+
 require_once("../php/classes/profile.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 
 $profileId = $_SESSION['profileId'];
-
-var_dump($_SESSION['profileId']);
 
 mysqli_report(MYSQLI_REPORT_STRICT);
 $configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");

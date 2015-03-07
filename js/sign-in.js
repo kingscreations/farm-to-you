@@ -52,6 +52,18 @@ $(document).ready(
 						$("#outputArea").css("display", "");
 						// write the server's reply to the output area
 						$("#outputArea").html(ajaxOutput);
+
+						if(ajaxOutput.indexOf("alert-success") !== -1){
+							setTimeout(function(){
+								window.location.href = "../new-user/index.php";
+							}, 1000);
+						}
+
+						if(ajaxOutput.indexOf("alert-danger") !== -1) {
+							setTimeout(function(){
+								window.location.href = "../sign-in/index.php"
+							}, 500);
+						}
 						// reset the form if it was successful
 						// this makes it easier to reuse the form again
 						if($(".alert-success").length >= 1) {

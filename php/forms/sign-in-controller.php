@@ -56,14 +56,15 @@ try {
 	$url = "https://" . $_SERVER["SERVER_NAME"] . '/' . $currentPathExploded[1] . '/' .
 		$currentPathExploded[2];
 
+
+	$_SESSION['emailPop'] = $email;
 	// compare hashes
 	if($mysqlHash !== $hash) {
-		throw new Exception('Wrong Password, Redirecting back to the sign in page!');
-	} elseif($mysqlHash == $hash) {
-		header('Location: '.SITE_ROOT_URL. 'new-user/index.php');
+		echo "<p class=\"alert alert-danger\">Incorrect Password, please try again!</p>";
+		exit();
 	}
 //	catch any AJAX exceptions
-	echo "<div class=\"alert alert-success\" role=\"alert\">You are signed in!</div>";
+	echo "<div class=\"alert alert-success\" role=\"alert\">You are signed in! Redirecting to home page!</div>";
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }

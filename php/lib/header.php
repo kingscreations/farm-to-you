@@ -30,6 +30,8 @@ require_once($prefix . 'paths.php');
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="<?php echo $prefix; ?>css/main.css"/>
+		<link rel="stylesheet" href="<?php echo $prefix; ?>css/custom.css"/>
+
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>

@@ -83,7 +83,9 @@ footer p {
 }
 
 #main-menu .dropdown-menu {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-color: brown;
+  color: white
   right: 0px;
   left: auto;
 }
@@ -214,7 +216,7 @@ a:hover {
 
 #farm-to-you-logo a,
 #farm-to-you-logo a:hover {
-  color: #497a2d;
+  color: rgba(165, 156, 56, 1);
 }
 
 .delete-item {
@@ -245,17 +247,40 @@ a:hover {
   background-color: rgba(255, 255, 255, .8);
   text-align: center;
   margin: auto;
-  width: 70%;
+  width: 90%;
   margin-top: 10%;
   margin-bottom: 10%;
   position: relative;
   color: #497a2d;
   font-family: Biko, sans-serif;
-  font-size: 1em;
+  font-size: .8em;
   border: 1px solid lightgray;
-  border-radius: 12px;
+  border-radius: 5px;
+  padding-left: 5em;
+  padding-right: 5em;
 }
-.transparent-menu {
+
+
+@media screen and (min-width: 768px) {
+  .transparent-form {
+    background-color: rgba(255, 255, 255, .8);
+    text-align: center;
+    margin: auto;
+    width: 70%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    position: relative;
+    color: #497a2d;
+    font-family: Biko, sans-serif;
+    font-size: 1em;
+    border: 1px solid lightgray;
+    border-radius: 12px;
+  }
+}
+.nav-stacked.active {
+  color: brown;
+}
+  .transparent-menu {
   background-color: rgba(255, 255, 255, .8);
   text-align: left;
   margin: auto;
@@ -265,11 +290,28 @@ a:hover {
   position: relative;
   color: #497a2d;
   font-family: Biko, sans-serif;
-  font-size: 1em;
-  border: 1px solid #ffffff;
-  border-radius: 5px;
+  font-size: .7em;
+    border: 1px solid lightgray;
+  border-radius: 3px;
 }
 
+@media screen and (min-width: 768px) {
+  .transparent-menu {
+    background-color: rgba(255, 255, 255, .8);
+    text-align: left;
+    margin: auto;
+    width: 20%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    position: relative;
+    color: #497a2d;
+    font-family: Biko, sans-serif;
+    font-size: 1em;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+  }
+
+}
 input[type=text],
 input[type=password],
 input[type=tel],
@@ -355,9 +397,9 @@ li[role=presentation].open a {
   background-color: transparent !important;
 }
 
-/*#my-account-dropdown-menu {*/
-  /*background-color: darkgrey;*/
-/*}*/
+#my-account-dropdown-menu {
+  background-color: tan;
+  }
 
 /********************************************
 * thumbnails
@@ -620,6 +662,7 @@ h2 {
 
 #multi-menu {
   margin-top: 30px;
+  color: lightgreen;
 }
 
 /********************************************

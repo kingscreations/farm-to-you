@@ -32,7 +32,9 @@ $profileType = $profile->getProfileType();
 
 <?php
 if($profileType === "m") {
-	echo '<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
+	echo '
+<div class="container-fluid transparent-form">
+<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
 		<ul class="nav nav-pills nav-stacked">
 			<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
 			<li><a href="../add-store/index.php">Manage Stores</a></li>
@@ -41,7 +43,7 @@ if($profileType === "m") {
 		</ul>
 	</div>';
 		}else{
-	echo '<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
+	echo '<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
 		<ul class="nav nav-pills nav-stacked">
 			<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
 			<li><a href="../client-order-list/index.php">List of Orders</a></li>
@@ -62,7 +64,7 @@ if($profileType === "m") {
 	</div>
 
 <!--Form to edit a profile-->
-<div class="container-fluid">
+<!--<div class="container-fluid">-->
 	<div class="row">
 <div class="col-md-9">
 
@@ -110,11 +112,11 @@ if($profileType === "m") {
 
 			$baseUrl             = CONTENT_ROOT_URL . 'images/profile/';
 			$basePath            = CONTENT_ROOT_PATH . 'images/profile/';
-			$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
+			$imagePlaceholderSrc = SITE_ROOT_URL. 'images/placeholder.png';
 			$imageSrc            = basename($profile->getImagePath());
 
 			// show a placeholder if the product is not associated with an image
-			if(file_exists($basePath . $imageSrc)) {
+			if(is_file($profile->getImagePath())) {
 				?>
 				<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
 			<?php } else { ?>

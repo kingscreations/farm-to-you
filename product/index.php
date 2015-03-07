@@ -76,6 +76,9 @@ try {
 
 	$mysqli->close();
 
+
+
+
 } catch(Exception $exception) {
 	echo 'Exception: '. $exception->getMessage() .'<br/>';
 	echo $exception->getFile(). ':' .$exception->getLine();
@@ -94,9 +97,9 @@ $storeImageSrc  = basename($store->getImagePath());
 
 ?>
 
-<div class="container-fluid mt60" id="product">
+<div class="container-fluid mt60 transparent-form" id="product">
 	<div class="row">
-		<div class="col-sm-5 col-xs-7">
+		<div class="col-sm-5 col-xs-5">
 			<?php
 
 			$storeLink = SITE_ROOT_URL . 'store/index.php?store='. $store->getStoreId();
@@ -111,7 +114,7 @@ $storeImageSrc  = basename($store->getImagePath());
 
 			?>
 		</div>
-		<div class="col-sm-7 col-xs-5">
+		<div class="col-sm-7 col-xs-7">
 			<!-- store products thumbnails -->
 			<ul class="thumbnail-links">
 			<?php
@@ -156,9 +159,6 @@ $storeImageSrc  = basename($store->getImagePath());
 			</ul>
 		</div><!-- end col-sm-7 -->
 	</div>
-</div><!-- end container-fluid -->
-
-<div class="container-fluid white-container">
 	<div class="row">
 		<div class="col-sm-7">
 			<?php if(is_file($productBasePath . $productImageSrc)) { ?>

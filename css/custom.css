@@ -1,0 +1,37 @@
+
+/*menus and navs*/
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+	color: #FFF;
+	background-color: rgba(165, 156, 56, 0.8);
+}
+
+#multi-menu.active {
+	color: rgba(165, 156, 56, 0.8);
+	border-color: brown;
+}
+
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover {
+	color: #FFF;
+	text-decoration: none;
+	border-color: brown;
+	background-color: rgba(165, 156, 56, 0.8);
+}
+
+
+/*buttons*/
+.btn-primary {
+	color: #FFF;
+	background-color: rgba(165, 156, 56, 0.8);
+	border-color: brown;
+}
+.btn-primary.active, .btn-primary.focus, .btn-primary:active, .btn-primary:focus, .btn-primary:hover, .open > .dropdown-toggle.btn-primary {
+	color: #FFF;
+	background-color: rgba(165, 156, 56, 0.8);
+	border-color: brown;
+}
+
+/*footer*/
+a {
+	color: brown;
+	text-decoration: none;
+}

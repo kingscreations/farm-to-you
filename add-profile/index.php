@@ -25,7 +25,12 @@ $configArray = readConfig($configFile);
 $mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"], $configArray["database"]);
 
 //$userId = 1;
-$userId = $_SESSION['user']['id'];
+if(@isset($_SESSION['user']['id'])) {
+	$userId = $_SESSION['user']['id'];
+} else {
+	header('Location: ../sign-up');
+}
+
 $hasProfile = Profile::getProfileByUserId($mysqli, $userId);
 
 if($hasProfile === null) {

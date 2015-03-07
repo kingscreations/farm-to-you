@@ -57,9 +57,9 @@ if((preg_match('/^rp/', $profileToken) === 0)) { ?>
 		<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
 			<ul class="nav nav-pills nav-stacked">
 				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-				<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+				<li><a href="../add-store/index.php">Manage Stores</a></li>
 				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
-				<li><a href="../bank-account/index.php">Bank Account</a></li>
+				<li class="active"><a href="../bank-account/index.php">Bank Account</a></li>
 			</ul>
 		</div>
 

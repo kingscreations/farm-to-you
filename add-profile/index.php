@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+if(!@isset($_SESSION['user']['id'])) {
+	header('Location: ../sign-up');
+}
+
+session_abort();
+
 $currentDir = dirname(__FILE__);
 require_once ("../root-path.php");
 require_once("../php/lib/header.php");
@@ -19,12 +27,7 @@ $configArray = readConfig($configFile);
 // connection
 $mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"], $configArray["database"]);
 
-//$userId = 1;
-if(@isset($_SESSION['user']['id'])) {
-	$userId = $_SESSION['user']['id'];
-} else {
-	header('Location: ../sign-up');
-}
+$userId = $_SESSION['user']['id'];
 
 $hasProfile = Profile::getProfileByUserId($mysqli, $userId);
 

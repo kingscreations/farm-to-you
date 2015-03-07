@@ -3,16 +3,19 @@
  * @author Alonso Indacochea <alonso@hermesdevelopment.com>
  */
 
+session_start();
+
+if(!@isset($_SESSION['storeId'])) {
+	header('Location: ../sign-in/index.php');
+	exit();
+}
+
+session_abort();
 
 // header
 $currentDir = dirname(__FILE__);
 require_once("../root-path.php");
 require_once("../php/lib/header.php");
-
-if($_SESSION['storeId'] === null) {
-	header('Location: ../sign-in/index.php');
-	exit();
-}
 
 // classes
 require_once("../php/classes/location.php");

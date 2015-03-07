@@ -3,6 +3,10 @@
  * @author Alonso Indacochea <alonso@hermesdevelopment.com>
  */
 
+if($_SESSION['profileId'] === null) {
+	header('Location: ../sign-in/index.php');
+}
+
 // header
 $currentDir = dirname(__FILE__);
 require_once("../root-path.php");
@@ -11,6 +15,7 @@ require_once("../php/lib/header.php");
 // classes
 require_once("../php/classes/store.php");
 
+// grab profileId from session
 $profileId = $_SESSION['profileId'];
 
 //$profileId = 1;

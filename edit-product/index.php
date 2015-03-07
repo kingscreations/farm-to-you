@@ -142,7 +142,7 @@ try {
 
 		<br>
 
-		<div class="form-group">
+		<div class="form-group hidden">
 			<label for="editProductImage">Product Image:</label>
 			<input type="file" class="form-control" name="editProductImage" id="editProductImage">
 		</div>
@@ -160,23 +160,23 @@ try {
 
 		<br>
 		<div class="form-group edit-product">
+			<a href="#" id="editProductImageLink">
+				<?php
 
-			<?php
+				$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
 
-			$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
+				$productBaseUrl      = CONTENT_ROOT_URL . 'images/product/';
+				$productBasePath     = CONTENT_ROOT_PATH . 'images/product/';
+				$productImageSrc     = basename($product->getImagePath());
 
-			$productBaseUrl      = CONTENT_ROOT_URL . 'images/product/';
-			$productBasePath     = CONTENT_ROOT_PATH . 'images/product/';
-			$productImageSrc     = basename($product->getImagePath());
-
-			// show a placeholder if the product is not associated with an image
-			if(file_exists($productBasePath . $productImageSrc)) {
-				?>
-				<img class="thumbnail img-responsive" src="<?php echo $productBaseUrl . $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
-			<?php } else { ?>
-				<img class="thumbnail img-responsive" src="<?php echo $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
-			<?php } ?>
-
+				// show a placeholder if the product is not associated with an image
+				if(is_file($product->getImagePath())) {
+					?>
+					<img class="thumbnail img-responsive" src="<?php echo $productBaseUrl . $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
+				<?php } else { ?>
+					<img class="thumbnail img-responsive" src="<?php echo $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
+				<?php } ?>
+			</a>
 		</div>
 		<br>
 

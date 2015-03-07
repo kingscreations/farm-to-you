@@ -15,6 +15,7 @@ require_once("../classes/order.php");
 require_once("../classes/profile.php");
 require_once("../classes/user.php");
 require_once("../classes/location.php");
+require_once("../classes/storelocation.php");
 
 // connection configuration
 mysqli_report(MYSQLI_REPORT_STRICT);
@@ -25,6 +26,19 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
 $_SESSION['user']['id'] = 1;
 $_SESSION['profile']['id'] = 1;
+
+// format the store location association nicely by creation objects
+$storeLocations = [];
+foreach($_SESSION['storeLocations'] as $storeLocationMap) {
+	$storeLocationMapExploded = explode('|', $storeLocationMap);
+
+	// create a new store location from the exploded string
+	$storeId       = intval($storeLocationMapExploded[0]);
+	$locationId    = intval($storeLocationMapExploded[1]);
+	$storeLocation = new StoreLocation($storeId, $locationId);
+
+	$storeLocations[] = $storeLocation;
+}
 
 try {
 	// connection
@@ -169,13 +183,30 @@ try {
 	foreach($_SESSION['products'] as $sessionProductId => $sessionProduct) {
 		$product = Product::getProductByProductId($mysqli, $sessionProductId);
 
+		// search for the product related location
+		$productLocationId = null;
+		foreach($storeLocations as $storeLocation) {
+			if($storeLocation->getStoreId() === $product->getStoreId()) {
+				$productLocationId = $storeLocation->getLocationId();
+				break;
+			}
+		}
+
+		if($productLocationId === null) {
+			throw new Exception("<p class=\"alert alert-danger\">Exception: no location found for the current product</p>");
+		}
+
 		// create and insert a new order product
-		$orderProduct = new OrderProduct($order->getOrderId(), $product->getProductId(), $_SESSION['order-location'], $sessionProduct['quantity']);
+		$orderProduct = new OrderProduct($order->getOrderId(), $product->getProductId(), $productLocationId, $sessionProduct['quantity']);
 		$orderProduct->insert($mysqli);
+
+		// decrement the stock limit
+		// TODO rename stockLimit to stockQuantity
+		$product->setStockLimit($product->getStockLimit() - $sessionProduct['quantity']);
 	}
 
 	// create and insert the checkout with the current date and the total price
-	$checkout = new Checkout(null, $order->getOrderId(), new DateTime(), $totalPrice);
+	$checkout = new Checkout(null, $order->getOrderId(), new DateTime(), $totalPrice / 100);
 	$checkout->insert($mysqli);
 
 	//close the database connection

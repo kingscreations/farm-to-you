@@ -128,7 +128,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 									? $storeBaseUrl.$storeImageSrc
 									: $bannerImagePlaceHolderSrc; ?>"
 									  alt="<?php echo $store->getStoreName(); ?>"
-										class="img-responsive"/>
+									  class="img-responsive img-thumbnail"/>
 							</a>
 						</div><!-- end store-banner -->
 

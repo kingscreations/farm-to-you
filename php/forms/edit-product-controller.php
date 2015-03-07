@@ -243,17 +243,6 @@ try {
 		}
 	}
 
-//	if($categoryProductNew1 !== null) {
-//		$_SESSION["categoryId1"] = $categoryProductNew1->getCategoryId();
-////	} else {
-////		$_SESSION["categoryId1"] = null;
-//	}
-	var_dump($categoryProduct1);
-	var_dump($categoryProduct2);
-	var_dump($categoryProduct3);
-	var_dump($categoryProduct4);
-
-
 	if($categoryProductNew1 !== null) {
 		$_SESSION["categoryId1"] = $categoryProductNew1->getCategoryId();
 	} else if ($categoryProduct1 !== null) {

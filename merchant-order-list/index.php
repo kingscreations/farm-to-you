@@ -4,6 +4,16 @@
 // dummy session
 $currentDir = dirname(__FILE__);
 require_once ("../root-path.php");
+
+session_start();
+
+if(!@isset($_SESSION['profileId'])) {
+	header('Location: ../sign-in/index.php');
+	exit();
+}
+
+session_abort();
+
 require_once("../php/lib/header.php");
 
 // classes
@@ -14,8 +24,6 @@ require_once("../php/classes/location.php");
 require_once("../php/classes/product.php");
 
 $profileId = $_SESSION['profileId'];
-
-//$profileId = 1;
 
 ?>
 

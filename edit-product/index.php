@@ -1,6 +1,16 @@
 <?php
 $currentDir = dirname(__FILE__);
 require_once ("../root-path.php");
+
+session_start();
+
+if(!@isset($_SESSION['productId'])) {
+	header('Location: ../sign-in/index.php');
+	exit();
+}
+
+session_abort();
+
 require_once("../php/lib/header.php");
 require_once("../php/classes/product.php");
 require_once("../php/classes/category.php");

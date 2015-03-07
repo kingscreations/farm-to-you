@@ -8,12 +8,16 @@ $currentDir = dirname(__FILE__);
 
 // header
 require_once '../root-path.php';
+session_start();
+
+if(!@isset($_SESSION['profileId'])) {
+	header('Location: ../sign-in/index.php');
+	exit();
+}
+
+session_abort();
 require_once '../php/lib/header.php';
 
-if($_SESSION['profileId'] === null) {
-	header('Location: ../sign-in/index.php');
-	exit;
-}
 
 // model
 require_once('../php/classes/profile.php');

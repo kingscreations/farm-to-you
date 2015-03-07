@@ -8,12 +8,16 @@ $currentDir = dirname(__FILE__);
 require_once("../root-path.php");
 require_once('../paths.php');
 
-require_once("../php/lib/header.php");
+session_start();
 
-if($_SESSION['storeId'] === null) {
+if(!@isset($_SESSION['storeId'])) {
 	header('Location: ../sign-in/index.php');
-	exit;
+	exit();
 }
+
+session_abort();
+
+require_once("../php/lib/header.php");
 
 // classes
 require_once("../php/classes/store.php");

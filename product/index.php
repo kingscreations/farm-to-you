@@ -7,6 +7,15 @@
 // header
 $currentDir = dirname(__FILE__);
 require_once('../root-path.php');
+
+session_start();
+
+if(!@isset($_GET['store']) && !@isset($_GET['product'])) {
+	header('Location: ../php/lib/404.php');
+}
+
+session_abort();
+
 require_once('../php/lib/header.php');
 
 // credentials

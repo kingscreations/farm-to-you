@@ -7,6 +7,16 @@
  */
 $currentDir = dirname(__FILE__);
 require_once '../root-path.php';
+
+session_start();
+
+if(!@isset($_GET['activation'])) {
+	header('Location: ../sign-up/index.php');
+	exit();
+}
+
+session_abort();
+
 require_once("../php/lib/header.php");
 require_once("../php/classes/user.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");

@@ -19,7 +19,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
 			<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
 			<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
-			<li class="disabled"><a href="#">Account Settings</a></li>
+			<li><a href="../bank-account/index.php">Bank Account</a></li>
 		</ul>
 	</div>
 

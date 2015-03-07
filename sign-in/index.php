@@ -10,7 +10,11 @@ $currentDir = dirname(__FILE__);
 require_once '../root-path.php';
 require_once("../php/lib/header.php");
 
-$email = $_SESSION['emailPop'];
+if(@isset($_SESSION['emailPop'])) {
+	$email = $_SESSION['emailPop'];
+} else {
+	$email = "";
+}
 
 ?>
 <script src="../js/sign-in.js"></script>

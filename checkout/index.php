@@ -10,6 +10,11 @@ $currentDir = dirname(__FILE__);
 require_once '../root-path.php';
 require_once '../php/lib/header.php';
 
+if($_SESSION['profileId'] === null) {
+	header('Location: ../sign-in/index.php');
+	exit;
+}
+
 // model
 require_once('../php/classes/profile.php');
 
@@ -45,7 +50,7 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 			}
 
 			// get the active profile
-			$profile = Profile::getProfileByProfileId($mysqli, 1);
+			$profile = Profile::getProfileByProfileId($mysqli, $_SESSION['profileId']);
 
 			if($profile === null) {
 				throw new Exception('Problem with the SESSION: profile is null');

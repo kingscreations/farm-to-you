@@ -7,7 +7,7 @@ require_once("../php/lib/header.php");
 
 if($_SESSION['storeId'] === null) {
 	header('Location: ../sign-in/index.php');
-	exit;
+	exit();
 }
 require_once("../php/classes/product.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");

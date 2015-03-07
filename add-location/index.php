@@ -11,7 +11,7 @@ require_once("../php/lib/header.php");
 
 if($_SESSION['storeId'] === null) {
 	header('Location: ../sign-in/index.php');
-	exit;
+	exit();
 }
 
 // classes

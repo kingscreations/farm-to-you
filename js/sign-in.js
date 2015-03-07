@@ -2,18 +2,16 @@
  * Created by jason on 2/19/2015.
  */
 // document ready event
-$(document).ready(
-// inner function for the ready() event
-	function() {
-// tell the validator to validate this form
+$(document).ready(function() {
+		// tell the validator to validate this form
 		$("#signIn").validate({
-// setup the formatting for the errors
+			// setup the formatting for the errors
 			errorClass: "label-danger",
 			errorLabelContainer: "#outputArea",
 			wrapper: "li",
-// rules define what is good/bad input
+			// rules define what is good/bad input
 			rules: {
-// each rule starts with the inputs name (NOT id)
+			// each rule starts with the inputs name (NOT id)
 				email: {
 					maxlength: 140,
 					required: true,

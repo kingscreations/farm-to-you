@@ -70,7 +70,7 @@ $(document).ready(
 
 				inputProductWeight: {
 
-					required: true
+					required: false
 				},
 
 				inputStockLimit: {
@@ -131,10 +131,6 @@ $(document).ready(
 				inputProductPriceType: {
 
 					required: "Please enter a product price type."
-				},
-
-				inputProductWeight: {
-					required: "Please enter your products weight."
 				},
 
 				inputStockLimit: {

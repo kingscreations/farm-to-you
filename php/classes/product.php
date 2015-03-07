@@ -313,7 +313,7 @@ class Product {
 	 * @throws RangeException if $newProductWeight is less than 0
 	 */
 	public function setProductWeight($newProductWeight) {
-		if($newProductWeight === null) {
+		if($newProductWeight === null || $newProductWeight === "") {
 			$this->productWeight = null;
 			return;
 		}

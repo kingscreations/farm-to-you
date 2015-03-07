@@ -35,7 +35,7 @@ $hasProfile = Profile::getProfileByUserId($mysqli, $userId);
 
 if($hasProfile === null) {
 
-	echo '<div class="container">
+	echo '<div class="container-fluid transparent-form ">
 	<h2>Create Profile</h2>
 
 	<form id="addProfile" class="form-inline" method="post" action="../php/forms/add-profile-controller.php" enctype="multipart/form-data">';

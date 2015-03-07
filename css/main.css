@@ -49,8 +49,8 @@ body {
 footer {
   padding-top: 20px;
   text-align: center;
-  background-color: whitesmoke;
-  border-top: 3px solid white;
+  background-color: rgba(255, 255, 255, 1);
+  border-top: 3px rgba(51, 40, 18, 1);
 }
 
 footer p {
@@ -59,20 +59,20 @@ footer p {
 }
 
 #main-menu {
-  color: black;
+  color: rgba(51, 40, 18, 1);
   position: relative;
   z-index: 3;
 }
 
 #main-menu a {
-  color: black;
+  color: rgba(51, 40, 18, 1);
   padding: 4px 10px;
   margin-left: 4px;
 }
 
 #main-menu a:hover {
   background-color: transparent;
-  color: #497a2d;
+  color: rgba(115, 90, 41, 0.8);
   outline: none;
 }
 
@@ -84,7 +84,7 @@ footer p {
 
 #main-menu .dropdown-menu {
   background-color: rgba(255, 255, 255, 0.8);
-  border-color: brown;
+  border-color: rgba(51, 40, 18, 1);
   color: white
   right: 0px;
   left: auto;
@@ -108,7 +108,7 @@ footer p {
 }
 
 #main-menu {
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, .9);
   width: 100%;
   height: 60px;
   padding: 15px 1%;
@@ -149,7 +149,7 @@ footer p {
 .product-listing-card {
   margin: 0 10px 10px 0;
   padding: 0.2em;
-  border: 1px solid lightgray;
+  border: 1px rgba(51, 40, 18, 1);
   border-radius: 3px;
 }
 
@@ -216,7 +216,7 @@ a:hover {
 
 #farm-to-you-logo a,
 #farm-to-you-logo a:hover {
-  color: rgba(165, 156, 56, 1);
+  color: rgba(115, 90, 41, 0.8);
 }
 
 .delete-item {
@@ -236,25 +236,25 @@ a:hover {
   margin-top: 12%;
   margin-bottom: 12%;
   position: relative;
-  color: #497a2d;
+  color: rgba(115, 90, 41, 0.8);
   font-family: ArchitectsDaughter, Biko, Sans-Serif;
   font-size: 1em;
-  border: 1px solid lightgray;
+  border: 1px rgba(51, 40, 18, 1);
   border-radius: 12px;
 }
 
 .transparent-form {
   background-color: rgba(255, 255, 255, .8);
   text-align: center;
-  margin: auto;
-  width: 90%;
+  /*margin: auto;*/
+  /*width: 90%;*/
   margin-top: 10%;
   margin-bottom: 10%;
   position: relative;
-  color: #497a2d;
+  color: rgba(115, 90, 41, 0.8);
   font-family: Biko, sans-serif;
   font-size: .8em;
-  border: 1px solid lightgray;
+  border: 1px rgba(51, 40, 18, 1);
   border-radius: 5px;
   padding-left: 5em;
   padding-right: 5em;
@@ -263,22 +263,17 @@ a:hover {
 
 @media screen and (min-width: 768px) {
   .transparent-form {
-    background-color: rgba(255, 255, 255, .8);
     text-align: center;
-    margin: auto;
-    width: 70%;
-    margin-top: 10%;
-    margin-bottom: 10%;
     position: relative;
-    color: #497a2d;
+    color: rgba(115, 90, 41, 0.8);
     font-family: Biko, sans-serif;
     font-size: 1em;
-    border: 1px solid lightgray;
+    border: 1px rgba(51, 40, 18, 1);
     border-radius: 12px;
   }
 }
 .nav-stacked.active {
-  color: brown;
+  color: rgba(115, 90, 41, 0.8);
 }
   .transparent-menu {
   background-color: rgba(255, 255, 255, .8);
@@ -288,10 +283,10 @@ a:hover {
   margin-top: 10%;
   margin-bottom: 10%;
   position: relative;
-  color: #497a2d;
+  color: rgba(115, 90, 41, 0.8);
   font-family: Biko, sans-serif;
   font-size: .7em;
-    border: 1px solid lightgray;
+    border: 1px rgba(51, 40, 18, 1);
   border-radius: 3px;
 }
 
@@ -304,10 +299,10 @@ a:hover {
     margin-top: 10%;
     margin-bottom: 10%;
     position: relative;
-    color: #497a2d;
+    color: rgba(115, 90, 41, 0.8);
     font-family: Biko, sans-serif;
     font-size: 1em;
-    border: 1px solid lightgray;
+    border: 1px rgba(51, 40, 18, 1);
     border-radius: 5px;
   }
 
@@ -318,7 +313,7 @@ input[type=tel],
 input[type=file], {
   padding: 0.3em;
   padding-left: 1em;
-  border: 2px solid lightgray;
+  border: 2px rgba(51, 40, 18, 1);
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
@@ -327,7 +322,7 @@ input[type=file], {
   /*margin-top: 12%;*/
   /*margin-bottom: 12%;*/
   position: relative;
-  color: #497a2d;
+  color: rgba(115, 90, 41, 0.8);
   font-family: Biko;
   font-size: 1em;
 }
@@ -366,7 +361,7 @@ input[type=password]:focus {
 .submit {
   padding: 0.3em;
   padding-left: 1em;
-  border: 2px solid lightgray;
+  border: 2px rgba(51, 40, 18, 1);
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 1.0);
   text-align: center;
@@ -375,7 +370,7 @@ input[type=password]:focus {
   /*margin-top: 12%;*/
   /*margin-bottom: 12%;*/
   position: relative;
-  color: #497a2d;
+  color: rgba(115, 90, 41, 0.8);
   font-family: Biko;
   font-size: 1em;
 }
@@ -398,7 +393,7 @@ li[role=presentation].open a {
 }
 
 #my-account-dropdown-menu {
-  background-color: tan;
+  background-color: rgba(115, 90, 41, 0.8);
   }
 
 /********************************************
@@ -514,7 +509,7 @@ h2 {
 * cart
 ********************************************/
 .basic-information {
-  color: #aaa;
+  color: rgba(115, 90, 41, 0.8);
 }
 
 .cart-product {
@@ -523,7 +518,7 @@ h2 {
 
 #cart th,
 #cart #total-price-result {
-  color: #337ab7;
+  color: rgba(51, 40, 18, 1);
   font-weight: bold;
 }
 
@@ -559,7 +554,7 @@ h2 {
 }
 
 #listing-page-cart {
-  border: 3px solid #add8e6;
+  border: 3px solid rgba(51, 40, 18, 1);
   border-radius: 3px;
   padding: 1em;
   margin-bottom: 30px;
@@ -581,7 +576,7 @@ h2 {
   padding: 0.05em 0.15em;
   border-radius: 2px;
   color: white;
-  background-color: #7AC142;
+  background-color: rgba(115, 90, 41, 0.8);
   position: absolute;
   bottom: 35px;
   left: 26px;
@@ -635,7 +630,7 @@ h2 {
 .section {
   background-color: white;
   padding: 0.4em;
-  border: 1px solid lightgray;
+  border: 1px rgba(51, 40, 18, 1);
   border-radius: 5px;
 }
 
@@ -662,7 +657,7 @@ h2 {
 
 #multi-menu {
   margin-top: 30px;
-  color: lightgreen;
+  color: rgba(115, 90, 41, 0.8);
 }
 
 /********************************************
@@ -703,7 +698,7 @@ h2 {
 }
 
 .home-top .heading {
-  color: #497a2d;
+  color: rgba(115, 90, 41, 0.8);
   font-family: ArchitectsDaughter, Biko;
   font-size: 1.4em;
 }
@@ -776,7 +771,7 @@ h2 {
   height: 160px;
   font-size: 14px;
   margin-right: 30px;
-  border: 1px solid black;
+  border: 1px rgba(51, 40, 18, 1);
 }
 
 #scroller li > img {
@@ -807,7 +802,7 @@ h2 {
 #map-canvas {
   width: 500px;
   height: 400px;
-  background-color: #CCC;
+  background-color: rgba(115, 90, 41, 0.8);
 }
 
 

@@ -106,9 +106,9 @@ try {
 
 <script src="../js/search.js"></script>
 
-<div class="container-fluid mt30 white-container" >
-	<div class="row">
-		<div class="col-xs-12">
+<div class="container-fluid transparent-form" >
+<!--	<div class="row">-->
+		<div class>
 			<p id="searchResultPage"><?php echo 'Search Results For: <span id="search-term">' . $searchq . '</span>'; ?></p>
 
 <!--</div>-->
@@ -116,7 +116,7 @@ try {
 <!--<div class="container-fluid mt60">-->
 	<div class="row">
 
-		<div class="col-sm-3 list-group" id="filter-categories">
+		<div class="col-sm-6 list-group transparent-menu" id="filter-categories">
 			<p class="list-group-item list-group-item-info">Categories</p>
 			</br>
 			<?php
@@ -136,7 +136,7 @@ try {
 			}?>
 		</div>
 
-		<div class="col-sm-9">
+		<div class="col-sm-6">
 
 <?php
 

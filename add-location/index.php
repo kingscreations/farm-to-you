@@ -3,6 +3,10 @@
  * @author Alonso Indacochea <alonso@hermesdevelopment.com>
  */
 
+if($_SESSION['storeId'] === null) {
+	header('Location: ../sign-in/index.php');
+}
+
 // header
 $currentDir = dirname(__FILE__);
 require_once("../root-path.php");

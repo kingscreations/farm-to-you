@@ -1,6 +1,11 @@
 <?php
+if($_SESSION['storeId'] === null) {
+	header('Location: ../sign-in/index.php');
+}
+
 $currentDir = dirname(__FILE__);
 require_once ("../root-path.php");
+
 require_once("../php/lib/header.php");
 require_once("../php/classes/product.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
@@ -8,18 +13,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 ?>
 
 	<script src="../js/add-product.js"></script>
-<!--	<link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.5.0/bootstrap-tagsinput.css" />-->
-<!--	<script src="//cdn.jsdelivr.net/bootstrap.tagsinput/0.5.0/bootstrap-tagsinput.min.js"></script>-->
-<!---->
-<!--	<style type="text/css">-->
-<!--		.bootstrap-tagsinput {-->
-<!--			width: 100%;-->
-<!--		}-->
-<!--		.label {-->
-<!--			line-height: 2 !important;-->
-<!--		}-->
-<!--	</style>-->
-<!--	<script src="../js/typeahead.bundle.js"></script>-->
+
 
 
 	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
@@ -132,7 +126,6 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 				$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 				$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-			//	$_SESSION["storeId"] = 1;
 				// grab all stores by profile id in dummy session
 				$products = Product::getAllProductsByStoreId($mysqli, $_SESSION["storeId"]);
 

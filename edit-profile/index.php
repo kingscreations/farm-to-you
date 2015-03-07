@@ -8,7 +8,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 $profileId = $_SESSION['profileId'];
 
-//$profileId = 1;
+var_dump($_SESSION['profileId']);
 
 mysqli_report(MYSQLI_REPORT_STRICT);
 $configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");

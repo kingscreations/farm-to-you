@@ -8,11 +8,6 @@ require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 
 ?>
 
-	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
-	<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
-	<script src="../js/add-profile.js"></script>
-
 <?php
 
 mysqli_report(MYSQLI_REPORT_STRICT);
@@ -98,3 +93,5 @@ if($hasProfile === null) {
 require_once("../php/lib/footer.php");
 
 ?>
+
+<script src="../js/add-profile.js"></script>

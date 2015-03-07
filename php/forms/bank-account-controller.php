@@ -18,13 +18,13 @@ require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 		$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 		$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-//$profileId = $_SESSION['profileId'];
+$profileId = $_SESSION['profileId'];
 
-		$profileId = 3;
+//		$profileId = 3;
 
-//	$userId = $_SESSION['user']['id'];
+	$userId = $_SESSION['user']['id'];
 
-		$userId = 16;
+//		$userId = 16;
 
 		/**
 		 * Stripe API calls

@@ -4,7 +4,7 @@ require_once ("../root-path.php");
 
 session_start();
 
-if($_SESSION['storeId'] === null) {
+if($_SESSION['profileId'] === null) {
 	header('Location: ../sign-in/index.php');
 	exit();
 }
@@ -53,7 +53,29 @@ if((preg_match('/^rp/', $profileToken) === 0)) { ?>
 
 <div class="container">
 	<div class="row">
-		<div class="col-sm-12">
+
+		<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
+			<ul class="nav nav-pills nav-stacked">
+				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+				<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+				<li><a href="../bank-account/index.php">Bank Account</a></li>
+			</ul>
+		</div>
+
+		<div class="dropdown hidden-lg hidden-md" style="position:relative">
+			<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+				<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+				<li><a href="../bank-account/index.php">Bank Account</a></li>
+			</ul>
+		</div>
+
+
+		<div class="col-sm-8">
+
 			<form id="bankInfo" class="form-inline transparent-form" method="post" action="../php/forms/bank-account-controller.php" enctype="multipart/form-data">
 				<h2>Add Bank Account</h2>
 				<?php echo generateInputTags(); ?>
@@ -101,8 +123,7 @@ if((preg_match('/^rp/', $profileToken) === 0)) { ?>
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12 transparent-form">
-			<h3 class="text-muted">You already have a bank account added. <br>Please click here to edit it.</h3>
-			<p>Feature coming soon!</p>
+			<h3>You already have a bank account added. <br>Please click <a href="../edit-bank-account/index.php">here</a> to edit it.</h3>
 		</div>
 	</div>
 </div>

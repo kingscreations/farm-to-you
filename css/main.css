@@ -146,6 +146,16 @@ footer p {
   display: inline-block;
 }
 
+footer .inline-list li {
+	display: block;
+}
+
+@media screen and (min-width: 768px) {
+	footer .inline-list li {
+		display: inline-block;
+	}
+}
+
 .product-listing li {
   display: inline-block;
   vertical-align: middle;
@@ -205,8 +215,8 @@ a:hover {
 }
 
 #farm-to-you-logo a {
-  font-size: 1.1em;
-  font-family: serif;
+	font-size: 1.1em;
+	font-family: serif;
 }
 
 @media screen and (min-width: 768px) {
@@ -270,8 +280,10 @@ form input[type=password]{
 		text-align: right;
 	}
 
-	form input[type=text],
-	form input[type=password]{
+	.sign-up-form input[type=text],
+	.sign-up-form input[type=password],
+	.signIn-form input[type=text],
+	.signIn-form input[type=password] {
 		margin-left: 1em;
 		min-width: 60%;
 	}
@@ -349,12 +361,15 @@ input[type=file], {
   text-align: center;
   margin: auto;
   width: 70%;
-  /*margin-top: 12%;*/
-  /*margin-bottom: 12%;*/
   position: relative;
   color: rgba(115, 90, 41, 0.8);
   font-family: Biko;
   font-size: 1em;
+}
+
+#search .search-field,
+#search [type=submit] {
+	padding: 3px 6px;
 }
 
 input[type=text]:focus,

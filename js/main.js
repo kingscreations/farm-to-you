@@ -17,17 +17,18 @@
 			}
 		});
 
+		$(window).resize(function() {
+			var viewportWidth = $(window).width();
 
+			if(viewportWidth < 768) {
+				$('#inputSearch').prop('placeholder', 'Search...');
+			} else {
+				$('#inputSearch').prop('placeholder', 'What are you looking for today?');
+			}
+		});
 
-		//var myScroll;
-		//
-		//function loaded () {
-		//	myScroll = new IScroll('#wrapper', { scrollX: true, scrollY: false, mouseWheel: true });
-		//}
-		//
-		//document.addEventListener('touchmove', function (e) {
-		//	e.preventDefault();
-		//}, false);
+		// resize at least the window one time
+		$(window).resize();
 
 	});
 

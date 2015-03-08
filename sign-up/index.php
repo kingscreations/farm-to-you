@@ -22,7 +22,7 @@ require_once("../php/lib/header.php");
 					<form class= "form" method="post" id="signUp" action="../php/forms/sign-up-controller.php">
 						<?php echo generateInputTags(); ?>
 						<fieldset>
-							<label>Your email!:</label>
+							<label>Your email:</label>
 							<input type="text" name="inputEmail" id="inputEmail" value="" size="relative" />
 							<br><br>
 							<label>Enter a password:</label>

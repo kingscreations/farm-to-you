@@ -106,7 +106,7 @@ require_once($prefix . 'paths.php');
 				<?php }else{ ?>
 				<div class="row clearfix">
 					<div class="col-sm-4 col-xs-4">
-						<div id="farm-to-you-logo" class="apply-nav-height">
+						<div id="farm-to-you-logo">
 							<a href="<?php echo SITE_ROOT_URL ?>">Farm to You</a>
 						</div>
 					</div>
@@ -115,7 +115,7 @@ require_once($prefix . 'paths.php');
 						<form  action="../php/forms/search-controller.php" id="search" method="post">
 							<?php echo generateInputTags(); ?>
 							<div class="input-group">
-								<input class="form-control search-field" type="text" id="inputSearch" name="inputSearch" placeholder="What are you looking for today?" />
+								<input class="form-control search-field" type="text" id="inputSearch" name="inputSearch" placeholder="" />
 								<input type="hidden" value="yes" name="searching">
 						<span class="input-group-btn">
 						  <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>

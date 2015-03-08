@@ -11,10 +11,10 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<ul class="inline-list">
-							<li>&copy;<?php echo date("Y"); ?> Farm to You</li>
 							<li><a href="">Terms</a></li>
 							<li><a href="">Privacy</a></li>
 							<li><a href="">Copyright</a></li>
+							<li class="mt20">&copy;<?php echo date("Y"); ?> Farm to You</li>
 						</ul>
 					</div>
 				</div>

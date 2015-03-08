@@ -35,7 +35,7 @@ $profileType = $profile->getProfileType();
 		<div class="row">
 	<?php if($profileType === "m") { ?>
 
-	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
+		<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
 			<ul class="nav nav-pills nav-stacked">
 				<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
 				<li><a href="../add-store/index.php">Manage Stores</a></li>
@@ -43,7 +43,17 @@ $profileType = $profile->getProfileType();
 				<li><a href="../bank-account/index.php">Bank Account</a></li>
 			</ul>
 		</div>
-		<?php	} else { ?>
+		<div class="dropdown hidden-lg hidden-md" style="position:relative">
+			<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
+				<li><a href="../add-store/index.php">Manage Stores</a></li>
+				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+				<li><a href="../bank-account/index.php">Bank Account</a></li>
+			</ul>
+		</div>
+
+<?php	} else { ?>
 
 		<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
 			<ul class="nav nav-pills nav-stacked">
@@ -52,18 +62,18 @@ $profileType = $profile->getProfileType();
 				<li class="disabled"><a href="#">Account Settings</a></li>
 			</ul>
 		</div>
-<?php } ?>
-
-
 	<div class="dropdown hidden-lg hidden-md" style="position:relative">
 		<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
 		<ul class="dropdown-menu">
 			<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
-			<li><a href="../add-store/index.php">Manage Stores</a></li>
-			<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+			<li><a href="../client-order-list/index.php">List of Orders</a></li>
 			<li class="disabled"><a href="#">Account Settings</a></li>
 		</ul>
 	</div>
+
+<?php } ?>
+
+
 
 <!--Form to edit a profile-->
 <!--<div class="container-fluid">-->

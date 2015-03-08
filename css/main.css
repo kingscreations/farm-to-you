@@ -192,6 +192,10 @@ footer .inline-list li {
 	height: auto;
 }
 
+.edit-product figcaption {
+	margin-left: 1.3em;
+}
+
 @media screen and (min-width: 768px) {
   .inline-list {
     padding: inherit;

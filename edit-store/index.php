@@ -205,8 +205,8 @@ try {
 			<div class="col-sm-3">
 				<div class="form-group mt25">
 						<button id="<?php echo $_SESSION['storeId'];?>" class="btn btn-default linkStore">Link to store page</button>
-					</div>
-					<br>
+				</div>
+				<br>
 
 
 					<div class="form-group edit-product mt0">

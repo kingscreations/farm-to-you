@@ -11,7 +11,6 @@ session_start();
 
 if(!@isset($_SESSION['profileId'])) {
 	header('Location: ../sign-in/index.php');
-	exit();
 }
 
 session_abort();

@@ -6,7 +6,6 @@ session_start();
 
 if(!@isset($_SESSION['productId'])) {
 	header('Location: ../sign-in/index.php');
-	exit();
 }
 
 session_abort();

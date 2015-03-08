@@ -12,7 +12,6 @@ session_start();
 
 if(!@isset($_GET['activation'])) {
 	header('Location: ../sign-up/index.php');
-	exit();
 }
 
 session_abort();

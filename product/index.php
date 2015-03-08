@@ -10,6 +10,7 @@ require_once('../root-path.php');
 
 session_start();
 
+// get the product id from the current url
 if(!@isset($_GET['store']) && !@isset($_GET['product'])) {
 	header('Location: ../php/lib/404.php');
 }
@@ -48,11 +49,6 @@ try {
 
 	$user     = User::getUserByUserId($mysqli, 1);
 	$profile  = Profile::getProfileByProfileId($mysqli, 1);
-
-	// get the product id from the current url
-	if(!@isset($_GET['store']) && !@isset($_GET['product'])) {
-		header('Location: ../php/lib/404.php');
-	}
 
 	$productId = filter_var($_GET['product'], FILTER_SANITIZE_NUMBER_INT);
 	$product  = Product::getProductByProductId($mysqli, $productId);

@@ -47,21 +47,23 @@ $(document).ready(function() {
 					// success is an event that happens when the server replies
 					success: function(ajaxOutput) {
 						// clear the output area's formatting
-						$("#outputArea").css("display", "");
+						//$("#outputArea").css("visibility", "hidden");
 						// write the server's reply to the output area
 						$("#outputArea").html(ajaxOutput);
 
+						// output contains alert-success
 						if(ajaxOutput.indexOf("alert-success") !== -1){
 							setTimeout(function(){
 								window.location.href = "../new-user/index.php";
 							}, 1000);
 						}
 
-						if(ajaxOutput.indexOf("alert-danger") !== -1) {
-							setTimeout(function(){
-								window.location.href = "../sign-in/index.php"
-							}, 500);
-						}
+						// output contains alert-danger
+						//if(ajaxOutput.indexOf("alert-danger") !== -1) {
+						//	setTimeout(function(){
+						//		window.location.href = "../sign-in/index.php"
+						//	}, 500);
+						//}
 						// reset the form if it was successful
 						// this makes it easier to reuse the form again
 						if($(".alert-success").length >= 1) {

@@ -6,7 +6,6 @@ session_start();
 
 if($_SESSION['profileId'] === null) {
 	header('Location: ../sign-in/index.php');
-	exit();
 }
 
 session_abort();

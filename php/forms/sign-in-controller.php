@@ -39,6 +39,12 @@ try {
 
 	// search for the login email from mysqli
 	$user = User::getUserByEmail($mysqli, $email);
+
+	if($user === null) {
+		echo "<p class=\"alert alert-danger\">Incorrect username or password, please try again!</p>";
+		exit();
+	}
+
 	$profile = Profile::getProfileByUserId($mysqli, $user->getUserId());
 
 	//get the mysqli hash and salt
@@ -48,19 +54,11 @@ try {
 	// generate hash from users password using mysqli salt
 	$hash = hash_pbkdf2("sha512", $_POST["password2"], $mysqlSalt, 2048, 128);
 
-	// create the url link to the homepage
-	$currentPathExploded = explode("/", $_SERVER["PHP_SELF"]);
-	if(empty($currentPathExploded)) {
-		throw new RangeException('Impossible to explode the path');
-	}
-	$url = "https://" . $_SERVER["SERVER_NAME"] . '/' . $currentPathExploded[1] . '/' .
-		$currentPathExploded[2];
-
-
 	$_SESSION['emailPop'] = $email;
+
 	// compare hashes
 	if($mysqlHash !== $hash) {
-		echo "<p class=\"alert alert-danger\">Incorrect Password, please try again!</p>";
+		echo "<p class=\"alert alert-danger\">Incorrect username or password, please try again!</p>";
 		exit();
 	}
 //	catch any AJAX exceptions

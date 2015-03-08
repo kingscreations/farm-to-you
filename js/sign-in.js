@@ -51,18 +51,16 @@ $(document).ready(function() {
 						// write the server's reply to the output area
 						$("#outputArea").html(ajaxOutput);
 
-						// output contains alert-success
+						// if output contains alert-success
 						if(ajaxOutput.indexOf("alert-success") !== -1){
 							setTimeout(function(){
 								window.location.href = "../new-user/index.php";
 							}, 1000);
 						}
 
-						//output contains alert-danger
+						// if output contains alert-danger regenerate the inputs tags
 						if(ajaxOutput.indexOf("alert-danger") !== -1) {
-							setTimeout(function(){
-								window.location.href = "../sign-in/index.php"
-							}, 500);
+							reGenerateInputsTags();
 						}
 						// reset the form if it was successful
 						// this makes it easier to reuse the form again
@@ -73,4 +71,23 @@ $(document).ready(function() {
 				});
 			}
 		});
-	});
+
+	/**
+	 * workaround for the csrf token
+	 */
+	function reGenerateInputsTags() {
+
+		// remove the previous input tags
+		$('[name=csrfName]').remove();
+		$('[name=csrfToken]').remove();
+
+		$.ajax({
+			type: "get",
+			url: "../php/lib/generate-csrf.php"
+		})
+			.done(function(inputTags) {
+				$('form').append(inputTags);
+			});
+	}
+
+});

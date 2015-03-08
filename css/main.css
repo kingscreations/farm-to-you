@@ -258,6 +258,10 @@ a:hover {
 	text-align: center;
 }
 
+form {
+	margin-bottom: 10px;
+}
+
 form label {
 	min-width: 100%;
 }

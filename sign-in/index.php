@@ -31,8 +31,6 @@ if(@isset($_SESSION['emailPop'])) {
 					<form class= "form" method="post" name="signIn" id="signIn" action="../php/forms/sign-in-controller.php">
 						<?php echo generateInputTags(); ?>
 						<fieldset>
-							<?php echo generateInputTags(); ?>
-
 							<?php if(($email) === null) { ?>
 							<label>Your email:</label>
 							<input type="text" name="email" id="email" value="" size="relative" />

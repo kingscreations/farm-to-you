@@ -18,7 +18,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 ?>
 
-<div class="container-fluid container-margin-sm transparent-form">
+<div class="container-fluid container-margin-sm transparent-form user-account" id="add-product">
 	<div class="row">
 		<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
 			<ul class="nav nav-pills nav-stacked">
@@ -43,7 +43,9 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 		<div class="col-md-9">
 
 			<form id="addProduct" class="form-inline" method="post" action="../php/forms/add-product-controller.php" novalidate>
-				<h2>Add Product</h2>
+				<div class="center">
+					<h2>Add Product</h2>
+				</div>
 				<?php echo generateInputTags(); ?>
 				<div class="form-group">
 					<label for="inputProductName">Product Name:</label>
@@ -68,8 +70,8 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 				<div class="form-group">
 					<label for="inputProductPriceType">Sold By:</label>
-					<input type="radio" class="form-control" name="inputProductPriceType" id="inputProductPriceType" value="w">By Weight
-					<input type="radio" class="form-control" name="inputProductPriceType" id="inputProductPriceType" value="u">Per Unit
+					<input type="radio" class="form-control" name="inputProductPriceType" id="inputProductPriceType" value="w"> By Weight
+					<input type="radio" class="form-control" name="inputProductPriceType" id="inputProductPriceType" value="u"> Per Unit
 				</div>
 
 				<br>
@@ -97,15 +99,15 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 					<div class="form-group">
 						<label for="addTags">Tags:</label>
-						<span><input type="text" class="form-control distinctTags" id="addTags1" name="addTags1"></span>
-						<span><input type="text" class="form-control distinctTags" id="addTags2" name="addTags2"></span>
-						<span><input type="text" class="form-control distinctTags" id="addTags3" name="addTags3"></span>
-						<span><input type="text" class="form-control distinctTags" id="addTags4" name="addTags4"></span>
+						<span><input type="text" class="input-tag form-control distinctTags" id="addTags1" name="addTags1"></span>
+						<span><input type="text" class="input-tag form-control distinctTags" id="addTags2" name="addTags2"></span>
+						<span><input type="text" class="input-tag form-control distinctTags" id="addTags3" name="addTags3"></span>
+						<span><input type="text" class="input-tag form-control distinctTags" id="addTags4" name="addTags4"></span>
 					</div>
 
 				<br>
 
-					<div class="form-group">
+				<div class="form-group mt60">
 					<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit" value="Submit">
 				</div>
 

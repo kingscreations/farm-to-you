@@ -312,6 +312,7 @@ form input[type=password]{
 	.user-account input[type=text],
 	.user-account textarea,
 	#edit-product.user-account textarea,
+	#add-product.user-account textarea,
 	.user-account input[type=password],
 	.user-account input[type=number] {
 		margin-left: 1em;

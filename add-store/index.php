@@ -25,6 +25,9 @@ $profileId = $_SESSION['profileId'];
 
 ?>
 
+	<div class="container-fluid container-margin-sm transparent-form user-account">
+	<div class="row">
+
 	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
@@ -33,7 +36,6 @@ $profileId = $_SESSION['profileId'];
 			<li><a href="../bank-account/index.php">Bank Account</a></li>
 		</ul>
 	</div>
-
 	<div class="dropdown hidden-lg hidden-md" style="position:relative">
 		<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
 		<ul class="dropdown-menu">
@@ -44,21 +46,23 @@ $profileId = $_SESSION['profileId'];
 		</ul>
 	</div>
 
-	<div class=container-fluid>
-		<div class="row">
-			<div class="col-md-9">
-
-			<form class="form-inline transparent-form" id="storeController" method="post" action="../php/forms/add-store-controller.php" enctype="multipart/form-data">
+		<div class="col-sm-3 visible-xs">
 			<h2>Add Store</h2>
+		</div>
+		<div class="col-sm-6">
+		<form class="form-inline" id="storeController" method="post" action="../php/forms/add-store-controller.php" enctype="multipart/form-data">
 			<?php echo generateInputTags(); ?>
+			<div class="hidden-xs">
+				<h2>Add Store</h2>
+			</div>
 			<div class="form-group">
-				<label for="storeName">Store Name</label>
+				<label for="storeName">Name</label>
 				<input type="text" id="storeName" name="storeName" value="">
 			</div>
 			<br>
 			<div class="form-group">
-				<label for="storeDescription">Store Description</label>
-				<input type="text" id="storeDescription" name="storeDescription">
+				<label for="storeDescription">Description</label>
+				<textarea id="storeDescription" name="storeDescription"></textarea>
 			</div>
 			<br>
 			<div class="form-group">
@@ -73,12 +77,12 @@ $profileId = $_SESSION['profileId'];
 			<br>
 			<div class="form-group">
 				<label for="address1">Address</label>
-				<input type="text" id="address1" name="address1" value="Business Address">
+				<input type="text" id="address1" name="address1" value="">
 			</div>
 			<br>
 			<div class="form-group">
 				<label for="address2"></label>
-				<input type="text" id="address2" name="address2" value="Address Cont.">
+				<input type="text" id="address2" name="address2" value="">
 			</div>
 			<br>
 			<div class="form-group">
@@ -87,7 +91,7 @@ $profileId = $_SESSION['profileId'];
 			</div>
 			<div class="form-group">
 				<label for="state">State</label>
-				<input type="text" id="state" name="state" value="NM">
+				<input type="text" id="state" name="state" value="">
 			</div>
 			<div class="form-group">
 				<label for="zipCode">Zip Code</label>
@@ -95,7 +99,7 @@ $profileId = $_SESSION['profileId'];
 			</div>
 			<div class="form-group">
 				<label for="country">Country</label>
-				<input type="text" id="country" name="country" value="US">
+				<input type="text" id="country" name="country" value="">
 			</div>
 			<br>
 			<br>

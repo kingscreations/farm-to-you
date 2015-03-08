@@ -273,6 +273,11 @@ form label {
 	min-width: 100%;
 }
 
+form input[type=file] {
+	margin-left: 13px;
+	display: inherit;
+}
+
 form input[type=text],
 form input[type=password]{
 	margin-left: 0;
@@ -291,6 +296,7 @@ form input[type=password]{
 		text-align: right;
 	}
 
+	.user-account textarea,
 	.user-account input[type=text],
 	.user-account textarea,
 	.user-account input[type=password],

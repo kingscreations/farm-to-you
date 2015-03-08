@@ -21,14 +21,6 @@ try {
 
 $profileId = $_SESSION['profileId'];
 
-//	$profileId = 1;
-
-$userId = $_SESSION['user']['id'];
-
-//	$userId = 1;
-
-
-
 	$profile = Profile::getProfileByProfileId($mysqli, $profileId);
 	$profileType = $profile->getProfileType();
 	$profileFirstname = $profile->getFirstName();
@@ -62,8 +54,7 @@ $userId = $_SESSION['user']['id'];
 	}
 		$profile->update($mysqli);
 
-
-	echo "<p class=\"alert alert-success\">Profile (id = " . $profile->getProfileId() . ") updated!</p>";
+	echo "<p class=\"alert alert-success\">Profile for " . $profile->getFirstName() . $profile->getLastName() . " updated!</p>";
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }

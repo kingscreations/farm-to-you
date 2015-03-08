@@ -86,7 +86,7 @@ try {
 		</div>
 
 		<!--Form to edit a product-->
-		<div class="col-md-6">
+		<div class="col-sm-6">
 			<div class="hidden-xs center">
 				<h2>Edit Product</h2>
 			</div>
@@ -153,16 +153,37 @@ try {
 
 				<div class="form-group">
 					<label for="addTags">Tags:</label>
-					<span><input type="text" class="form-control distinctTags" id="addTags1" name="addTags1" value="<?php echo $categoryName1;?>"></span>
-					<span><input type="text" class="form-control distinctTags" id="addTags2" name="addTags2" value="<?php echo $categoryName2;?>"></span>
-					<span><input type="text" class="form-control distinctTags" id="addTags3" name="addTags3" value="<?php echo $categoryName3;?>"></span>
-					<span><input type="text" class="form-control distinctTags" id="addTags4" name="addTags4" value="<?php echo $categoryName4;?>"></span>
+					<span><input type="text" class="input-tag form-control distinctTags" id="addTags1" name="addTags1" value="<?php echo $categoryName1;?>"></span>
+					<span><input type="text" class="input-tag form-control distinctTags" id="addTags2" name="addTags2" value="<?php echo $categoryName2;?>"></span>
+				<!-- TODO mvp dirty workaround -->
+				</div>
+				<div class="form-group mt10">
+					<label></label>
+					<span><input type="text" class="input-tag form-control distinctTags" id="addTags3" name="addTags3" value="<?php echo $categoryName3;?>"></span>
+					<span><input type="text" class="input-tag form-control distinctTags" id="addTags4" name="addTags4" value="<?php echo $categoryName4;?>"></span>
 				</div>
 
 
 
+				<div class="form-group mt60">
+					<input type="submit" class="form-control" id="editSubmit" name="editSubmit" value="Submit">
+				</div>
+
+				<p id="outputArea" style=""></p>
+
 				<br>
-				<div class="form-group edit-product">
+
+				<div class="form-group">
+					<button class="btn btn-default addButton" id="back">Back</button>
+				</div>
+			</div><!-- end col-sm-6 -->
+
+			<div class="col-sm-3">
+				<div class="form-group mt30">
+					<button id="<?php echo $_SESSION['productId'];?>" class="btn btn-default linkProduct">Link to product page</button>
+				</div>
+
+				<div class="form-group edit-product mt30">
 					<a href="#" id="editProductImageLink">
 						<?php
 
@@ -175,32 +196,15 @@ try {
 						// show a placeholder if the product is not associated with an image
 						if(is_file($product->getImagePath())) {
 							?>
-							<img class="thumbnail img-responsive" src="<?php echo $productBaseUrl . $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
+							<img class="thumbnail image-preview" src="<?php echo $productBaseUrl . $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
 						<?php } else { ?>
-							<img class="thumbnail img-responsive" src="<?php echo $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
+							<img class="thumbnail image-preview" src="<?php echo $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
 						<?php } ?>
 					</a>
 				</div>
-				<br>
-
-
-				<div class="form-group mt60">
-					<input type="submit" class="form-control" id="editSubmit" name="editSubmit" value="Submit">
-				</div>
+			</div>
 
 			</form>
-
-			<p id="outputArea" style=""></p>
-
-			<div class="form-group">
-				<button id="<?php echo $_SESSION['productId'];?>" class="btn btn-default linkProduct">Link to product page</button>
-			</div>
-			<br>
-
-
-			<div class="form-group">
-				<button class="btn btn-default addButton" id="back">Back</button>
-			</div>
 		</div>
 	</div>
 </div><!-- end container-fluid -->

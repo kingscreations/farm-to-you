@@ -284,6 +284,10 @@ form input[type=password]{
 	min-width: 100%;
 }
 
+.user-account .tag-input {
+	width: 120px;
+}
+
 @media screen and (min-width: 768px) {
 	.sign-up-form,
 	.signIn-form {
@@ -302,8 +306,12 @@ form input[type=password]{
 	.user-account input[type=password],
 	.user-account input[type=number],
 	.user-account input[type=radio] {
-		margin-left: 1em !important;
+		margin-left: 1em;
 		min-width: inherit;
+	}
+
+	.user-account .input-tag {
+		width: 80px;
 	}
 
 	.sign-up-form input[type=text],
@@ -520,7 +528,10 @@ li[role=presentation].open a {
 /********************************************
 * Utilities classes
 ********************************************/
-.no-margin {
+
+/* no margin deprecated user mt0 instead */
+.no-margin,
+.mt0 {
   margin: 0 !important;
 }
 

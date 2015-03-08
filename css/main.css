@@ -511,12 +511,28 @@ li[role=presentation].open a {
   margin: 0 !important;
 }
 
+.mt10 {
+	margin-top: 10px;
+}
+
+.mt20 {
+	margin-top: 20px;
+}
+
 .mt30 {
   margin-top: 30px;
 }
 
+.mt40 {
+	margin-top: 40px;
+}
+
 .mt60 {
   margin-top: 60px;
+}
+
+.mt80 {
+	margin-top: 80px;
 }
 
 .no-padding-right {

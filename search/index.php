@@ -5,6 +5,15 @@
 // header
 $currentDir = dirname(__FILE__);
 require_once('../root-path.php');
+
+session_start();
+
+if(!@isset($_GET['searchq'])) {
+	header('Location: ../php/lib/404.php');
+}
+
+session_abort();
+
 require_once('../php/lib/header.php');
 
 // credentials

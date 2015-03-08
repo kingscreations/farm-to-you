@@ -1,5 +1,5 @@
 <?php
-if(@isset($_SESSION['user']['id'])) {
+if(@isset($_SESSION['userId'])) {
 
 	require_once("../php/classes/profile.php");
 
@@ -8,7 +8,7 @@ if(@isset($_SESSION['user']['id'])) {
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
-	$profile = Profile::getProfileByUserId($mysqli, $_SESSION['user']['id']);
+	$profile = Profile::getProfileByUserId($mysqli, $_SESSION['userId']);
 	$profileType = $profile->getProfileType();
 
 	?>

@@ -67,7 +67,7 @@ try {
 	$message = <<< EOF
 	<html>
 		<body>
-			<h1>Welcome to Farm To You!</h1>
+			<h1>Welcome to Farm to You!</h1>
 			<hr />
 			<p>Thank you for creating a password. Visit the following URL to complete your registration process: <a href="$url">$url</a>.</p>
 		</body>

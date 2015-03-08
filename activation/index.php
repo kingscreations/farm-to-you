@@ -38,9 +38,7 @@ $mysqlUser = User::getUserByActivation($mysqli, $activation);
 
 
 // create session id specific to this user
-$_SESSION['user'] = array(
-	'id' => $mysqlUser->getUserId()
-);
+$_SESSION['userId'] = $mysqlUser->getUserId();
 
 ?>
 	<div class="activation">
@@ -48,11 +46,11 @@ $_SESSION['user'] = array(
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-sm-12">
-						<h3>Your registration is complete. <br> Thank you for signing up with farm to you!</h3>
+						<h3>Your registration is complete. <br> Thank you for joining Farm to You!</h3>
 						<p>
 							<ul>
 								<li>
-									<a href="../add-profile/index.php">Continue to make your profile!</a>
+									<a href="../add-profile/index.php">Continue to create your profile!</a>
 								</li>
 							</ul>
 

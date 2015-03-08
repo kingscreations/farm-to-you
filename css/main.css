@@ -812,6 +812,14 @@ h2 {
 /********************************************
 * horizontal scroll
 ********************************************/
+.image-preview {
+	max-width: 200px !important;
+	height: auto !important;
+}
+
+/********************************************
+* horizontal scroll
+********************************************/
 #wrapper {
   position: relative;
   z-index: 1;

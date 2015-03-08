@@ -108,11 +108,10 @@ $profileType = $profile->getProfileType();
 				</div>
 
 				<br>
-				<div class="form-group">
+
+				<div class="form-group mt40">
 					<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit" value="Submit">
 				</div>
-
-				<br>
 
 				<br>
 				<p id="outputArea" style=""></p>
@@ -134,9 +133,9 @@ $profileType = $profile->getProfileType();
 					// show a placeholder if the product is not associated with an image
 					if(is_file($profile->getImagePath())) {
 						?>
-						<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
+						<img class="thumbnail image-preview" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
 					<?php } else { ?>
-						<img class="thumbnail img-responsive" src="<?php echo $imagePlaceholderSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
+						<img class="thumbnail image-preview" src="<?php echo $imagePlaceholderSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
 					<?php } ?>
 				</a>
 			</div>

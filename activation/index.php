@@ -20,6 +20,8 @@ require_once("../php/lib/header.php");
 require_once("../php/classes/user.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
+require_once('../paths.php');
+
 try {
 	mysqli_report(MYSQLI_REPORT_STRICT);
 	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
@@ -40,11 +42,6 @@ $_SESSION['user'] = array(
 	'id' => $mysqlUser->getUserId()
 );
 
-$currentPathExploded = explode("/", $_SERVER["PHP_SELF"]);
-if(empty($currentPathExploded)) {
-	throw new RangeException('Impossible to explode the path');
-}	$url = "https://". $_SERVER["SERVER_NAME"] . '/' . $currentPathExploded[1] . '/' .
-		$currentPathExploded[2];
 ?>
 	<div class="activation">
 		<div class="activation-form">
@@ -64,6 +61,5 @@ if(empty($currentPathExploded)) {
 			</div><!-- end container-fluid -->
 		</div><!-- end activation-form -->
 	</div><!-- end activation -->
-<?php
-require_once ("../php/lib/footer.php");
-?>
+
+<?php require_once ("../php/lib/footer.php"); ?>

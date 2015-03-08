@@ -285,4 +285,6 @@ try {
 	</form>
 </div><!-- end container-fluid -->
 
+<script src="../js/checkout-pickup.js"></script>
+
 <?php require_once('../php/lib/footer.php'); ?>

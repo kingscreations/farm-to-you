@@ -12,8 +12,6 @@ session_abort();
 
 require_once("../php/lib/header.php");
 
-
-
 require_once("../php/classes/profile.php");
 require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 
@@ -42,9 +40,6 @@ if($profileType !== "m") {
 }
 
 ?>
-
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-<script type="text/javascript" src="../js/bank-account.js"></script>
 
 <?php
 // check if they already have a bank account added by looking at the token and comparing to the 'rp' id
@@ -128,3 +123,8 @@ if((preg_match('/^rp/', $profileToken) === 0)) { ?>
 </div>
 
 <?php } ?>
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript" src="../js/bank-account.js"></script>
+
+<?php require_once('../php/lib/footer.php'); ?>

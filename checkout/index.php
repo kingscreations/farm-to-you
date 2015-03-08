@@ -107,5 +107,6 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 	</div>
 </div><!-- end row-fluid -->
 
+<script src="../js/checkout.js"></script>
 
 <?php require_once '../php/lib/footer.php'; ?>

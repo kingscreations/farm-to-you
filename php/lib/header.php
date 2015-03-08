@@ -58,15 +58,6 @@ require_once($prefix . 'paths.php');
 		<script src="<?php echo $prefix; ?>js/validate-exact-length.js"></script>
 		<script src="<?php echo $prefix; ?>js/main.js"></script>
 
-		<!-- view/controller js files TODO move that to related view right before the footer -->
-		<script src="<?php echo $prefix; ?>js/add-profile.js"></script>
-		<script src="<?php echo $prefix; ?>js/product.js"></script>
-		<script src="<?php echo $prefix; ?>js/cart.js"></script>
-		<script src="<?php echo $prefix; ?>js/sign-up.js"></script>
-		<script src="<?php echo $prefix; ?>js/checkout-pickup.js"></script>
-		<script src="<?php echo $prefix; ?>js/checkout.js"></script>
-
-
 		<!--	stripe api	-->
 		<script src="https://js.stripe.com/v2/"></script>
 

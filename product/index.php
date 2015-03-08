@@ -239,4 +239,6 @@ $storeImageSrc  = basename($store->getImagePath());
 	</div>
 </div><!-- end container-fluid -->
 
+<script src="../js/product.js"></script>
+
 <?php require_once('../php/lib/footer.php'); ?>

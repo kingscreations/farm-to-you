@@ -6,6 +6,8 @@ session_start();
 
 if(!@isset($_SESSION['profileId'])) {
 	header('Location: ../sign-in/index.php');
+} else {
+	$profileId = $_SESSION['profileId'];
 }
 
 session_abort();
@@ -15,15 +17,9 @@ require_once("../php/lib/header.php");
 require_once("../php/classes/profile.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
-
-$profileId = $_SESSION['profileId'];
-
 mysqli_report(MYSQLI_REPORT_STRICT);
 $configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 $mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
-
-//$profileFromUser = Profile::getProfileByUserId($mysqli,$_SESSION['user']['id']);
-//$profileId = $profileFromUser->getProfileId();
 
 $profile = Profile::getProfileByProfileId($mysqli, $profileId);
 
@@ -33,10 +29,8 @@ $profilePhone = $profile->getPhone();
 $profileImage = $profile->getImagePath();
 $profileType = $profile->getProfileType();
 
-
 ?>
 
-<script src="../js/edit-profile.js"></script>
 	<div class="container-fluid container-margin-sm transparent-form">
 		<div class="row">
 	<?php if($profileType === "m") { ?>
@@ -146,5 +140,9 @@ $profileType = $profile->getProfileType();
 if($profileId !== false) {
 	$_SESSION["profileId"] = $profileId;
 }
-require_once("../php/lib/footer.php")
+
 ?>
+
+<script src="../js/edit-profile.js"></script>
+
+<?php require_once("../php/lib/footer.php"); ?>

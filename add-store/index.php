@@ -25,9 +25,6 @@ $profileId = $_SESSION['profileId'];
 
 ?>
 
-<!--js validation + ajax call-->
-<script src="../js/add-store.js"></script>
-
 	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
@@ -166,6 +163,9 @@ try {
 			</div>
 		</div>
 	</div>
+
+<!--js validation + ajax call-->
+<script src="../js/add-store.js"></script>
 
 <!--footer-->
 <?php require_once "../php/lib/footer.php"; ?>

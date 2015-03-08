@@ -21,8 +21,6 @@ require_once("../php/classes/location.php");
 
 ?>
 
-	<!--js validation + ajax call-->
-<script src="../js/add-location.js"></script>
 <div>
 	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
 		<ul class="nav nav-pills nav-stacked">
@@ -95,6 +93,9 @@ require_once("../php/classes/location.php");
 		</div>
 	</div>
 </div>
+
+<!--js validation + ajax call-->
+<script src="../js/add-location.js"></script>
 
 <!--footer-->
 <?php require_once "../php/lib/footer.php"; ?>

@@ -44,6 +44,6 @@ require_once("../php/lib/header.php");
 
 </div><!--.sign-up -->
 
-
+<script src="../js/sign-up.js"></script>
 
 <?php require_once ("../php/lib/footer.php"); ?>

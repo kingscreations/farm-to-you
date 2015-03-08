@@ -161,4 +161,6 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 	</div>
 </div>
 
+<script src="../js/cart.js"></script>
+
 <?php require_once "../php/lib/footer.php"; ?>

@@ -18,8 +18,6 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 ?>
 
-	<script src="../js/add-product.js"></script>
-
 	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
@@ -168,6 +166,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 	</div><!-- container-fluid -->
 
 </div><!-- form-group -->
-	<?php
-require_once("../php/lib/footer.php")
-?>
+
+<script src="../js/add-product.js"></script>
+
+<?php require_once("../php/lib/footer.php"); ?>

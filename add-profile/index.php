@@ -14,10 +14,6 @@ require_once("../php/lib/header.php");
 require_once("../php/classes/profile.php");
 require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 
-?>
-
-<?php
-
 mysqli_report(MYSQLI_REPORT_STRICT);
 
 // get the credentials information from the server
@@ -93,8 +89,8 @@ if($hasProfile === null) {
 			</div>';
 };
 
-require_once("../php/lib/footer.php");
-
 ?>
 
 <script src="../js/add-profile.js"></script>
+
+<?php require_once("../php/lib/footer.php"); ?>

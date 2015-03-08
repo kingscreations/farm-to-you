@@ -43,9 +43,6 @@ if($profileType !== "m") {
 
 ?>
 
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-<script type="text/javascript" src="../js/edit-bank-account.js"></script>
-
 	<div class="container">
 		<div class="row">
 
@@ -111,3 +108,8 @@ if($profileType !== "m") {
 			</div>
 		</div>
 	</div>
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript" src="../js/edit-bank-account.js"></script>
+
+<?php require_once('../php/lib/footer.php'); ?>

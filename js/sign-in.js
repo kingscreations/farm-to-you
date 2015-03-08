@@ -58,12 +58,12 @@ $(document).ready(function() {
 							}, 1000);
 						}
 
-						// output contains alert-danger
-						//if(ajaxOutput.indexOf("alert-danger") !== -1) {
-						//	setTimeout(function(){
-						//		window.location.href = "../sign-in/index.php"
-						//	}, 500);
-						//}
+						//output contains alert-danger
+						if(ajaxOutput.indexOf("alert-danger") !== -1) {
+							setTimeout(function(){
+								window.location.href = "../sign-in/index.php"
+							}, 500);
+						}
 						// reset the form if it was successful
 						// this makes it easier to reuse the form again
 						if($(".alert-success").length >= 1) {

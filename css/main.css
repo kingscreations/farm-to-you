@@ -188,8 +188,8 @@ footer .inline-list li {
 
 .edit-product img {
 
-  max-width: 100%;
-  height: 300px;
+	max-width: 140px;
+	height: auto;
 }
 
 @media screen and (min-width: 768px) {
@@ -556,12 +556,22 @@ li[role=presentation].open a {
   margin: 0 !important;
 }
 
+.mt5 {
+	margin-top: 5px !important;
+
+}
+
 .mt10 {
 	margin-top: 10px !important;
 }
 
 .mt20 {
 	margin-top: 20px !important;
+}
+
+.mt25 {
+	margin-top: 25px !important;
+
 }
 
 .mt30 {

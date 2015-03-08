@@ -285,6 +285,9 @@ try {
 	</form>
 </div><!-- end container-fluid -->
 
+	<!-- google maps -->
+	<!--		<script src="https://maps.googleapis.com/maps/api/js"></script>-->
+	<!--		<script src="--><?php //echo $prefix; ?><!--js/google-maps.js"></script>-->
 <script src="../js/checkout-pickup.js"></script>
 
 <?php require_once('../php/lib/footer.php'); ?>

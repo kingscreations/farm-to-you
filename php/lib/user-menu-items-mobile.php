@@ -1,4 +1,4 @@
-<?php if(@isset($_SESSION['user'])) { ?>
+<?php if(@isset($_SESSION['userId'])) { ?>
 	<li role="presentation">
 		My Account
 	</li>
@@ -16,5 +16,4 @@
 <?php } else { ?>
 	<li><a href="<?php echo SITE_ROOT_URL . 'sign-in'; ?>">Login</span></a></li>
 	<li><a href="<?php echo SITE_ROOT_URL . 'sign-up'; ?>">Register</span></a></li>
-<!--	<li><a href="--><?php //echo SITE_ROOT_URL . 'sign-up'; ?><!--">Become a merchant</span></a></li>-->
 <?php } ?>

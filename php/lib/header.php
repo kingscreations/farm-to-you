@@ -37,41 +37,32 @@ require_once($prefix . 'paths.php');
 		<link rel="stylesheet" href="<?php echo $prefix; ?>css/main.css"/>
 		<link rel="stylesheet" href="<?php echo $prefix; ?>css/custom.css"/>
 
-
-		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
 		<script type="text/javascript" src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		<script type="text/javascript" src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-
-		<!-- google maps -->
-<!--		<script src="https://maps.googleapis.com/maps/api/js"></script>-->
-<!--		<script src="--><?php //echo $prefix; ?><!--js/google-maps.js"></script>-->
-
-<!--		<script src="--><?php //echo $prefix; ?><!--js/iscroll.js"></script>-->
 
 		<!-- js libraries -->
 		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
 		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
 		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/additional-methods.min.js"></script>
+		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src="<?php echo $prefix; ?>js/validate-exact-length.js"></script>
 		<script src="<?php echo $prefix; ?>js/main.js"></script>
 
 		<!--	stripe api	-->
 		<script src="https://js.stripe.com/v2/"></script>
 
-		<!-- bootstrap js -->
-		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
 		<title>Farm To You</title>
 	</head>
 	<body>
+		<!-- facebook, twitter... -->
 		<?php require_once('share-api.php'); ?>
 
 		<!-- wrapper for the sticky footer -->
 		<div class="wrapper">
-
 
 			<!-- start of global container -->
 			<div class="container-fluid" id="main-menu">
@@ -114,13 +105,13 @@ require_once($prefix . 'paths.php');
 				</div><!-- end row main-menu -->
 				<?php }else{ ?>
 				<div class="row clearfix">
-					<div class="col-sm-4 col-xs-3">
+					<div class="col-sm-4 col-xs-4">
 						<div id="farm-to-you-logo" class="apply-nav-height">
 							<a href="<?php echo SITE_ROOT_URL ?>">Farm to You</a>
 						</div>
 					</div>
 
-					<div class="col-sm-4 col-xs-4">
+					<div class="col-sm-4 col-xs-5">
 						<form  action="../php/forms/search-controller.php" id="search" method="post">
 							<?php echo generateInputTags(); ?>
 							<div class="input-group">
@@ -133,7 +124,7 @@ require_once($prefix . 'paths.php');
 						</form>
 					</div>
 
-					<div class="col-sm-4 col-xs-5">
+					<div class="col-sm-4 col-xs-3">
 
 						<!-- desktop pills -->
 						<ul class="nav nav-pills hidden-xs">

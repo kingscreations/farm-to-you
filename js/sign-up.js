@@ -9,9 +9,9 @@ $(document).ready(
 // tell the validator to validate this form
 		$("#signUp").validate({
 // setup the formatting for the errors
-			errorClass: "label-danger",
+			errorClass: "alert-danger",
 			errorLabelContainer: "#outputArea",
-			wrapper: "li",
+			wrapper: "div",
 // rules define what is good/bad input
 			rules: {
 // each rule starts with the inputs name (NOT id)

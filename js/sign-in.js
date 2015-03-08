@@ -6,9 +6,9 @@ $(document).ready(function() {
 		// tell the validator to validate this form
 		$("#signIn").validate({
 			// setup the formatting for the errors
-			errorClass: "label-danger",
-			//errorLabelContainer: "#outputArea",
-			wrapper: "li",
+			errorClass: "alert-danger",
+			errorLabelContainer: "#outputArea",
+			//wrapper: "div",
 			// rules define what is good/bad input
 			rules: {
 			// each rule starts with the inputs name (NOT id)
@@ -73,7 +73,9 @@ $(document).ready(function() {
 		});
 
 	/**
-	 * workaround for the csrf token
+	 * workaround csrf token
+	 *
+	 * get a new fresh csrf token
 	 */
 	function reGenerateInputsTags() {
 

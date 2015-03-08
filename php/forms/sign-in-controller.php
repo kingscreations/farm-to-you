@@ -63,14 +63,13 @@ try {
 	}
 //	catch any AJAX exceptions
 	echo "<div class=\"alert alert-success\" role=\"alert\">You are signed in! Redirecting to home page!</div>";
+
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
 
 // create session id specific to this user
-	$_SESSION['user'] = array(
-		'id' => $user->getUserId()
-	);
+	$_SESSION['userId'] = $user->getUserId();
 	$_SESSION['profileId'] = $profile->getProfileId();
 
 ?>

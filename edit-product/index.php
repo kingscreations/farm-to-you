@@ -147,7 +147,7 @@ try {
 
 				<div class="form-group hidden">
 					<label for="editProductImage">Product Image:</label>
-					<input type="file" class="form-control" name="editProductImage" id="editProductImage">
+					<input type="file" class="form-control hidden" name="editProductImage" id="editProductImage">
 				</div>
 				<br>
 

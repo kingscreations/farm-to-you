@@ -31,11 +31,12 @@ $profileType = $profile->getProfileType();
 
 ?>
 
-	<div class="container-fluid container-margin-sm transparent-form">
-		<div class="row">
-	<?php if($profileType === "m") { ?>
+<div class="container-fluid container-margin-sm transparent-form user-account">
+	<div class="row">
 
-		<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
+		<?php if($profileType === "m") { ?>
+
+		<div id="multi-menu" class="col-sm-3 visible-desktop transparent-menu">
 			<ul class="nav nav-pills nav-stacked">
 				<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
 				<li><a href="../add-store/index.php">Manage Stores</a></li>
@@ -43,108 +44,96 @@ $profileType = $profile->getProfileType();
 				<li><a href="../bank-account/index.php">Bank Account</a></li>
 			</ul>
 		</div>
-		<div class="dropdown hidden-lg hidden-md" style="position:relative">
-			<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
-			<ul class="dropdown-menu">
-				<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
-				<li><a href="../add-store/index.php">Manage Stores</a></li>
-				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
-				<li><a href="../bank-account/index.php">Bank Account</a></li>
-			</ul>
-		</div>
+		<?php	} else { ?>
 
-<?php	} else { ?>
-
-		<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
+		<div id="multi-menu" class="col-sm-3 visible-desktop transparent-menu">
 			<ul class="nav nav-pills nav-stacked">
 				<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
 				<li><a href="../client-order-list/index.php">List of Orders</a></li>
 				<li class="disabled"><a href="#">Account Settings</a></li>
 			</ul>
 		</div>
-	<div class="dropdown hidden-lg hidden-md" style="position:relative">
-		<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
-		<ul class="dropdown-menu">
-			<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
-			<li><a href="../client-order-list/index.php">List of Orders</a></li>
-			<li class="disabled"><a href="#">Account Settings</a></li>
-		</ul>
-	</div>
-
-<?php } ?>
+		<?php } ?>
 
 
-
-<!--Form to edit a profile-->
-<!--<div class="container-fluid">-->
-
-<div class="col-md-9">
-
-
-
-	<form id="editProfile" class="form-inline transparent-form" method="post" action="../php/forms/edit-profile-controller.php" enctype="multipart/form-data">
-		<h2>Edit Profile</h2>
-		<?php echo generateInputTags(); ?>
-		<div class="form-group">
-			<label for="inputFirstname">First Name:</label>
-			<input type="text" class="form-control" id="inputFirstname" name="inputFirstname" placeholder="<?php echo $profileFirstname ?>" value="<?php echo $profileFirstname ?>">
+		<div class="dropdown visible-xs" style="position:relative">
+			<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
+				<li><a href="../add-store/index.php">Manage Stores</a></li>
+				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+				<li class="disabled"><a href="#">Account Settings</a></li>
+			</ul>
 		</div>
 
-		<br>
+		<!--Form to edit a profile-->
 
-		<div class="form-group">
-			<label for="inputLastname">Last Name:</label>
-			<input type="text" class="form-control" id="inputLastname" name="inputLastname" placeholder="<?php echo $profileLastname ?>" value="<?php echo $profileLastname ?>">
-		</div>
+		<div class="col-sm-6">
 
-		<br>
+			<form id="editProfile" class="form-inline" method="post" action="../php/forms/edit-profile-controller.php" enctype="multipart/form-data">
+				<h2>Edit Profile</h2>
+				<?php echo generateInputTags(); ?>
+				<div class="form-group">
+					<label for="inputFirstname">First Name:</label>
+					<input type="text" class="form-control" id="inputFirstname" name="inputFirstname" placeholder="<?php echo $profileFirstname ?>" value="<?php echo $profileFirstname ?>">
+				</div>
 
-		<div class="form-group">
-			<label for="inputPhone">Phone Number:</label>
-			<input type="tel" class="form-control" id="inputPhone" name="inputPhone" placeholder="<?php echo $profilePhone ?>" value="<?php echo $profilePhone ?>">
-		</div>
+				<br>
 
-		<br>
+				<div class="form-group">
+					<label for="inputLastname">Last Name:</label>
+					<input type="text" class="form-control" id="inputLastname" name="inputLastname" placeholder="<?php echo $profileLastname ?>" value="<?php echo $profileLastname ?>">
+				</div>
 
-		<div class="form-group">
-			<label for="inputImage">Profile Image</label>
-			<input type="file" class="form-control" id="inputImage" name="inputImage" value="">
-		</div>
+				<br>
 
-		<br>
+				<div class="form-group">
+					<label for="inputPhone">Phone Number:</label>
+					<input type="text" class="form-control" id="inputPhone" name="inputPhone" placeholder="<?php echo $profilePhone ?>" value="<?php echo $profilePhone ?>">
+				</div>
 
-		<div class="form-group">
-			<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit" value="Submit">
-		</div>
+				<br>
 
-		<br>
-		<div class="form-group edit-product">
+				<div class="form-group">
+<!--					<label for="inputImage">Profile Image</label>-->
+					<input type="file" class="form-control hidden" id="inputImage" name="inputImage" value="">
+				</div>
 
-			<?php
+				<br>
 
-			$baseUrl             = CONTENT_ROOT_URL . 'images/profile/';
-			$basePath            = CONTENT_ROOT_PATH . 'images/profile/';
-			$imagePlaceholderSrc = SITE_ROOT_URL. 'images/placeholder.png';
-			$imageSrc            = basename($profile->getImagePath());
+				<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit" value="Submit">
 
-			// show a placeholder if the product is not associated with an image
-			if(is_file($profile->getImagePath())) {
-				?>
-				<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
-			<?php } else { ?>
-				<img class="thumbnail img-responsive" src="<?php echo $imagePlaceholderSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
-			<?php } ?>
+				<br>
 
-		</div>
-		<br>
-		<p id="outputArea" style=""></p>
+				<br>
+				<p id="outputArea" style=""></p>
 
-	</form>
+			</form>
 
+		</div><!-- end col6 -->
+
+		<div class="col-sm-3">
+			<div class="form-group edit-product pull-right">
+				<a href="#" id="editProfileImageLink">
+					<?php
+
+					$baseUrl             = CONTENT_ROOT_URL . 'images/profile/';
+					$basePath            = CONTENT_ROOT_PATH . 'images/profile/';
+					$imagePlaceholderSrc = SITE_ROOT_URL. 'images/placeholder.png';
+					$imageSrc            = basename($profile->getImagePath());
+
+					// show a placeholder if the product is not associated with an image
+					if(is_file($profile->getImagePath())) {
+						?>
+						<img class="thumbnail img-responsive" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
+					<?php } else { ?>
+						<img class="thumbnail img-responsive" src="<?php echo $imagePlaceholderSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
+					<?php } ?>
+				</a>
 			</div>
-		</div>
-	</div>
-</div>
+		</div><!-- end col3 -->
+	</div><!-- end row -->
+</div><!-- end container-fluid -->
 <?php
 
 if($profileId !== false) {

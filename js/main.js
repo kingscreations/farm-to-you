@@ -32,4 +32,4 @@
 
 	});
 
-})() // sandbox all the inside code to prevent global variable creation
+})(); // sandbox all the inside code to prevent global variable creation

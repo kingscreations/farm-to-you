@@ -84,13 +84,13 @@ try {
 			<br>
 			<div class="form-group">
 				<label for="editInputImage">Image</label>
-				<input type="file" class="form-control" name="editInputImage" id="editInputImage">
+				<input type="file" class="form-control hidden" name="editInputImage" id="editInputImage">
 			</div>
 			<br>
 
 
-			<div class="form-group edit-product transparent-form">
-
+			<div class="form-group edit-product">
+				<a href="#" id="editStoreImageLink">
 				<?php
 
 				$baseUrl             = CONTENT_ROOT_URL . 'images/store/';
@@ -105,7 +105,7 @@ try {
 				<?php } else { ?>
 					<img class="thumbnail img-responsive" src="<?php echo $imagePlaceholderSrc; ?>" alt="<?php echo $storeName; ?>"/>
 				<?php } ?>
-
+				</a>
 
 
 

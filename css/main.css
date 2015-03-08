@@ -285,10 +285,10 @@ form input[type=password]{
 }
 
 .user-account input[type=radio] {
-	margin-left: 1em !important;
+	margin-left: 0;
 }
 
-.user-account .tag-input {
+.user-account .input-tag {
 	width: 120px;
 }
 
@@ -580,6 +580,39 @@ li[role=presentation].open a {
 	margin-top: 80px !important;
 }
 
+.mb10 {
+	margin-bottom: 20px;
+}
+
+.mb20 {
+	margin-bottom: 20px;
+}
+
+.mb30 {
+	margin-bottom: 30px;
+}
+
+.mb40 {
+	margin-bottom: 40px;
+}
+
+.mb60 {
+	margin-bottom: 60px;
+}
+
+.mb80 {
+	margin-bottom: 80px;
+}
+
+.ml1 {
+	margin-left: 1em !important;
+}
+
+/* sometimes I hate bootstrap... :( */
+.ml2 {
+	margin-left: 2em !important;
+}
+
 .no-padding-right {
   padding-right: 0;
 }
@@ -590,6 +623,14 @@ li[role=presentation].open a {
 
 .center {
   text-align: center;
+}
+
+.left {
+	text-align: left;
+}
+
+.iblock {
+	display: inline-block !important;
 }
 
 .disable-color {

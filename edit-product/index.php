@@ -87,23 +87,26 @@ try {
 
 		<div class="form-group edit-product mt30 visible-xs">
 			<h2>Edit Product</h2>
-			<a href="#" id="editProductImageLink" class="edit-product-image-link">
-				<?php
+			<figure>
+				<a href="#" id="editProductImageLink" class="edit-product-image-link">
+					<?php
 
-				$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
+					$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
 
-				$productBaseUrl      = CONTENT_ROOT_URL . 'images/product/';
-				$productBasePath     = CONTENT_ROOT_PATH . 'images/product/';
-				$productImageSrc     = basename($product->getImagePath());
+					$productBaseUrl      = CONTENT_ROOT_URL . 'images/product/';
+					$productBasePath     = CONTENT_ROOT_PATH . 'images/product/';
+					$productImageSrc     = basename($product->getImagePath());
 
-				// show a placeholder if the product is not associated with an image
-				if(is_file($product->getImagePath())) {
-					?>
-					<img class="thumbnail image-preview" src="<?php echo $productBaseUrl . $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
-				<?php } else { ?>
-					<img class="thumbnail image-preview" src="<?php echo $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
-				<?php } ?>
-			</a>
+					// show a placeholder if the product is not associated with an image
+					if(is_file($product->getImagePath())) {
+						?>
+						<img class="thumbnail image-preview" src="<?php echo $productBaseUrl . $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
+					<?php } else { ?>
+						<img class="thumbnail image-preview" src="<?php echo $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
+					<?php } ?>
+				</a>
+			</figure>
+			<figcaption>Change product image</figcaption>
 		</div>
 
 		<!--Form to edit a product-->
@@ -150,19 +153,14 @@ try {
 
 				<div class="form-group radio mt20 hidden-xs">
 					<label for="editProductPriceType">Sold By:</label>
-					<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w"
-						<?php echo ($productPriceType === 'w') ? 'checked' : '';?>> By Weight
-
+					<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w"<?php echo ($productPriceType === 'w') ? 'checked' : '';?>> By Weight
 					<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u"> Per Unit
 				</div>
 
 				<div class="mt20 visible-xs">
 					<label for="editProductPriceType">Sold By:</label>
-					<div class="form-group"></div>
-					<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w"
-						<?php echo ($productPriceType === 'w') ? 'checked' : '';?>> By Weight
-
-					<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u"> Per Unit
+					<input type="radio" name="editProductPriceType" id="editProductPriceType" value="w"<?php echo ($productPriceType === 'w') ? 'checked' : '';?>> By Weight
+					<input class="ml1" type="radio" name="editProductPriceType" id="editProductPriceType" value="u"> Per Unit
 				</div>
 
 
@@ -199,8 +197,6 @@ try {
 					<span><input type="text" class="input-tag form-control distinctTags" id="addTags3" name="addTags3" value="<?php echo $categoryName3;?>"></span>
 					<span><input type="text" class="input-tag form-control distinctTags" id="addTags4" name="addTags4" value="<?php echo $categoryName4;?>"></span>
 				</div>
-
-
 
 				<div class="form-group mt60">
 					<input type="submit" class="form-control" id="editSubmit" name="editSubmit" value="Submit">

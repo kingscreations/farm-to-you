@@ -170,5 +170,10 @@ $(document).ready(function() {
 
 		console.log('debug');
 		$('#editProductImage').click();
+		$('#editProductImage').on('change', function() {
+
+			// submit the form auto if a new image is detected
+			$('#editSubmit').click();
+		});
 	});
 });

@@ -48,31 +48,37 @@ try {
 }
 
 ?>
+<div class="container-fluid container-margin-sm transparent-form user-account">
+	<div class="row">
 
-	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
-		<ul class="nav nav-pills nav-stacked">
-			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-			<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
-			<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
-			<li><a href="../bank-account/index.php">Bank Account</a></li>
-		</ul>
-	</div>
+		<div id="multi-menu" class="col-md-3 hidden-xs">
+			<ul class="nav nav-pills nav-stacked">
+				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+				<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+				<li><a href="../bank-account/index.php">Bank Account</a></li>
+			</ul>
+		</div>
 
-	<div class="dropdown hidden-lg hidden-md" style="position:relative">
-		<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
-		<ul class="dropdown-menu">
-			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-			<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
-			<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
-			<li><a href="../bank-account/index.php">Bank Account</a></li>
-		</ul>
-	</div>
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="col-sm-9 transparent-form">
-			<h2>Edit Location</h2>
+		<div class="dropdown visible-xs" style="position:relative">
+			<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+				<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+				<li><a href="../bank-account/index.php">Bank Account</a></li>
+			</ul>
+		</div>
+
+		<div class="col-sm-3 visible-xs">
+			<h2>Edit Pick-Up Location</h2>
+		</div>
+		<div class="col-sm-6">
 			<form class="form-inline" id="editLocationController" method="post" action="../php/forms/edit-location-controller.php">
 				<?php echo generateInputTags(); ?>
+				<div class="hidden-xs center">
+					<h2>Edit Pick-Up Location</h2>
+				</div>
 				<div class="form-group">
 					<label for="locationName">Location Name</label>
 					<input type="text" class="form-control" name="locationName" id="locationName" value="<?php echo $locationName;?>">
@@ -116,11 +122,11 @@ try {
 			<br>
 
 			<div class="form-group">
-				<button class="btn btn-default addButton" id="back">Back</button>
+				<button class="btn btn-default addLocationButton" id="back">Back</button>
 			</div>
 		</div>
-		</div>
 	</div>
+</div>
 
 <!--js validation + ajax call-->
 <script src="../js/edit-location.js"></script>

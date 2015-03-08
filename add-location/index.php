@@ -24,7 +24,7 @@ require_once("../php/classes/location.php");
 	<div class="container-fluid container-margin-sm transparent-form user-account">
 	<div class="row">
 
-		<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
+		<div id="multi-menu" class="col-md-3 hidden-xs">
 			<ul class="nav nav-pills nav-stacked">
 				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
 				<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
@@ -98,6 +98,7 @@ require_once("../php/classes/location.php");
 		<div class="form-group">
 			<button class="btn btn-default addLocationButton" id="back">Back</button>
 		</div>
+	</div>
 	</div>
 </div>
 

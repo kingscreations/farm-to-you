@@ -33,9 +33,10 @@ $profileId = $_SESSION['profileId'];
 		<li><a href="../edit-profile/index.php">Edit Profile</a></li>
 		<li><a href="../add-store/index.php">Manage Stores</a></li>
 		<li class="active"><a href="../merchant-order-list/index.php">List of Orders</a></li>
-		<li class="disabled"><a href="#">Account Settings</a></li>
+		<li><a href="../bank-account/index.php">Bank Account</a></li>
 	</ul>
 </div>
+
 
 <div class="dropdown hidden-lg hidden-md" style="position:relative">
 	<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
@@ -43,7 +44,7 @@ $profileId = $_SESSION['profileId'];
 		<li><a href="../edit-profile/index.php">Edit Profile</a></li>
 		<li><a href="../add-store/index.php">Manage Stores</a></li>
 		<li class="active"><a href="../merchant-order-list/index.php">List of Orders</a></li>
-		<li class="disabled"><a href="#">Account Settings</a></li>
+		<li><a href="../bank-account/index.php">Bank Account</a></li>
 	</ul>
 </div>
 

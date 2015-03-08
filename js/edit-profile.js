@@ -86,20 +86,24 @@ $(document).ready(function() {
 					// write the server's reply to the output area
 					$("#outputArea").html(ajaxOutput);
 
-
-					// reset the form if it was successful
-					// this makes it easier to reuse the form again
-					//if($(".alert-success").length >= 1) {
-					//	$(form)[0].reset();
-					//}
+					setTimeout(function() {
+						// refresh the page
+						location.reload();
+					}, 1000);
 				}
 			});
 		}
 	});
-
-	$('#editProfileImageLink').on('click', function(event) {
+	console.log('edit-profile.js!');
+	$('.edit-product-image-link').on('click', function(event) {
 		event.preventDefault();
 
+		console.log('debug');
 		$('#inputImage').click();
-	})
+		console.log('debug2');
+		$('#inputImage').on('change', function() {
+
+			$('#inputSubmit').click();
+		});
+	});
 });

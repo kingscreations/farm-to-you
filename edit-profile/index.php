@@ -136,7 +136,7 @@ $profileType = $profile->getProfileType();
 				<div class="form-group mt40">
 					<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit" value="Submit">
 				</div>
-
+				<br>
 				<br>
 				<p id="outputArea" style=""></p>
 
@@ -146,7 +146,7 @@ $profileType = $profile->getProfileType();
 
 		<div class="col-sm-3 hidden-xs">
 			<div class="form-group edit-product pull-right">
-				<a href="#" id="editProfileImageLink">
+				<a href="#" id="editProfileImageLink" class="edit-product-image-link">
 					<?php
 
 					$baseUrl             = CONTENT_ROOT_URL . 'images/profile/';

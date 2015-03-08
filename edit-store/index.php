@@ -212,60 +212,33 @@ try {
 						<button id="<?php echo $_SESSION['storeId'];?>" class="btn btn-default linkStore">Link to store page</button>
 				</div>
 				<br>
+				<div class="form-group edit-product pull-right mt0">
+					<a href="#" id="editStoreImageLink" class="user-account">
+					<?php
 
+					$baseUrl             = CONTENT_ROOT_URL . 'images/store/';
+					$basePath            = CONTENT_ROOT_PATH . 'images/store/';
+					$imagePlaceholderSrc = '../images/placeholder.png';
+					$imageSrc            = basename($store->getImagePath());
 
-					<div class="form-group edit-product mt0">
-				<a href="#" id="editStoreImageLink" class="user-account">
-				<?php
-
-				$baseUrl             = CONTENT_ROOT_URL . 'images/store/';
-				$basePath            = CONTENT_ROOT_PATH . 'images/store/';
-				$imagePlaceholderSrc = '../images/placeholder.png';
-				$imageSrc            = basename($store->getImagePath());
-
-				// show a placeholder if the product is not associated with an image
-				if(is_file($basePath . $imageSrc)) {
-					?>
-					<img class="thumbnail img-preview" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $storeName; ?>"/>
-				<?php } else { ?>
-					<img class="thumbnail img-preview" src="<?php echo $imagePlaceholderSrc; ?>" alt="<?php echo $storeName; ?>"/>
-				<?php } ?>
-				</a>
-						</figure>
+					// show a placeholder if the product is not associated with an image
+					if(is_file($basePath . $imageSrc)) {
+						?>
+						<img class="thumbnail img-preview" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $storeName; ?>"/>
+					<?php } else { ?>
+						<img class="thumbnail img-preview" src="<?php echo $imagePlaceholderSrc; ?>" alt="<?php echo $storeName; ?>"/>
+					<?php } ?>
+					</a>
 						<figcaption>Change store image</figcaption>
-
 				</div>
-
-
-
 			</div>
-		<br>
-	</div><!-- col-sm-9 -->
+			<br>
+		</div><!-- col-sm-9 -->
 	</div><!-- row -->
-	</div><!-- container fluid -->
-
-
-<!-- container-fluid -->
+</div><!-- container fluid -->
 
 <!--js validation + ajax call-->
 <script src="../js/edit-store.js"></script>
 
 <!--footer-->
 <?php require_once("../php/lib/footer.php"); ?>
-
-<!--$productName = $products[0]->getProductName();-->
-<!--$productId = $products[0]->getProductId();-->
-<!--echo '<tr>';-->
-<!--	echo '<td>'. $productName . '</td>';-->
-<!--	echo '<td><button id="'.$productId.'" class="btn btn-default editProductButton">Edit</button></td>';-->
-<!--	echo '</tr>';-->
-<!--for($i = 1; $i < count($products); $i++) {-->
-<!--$productName = $products[$i]->getProductName();-->
-<!--$productId = $products[$i]->getProductId();-->
-<!--echo '<tr>';-->
-<!--	echo '<td>'. $productName . '</td>';-->
-<!--	echo '<td><button id="'.$productId.'" class="btn btn-default editProductButton">Edit</button></td>';-->
-<!--	echo '<td><button id="'.$productId.'" class="btn btn-default deleteProductButton">Delete</button></td>';-->
-<!--	echo '</tr>';-->
-<!--}-->
-<!--						-->

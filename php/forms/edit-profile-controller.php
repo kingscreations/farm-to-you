@@ -54,7 +54,7 @@ $profileId = $_SESSION['profileId'];
 	}
 		$profile->update($mysqli);
 
-	echo "<p class=\"alert alert-success\">Profile for " . $profile->getFirstName() . $profile->getLastName() . " updated!</p>";
+	echo "<p class=\"alert alert-success\">Profile for " . $profile->getFirstName() ." ". $profile->getLastName() . " updated!</p>";
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }

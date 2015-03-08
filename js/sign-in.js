@@ -7,7 +7,7 @@ $(document).ready(function() {
 		$("#signIn").validate({
 			// setup the formatting for the errors
 			errorClass: "label-danger",
-			errorLabelContainer: "#outputArea",
+			//errorLabelContainer: "#outputArea",
 			wrapper: "li",
 			// rules define what is good/bad input
 			rules: {
@@ -47,7 +47,7 @@ $(document).ready(function() {
 					// success is an event that happens when the server replies
 					success: function(ajaxOutput) {
 						// clear the output area's formatting
-						//$("#outputArea").css("visibility", "hidden");
+						$("#outputArea").css("display", "");
 						// write the server's reply to the output area
 						$("#outputArea").html(ajaxOutput);
 

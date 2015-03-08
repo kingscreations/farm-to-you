@@ -19,48 +19,46 @@ if(@isset($_SESSION['emailPop'])) {
 ?>
 
 <div class="signIn">
-	<div class="signIn-form">
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-12">
+		<div class="signIn-form">
+			<div class="row">
+				<div class="col-sm-12">
 
-				<h3>Welcome Back!</h3>
+					<h3>Welcome Back!</h3>
 
-				<br>
+					<br>
 
-				<form class= "form" method="post" name="signIn" id="signIn" action="../php/forms/sign-in-controller.php">
-					<?php echo generateInputTags(); ?>
-					<fieldset>
-						<?php
-						echo generateInputTags();
-						?>
+					<form class= "form" method="post" name="signIn" id="signIn" action="../php/forms/sign-in-controller.php">
+						<?php echo generateInputTags(); ?>
+						<fieldset>
+							<?php echo generateInputTags(); ?>
 
-						<?php if(($email) === null) { ?>
-						<label>Your email:</label>
-						<input type="text" name="email" id="email" value="" size="relative" />
-						</br></br>
-						<label>Enter your password:</label>
-						<input type="password" name="password2" id="password2" value="" size="relative" />
-						<br><br>
-						<input type="submit" value="Log In" id="submit">
+							<?php if(($email) === null) { ?>
+							<label>Your email:</label>
+							<input type="text" name="email" id="email" value="" size="relative" />
+							</br></br>
+							<label>Enter your password:</label>
+							<input type="password" name="password2" id="password2" value="" size="relative" />
+							<br><br>
+							<input type="submit" value="Log In" id="submit">
 
-						<?php } else{ ?>
-						<label>Your email:</label>
-						<input type="text" name="email" id="email" value="<?php echo $email ?>" placeholder="<?php echo $email ?>" size="relative" />
-						</br></br>
-						<label>Enter your password:</label>
-						<input type="password" name="password2" id="password2" value="" size="relative" />
-						<br><br>
-						<input type="submit" value="Log In" id="submit">
-						<?php } ?>
-					</fieldset>
-				</form>
+							<?php } else{ ?>
+							<label>Your email:</label>
+							<input type="text" name="email" id="email" value="<?php echo $email ?>" placeholder="<?php echo $email ?>" size="relative" />
+							</br></br>
+							<label>Enter your password:</label>
+							<input type="password" name="password2" id="password2" value="" size="relative" />
+							<br><br>
+							<input type="submit" value="Log In" id="submit" class="btn btn-default mt30">
+							<?php } ?>
+						</fieldset>
+					</form>
 
-				<p id="outputArea"></p>
-			</div>
-		</div><!-- end row -->
+					<p id="outputArea"></p>
+				</div>
+			</div><!-- end row -->
+		</div><!-- end signIn form-->
 	</div><!-- end container-fluid -->
-	</div><!-- end signIn form-->
 </div><!-- signIn -->
 
 <script src="../js/sign-in.js"></script>

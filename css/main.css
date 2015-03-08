@@ -189,7 +189,7 @@ footer p {
 
 #outputArea {
   margin: 0 !important;
-  padding: 1em;
+  /*padding: 1em;*/
   border-radius: 3px;
   margin-top: 10px;
 }
@@ -229,44 +229,52 @@ a:hover {
 .sign-up-form,
 .signIn-form,
 .activation-form {
-  background-color: rgba(255, 255, 255, 0.8);
-  text-align: center;
-  margin: auto;
-  width: 70%;
-  margin-top: 12%;
-  margin-bottom: 12%;
-  position: relative;
-  color: rgba(115, 90, 41, 0.8);
-  font-family: ArchitectsDaughter, Biko, Sans-Serif;
-  font-size: 1em;
-  border: 1px rgba(51, 40, 18, 1);
-  border-radius: 12px;
+	background-color: rgba(255, 255, 255, 0.8);
+	margin: auto;
+	width: 70%;
+	margin-top: 12%;
+	position: relative;
+	color: rgba(115, 90, 41, 0.8);
+	font-size: 1em;
+	border: 1px rgba(51, 40, 18, 1);
+	border-radius: 12px;
+	padding: 2em;
+}
+
+@media screen and (min-width: 768px) {
+	form label {
+		min-width: 180px;
+		text-align: right;
+	}
+
+	form input[type=text],
+	form input[type=password]{
+		min-width: 60%;
+	}
+
+	.sign-up-form #submit,
+	.signIn-form #submit {
+		width: 40%;
+		margin-left: 30%;
+	}
 }
 
 .transparent-form {
   background-color: rgba(255, 255, 255, .8);
   text-align: center;
-  /*margin: auto;*/
-  /*width: 90%;*/
   margin-top: 10%;
   margin-bottom: 10%;
   position: relative;
   color: rgba(115, 90, 41, 0.8);
-  font-family: Biko, sans-serif;
   font-size: .8em;
   border: 1px rgba(51, 40, 18, 1);
   border-radius: 5px;
-  padding-left: 5em;
-  padding-right: 5em;
+  padding: 5em;
 }
 
 
 @media screen and (min-width: 768px) {
   .transparent-form {
-    text-align: center;
-    position: relative;
-    color: rgba(115, 90, 41, 0.8);
-    font-family: Biko, sans-serif;
     font-size: 1em;
     border: 1px rgba(51, 40, 18, 1);
     border-radius: 12px;

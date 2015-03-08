@@ -18,150 +18,150 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 ?>
 
-	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
-		<ul class="nav nav-pills nav-stacked">
-			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-			<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
-			<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
-			<li><a href="../bank-account/index.php">Bank Account</a></li>
-		</ul>
-	</div>
-
-	<div class="dropdown hidden-lg hidden-md" style="position:relative">
-		<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
-		<ul class="dropdown-menu">
-			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-			<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
-			<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
-			<li><a href="../bank-account/index.php">Bank Account</a></li>
-		</ul>
-	</div>
-
-<!--Form for adding a new product-->
-	<div class="container-fluid">
-		<div class="row">
-	<div class="col-md-9">
-
-		<form id="addProduct" class="form-inline transparent-form" method="post" action="../php/forms/add-product-controller.php" novalidate>
-			<h2>Add Product</h2>
-			<?php echo generateInputTags(); ?>
-		<div class="form-group">
-			<label for="inputProductName">Product Name:</label>
-			<input type="text" class="form-control" name="inputProductName" id="inputProductName" placeholder="Product Name">
+<div class="container-fluid container-margin-sm transparent-form">
+	<div class="row">
+		<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
+			<ul class="nav nav-pills nav-stacked">
+				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+				<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+				<li><a href="../bank-account/index.php">Bank Account</a></li>
+			</ul>
 		</div>
 
-		<br>
-
-		<div class="form-group">
-			<label for="inputProductPrice">Product Price : $</label>
-			<input type="text" class="form-control" name="inputProductPrice" id="inputProductPrice" placeholder="Price">
+		<div class="dropdown hidden-lg hidden-md" style="position:relative">
+			<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+				<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+				<li><a href="../bank-account/index.php">Bank Account</a></li>
+			</ul>
 		</div>
 
-		<br>
+		<!--Form for adding a new product-->
+		<div class="col-md-9">
 
-		<div class="form-group">
-			<label for="inputProductDescription">Product Description:</label>
-			<textarea class="form-control" name="inputProductDescription" id="inputProductDescription" placeholder="Write Product Description here."></textarea>
-		</div>
+			<form id="addProduct" class="form-inline" method="post" action="../php/forms/add-product-controller.php" novalidate>
+				<h2>Add Product</h2>
+				<?php echo generateInputTags(); ?>
+				<div class="form-group">
+					<label for="inputProductName">Product Name:</label>
+					<input type="text" class="form-control" name="inputProductName" id="inputProductName" placeholder="Product Name">
+				</div>
 
-		<br>
+				<br>
 
-		<div class="form-group">
-			<label for="inputProductPriceType">Sold By:</label>
-			<input type="radio" class="form-control" name="inputProductPriceType" id="inputProductPriceType" value="w">By Weight
-			<input type="radio" class="form-control" name="inputProductPriceType" id="inputProductPriceType" value="u">Per Unit
-		</div>
+				<div class="form-group">
+					<label for="inputProductPrice">Product Price : $</label>
+					<input type="text" class="form-control" name="inputProductPrice" id="inputProductPrice" placeholder="Price">
+				</div>
 
-		<br>
+				<br>
 
-		<div class="form-group">
-			<label for="inputProductWeight">Product Weight (lbs.):</label>
-			<input type="text" class="form-control" name="inputProductWeight" id="inputProductWeight" placeholder="Weight">
-		</div>
+				<div class="form-group">
+					<label for="inputProductDescription">Product Description:</label>
+					<textarea class="form-control" name="inputProductDescription" id="inputProductDescription" placeholder="Write Product Description here."></textarea>
+				</div>
 
-		<br>
+				<br>
 
-		<div class="form-group">
-			<label for="inputStockLimit">Current Stock Amount:</label>
-			<input type="number" class="form-control" name="inputStockLimit" id="inputStockLimit" step="1">
-		</div>
+				<div class="form-group">
+					<label for="inputProductPriceType">Sold By:</label>
+					<input type="radio" class="form-control" name="inputProductPriceType" id="inputProductPriceType" value="w">By Weight
+					<input type="radio" class="form-control" name="inputProductPriceType" id="inputProductPriceType" value="u">Per Unit
+				</div>
 
-		<br>
+				<br>
 
-		<div class="form-group">
-			<label for="inputProductImage">Product Image:</label>
-			<input type="file" class="form-control" name="inputProductImage" id="inputProductImage" value="">
-		</div>
+				<div class="form-group">
+					<label for="inputProductWeight">Product Weight (lbs.):</label>
+					<input type="text" class="form-control" name="inputProductWeight" id="inputProductWeight" placeholder="Weight">
+				</div>
 
-		<br>
+				<br>
 
-			<div class="form-group">
-				<label for="addTags">Tags:</label>
-				<span><input type="text" class="form-control distinctTags" id="addTags1" name="addTags1"></span>
-				<span><input type="text" class="form-control distinctTags" id="addTags2" name="addTags2"></span>
-				<span><input type="text" class="form-control distinctTags" id="addTags3" name="addTags3"></span>
-				<span><input type="text" class="form-control distinctTags" id="addTags4" name="addTags4"></span>
-			</div>
+				<div class="form-group">
+					<label for="inputStockLimit">Current Stock Amount:</label>
+					<input type="number" class="form-control" name="inputStockLimit" id="inputStockLimit" step="1">
+				</div>
 
-		<br>
+				<br>
 
-			<div class="form-group">
-			<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit" value="Submit">
-		</div>
+				<div class="form-group">
+					<label for="inputProductImage">Product Image:</label>
+					<input type="file" class="form-control" name="inputProductImage" id="inputProductImage" value="">
+				</div>
 
-		<p id="outputArea" style=""></p>
+				<br>
 
-		</form>
-		</div>
-	</div>
-</div>
+					<div class="form-group">
+						<label for="addTags">Tags:</label>
+						<span><input type="text" class="form-control distinctTags" id="addTags1" name="addTags1"></span>
+						<span><input type="text" class="form-control distinctTags" id="addTags2" name="addTags2"></span>
+						<span><input type="text" class="form-control distinctTags" id="addTags3" name="addTags3"></span>
+						<span><input type="text" class="form-control distinctTags" id="addTags4" name="addTags4"></span>
+					</div>
 
-<div class="form-group">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-9 transparent-form" id="productEdit">
-				<?php
+				<br>
 
-				try {
-				// get the credentials information from the server and connect to the database
-				mysqli_report(MYSQLI_REPORT_STRICT);
-				$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
-				$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
+					<div class="form-group">
+					<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit" value="Submit">
+				</div>
 
-				// grab all stores by profile id in dummy session
-				$products = Product::getAllProductsByStoreId($mysqli, $_SESSION["storeId"]);
+				<p id="outputArea" style=""></p>
 
-				// create table of existing stores
-				if($products !== null) {
+			</form>
+		</div><!-- end col9 -->
+	</div><!-- end row -->
+</div><!-- end container-fluid -->
 
-				echo '<table class="table table-responsive">';
-					echo '<tr>';
-						echo '<th>Product</th>';
-						echo '<th></th>';
-						echo '</tr>';
-					foreach($products as $product) {
-					$productId = $product->getProductId();
-					$productName = $product->getProductName();
-					echo '<tr>';
-						echo '<td>'. $productName . '</td>';
+	<div class="form-group">
+		<div class="container-fluid container-margin-sm transparent-form">
+			<div class="row">
+				<div class="col-md-9" id="productEdit">
+					<?php
 
-						echo '<td><button id="'.$productId.'" class="btn btn-default editButton">Edit</button></td>';
-						echo '<td><button id="'.$productId.'" class="btn btn-default deleteProductButton">Delete</button></td>';
-						echo '</tr>';
+					try {
+					// get the credentials information from the server and connect to the database
+					mysqli_report(MYSQLI_REPORT_STRICT);
+					$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
+					$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
+
+					// grab all stores by profile id in dummy session
+					$products = Product::getAllProductsByStoreId($mysqli, $_SESSION["storeId"]);
+
+					// create table of existing stores
+					if($products !== null) {
+
+					echo '<table class="table table-responsive">';
+						echo '<tr>';
+							echo '<th>Product</th>';
+							echo '<th></th>';
+							echo '</tr>';
+						foreach($products as $product) {
+						$productId = $product->getProductId();
+						$productName = $product->getProductName();
+						echo '<tr>';
+							echo '<td>'. $productName . '</td>';
+
+							echo '<td><button id="'.$productId.'" class="btn btn-default editButton">Edit</button></td>';
+							echo '<td><button id="'.$productId.'" class="btn btn-default deleteProductButton">Delete</button></td>';
+							echo '</tr>';
+						}
+						echo '</table>';
 					}
-					echo '</table>';
-				}
 
-				} catch(Exception $exception) {
-				echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
-				}
+					} catch(Exception $exception) {
+					echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
+					}
 
-				?>
+					?>
 
-			<div class="form-group">
-				<button class="btn btn-default addButton" id="back">Back</button>
-			</div>
-			</div><!-- col-md-9 -->
+				<div class="form-group">
+					<button class="btn btn-default addButton" id="back">Back</button>
+				</div>
+				</div><!-- col-md-9 -->
 		</div><!-- row -->
 	</div><!-- container-fluid -->
 

@@ -114,10 +114,8 @@ try {
 
 				<br>
 
-				<div class="form-group radio">
+				<div class="form-group radio mt20">
 					<label for="editProductPriceType">Sold By:</label>
-		<!--			<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w" checked>By Weight-->
-		<!--			<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u">Per Unit-->
 					<?php
 						if ($productPriceType === "w") {
 							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w" checked> By Weight';

@@ -481,6 +481,9 @@ input[type=password]:focus {
 	.addProductButton {
 		margin-left: 117px;
 	}
+	.addLocationButton {
+		margin-left: 196px;
+	}
 }
 /********************************************
 * tables

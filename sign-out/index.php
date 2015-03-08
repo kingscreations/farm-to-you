@@ -11,9 +11,9 @@ require_once '../root-path.php';
 require_once("../php/lib/header.php");
 
 // determine if session has variables we dont want to loose, clear session if not
-if(@isset($_SESSION['userId']) || @isset($_SESSION['profileId']) || @isset($_SESSION['products'])) {
+if(@isset($_SESSION['user']['id']) || @isset($_SESSION['profileId']) || @isset($_SESSION['products'])) {
 	// clear the session variables and destroy
-	unset($_SESSION['userId']);
+	unset($_SESSION['user']['id']);
 	unset($_SESSION['profileId']);
 
 } else {

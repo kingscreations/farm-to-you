@@ -62,34 +62,34 @@ try {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
 ?>
-	<!-- JS for the page-->
-	<script src="../js/edit-product.js"></script>
 
-<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
-	<ul class="nav nav-pills nav-stacked">
-		<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-		<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
-		<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
-		<li><a href="../bank-account/index.php">Bank Account</a></li>
-	</ul>
-</div>
-
-<div class="dropdown hidden-lg hidden-md" style="position:relative">
-	<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
-	<ul class="dropdown-menu">
-		<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-		<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
-		<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
-		<li><a href="../bank-account/index.php">Bank Account</a></li>
-	</ul>
-</div>
-
-<div class="container-fluid">
+<div class="container-fluid container-margin-sm user-account transparent-form" id="edit-product">
 	<div class="row">
 
+		<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
+			<ul class="nav nav-pills nav-stacked">
+				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+				<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+				<li><a href="../bank-account/index.php">Bank Account</a></li>
+			</ul>
+		</div>
+
+		<div class="dropdown hidden-lg hidden-md" style="position:relative">
+			<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+				<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+				<li><a href="../bank-account/index.php">Bank Account</a></li>
+			</ul>
+		</div>
+
 		<!--Form to edit a product-->
-		<div class="col-md-9 transparent-form">
-			<h2>Edit Product</h2>
+		<div class="col-md-6">
+			<div class="hidden-xs center">
+				<h2>Edit Product</h2>
+			</div>
 
 			<form id="editProduct" class="form-inline" method="post" action="../php/forms/edit-product-controller.php"  enctype="multipart/form-data">
 				<?php echo generateInputTags(); ?>
@@ -114,17 +114,17 @@ try {
 
 				<br>
 
-				<div class="form-group">
+				<div class="form-group radio">
 					<label for="editProductPriceType">Sold By:</label>
 		<!--			<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w" checked>By Weight-->
 		<!--			<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u">Per Unit-->
 					<?php
 						if ($productPriceType === "w") {
-							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w" checked>By Weight';
-							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u">Per Unit';
+							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w" checked> By Weight';
+							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u"> Per Unit';
 						}elseif ($productPriceType === "u"){
-							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w">By Weight';
-							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u" checked>Per Unit';
+							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w"> By Weight';
+							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u" checked> Per Unit';
 						}
 					?>
 				</div>
@@ -184,7 +184,7 @@ try {
 				<br>
 
 
-				<div class="form-group">
+				<div class="form-group mt60">
 					<input type="submit" class="form-control" id="editSubmit" name="editSubmit" value="Submit">
 				</div>
 
@@ -204,5 +204,8 @@ try {
 		</div>
 	</div>
 </div><!-- end container-fluid -->
+
+<!-- JS for the page-->
+<script src="../js/edit-product.js"></script>
 
 <?php require_once("../php/lib/footer.php"); ?>

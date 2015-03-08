@@ -292,8 +292,11 @@ form input[type=password]{
 	}
 
 	.user-account input[type=text],
-	.user-account input[type=password] {
-		margin-left: 1em;
+	.user-account textarea,
+	.user-account input[type=password],
+	.user-account input[type=number],
+	.user-account input[type=radio] {
+		margin-left: 1em !important;
 		min-width: inherit;
 	}
 

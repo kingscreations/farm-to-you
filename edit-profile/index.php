@@ -36,7 +36,7 @@ $profileType = $profile->getProfileType();
 
 		<?php if($profileType === "m") { ?>
 
-			<div id="multi-menu" class="col-md-3 hidden-xs transparent-menu">
+			<div id="multi-menu" class="col-md-3 hidden-xs">
 				<ul class="nav nav-pills nav-stacked">
 					<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
 					<li><a href="../add-store/index.php">Manage Stores</a></li>
@@ -56,7 +56,7 @@ $profileType = $profile->getProfileType();
 
 		<?php } else { ?>
 
-			<div id="multi-menu" class="col-md-3 hidden-xs transparent-menu">
+			<div id="multi-menu" class="col-md-3 hidden-xs">
 				<ul class="nav nav-pills nav-stacked">
 					<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
 					<li><a href="../client-order-list/index.php">List of Orders</a></li>
@@ -74,6 +74,7 @@ $profileType = $profile->getProfileType();
 
 		<?php } ?>
 
+		<!--	TODO create a function to load the images from anther file with some parameters -->
 		<div class="col-sm-3 visible-xs">
 			<h2>Edit Profile</h2>
 			<div class="form-group edit-product mt40">
@@ -100,7 +101,7 @@ $profileType = $profile->getProfileType();
 		<div class="col-sm-6">
 
 			<form id="editProfile" class="form-inline" method="post" action="../php/forms/edit-profile-controller.php" enctype="multipart/form-data">
-				<div class="hidden-xs">
+				<div class="hidden-xs center">
 					<h2>Edit Profile</h2>
 				</div>
 				<?php echo generateInputTags(); ?>

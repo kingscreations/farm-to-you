@@ -284,6 +284,10 @@ form input[type=password]{
 	width: 100%;
 }
 
+.user-account input[type=radio] {
+	margin-left: 1em !important;
+}
+
 .user-account .tag-input {
 	width: 120px;
 }
@@ -303,10 +307,12 @@ form input[type=password]{
 	.user-account textarea,
 	.user-account input[type=text],
 	.user-account textarea,
+	#edit-product.user-account textarea,
 	.user-account input[type=password],
 	.user-account input[type=number] {
 		margin-left: 1em;
 		width: 50%;
+		max-width: 50%; /* for the resize of the text area */
 	}
 
 	.user-account .input-tag {
@@ -338,7 +344,8 @@ form input[type=password]{
 }
 
 .transparent-form {
-  background-color: rgba(255, 255, 255, .95);
+  /*background-color: rgba(255, 255, 255, .95);*/
+  background-color: rgb(255, 255, 255);
   text-align: center;
   margin-top: 4%;
   margin-bottom: 2%;
@@ -860,6 +867,14 @@ h2 {
 
 .user-account .dropdown-toggle {
 	width: 60%;
+}
+
+.user-account figure img {
+	margin-bottom: 4px;
+}
+
+.user-account figure figcaption {
+	margin-left: 1.6em;
 }
 
 /********************************************

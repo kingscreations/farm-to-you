@@ -85,6 +85,27 @@ try {
 			</ul>
 		</div>
 
+		<div class="form-group edit-product mt30 visible-xs">
+			<h2>Edit Product</h2>
+			<a href="#" id="editProductImageLink" class="edit-product-image-link">
+				<?php
+
+				$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
+
+				$productBaseUrl      = CONTENT_ROOT_URL . 'images/product/';
+				$productBasePath     = CONTENT_ROOT_PATH . 'images/product/';
+				$productImageSrc     = basename($product->getImagePath());
+
+				// show a placeholder if the product is not associated with an image
+				if(is_file($product->getImagePath())) {
+					?>
+					<img class="thumbnail image-preview" src="<?php echo $productBaseUrl . $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
+				<?php } else { ?>
+					<img class="thumbnail image-preview" src="<?php echo $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
+				<?php } ?>
+			</a>
+		</div>
+
 		<!--Form to edit a product-->
 		<div class="col-sm-6">
 			<div class="hidden-xs center">
@@ -109,23 +130,41 @@ try {
 
 				<div class="form-group">
 					<label for="editProductDescription">Product Description:</label>
-					<input type="text" class="form-control" name="editProductDescription" id="editProductDescription" value="<?php echo $productDescription;?>"></textarea>
+					<textarea class="form-control" name="editProductDescription" id="editProductDescription"><?php echo $productDescription;?></textarea>
 				</div>
 
 				<br>
 
-				<div class="form-group radio mt20">
+<!--				<div class="form-group radio mt20 hidden-xs">-->
+<!--					<label for="editProductPriceType">Sold By:</label>-->
+<!--					--><?php
+//						if ($productPriceType === "w") {
+//							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w" checked> By Weight';
+//							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u"> Per Unit';
+//						}elseif ($productPriceType === "u"){
+//							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w"> By Weight';
+//							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u" checked> Per Unit';
+//						}
+//					?>
+<!--				</div>-->
+
+				<div class="form-group radio mt20 hidden-xs">
 					<label for="editProductPriceType">Sold By:</label>
-					<?php
-						if ($productPriceType === "w") {
-							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w" checked> By Weight';
-							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u"> Per Unit';
-						}elseif ($productPriceType === "u"){
-							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w"> By Weight';
-							echo '<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u" checked> Per Unit';
-						}
-					?>
+					<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w"
+						<?php echo ($productPriceType === 'w') ? 'checked' : '';?>> By Weight
+
+					<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u"> Per Unit
 				</div>
+
+				<div class="mt20 visible-xs">
+					<label for="editProductPriceType">Sold By:</label>
+					<div class="form-group"></div>
+					<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w"
+						<?php echo ($productPriceType === 'w') ? 'checked' : '';?>> By Weight
+
+					<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u"> Per Unit
+				</div>
+
 
 				<br>
 
@@ -176,28 +215,31 @@ try {
 				</div>
 			</div><!-- end col-sm-6 -->
 
-			<div class="col-sm-3">
+			<div class="col-sm-3 hidden-xs">
 				<div class="form-group mt30">
 					<button id="<?php echo $_SESSION['productId'];?>" class="btn btn-default linkProduct">Link to product page</button>
 				</div>
 
 				<div class="form-group edit-product mt30">
-					<a href="#" id="editProductImageLink">
-						<?php
+					<a href="#" id="editProductImageLink" class="edit-product-image-link">
+						<figure>
+							<?php
 
-						$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
+							$imagePlaceholderSrc = CONTENT_ROOT_URL. 'images/placeholder.jpg';
 
-						$productBaseUrl      = CONTENT_ROOT_URL . 'images/product/';
-						$productBasePath     = CONTENT_ROOT_PATH . 'images/product/';
-						$productImageSrc     = basename($product->getImagePath());
+							$productBaseUrl      = CONTENT_ROOT_URL . 'images/product/';
+							$productBasePath     = CONTENT_ROOT_PATH . 'images/product/';
+							$productImageSrc     = basename($product->getImagePath());
 
-						// show a placeholder if the product is not associated with an image
-						if(is_file($product->getImagePath())) {
-							?>
-							<img class="thumbnail image-preview" src="<?php echo $productBaseUrl . $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
-						<?php } else { ?>
-							<img class="thumbnail image-preview" src="<?php echo $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
-						<?php } ?>
+							// show a placeholder if the product is not associated with an image
+							if(is_file($product->getImagePath())) {
+								?>
+								<img class="thumbnail image-preview" src="<?php echo $productBaseUrl . $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
+							<?php } else { ?>
+								<img class="thumbnail image-preview" src="<?php echo $productImageSrc; ?>" alt="<?php echo $productName; ?>"/>
+							<?php } ?>
+							<figcaption>Change product image</figcaption>
+						</figure>
 					</a>
 				</div>
 			</div>

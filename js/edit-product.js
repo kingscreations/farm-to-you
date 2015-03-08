@@ -164,9 +164,11 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#editProductImageLink').on('click', function(event) {
+	console.log('edit-product.js!');
+	$('.edit-product-image-link').on('click', function(event) {
 		event.preventDefault();
 
+		console.log('debug');
 		$('#editProductImage').click();
-	})
+	});
 });

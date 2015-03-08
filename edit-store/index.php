@@ -80,7 +80,7 @@ try {
 				<br>
 				<div class="form-group">
 					<label for="editStoreDescription">Store Description</label>
-					<input type="text" class="form-control" name="editStoreDescription" id="editStoreDescription" value="<?php echo $storeDescription;?>">
+					<textarea class="form-control" name="editStoreDescription" id="editStoreDescription"><?php echo $storeDescription;?></textarea>
 				</div>
 				<br>
 				<div class="form-group hidden">
@@ -164,10 +164,10 @@ try {
 					$storeLocations = StoreLocation::getAllStoreLocationsByStoreId($mysqli, $_SESSION['storeId']);
 					// create table of existing storeLocations
 					if($storeLocations !== null) {
-
+						echo '<div class=form-group>';
 						echo '<table class="table table-responsive">';
 						echo '<tr>';
-						echo '<th>Pick-Up Locations</th>';
+						echo '<th><h4>Pick-Up Locations</h4></th>';
 						echo '<th></th>';
 						echo '</tr>';
 						$locationCount = 0;
@@ -185,6 +185,8 @@ try {
 							echo '</tr>';
 						}
 						echo '</table>';
+						echo '</div>';
+
 					}
 
 				} catch(Exception $exception) {
@@ -238,13 +240,6 @@ try {
 	</div><!-- col-sm-9 -->
 	</div><!-- row -->
 	</div><!-- container fluid -->
-
-
-	<div class="container-fluid transparent-form">
-		<div class="row">
-			<div class="col-sm-9">
-
-
 
 
 <!-- container-fluid -->

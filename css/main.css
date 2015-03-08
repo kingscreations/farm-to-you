@@ -474,6 +474,13 @@ input[type=password]:focus {
   font-family: Biko;
   font-size: 1em;
 }
+
+@media screen and (min-width: 768px) {
+	.addButton,
+	.addProductButton {
+		margin-left: 117px;
+	}
+}
 /********************************************
 * tables
 ********************************************/

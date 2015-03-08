@@ -140,6 +140,10 @@ form li {
   list-style-type: none !important;
 }
 
+.form-group {
+	width: 100%;
+}
+
 .inline-list,
 .product-listing {
   padding: 0;

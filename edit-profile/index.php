@@ -108,8 +108,9 @@ $profileType = $profile->getProfileType();
 				</div>
 
 				<br>
-
-				<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit" value="Submit">
+				<div class="form-group">
+					<input type="submit" class="form-control" id="inputSubmit" name="inputSubmit" value="Submit">
+				</div>
 
 				<br>
 

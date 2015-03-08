@@ -810,11 +810,22 @@ h2 {
 
 
 /********************************************
-* horizontal scroll
+* Account management
 ********************************************/
-.image-preview {
-	max-width: 200px !important;
-	height: auto !important;
+.user-account .image-preview {
+	max-width: 140px;
+	height: auto;
+}
+
+@media screen and (min-width: 768px) {
+	.user-account .image-preview {
+		max-width: 200px;
+		height: auto;
+	}
+}
+
+.user-account .dropdown-toggle {
+	width: 60%;
 }
 
 /********************************************

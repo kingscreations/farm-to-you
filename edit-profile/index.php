@@ -36,7 +36,7 @@ $profileType = $profile->getProfileType();
 
 		<?php if($profileType === "m") { ?>
 
-			<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
+			<div id="multi-menu" class="col-md-3 hidden-xs transparent-menu">
 				<ul class="nav nav-pills nav-stacked">
 					<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
 					<li><a href="../add-store/index.php">Manage Stores</a></li>
@@ -44,7 +44,7 @@ $profileType = $profile->getProfileType();
 					<li><a href="../bank-account/index.php">Bank Account</a></li>
 				</ul>
 			</div>
-			<div class="dropdown hidden-lg hidden-md" style="position:relative">
+			<div class="dropdown visible-xs" style="position:relative">
 				<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
@@ -56,14 +56,14 @@ $profileType = $profile->getProfileType();
 
 		<?php } else { ?>
 
-			<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
+			<div id="multi-menu" class="col-md-3 hidden-xs transparent-menu">
 				<ul class="nav nav-pills nav-stacked">
 					<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
 					<li><a href="../client-order-list/index.php">List of Orders</a></li>
 					<li class="disabled"><a href="#">Account Settings</a></li>
 				</ul>
 			</div>
-			<div class="dropdown hidden-lg hidden-md" style="position:relative">
+			<div class="dropdown visible-xs" style="position:relative">
 				<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li class="active"><a href="../edit-profile/index.php">Edit Profile</a></li>
@@ -74,12 +74,35 @@ $profileType = $profile->getProfileType();
 
 		<?php } ?>
 
-		<!--Form to edit a profile-->
+		<div class="col-sm-3 visible-xs">
+			<h2>Edit Profile</h2>
+			<div class="form-group edit-product mt40">
+				<a href="#" id="editProfileImageLink">
+					<?php
 
+					$baseUrl             = CONTENT_ROOT_URL . 'images/profile/';
+					$basePath            = CONTENT_ROOT_PATH . 'images/profile/';
+					$imagePlaceholderSrc = SITE_ROOT_URL. 'images/placeholder.png';
+					$imageSrc            = basename($profile->getImagePath());
+
+					// show a placeholder if the product is not associated with an image
+					if(is_file($profile->getImagePath())) {
+						?>
+						<img class="thumbnail image-preview" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
+					<?php } else { ?>
+						<img class="thumbnail image-preview" src="<?php echo $imagePlaceholderSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
+					<?php } ?>
+				</a>
+			</div>
+		</div><!-- end col3 -->
+
+		<!--Form to edit a profile-->
 		<div class="col-sm-6">
 
 			<form id="editProfile" class="form-inline" method="post" action="../php/forms/edit-profile-controller.php" enctype="multipart/form-data">
-				<h2>Edit Profile</h2>
+				<div class="hidden-xs">
+					<h2>Edit Profile</h2>
+				</div>
 				<?php echo generateInputTags(); ?>
 				<div class="form-group">
 					<label for="inputFirstname">First Name:</label>
@@ -120,7 +143,7 @@ $profileType = $profile->getProfileType();
 
 		</div><!-- end col6 -->
 
-		<div class="col-sm-3">
+		<div class="col-sm-3 hidden-xs">
 			<div class="form-group edit-product pull-right">
 				<a href="#" id="editProfileImageLink">
 					<?php

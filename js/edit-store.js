@@ -153,7 +153,12 @@ $(document).ready(function() {
 					$("#outputArea").css("display", "block");
 					// write the server's reply to the output area
 					$("#outputArea").html(ajaxOutput);
-				}
+
+						setTimeout(function() {
+							// refresh the page
+							location.reload();
+						}, 1000);
+					}
 			});
 		}
 	});
@@ -162,5 +167,9 @@ $(document).ready(function() {
 		event.preventDefault();
 
 		$('#editInputImage').click();
-	})
+		$('#editInputImage').on('change', function() {
+
+			$('#editSubmit').click();
+		});
+	});
 });

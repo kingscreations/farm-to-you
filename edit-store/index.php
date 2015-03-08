@@ -92,7 +92,10 @@ try {
 					<input type="submit" class="form-control" id="editSubmit" name="editSubmit" value="Submit">
 				</div>
 				<br>
-				<p id="outputArea"></p>
+				<br>
+				<div class="form-group">
+					<p id="outputArea"></p>
+				</div>
 				<br>
 			</form>
 

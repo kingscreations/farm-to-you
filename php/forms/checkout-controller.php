@@ -24,9 +24,6 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
-//$_SESSION['user']['id'] = 1;
-//$_SESSION['profile']['id'] = 1;
-
 // format the store location association nicely by creation objects
 $storeLocations = [];
 foreach($_SESSION['storeLocations'] as $storeLocationMap) {
@@ -46,7 +43,7 @@ try {
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
-	$user = User::getUserByUserId($mysqli, $_SESSION['user']['id']);
+	$user = User::getUserByUserId($mysqli, $_SESSION['userId']);
 	$profile = Profile::getProfileByProfileId($mysqli, $_SESSION['profileId']);
 
 	if($profile === null) {

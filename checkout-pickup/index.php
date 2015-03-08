@@ -44,9 +44,7 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 // errors report
 mysqli_report(MYSQLI_REPORT_STRICT);
 
-// TODO get rid of the following hardcoded variables: DONE!
-
-$userId = $_SESSION['user']['id'];
+$userId = $_SESSION['userId'];
 
 $profileId = $_SESSION['profileId'];
 

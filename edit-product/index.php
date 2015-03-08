@@ -85,7 +85,7 @@ try {
 			</ul>
 		</div>
 
-		<div class="form-group edit-product mt30 visible-xs">
+		<div class="form-group edit-product mt30 mb40 visible-xs">
 			<h2>Edit Product</h2>
 			<figure>
 				<a href="#" id="editProductImageLink" class="edit-product-image-link">
@@ -186,16 +186,32 @@ try {
 				</div>
 				<br>
 
-				<div class="form-group">
-					<label for="addTags">Tags:</label>
-					<span><input type="text" class="input-tag form-control distinctTags" id="addTags1" name="addTags1" value="<?php echo $categoryName1;?>"></span>
-					<span><input type="text" class="input-tag form-control distinctTags" id="addTags2" name="addTags2" value="<?php echo $categoryName2;?>"></span>
-				<!-- TODO mvp dirty workaround -->
+				<div class="hidden-xs">
+					<div class="form-group">
+						<label for="addTags">Tags:</label>
+						<span><input type="text" class="input-tag form-control distinctTags" id="addTags1" name="addTags1" value="<?php echo $categoryName1;?>"></span>
+						<span><input type="text" class="input-tag form-control distinctTags" id="addTags2" name="addTags2" value="<?php echo $categoryName2;?>"></span>
+					<!-- TODO mvp SUPER dirty workaround -->
+					</div>
+					<div class="form-group mt10">
+						<label></label>
+						<span><input type="text" class="input-tag form-control distinctTags" id="addTags3" name="addTags3" value="<?php echo $categoryName3;?>"></span>
+						<span><input type="text" class="input-tag form-control distinctTags" id="addTags4" name="addTags4" value="<?php echo $categoryName4;?>"></span>
+					</div>
 				</div>
-				<div class="form-group mt10">
-					<label></label>
-					<span><input type="text" class="input-tag form-control distinctTags" id="addTags3" name="addTags3" value="<?php echo $categoryName3;?>"></span>
-					<span><input type="text" class="input-tag form-control distinctTags" id="addTags4" name="addTags4" value="<?php echo $categoryName4;?>"></span>
+
+				<div class="visible-xs">
+					<div class="form-group mb0">
+						<label for="addTags">Tags:</label>
+						<input type="text" class="input-tag form-control distinctTags iblock" id="addTags1" name="addTags1" value="<?php echo $categoryName1;?>">
+						<input type="text" class="input-tag form-control distinctTags iblock" id="addTags2" name="addTags2" value="<?php echo $categoryName2;?>">
+						<!-- TODO mvp dirty workaround -->
+					</div>
+					<div class="form-group mt0">
+						<label></label>
+						<input type="text" class="input-tag form-control distinctTags iblock" id="addTags3" name="addTags3" value="<?php echo $categoryName3;?>">
+						<input type="text" class="input-tag form-control distinctTags iblock" id="addTags4" name="addTags4" value="<?php echo $categoryName4;?>">
+					</div>
 				</div>
 
 				<div class="form-group mt60">

@@ -164,7 +164,6 @@ $(document).ready(function() {
 		}
 	});
 
-	console.log('edit-product.js!');
 	$('.edit-product-image-link').on('click', function(event) {
 		event.preventDefault();
 

@@ -1,3 +1,4 @@
+
 /**
  * add exactlength to check the exact length of a field
  */
@@ -11,10 +12,19 @@ $.validator.addMethod("exactlength",
 $.validator.addMethod("notEqualTo",
 	function(value, element) {
 		var $element = $(element);
-	if($element.val() === "") {
-		return true;
-	}
-		var $tags = $('.distinctTags').not($element);
+		if($element.val() === "") {
+			return true;
+		}
+		var $parentDesktop = $('.input-tags.hidden-xs');
+		if($parentDesktop.css("display") === 'none') {
+
+			// get only mobile elements
+			var $tags = $('.visible-xs .distinctTags').not($element);
+		} else {
+
+			// get only desktop elements
+			var $tags = $('.hidden-xs .distinctTags').not($element);
+		}
 		var tagsArray = $.map($tags, function(distinctTags) {
 		return $(distinctTags).val();
 	});

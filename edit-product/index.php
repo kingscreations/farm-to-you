@@ -186,7 +186,7 @@ try {
 				</div>
 				<br>
 
-				<div class="hidden-xs">
+				<div class="input-tags hidden-xs">
 					<div class="form-group">
 						<label for="addTags">Tags:</label>
 						<span><input type="text" class="input-tag form-control distinctTags" id="addTags1" name="addTags1" value="<?php echo $categoryName1;?>"></span>
@@ -200,7 +200,7 @@ try {
 					</div>
 				</div>
 
-				<div class="visible-xs">
+				<div class="input-tags visible-xs">
 					<div class="form-group mb0">
 						<label for="addTags">Tags:</label>
 						<input type="text" class="input-tag form-control distinctTags iblock" id="addTags1" name="addTags1" value="<?php echo $categoryName1;?>">

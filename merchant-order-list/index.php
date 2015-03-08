@@ -1,7 +1,5 @@
 <?php
 
-
-// dummy session
 $currentDir = dirname(__FILE__);
 require_once ("../root-path.php");
 
@@ -26,27 +24,29 @@ $profileId = $_SESSION['profileId'];
 
 ?>
 
-<!--<script src="../js/merchant-order-list.js"></script>-->
 
-<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
-	<ul class="nav nav-pills nav-stacked">
-		<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-		<li><a href="../add-store/index.php">Manage Stores</a></li>
-		<li class="active"><a href="../merchant-order-list/index.php">List of Orders</a></li>
-		<li><a href="../bank-account/index.php">Bank Account</a></li>
-	</ul>
-</div>
+<div class="container-fluid container-margin-sm transparent-form user-account">
+	<div class="row">
+
+		<div id="multi-menu" class="col-md-3 hidden-xs">
+			<ul class="nav nav-pills nav-stacked">
+				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+				<li><a href="../add-store/index.php">Manage Stores</a></li>
+				<li class="active"><a href="../merchant-order-list/index.php">List of Orders</a></li>
+				<li><a href="../bank-account/index.php">Bank Account</a></li>
+			</ul>
+		</div>
 
 
-<div class="dropdown hidden-lg hidden-md" style="position:relative">
-	<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
-	<ul class="dropdown-menu">
-		<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-		<li><a href="../add-store/index.php">Manage Stores</a></li>
-		<li class="active"><a href="../merchant-order-list/index.php">List of Orders</a></li>
-		<li><a href="../bank-account/index.php">Bank Account</a></li>
-	</ul>
-</div>
+		<div class="dropdown visible-xs" style="position:relative">
+			<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+				<li><a href="../add-store/index.php">Manage Stores</a></li>
+				<li class="active"><a href="../merchant-order-list/index.php">List of Orders</a></li>
+				<li><a href="../bank-account/index.php">Bank Account</a></li>
+			</ul>
+		</div>
 
 <?php
 
@@ -61,11 +61,13 @@ try {
 
 	$products = Product::getAllProductsFromMerchantByProfileId($mysqli, $profileId);
 	if($products !== null) {
-		echo '<div class="container-fluid">';
-		echo '<div class="row">';
-		echo '<div class="col-md-9 transparent-form">';
-		echo '<h2>Orders</h2>';
-		echo '<br>';
+		echo '<div class="col-sm-3 visible-xs">
+					<h2>Orders</h2>
+				</div>';
+		echo '<div class="col-sm-9">';
+		echo '<div class="hidden-xs center">
+					<h2>Orders</h2>
+				</div>';
 		$allOrderProducts = array();
 		foreach($products as $product) {
 			$merchantProductId = $product->getProductId();
@@ -94,7 +96,7 @@ try {
 				$checkoutDate = $checkout->getCheckoutDate();
 				$formattedDate = $checkoutDate->format("m/d/Y - H:i:s");
 				$checkoutFinalPrice = number_format((float)$checkout->getFinalPrice(), 2, '.', '');
-
+				echo '<div class="form-group">';
 				echo '<table class="table table-responsive">';
 				echo '<tr>';
 				echo '<th>Order #' . $orderId . '</th>';
@@ -104,7 +106,6 @@ try {
 				echo '<td>Date</td>';
 				echo '<td>' . $formattedDate . '</td>';
 				echo '</tr>';
-
 				echo '<tr>';
 				echo '<td>Products</td>';
 				echo '<td>';
@@ -125,28 +126,20 @@ try {
 				}
 				echo '</td>';
 				echo '</tr>';
-
 				echo '<tr>';
 				echo '<td>Final Price</td>';
 				echo '<td>$' . $checkoutFinalPrice . '</td>';
 				echo '</tr>';
-
-
 				echo '</table>';
-
+				echo '</div>';
 			}
 		}
 		echo '</div>';
 		echo '</div>';
 		echo '</div>';
 	} else {
-		echo '<div class="container-fluid">
-					<div class="row">
-						<div class="col-sm-9 transparent-form">
-							<h2>Orders</h2>
-							<h4>No orders found.</h4>
-						</div>
-					</div>
+		echo '<div class="form-group center">
+						<h4>No orders found.</h4>
 				</div>';
 	}
 

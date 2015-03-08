@@ -111,13 +111,6 @@ $profileId = $_SESSION['profileId'];
 			<p id="outputArea"></p>
 			<br>
 		</form>
-			</div><!-- col-md-9-->
-		</div><!-- row-->
-	</div><!-- container-fluid-->
-
-	<div class=container-fluid>
-		<div class="row">
-			<div class="col-md-9 transparent-form">
 <?php
 
 
@@ -139,10 +132,10 @@ try {
 
 	// create table of existing stores
 	if($stores !== null) {
-		echo '<div class=row>';
+		echo '<div class=form-group>';
 		echo '<table class="table table-responsive">';
 		echo '<tr>';
-		echo '<th>Manage your Stores</th>';
+		echo '<th><h4>Manage your stores</h4></th>';
 		echo '<th></th>';
 		echo '</tr>';
 		foreach($stores as $store) {
@@ -155,7 +148,7 @@ try {
 			echo '</tr>';
 		}
 		echo '</table>';
-		echo '</div>';
+//		echo '</div>';
 		echo '</div>';
 	}
 

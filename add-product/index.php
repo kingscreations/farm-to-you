@@ -68,10 +68,15 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 				<br>
 
-				<div class="form-group">
+				<div class="form-group hidden-xs">
 					<label for="inputProductPriceType">Sold By:</label>
 					<input type="radio" class="form-control" name="inputProductPriceType" id="inputProductPriceType" value="w"> By Weight
 					<input type="radio" class="form-control" name="inputProductPriceType" id="inputProductPriceType" value="u"> Per Unit
+				</div>
+				<div class="form-group visible-xs">
+					<label for="inputProductPriceType">Sold By:</label>
+					<input type="radio" name="inputProductPriceType" id="inputProductPriceType" value="w"> By Weight
+					<input type="radio" class="ml1" name="inputProductPriceType" id="inputProductPriceType" value="u"> Per Unit
 				</div>
 
 				<br>
@@ -97,12 +102,19 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 				<br>
 
-					<div class="form-group">
+					<div class="form-group visible-xs">
 						<label for="addTags">Tags:</label>
-						<span><input type="text" class="input-tag form-control distinctTags" id="addTags1" name="addTags1"></span>
-						<span><input type="text" class="input-tag form-control distinctTags" id="addTags2" name="addTags2"></span>
-						<span><input type="text" class="input-tag form-control distinctTags" id="addTags3" name="addTags3"></span>
-						<span><input type="text" class="input-tag form-control distinctTags" id="addTags4" name="addTags4"></span>
+						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags1" name="addTags1"></span>
+						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags2" name="addTags2"></span>
+						<span><input type="text" class="input-tag form-control distinctTags iblock mt10" id="addTags3" name="addTags3"></span>
+						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags4" name="addTags4"></span>
+					</div>
+					<div class="form-group hidden-xs">
+						<label for="addTags">Tags:</label>
+						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags1" name="addTags1"></span>
+						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags2" name="addTags2"></span>
+						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags3" name="addTags3"></span>
+						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags4" name="addTags4"></span>
 					</div>
 
 				<br>

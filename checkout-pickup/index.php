@@ -15,7 +15,7 @@ require_once '../root-path.php';
 
 session_start();
 
-if(!@isset($_SESSION['profileId']) || ($_SESSION['user']['id'])) {
+if(!@isset($_SESSION['profileId'])) {
 	header('Location: ../sign-in/index.php');
 	exit();
 }
@@ -58,8 +58,8 @@ try {
 	$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
 		$configArray["database"]);
 
-	$user = User::getUserByUserId($mysqli, $userId);
-	$profile = User::getUserByUserId($mysqli, $profileId);
+//	$user = User::getUserByUserId($mysqli, $userId);
+//	$profile = User::getUserByUserId($mysqli, $profileId);
 
 	// get all the products from the cart and get the stores (one store per product)
 	$products = [];

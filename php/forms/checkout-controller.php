@@ -177,7 +177,7 @@ try {
 	/**
 	 * Create the order, the order products and the checkout objects and insert them to the database
 	 */
-	$order = new Order(null, $_SESSION['profile']['id'], new DateTime());
+	$order = new Order(null, $_SESSION['profileId'], new DateTime());
 	$order->insert($mysqli);
 
 	foreach($_SESSION['products'] as $sessionProductId => $sessionProduct) {

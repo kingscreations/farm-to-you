@@ -28,7 +28,7 @@ $profileId = $_SESSION['profileId'];
 	<div class="container-fluid container-margin-sm transparent-form user-account">
 	<div class="row">
 
-	<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
+	<div id="multi-menu" class="col-md-3 hidden-xs">
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
 			<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
@@ -36,7 +36,7 @@ $profileId = $_SESSION['profileId'];
 			<li><a href="../bank-account/index.php">Bank Account</a></li>
 		</ul>
 	</div>
-	<div class="dropdown hidden-lg hidden-md" style="position:relative">
+	<div class="dropdown visible-xs" style="position:relative">
 		<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
 		<ul class="dropdown-menu">
 			<li><a href="../edit-profile/index.php">Edit Profile</a></li>
@@ -52,54 +52,54 @@ $profileId = $_SESSION['profileId'];
 		<div class="col-sm-6">
 		<form class="form-inline" id="storeController" method="post" action="../php/forms/add-store-controller.php" enctype="multipart/form-data">
 			<?php echo generateInputTags(); ?>
-			<div class="hidden-xs">
+			<div class="hidden-xs center">
 				<h2>Add Store</h2>
 			</div>
 			<div class="form-group">
 				<label for="storeName">Name</label>
-				<input type="text" id="storeName" name="storeName" value="">
+				<input type="text" class="form-control" id="storeName" name="storeName" value="">
 			</div>
 			<br>
 			<div class="form-group">
 				<label for="storeDescription">Description</label>
-				<textarea id="storeDescription" name="storeDescription"></textarea>
+				<textarea class="form-control" id="storeDescription" name="storeDescription"></textarea>
 			</div>
 			<br>
 			<div class="form-group">
 				<label for="inputImage">Store Image</label>
-				<input type="file" id="inputImage" name="inputImage">
+				<input type="file" class="form-control" id="inputImage" name="inputImage">
 			</div>
 			<br>
 			<div class="form-group">
 				<label for="locationName">Location Name</label>
-				<input type="text" id="locationName" name="locationName" value="">
+				<input type="text" class="form-control" id="locationName" name="locationName" value="">
 			</div>
 			<br>
 			<div class="form-group">
 				<label for="address1">Address</label>
-				<input type="text" id="address1" name="address1" value="">
+				<input type="text" class="form-control" id="address1" name="address1" value="">
 			</div>
 			<br>
 			<div class="form-group">
 				<label for="address2"></label>
-				<input type="text" id="address2" name="address2" value="">
+				<input type="text" class="form-control" id="address2" name="address2" value="">
 			</div>
 			<br>
 			<div class="form-group">
 				<label for="city">City</label>
-				<input type="text" id="city" name="city" value="">
+				<input type="text" class="form-control" id="city" name="city" value="">
 			</div>
 			<div class="form-group">
 				<label for="state">State</label>
-				<input type="text" id="state" name="state" value="">
+				<input type="text" class="form-control" id="state" name="state" value="">
 			</div>
 			<div class="form-group">
 				<label for="zipCode">Zip Code</label>
-				<input type="text" id="zipCode" name="zipCode" value="">
+				<input type="text" class="form-control" id="zipCode" name="zipCode" value="">
 			</div>
 			<div class="form-group">
 				<label for="country">Country</label>
-				<input type="text" id="country" name="country" value="">
+				<input type="text" class="form-control" id="country" name="country" value="">
 			</div>
 			<br>
 			<br>

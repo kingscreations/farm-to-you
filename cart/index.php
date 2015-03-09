@@ -25,7 +25,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 	<div class="row">
 		<div class="col-sm-12 transparent-form">
 			<?php if(@isset($_SESSION['products'])) { ?>
-				<h1><?php echo count($_SESSION['products']) ?> product in you cart</h1>
+				<h1><?php echo count($_SESSION['products']) ?> product in your cart</h1>
 			<?php } else { ?>
 				<h1>Your cart is empty</h1>
 				<p><a href="<?php echo SITE_ROOT_URL ?>">Back to the home page</a></p>

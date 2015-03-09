@@ -133,7 +133,7 @@ try {
 			<p class="disabled list-group-item list-group-item-info static">Products</p>
 			<?php } ?>
 			<a href="<?php echo SITE_ROOT_URL . 'search/index.php?searchq=' . $searchq; ?>"
-				id="category-list"
+				id="category-list category-item"
 				class="list-group-item <?php echo ($categoryNameFromUrl === '') ? 'active' : ''; ?> static">All</a>
 			<?php
 			if($products !== null) {

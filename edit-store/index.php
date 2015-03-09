@@ -168,7 +168,7 @@ try {
 					// create table of existing storeLocations
 					if($storeLocations !== null) {
 						echo '<div class=form-group>';
-						echo '<table class="table table-responsive merchant-table">';
+						echo '<table class="table table-responsive">';
 						echo '<tr>';
 						echo '<th><h4>Pick-Up Locations</h4></th>';
 						echo '<th></th>';
@@ -208,9 +208,13 @@ try {
 
 
 			<div class="col-sm-3">
-				<div class="form-group mt25 t-right">
+				<div class="form-group mt25 t-right hidden-xs">
 						<button id="<?php echo $_SESSION['storeId'];?>" class="btn btn-default linkStore">Link to store page</button>
 				</div>
+				<div class="form-group mt25 visible-xs">
+						<button id="<?php echo $_SESSION['storeId'];?>" class="btn btn-default linkStore">Link to store page</button>
+				</div>
+
 				<br>
 				<div class="form-group edit-product pull-right mt0">
 					<a href="#" id="editStoreImageLink" class="user-account">

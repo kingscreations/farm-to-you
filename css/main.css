@@ -529,10 +529,6 @@ input[type=password]:focus {
 }
 
 @media screen and (min-width: 768px) {
-	.addButton,
-	.addProductButton {
-		margin-left: 117px;
-	}
 	.addLocationButton,
 	.editProductButton {
 		margin-left: 196px;
@@ -550,11 +546,6 @@ td {
 	border-top: 0;
 }
 
-@media screen and (min-width: 768px) {
-	.merchant-table {
-		margin-left: 8em !important;
-	}
-}
 @media screen and (min-width: 768px) {
 	.wide-column {
 		width: 10em;

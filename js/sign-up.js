@@ -11,7 +11,7 @@ $(document).ready(
 // setup the formatting for the errors
 			errorClass: "alert-danger",
 			errorLabelContainer: "#outputArea",
-			wrapper: "div",
+			//wrapper: "div",
 // rules define what is good/bad input
 			rules: {
 // each rule starts with the inputs name (NOT id)

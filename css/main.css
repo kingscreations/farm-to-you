@@ -304,6 +304,13 @@ form input[type=password]{
 	width: 120px;
 }
 
+@media screen and (max-width: 768px) {
+	.sign-up-form,
+	.signIn-form {
+		padding: 0;
+	}
+}
+
 @media screen and (min-width: 768px) {
 	.sign-up-form,
 	.signIn-form {

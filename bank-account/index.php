@@ -41,38 +41,36 @@ if($profileType !== "m") {
 
 ?>
 
-<?php
+	<div class="container-fluid container-margin-sm transparent-form user-account">
+		<div class="row">
+			<div id="multi-menu" class="col-md-3 hidden-xs">
+				<ul class="nav nav-pills nav-stacked">
+					<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+					<li><a href="../add-store/index.php">Manage Stores</a></li>
+					<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+					<li class="active"><a href="../bank-account/index.php">Bank Account</a></li>
+				</ul>
+			</div>
+
+			<div class="dropdown visible-xs" style="position:relative">
+				<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+					<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+					<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
+					<li><a href="../bank-account/index.php">Bank Account</a></li>
+				</ul>
+			</div>
+	<?php
 // check if they already have a bank account added by looking at the token and comparing to the 'rp' id
 if((preg_match('/^rp/', $profileToken) === 0)) { ?>
+		<div class="col-md-9">
 
-<div class="container">
-	<div class="row">
-
-		<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
-			<ul class="nav nav-pills nav-stacked">
-				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-				<li><a href="../add-store/index.php">Manage Stores</a></li>
-				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
-				<li class="active"><a href="../bank-account/index.php">Bank Account</a></li>
-			</ul>
-		</div>
-
-		<div class="dropdown hidden-lg hidden-md" style="position:relative">
-			<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
-			<ul class="dropdown-menu">
-				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-				<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
-				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
-				<li><a href="../bank-account/index.php">Bank Account</a></li>
-			</ul>
-		</div>
-
-
-		<div class="col-sm-8">
-
-			<form id="bankInfo" class="form-inline transparent-form" method="post" action="../php/forms/bank-account-controller.php" enctype="multipart/form-data">
-				<h2>Add Bank Account</h2>
+			<form id="bankInfo" class="form-inline" method="post" action="../php/forms/bank-account-controller.php" enctype="multipart/form-data">
 				<?php echo generateInputTags(); ?>
+				<div class="center">
+					<h2>Add Bank Account</h2>
+				</div>
 				<div class="form-group">
 					<label for="inputName">Name: <?php echo $profileFirstname . ' ' . $profileLastname ?></label>
 				</div>
@@ -109,20 +107,16 @@ if((preg_match('/^rp/', $profileToken) === 0)) { ?>
 				</form>
 			<p id="outputArea"></p>
 		</div>
-	</div>
-</div>
 
 <?php } else { ?>
 
-<div class="container">
-	<div class="row">
-		<div class="col-sm-12 transparent-form">
-			<h3>You already have a bank account added. <br>Please click <a href="../edit-bank-account/index.php">here</a> to edit it.</h3>
+		<div class="col-md-9 center">
+			<h3>You already have a bank account added. <br><br>Please click <a href="../edit-bank-account/index.php">here</a> to edit it.</h3>
 		</div>
-	</div>
-</div>
 
 <?php } ?>
+	</div>
+</div>
 
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript" src="../js/bank-account.js"></script>

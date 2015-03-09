@@ -177,12 +177,12 @@ try {
 	$_SESSION['product'] = array(
 		'id' 				=> $product->getProductId(),
 		'name'			=> $product->getProductName(),
-		'price'	=> $product->getProductPrice(),
+		'price'	      => $product->getProductPrice(),
 		'image'			=> $product->getImagePath(),
-		'description'		=> $product->getProductDescription(),
-		'weight' => $product->getProductWeight(),
-		'stock' => $product->getStockLimit(),
-		'priceType' => $product->getProductPriceType()
+		'description'	=> $product->getProductDescription(),
+		'weight'       => $product->getProductWeight(),
+		'stock'        => $product->getStockLimit(),
+		'priceType'    => $product->getProductPriceType()
 	);
 
 	echo "<p class=\"alert alert-success\">Product (id = " . $product->getProductId() . ") posted!</p>";

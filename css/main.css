@@ -135,7 +135,8 @@ footer p {
 
 .inline-list,
 .product-listing,
-.no-list-style
+.no-list-style,
+.unstyled li
 form li {
   list-style-type: none !important;
 }

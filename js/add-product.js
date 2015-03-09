@@ -142,6 +142,13 @@ $("#addProduct").validate({
 				// write the server's reply to the output area
 				$("#outputArea").html(ajaxOutput);
 
+				if(typeof ajaxOutput === 'string') {
+					var regex = /Product \(id = \"([0-9]+)\"\) posted!/gi;
+					productId = regex.exec(ajaxOutput)[1];
+					$('#dynamic-product-list').append('<li><a class="product-item" href="#" id="' + productId + '"></a></li>');
+				} else {
+					console.error('Exception: Cannot add the product to the #dynamic-product-list');
+				}
 
 				// reset the form if it was successful
 				// this makes it easier to reuse the form again
@@ -151,4 +158,15 @@ $("#addProduct").validate({
 			}
 		});
 	}
+});
+
+$('.product-item').click(function() {
+	var productId = $(this).attr("id");
+	$.ajax({
+		type: "POST",
+		url: "../php/forms/edit-product-add-to-session.php",
+		data: {productId: productId}
+	}).done(function() {
+		location.href = "../edit-product/index.php";
+	});
 });

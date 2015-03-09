@@ -13,10 +13,32 @@ session_abort();
 
 require_once("../php/lib/header.php");
 
+require_once("../php/classes/product.php");
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+
 ?>
 
+<!-- start the container-fluid to display potentials exceptions in the layout -->
 <div class="container-fluid container-margin-sm transparent-form user-account" id="add-product">
 	<div class="row">
+
+<?php
+
+try {
+	// get the credentials information from the server and connect to the database
+	mysqli_report(MYSQLI_REPORT_STRICT);
+	$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
+	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
+
+	// grab all stores by profile id in dummy session
+	$products = Product::getAllProductsByStoreId($mysqli, $_SESSION["storeId"]);
+
+} catch(Exception $exception) {
+	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
+}
+
+?>
+
 		<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
 			<ul class="nav nav-pills nav-stacked">
 				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
@@ -37,7 +59,7 @@ require_once("../php/lib/header.php");
 		</div>
 
 		<!--Form for adding a new product-->
-		<div class="col-md-9">
+		<div class="col-md-6">
 
 			<form id="addProduct" class="form-inline" method="post" action="../php/forms/add-product-controller.php" novalidate>
 				<div class="center">
@@ -99,14 +121,14 @@ require_once("../php/lib/header.php");
 
 				<br>
 
-					<div class="form-group visible-xs">
+					<div class="input-tags form-group visible-xs">
 						<label for="addTags">Tags:</label>
 						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags1" name="addTags1"></span>
 						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags2" name="addTags2"></span>
 						<span><input type="text" class="input-tag form-control distinctTags iblock mt10" id="addTags3" name="addTags3"></span>
 						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags4" name="addTags4"></span>
 					</div>
-					<div class="form-group hidden-xs">
+					<div class="input-tags form-group hidden-xs">
 						<label for="addTags">Tags:</label>
 						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags1" name="addTags1"></span>
 						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags2" name="addTags2"></span>
@@ -123,7 +145,24 @@ require_once("../php/lib/header.php");
 				<p id="outputArea" style=""></p>
 
 			</form>
-		</div><!-- end col9 -->
+		</div><!-- end col6 -->
+		<div class="col-md-3 hidden-xs mt60">
+			<span>
+				My products list
+			</span>
+			<ul class="unstyled" id="dynamic-product-list">
+				<?php
+				if($products !== null) {
+					foreach($products as $index => $product) { ?>
+						<li>
+							<a class="product-item" href="#" id="<?php echo $product->getProductId(); ?>">
+								<?php echo $product->getProductName(); ?>
+							</a>
+						</li>
+					<?php }
+				} ?>
+			</ul>
+		</div>
 	</div><!-- end row -->
 </div><!-- end container-fluid -->
 

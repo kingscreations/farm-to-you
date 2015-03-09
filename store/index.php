@@ -210,7 +210,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 
 											?>
 										</a>
-										<div>
+										<div class="mt5">
 											<span class="product-store">
 												<a href="../store/index.php?store=<?php echo $store->getStoreId(); ?>"><?php echo $store->getStoreName(); ?></a>
 											</span>

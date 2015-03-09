@@ -206,8 +206,14 @@ footer .inline-list li {
 }
 
 #store-view .product-listing-detail {
+	text-align: left;
 	position: relative;
 }
+
+/*#store-view .product-listing-detail .product-store {*/
+	/*position: absolute;*/
+	/*left: 0;*/
+/*}*/
 
 #store-view .product-listing-detail .product-price {
 	position: absolute;

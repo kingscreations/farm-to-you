@@ -146,7 +146,7 @@ try {
 
 		<div class="dropdown visible-xs" style="position:relative">
 			<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Categories<span class="caret"></span></a>
-			<ul class="dropdown-menu">
+			<ul class="dropdown-menu search-dropdown">
 
 				<?php if($products !== null) { ?>
 				<li><p class="disabled static">Products</p></li>

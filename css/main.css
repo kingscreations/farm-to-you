@@ -582,6 +582,15 @@ li[role=presentation].open a {
   background-color: rgba(115, 90, 41, 0.8);
   }
 
+.search-dropdown {
+	text-align: center;
+	margin: 5px 11em;
+}
+@media screen and (max-width: 768px) {
+	.list-group-item {
+		border: transparent;
+	}
+}
 /********************************************
 * thumbnails
 ********************************************/

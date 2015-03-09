@@ -143,8 +143,9 @@ $("#addProduct").validate({
 				$("#outputArea").html(ajaxOutput);
 
 				if(typeof ajaxOutput === 'string') {
-					var regex = /Product \(id = \"([0-9]+)\"\) posted!/gi;
-					productId = regex.exec(ajaxOutput)[1];
+					var regex = /\(id\ = ([0-9]+)\) posted!/i;
+					var match = regex.exec(ajaxOutput);
+					var productId = match[1];
 					$('#dynamic-product-list').append('<li><a class="product-item" href="#" id="' + productId + '"></a></li>');
 				} else {
 					console.error('Exception: Cannot add the product to the #dynamic-product-list');

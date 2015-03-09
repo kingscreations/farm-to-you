@@ -133,9 +133,12 @@ try {
 	}
 	echo '</div>';
 	echo '</div>';
+	echo '</div>';
 
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
+
+require_once("../php/lib/footer.php");
 
 ?>

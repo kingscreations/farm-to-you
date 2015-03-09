@@ -223,7 +223,7 @@ try {
 				<br>
 
 				<div class="form-group">
-					<button class="btn btn-default addButton" id="back">Back</button>
+					<button class="btn btn-default editProductButton" id="back">Back</button>
 				</div>
 			</div><!-- end col-sm-6 -->
 

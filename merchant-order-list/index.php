@@ -163,4 +163,6 @@ try {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
 
+require_once("../php/lib/footer.php");
+
 ?>

@@ -554,11 +554,8 @@ td {
 		width: 10em;
 	}
 }
-
-@media screen and (max-width: 768px) {
-	.search-image {
-		margin-top: 23px
-	}
+.search-image {
+	margin-top: 23px
 }
 
 @media screen and (max-width: 768px) {

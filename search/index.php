@@ -202,8 +202,8 @@ if($products !== null) {
 		$productPrice = number_format((float)$product->getProductPrice(), 2, '.', '');
 		$productId = $product->getProductId();
 
-
-		echo '<tr id="product-' . $productId . '">';
+		echo '<tr id="product-' . $productId . '" onclick="window.open('. SITE_ROOT_URL . 'product/index.php?product=' .
+			$product->getProductId() .');" target="_blank">';
 		if(file_exists($product->getImagePath())) {
 			echo '<td><a class="thumbnail search-image" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
 					$product->getProductId() .'">

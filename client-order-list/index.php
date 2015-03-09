@@ -13,6 +13,23 @@ if(!@isset($_SESSION['profileId'])) {
 
 session_abort();
 
+session_start();
+require_once("../php/classes/profile.php");
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+
+mysqli_report(MYSQLI_REPORT_STRICT);
+$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
+$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
+
+$profile = Profile::getProfileByProfileId($mysqli, $_SESSION['profileId']);
+$profileType = $profile->getProfileType();
+
+if($profileType === "m") {
+	header('Location: ../new-user/index.php');
+}
+
+session_abort();
+
 
 require_once("../php/lib/header.php");
 
@@ -37,15 +54,21 @@ try {
 	// grab all stores by profile id in dummy session
 	$orders = Order::getAllOrdersByProfileId($mysqli, $profileId);
 
-	 echo '	<div class="container-fluid container-margin-sm transparent-form">
-					<div class="row">
-						<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-								<li class="active"><a href="../client-order-list/index.php">List of Orders</a></li>
-								<li class="disabled"><a href="#">Account Settings</a></li>
-							</ul>
-						</div>';
+	 echo '<div class="container-fluid container-margin-sm transparent-form user-account">
+				<div class="row">
+					<div id="multi-menu" class="col-md-3 hidden-xs">
+						<ul class="nav nav-pills nav-stacked">
+							<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+							<li class="active"><a href="../client-order-list/index.php">List of Orders</a></li>
+						</ul>
+					</div>
+					<div class="dropdown visible-xs" style="position:relative">
+						<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="../edit-profile/index.php">Edit Profile</a></li>
+							<li class="active"><a href="../client-order-list/index.php">List of Orders</a></li>
+						</ul>
+					</div>';
 
 
 	// create table of existing stores
@@ -58,7 +81,14 @@ try {
 			$checkoutDate = $checkout->getCheckoutDate();
 			$formattedDate = $checkoutDate->format("m/d/Y - H:i:s");
 			$checkoutFinalPrice = number_format((float)$checkout->getFinalPrice(), 2, '.', '');
-
+			echo '<div class="col-sm-3 visible-xs">
+						<h2>Orders</h2>
+					</div>';
+			echo '<div class="col-sm-9">';
+			echo '<div class="hidden-xs center">
+						<h2>Orders</h2>
+					</div>';
+			echo '<div class="form-group">';
 			echo '<table class="table table-responsive">';
 			echo '<tr>';
 			echo '<th>Order #'.$orderId .'</th>';
@@ -95,16 +125,14 @@ try {
 			echo '</tr>';
 			echo '</table>';
 			echo '</div>';
-			echo '</div>';
 		}
-//		echo '</table>';
-
 	} else {
+		echo '<div class="form-group center">';
 		echo '<h4>No orders found.</h4>';
 		echo '</div>';
-		echo '</div>';
-
 	}
+	echo '</div>';
+	echo '</div>';
 
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";

@@ -11,6 +11,23 @@ if(!@isset($_SESSION['profileId'])) {
 
 session_abort();
 
+session_start();
+require_once("../php/classes/profile.php");
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+
+mysqli_report(MYSQLI_REPORT_STRICT);
+$configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
+$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
+
+$profile = Profile::getProfileByProfileId($mysqli, $_SESSION['profileId']);
+$profileType = $profile->getProfileType();
+
+if($profileType === "c") {
+	header('Location: ../new-user/index.php');
+}
+
+session_abort();
+
 require_once("../php/lib/header.php");
 
 // classes
@@ -36,7 +53,6 @@ $profileId = $_SESSION['profileId'];
 				<li><a href="../bank-account/index.php">Bank Account</a></li>
 			</ul>
 		</div>
-
 
 		<div class="dropdown visible-xs" style="position:relative">
 			<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>

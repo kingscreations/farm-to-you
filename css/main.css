@@ -167,7 +167,12 @@ footer .inline-list li {
 .product-listing li {
   display: inline-block;
   vertical-align: middle;
-  width: 19.6%;
+	margin-right: 0.4em;
+  width: 23.802%;
+}
+
+.product-listing li:last-child {
+	margin-right: 0;
 }
 
 .product-listing-card img.product-listing-image {
@@ -683,8 +688,13 @@ li[role=presentation].open a {
   text-align: center;
 }
 
-.left {
+.left, /* deprecated use t-left instead */
+.t-left {
 	text-align: left;
+}
+
+.t-right {
+	text-align: right;
 }
 
 .iblock {

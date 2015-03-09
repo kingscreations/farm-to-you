@@ -153,14 +153,14 @@ try {
 
 				<div class="form-group radio mt20 hidden-xs">
 					<label for="editProductPriceType">Sold By:</label>
-					<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w"<?php echo ($productPriceType === 'w') ? 'checked' : '';?>> By Weight
-					<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u"> Per Unit
+					<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="w" <?php echo ($productPriceType === 'w') ? 'checked' : '';?>> By Weight
+					<input type="radio" class="form-control" name="editProductPriceType" id="editProductPriceType" value="u" <?php echo ($productPriceType === 'u') ? 'checked' : '';?>> Per Unit
 				</div>
 
 				<div class="mt20 visible-xs">
 					<label for="editProductPriceType">Sold By:</label>
-					<input type="radio" name="editProductPriceType" id="editProductPriceType" value="w"<?php echo ($productPriceType === 'w') ? 'checked' : '';?>> By Weight
-					<input class="ml1" type="radio" name="editProductPriceType" id="editProductPriceType" value="u"> Per Unit
+					<input type="radio" name="editProductPriceType" id="editProductPriceType" value="w" <?php echo ($productPriceType === 'w') ? 'checked' : '';?>> By Weight
+					<input class="ml1" type="radio" name="editProductPriceType" id="editProductPriceType" value="u" <?php echo ($productPriceType === 'u') ? 'checked' : '';?>> Per Unit
 				</div>
 
 
@@ -228,7 +228,7 @@ try {
 			</div><!-- end col-sm-6 -->
 
 			<div class="col-sm-3 hidden-xs">
-				<div class="form-group mt30">
+				<div class="form-group mt30 t-right">
 					<button id="<?php echo $_SESSION['productId'];?>" class="btn btn-default linkProduct">Link to product page</button>
 				</div>
 

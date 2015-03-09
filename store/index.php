@@ -176,7 +176,11 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 
 							$productUrl = SITE_ROOT_URL.'product/index.php?product='.$product->getProductId();
 
-							$productDescription = $product->getProductDescription();
+							$productDescription      = $product->getProductDescription();
+							$descriptionLimit        = 14;
+							$productCardTitleEllipse = $product->getProductName() . ' | ' . substr($product->getProductDescription(), 0, $descriptionLimit) . '...';
+							$productCardTitle        = $product->getProductName() . ' | ' . $productDescription;
+
 							?>
 
 							<li class="thumbnail" id="<?php echo 'product-' . $product->getProductId(); ?>">
@@ -188,17 +192,17 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 										<img src="<?php echo ($productImageSrc !== '' && file_exists($productImageBasePath.$productImageSrc)
 											? $productImageBaseUrl.$productImageSrc
 											: $imagePlaceHolderSrc) ?>"
-											  alt="<?php echo $productDescription; ?>"
+											  alt="<?php echo $productCardTitle; ?>"
 											  class="product-listing-image"/>
 									</a>
 									<div class="product-listing-detail">
 										<a href="<?php echo $productUrl ?>" class="product-listing-card-title"
-											title="<?php echo $productDescription; ?>">
+											title="<?php echo $productCardTitle; ?>">
 											<?php
 
-											echo strlen($productDescription) > 20
-												? substr($productDescription, 0, 20) . '...'
-												: $productDescription;
+											echo strlen($product->getProductDescription()) > $descriptionLimit
+												? $productCardTitleEllipse
+												: $productCardTitle;
 
 											?>
 										</a>

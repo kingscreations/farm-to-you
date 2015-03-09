@@ -171,7 +171,7 @@ footer .inline-list li {
 
 .product-listing li {
 	display: inline-block;
-	vertical-align: middle;
+	vertical-align: top;
 	margin-right: 0.4em;
 	width: 48.3%;
 }
@@ -196,7 +196,6 @@ footer .inline-list li {
 
 .product-listing-detail {
   font-size: 0.8em;
-  height: 30px;
 }
 
 @media screen and (min-width: 768px) {
@@ -204,6 +203,15 @@ footer .inline-list li {
 	.edit-product {
 		text-align: right;
 	}
+}
+
+#store-view .product-listing-detail {
+	position: relative;
+}
+
+#store-view .product-listing-detail .product-price {
+	position: absolute;
+	right: 0;
 }
 
 .edit-profile img,
@@ -588,10 +596,16 @@ li[role=presentation].open a {
   background-color: rgb(115, 90, 41);
   }
 
+.store-dropdown
 .search-dropdown {
 	text-align: center;
 	margin: 5px 11em;
 }
+
+.store-dropdown {
+	margin: 5px 10em;
+}
+
 @media screen and (max-width: 768px) {
 	.list-group-item {
 		border: transparent;

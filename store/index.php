@@ -106,7 +106,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 
 			<div class="dropdown visible-xs">
 				<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Categories<span class="caret"></span></a>
-				<ul class="dropdown-menu">
+				<ul class="dropdown-menu search-dropdown">
 					<li><a href="#" class="list-group-item active static">Home</a></li>
 					<?php foreach($categories as $category) { ?>
 						<li><a href="#" class="list-group-item"><?php echo $category->getCategoryName(); ?></a></li>
@@ -210,6 +210,14 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 
 											?>
 										</a>
+										<div>
+											<span class="product-store">
+												<a href="../store/index.php?store=<?php echo $store->getStoreId(); ?>"><?php echo $store->getStoreName(); ?></a>
+											</span>
+											<span class="product-price">
+												$<?php echo number_format((float)$product->getProductPrice(), 2, '.', ''); ?>
+											</span>
+										</div>
 									</div>
 								</div><!-- end product-listing card -->
 							</li>

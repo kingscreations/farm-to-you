@@ -109,11 +109,11 @@ if($newProductQuantity > $stockLimit) {
 
 	if($numberProductsAdded > 0) {
 		$text = ($numberProductsAdded === 1) ? ' has been added to your cart.' : ' have been added to your cart.';
-		$message = '<p class="alert alert-danger">Only ' . $numberProductsAdded . ' ' . $product->getProductName() .
+		$message = '<p class="alert alert-danger">Only ' . $numberProductsAdded . ' "' . $product->getProductName() . '"' .
 			$text . '<br/> This product is out of stock now.</p>';
 
 	} else {
-		$message = '<p class="alert alert-danger">No ' . $product->getProductName() . ' have been added to your cart.<br/>
+		$message = '<p class="alert alert-danger">No "' . $product->getProductName() . '" have been added to your cart.<br/>
 		This product is out of stock now.</p>';
 	}
 
@@ -125,7 +125,7 @@ if($newProductQuantity > $stockLimit) {
 	$availableQuantity = $availableQuantity - $numberProductsAdded;
 
 	$text = ($newProductQuantityToAdd === 1) ? ' has been added.' : ' have been added to your cart.';
-	$message = '<p class="alert alert-success">' . $newProductQuantityToAdd . ' ' . $product->getProductName() .
+	$message = '<p class="alert alert-success">' . $newProductQuantityToAdd . ' "' . $product->getProductName() . '"' .
 		$text . '</p>';
 }
 

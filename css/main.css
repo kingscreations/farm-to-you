@@ -21,7 +21,7 @@ html, body {
   height: 100%;
 }
 .wrapper {
-  background: transparent url("../images/home-page-blur.jpg") repeat top;
+  background: transparent url("../images/home-page-blur2.jpg") repeat top;
   min-height: 100%;
   margin-bottom: -60px;
 }
@@ -809,7 +809,7 @@ h2 {
 
 .store-banner img {
   position: relative;
-  bottom: 10px;
+  bottom: 480px;
 }
 
 .count-store-products {

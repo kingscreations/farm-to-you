@@ -22,14 +22,29 @@ if(@isset($_SESSION['userId']) || @isset($_SESSION['profileId']) || @isset($_SES
 
 ?>
 
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-sm-12">
-			<h3>You are now signed out. Thank you for visiting Farm to You. We hope to see you again soon.</h3>
-			<span class="hidden root-url"><?php echo SITE_ROOT_URL; ?></span>
-		</div>
-	</div><!-- end row -->
-</div><!-- end container-fluid -->
+	<div class="sign-up">
+		<div class="container-fluid">
+			<div class="sign-out-form">
+				<div class="row">
+					<div class="col-sm-12">
+						<h3>You are now signed out. Thank you for visiting Farm to You.
+							<br>
+							We hope to see you again soon.</h3>
+						<span class="hidden root-url"><?php echo SITE_ROOT_URL; ?></span>
+					</div>
+				</div> <!-- end row -->
+			</div><!--.sign-up-form-->
+		</div><!-- end container fluid -->
+	</div><!--.sign-up -->
+<!---->
+<!--<div class="container-fluid">-->
+<!--	<div class="row">-->
+<!--		<div class="col-sm-12">-->
+<!--			<h3>You are now signed out. Thank you for visiting Farm to You. We hope to see you again soon.</h3>-->
+<!--			<span class="hidden root-url">--><?php //echo SITE_ROOT_URL; ?><!--</span>-->
+<!--		</div>-->
+<!--	</div><!-- end row -->-->
+<!--</div><!-- end container-fluid -->-->
 
 <script src="../js/sign-out.js"></script>
 

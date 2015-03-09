@@ -262,7 +262,8 @@ a:hover {
 
 .sign-up-form,
 .signIn-form,
-.activation-form {
+.activation-form ,
+.sign-out-form {
 	background-color: rgba(255, 255, 255, 0.8);
 	margin: auto;
 	width: 70%;

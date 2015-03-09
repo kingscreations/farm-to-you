@@ -28,24 +28,24 @@ if(@isset($_SESSION['emailPop'])) {
 
 					<br>
 
-					<form class= "form" method="post" name="signIn" id="signIn" action="../php/forms/sign-in-controller.php">
+					<form class="form" method="post" name="signIn" id="signIn" action="../php/forms/sign-in-controller.php">
 						<?php echo generateInputTags(); ?>
 						<fieldset>
 							<?php if(($email) === null) { ?>
 							<label>Your email:</label>
-							<input type="text" name="email" id="email" value="" size="relative" />
+							<input class="form-control" type="text" name="email" id="email" value="" size="relative" />
 							</br></br>
 							<label>Enter your password:</label>
-							<input type="password" name="password2" id="password2" value="" size="relative" />
+							<input class="form-control" type="password" name="password2" id="password2" value="" size="relative" />
 							<br><br>
 							<input type="submit" value="Log In" id="submit">
 
 							<?php } else{ ?>
 							<label>Your email:</label>
-							<input type="text" name="email" id="email" value="<?php echo $email ?>" placeholder="<?php echo $email ?>" size="relative" />
+							<input class="form-control" type="text" name="email" id="email" value="<?php echo $email ?>" placeholder="<?php echo $email ?>" size="relative" />
 							</br></br>
 							<label>Enter your password:</label>
-							<input type="password" name="password2" id="password2" value="" size="relative" />
+							<input class="form-control" type="password" name="password2" id="password2" value="" size="relative" />
 							<br><br>
 							<input type="submit" value="Log In" id="submit" class="btn btn-default mt30">
 							<?php } ?>

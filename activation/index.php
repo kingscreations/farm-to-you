@@ -48,11 +48,10 @@ $_SESSION['userId'] = $mysqlUser->getUserId();
 					<div class="col-sm-12">
 						<h3>Your registration is complete. <br> Thank you for joining Farm to You!</h3>
 						<p>
-							<ul>
-								<li>
-									<a href="../add-profile/index.php">Continue to create your profile!</a>
-								</li>
-							</ul>
+							<form action="../add-profile/index.php">
+							<input type="submit" value="Continue to create your profile!">
+							</form>
+						</p>
 
 					</div><!-- end col-sm-12 -->
 				</div><!-- end row -->

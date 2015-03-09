@@ -27,9 +27,7 @@ if(@isset($_SESSION['userId']) || @isset($_SESSION['profileId']) || @isset($_SES
 			<div class="sign-out-form">
 				<div class="row">
 					<div class="col-sm-12">
-						<h3>You are now signed out. Thank you for visiting Farm to You.
-							<br>
-							We hope to see you again soon.</h3>
+						<h3>You are now signed out. Thank you for visiting Farm to You.</h3>
 						<span class="hidden root-url"><?php echo SITE_ROOT_URL; ?></span>
 					</div>
 				</div> <!-- end row -->

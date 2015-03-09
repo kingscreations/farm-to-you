@@ -21,9 +21,15 @@ html, body {
   height: 100%;
 }
 .wrapper {
-  background: transparent url("../images/home-page-blur2.jpg") repeat top;
+  background: whitesmoke;
   min-height: 100%;
   margin-bottom: -60px;
+}
+
+@media screen and (min-width: 768px)  {
+	.wrapper {
+		background: transparent url("../images/home-page-blur2.jpg") repeat top;
+	}
 }
 
 .wrapper:after {
@@ -709,7 +715,8 @@ li[role=presentation].open a {
   float: right;
 }
 
-.center {
+.center, /* deprecated use t-left instead */
+.t-center {
   text-align: center;
 }
 
@@ -812,11 +819,21 @@ h2 {
   font-weight: bold;
 }
 
-#listing-page-cart {
-  border: 3px solid rgb(115, 90, 41);
-  border-radius: 3px;
-  padding: 1em;
-  margin-bottom: 30px;
+.listing-page-cart {
+	border: 3px solid rgb(115, 90, 41);
+	border-radius: 3px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	padding: 1em;
+	margin-bottom: 30px;
+}
+
+@media screen and (min-width: 769px) {
+	.listing-page-cart {
+		border-radius: 3px;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+	}
 }
 
 #cart-main-menu-item {

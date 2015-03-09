@@ -178,7 +178,7 @@ $storeImageSrc  = basename($store->getImagePath());
 			<form id="product-controller" action="../php/forms/product-controller.php" method="post">
 				<!-- Cross Site Request Forgery (csrf) token -->
 				<?php echo generateInputTags(); ?>
-				<div id="listing-page-cart">
+				<div class="listing-page-cart">
 					<h1><?php echo $product->getProductName(); ?></h1>
 
 					<span class="currency-value">$<?php echo number_format((float)$product->getProductPrice(), 2, '.', '');; ?></span><br/>

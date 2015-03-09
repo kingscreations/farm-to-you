@@ -92,7 +92,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 ?>
 
 <div class="container-fluid transparent-form" id="store-view">
-
+	<div class="row">
 		<div class="col-sm-3" id="store-menu">
 			<div class="list-group">
 				<span class="list-group-item">Store Sections</span>
@@ -103,7 +103,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 
 			</div>
 
-			<div id="store-owner" class="section">
+			<div id="store-owner" class="section hidden-xs">
 				<h3>Store Owner</h3>
 				<a href="" class="avatar"></a>
 				<a href=""><?php echo $storeOwner->getFirstName() . ' ' . $storeOwner->getLastName(); ?></a>
@@ -137,8 +137,8 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 								<div class="col-sm-8">
 									<h1><?php echo $store->getStoreName(); ?></h1>
 								</div>
-								<div class="col-sm-4 t-right">
-									<?php include_once('../php/lib/share-view.php'); ?>
+								<div class="col-sm-4 t-right hidden-xs">
+									<?php include('../php/lib/share-view.php'); ?>
 								</div>
 							</div>
 						</div>
@@ -206,10 +206,21 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 						<?php } }?><!-- end of the for each store product loop -->
 					</ul>
 				</div>
-			</div>
+			</div><!-- end products -->
 		</div><!-- end store-content -->
 
-</div>
+		<div id="store-owner" class="section visible-xs">
+			<h3>Store Owner</h3>
+			<a href="" class="avatar"></a>
+			<a href=""><?php echo $storeOwner->getFirstName() . ' ' . $storeOwner->getLastName(); ?></a>
+		</div>
+
+		<div class="col-sm-4 t-center visible-xs mt40">
+			<?php include('../php/lib/share-view.php'); ?>
+		</div>
+
+	</div><!-- end row -->
+</div><!-- end container-fluid -->
 
 <script src="../js/store.js"></script>
 

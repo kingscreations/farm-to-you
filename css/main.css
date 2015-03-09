@@ -218,6 +218,12 @@ footer .inline-list li {
 	margin-left: 4em;
 }
 
+@media screen and (max-width: 768px) {
+	.edit-product figcaption {
+		margin: 0;
+	}
+}
+
 @media screen and (min-width: 768px) {
   .inline-list {
     padding: inherit;
@@ -315,7 +321,13 @@ form input[type=file] {
 	display: inherit;
 }
 
-form input[type=text],
+@media screen and (max-width: 768px) {
+	form input[type=file] {
+		margin: 0;
+	}
+}
+
+	form input[type=text],
 form input[type=password]{
 	margin-left: 0;
 	/*width: 100%;*/

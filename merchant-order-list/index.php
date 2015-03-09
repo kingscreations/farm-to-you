@@ -151,8 +151,6 @@ try {
 			}
 		}
 		echo '</div>';
-		echo '</div>';
-		echo '</div>';
 	} else {
 		echo '<div class="form-group center">
 						<h4>No orders found.</h4>
@@ -162,6 +160,8 @@ try {
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
+echo '</div>';
+echo '</div>';
 
 require_once("../php/lib/footer.php");
 

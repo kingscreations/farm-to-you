@@ -43,10 +43,9 @@ if($profileType !== "m") {
 
 ?>
 
-	<div class="container">
+	<div class="container-fluid container-margin-sm transparent-form user-account">
 		<div class="row">
-
-			<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs transparent-menu">
+			<div id="multi-menu" class="col-md-3 hidden-xs">
 				<ul class="nav nav-pills nav-stacked">
 					<li><a href="../edit-profile/index.php">Edit Profile</a></li>
 					<li><a href="../add-store/index.php">Manage Stores</a></li>
@@ -55,7 +54,7 @@ if($profileType !== "m") {
 				</ul>
 			</div>
 
-			<div class="dropdown hidden-lg hidden-md" style="position:relative">
+			<div class="dropdown visible-xs" style="position:relative">
 				<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="../edit-profile/index.php">Edit Profile</a></li>
@@ -66,12 +65,16 @@ if($profileType !== "m") {
 			</div>
 
 
-			<div class="col-sm-8">
-				<form id="bankInfo" class="form-inline transparent-form" method="post" action="../php/forms/bank-account-controller.php" enctype="multipart/form-data">
-					<h2>Edit Bank Account</h2>
+			<div class="col-md-9">
+				<form id="bankInfo" class="form-inline" method="post" action="../php/forms/bank-account-controller.php" enctype="multipart/form-data">
 					<?php echo generateInputTags(); ?>
+					<div class="center">
+						<h2>Edit Bank Account</h2>
+					</div>
+
 					<div class="form-group">
-						<label for="inputName">Name: <?php echo $profileFirstname . ' ' . $profileLastname ?></label>
+						<label for="inputName">Name:</label>
+						<input type="text" class="form-control" value="<?php echo $profileFirstname . ' ' . $profileLastname;?>">
 					</div>
 
 					<br>
@@ -91,7 +94,7 @@ if($profileType !== "m") {
 					<br>
 
 					<div class="form-group">
-						<select name="country" class="form-control">
+						<select name="country" class="form-control" style="margin-left: 196px;">
 							<option value="">Select Country...</option>
 							<option value="US" data-stripe="country">United States</option>
 						</select>

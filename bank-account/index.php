@@ -72,7 +72,8 @@ if((preg_match('/^rp/', $profileToken) === 0)) { ?>
 					<h2>Add Bank Account</h2>
 				</div>
 				<div class="form-group">
-					<label for="inputName">Name: <?php echo $profileFirstname . ' ' . $profileLastname ?></label>
+					<label for="inputName">Name:</label>
+					<input type="text" class="form-control" value="<?php echo $profileFirstname . ' ' . $profileLastname;?>">
 				</div>
 
 				<br>
@@ -92,7 +93,7 @@ if((preg_match('/^rp/', $profileToken) === 0)) { ?>
 				<br>
 
 				<div class="form-group">
-					<select name="country" class="form-control">
+					<select name="country" class="form-control" style="margin-left: 196px;">
 						<option value="">Select Country...</option>
 						<option value="US" data-stripe="country">United States</option>
 					</select>

@@ -146,7 +146,7 @@ require_once($prefix . 'paths.php');
 								<ul class="dropdown-menu" role="menu">
 									<?php
 
-									require('user-menu-items.php');
+									require('user-menu-items-mobile.php');
 
 									?>
 								</ul>

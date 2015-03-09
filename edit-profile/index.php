@@ -145,22 +145,25 @@ $profileType = $profile->getProfileType();
 		</div><!-- end col6 -->
 
 		<div class="col-sm-3 hidden-xs">
-			<div class="form-group edit-product pull-right">
-				<a href="#" id="editProfileImageLink" class="edit-product-image-link">
-					<?php
+			<div class="form-group edit-profile pull-right">
+				<a href="#" id="editProfileImageLink" class="edit-profile-image-link">
+					<figure>
+						<?php
 
-					$baseUrl             = CONTENT_ROOT_URL . 'images/profile/';
-					$basePath            = CONTENT_ROOT_PATH . 'images/profile/';
-					$imagePlaceholderSrc = SITE_ROOT_URL. 'images/placeholder.png';
-					$imageSrc            = basename($profile->getImagePath());
+						$baseUrl             = CONTENT_ROOT_URL . 'images/profile/';
+						$basePath            = CONTENT_ROOT_PATH . 'images/profile/';
+						$imagePlaceholderSrc = SITE_ROOT_URL. 'images/placeholder.png';
+						$imageSrc            = basename($profile->getImagePath());
 
-					// show a placeholder if the product is not associated with an image
-					if(is_file($profile->getImagePath())) {
-						?>
-						<img class="thumbnail image-preview" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
-					<?php } else { ?>
-						<img class="thumbnail image-preview" src="<?php echo $imagePlaceholderSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
-					<?php } ?>
+						// show a placeholder if the product is not associated with an image
+						if(is_file($profile->getImagePath())) {
+							?>
+							<img class="thumbnail image-preview" src="<?php echo $baseUrl . $imageSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
+						<?php } else { ?>
+							<img class="thumbnail image-preview" src="<?php echo $imagePlaceholderSrc; ?>" alt="<?php echo $profileFirstname . $profileLastname; ?>"/>
+						<?php } ?>
+					</figure>
+					<figcaption>Change profile image</figcaption>
 				</a>
 			</div>
 		</div><!-- end col3 -->

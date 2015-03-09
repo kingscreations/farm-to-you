@@ -94,13 +94,11 @@ $(document).ready(function() {
 			});
 		}
 	});
-	console.log('edit-profile.js!');
-	$('.edit-product-image-link').on('click', function(event) {
+
+	$('.edit-profile-image-link').on('click', function(event) {
 		event.preventDefault();
 
-		console.log('debug');
 		$('#inputImage').click();
-		console.log('debug2');
 		$('#inputImage').on('change', function() {
 
 			$('#inputSubmit').click();

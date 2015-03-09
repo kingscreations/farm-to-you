@@ -179,7 +179,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 							$productDescription = $product->getProductDescription();
 							?>
 
-							<li id="<?php echo 'product-' . $product->getProductId(); ?>">
+							<li class="thumbnail" id="<?php echo 'product-' . $product->getProductId(); ?>">
 								<div class="product-listing-card">
 									<a class="product-listing-thumbnail"
 										href="<?php echo $productUrl; ?>"
@@ -189,15 +189,15 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 											? $productImageBaseUrl.$productImageSrc
 											: $imagePlaceHolderSrc) ?>"
 											  alt="<?php echo $productDescription; ?>"
-												class="img-responsive"/>
+											  class="product-listing-image"/>
 									</a>
 									<div class="product-listing-detail">
 										<a href="<?php echo $productUrl ?>" class="product-listing-card-title"
 											title="<?php echo $productDescription; ?>">
 											<?php
 
-											echo strlen($productDescription) > 26
-												? substr($productDescription, 0, 26) . '...'
+											echo strlen($productDescription) > 20
+												? substr($productDescription, 0, 20) . '...'
 												: $productDescription;
 
 											?>

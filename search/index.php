@@ -125,9 +125,8 @@ try {
 <!--<div class="container-fluid mt60">-->
 	<div class="row">
 
-		<div class="col-sm-6 list-group transparent-menu" id="filter-categories">
+		<div class="col-md-6 list-group transparent-menu hidden-xs mt25" id="filter-categories">
 			<p class="list-group-item list-group-item-info">Categories</p>
-			</br>
 			<?php
 			if($products !== null) { ?>
 			<p class="disabled list-group-item list-group-item-info static">Products</p>
@@ -145,7 +144,30 @@ try {
 			}?>
 		</div>
 
-		<div class="col-sm-6">
+		<div class="dropdown visible-xs" style="position:relative">
+			<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Categories<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+
+				<?php if($products !== null) { ?>
+				<li><p class="disabled static">Products</p></li>
+				<?php } ?>
+
+				<li><a href="<?php echo SITE_ROOT_URL . 'search/index.php?searchq=' . $searchq; ?>"
+				id="category-list" class="list-group-item <?php echo ($categoryNameFromUrl === '') ? 'active' : '';
+				?> static">All</a></li>
+
+				<?php
+				if($products !== null) {
+				foreach($categories as $category) { ?>
+				<li><a href="<?php echo SITE_ROOT_URL . 'search/index.php?searchq=' . $searchq . '&category=' . $category->getCategoryName(); ?>"
+					id="category-list"
+					class="list-group-item <?php echo ($categoryNameFromUrl === $category->getCategoryName()) ? 'active' : ''; ?>"><?php echo $category->getCategoryName(); ?></a></li>
+				<?php }
+				}?>
+			</ul>
+		</div>
+		<br>
+
 
 <?php
 
@@ -166,9 +188,9 @@ if($stores != null || $locations != null || $products != null) {
 if($products !== null) {
 	echo '<tr>';
 	echo '<th></th>';
-	echo '<th>Product</th>';
-	echo '<th>Description</th>';
-	echo '<th>Price</th>';
+	echo '<th class="table-header">Product</th>';
+	echo '<th class="hidden-xs">Description</th>';
+	echo '<th class="table-header">Price</th>';
 	echo '</tr>';
 
 	foreach($products as $product) {
@@ -177,26 +199,26 @@ if($products !== null) {
 
 		$productName = $product->getProductName();
 		$productDescription = $product->getProductDescription();
-		$productPrice = $product->getProductPrice();
+		$productPrice = number_format((float)$product->getProductPrice(), 2, '.', '');
 		$productId = $product->getProductId();
 
 
 		echo '<tr id="product-' . $productId . '">';
 		if(file_exists($product->getImagePath())) {
-			echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
+			echo '<td><a class="thumbnail search-image" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
 					$product->getProductId() .'">
 					<img class="img-responsive" src="' . CONTENT_ROOT_URL . 'images/product/' .
 					basename($product->getImagePath()) . '">
 					</a></td>';
 		} else {
-			echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
+			echo '<td><a class="thumbnail search-image" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
 					$product->getProductId() .'">
 					<img class="img-responsive" src="' . $imagePlaceholderSrc . '">
 					</a></td>';
 		}
 		echo '<td><a href="'. SITE_ROOT_URL . 'product/index.php?product=' .
 			$product->getProductId(). '">'. $productName . '</a></td>';
-		echo '<td>' . $productDescription . '</td>';
+		echo '<td class="hidden-xs">' . $productDescription . '</td>';
 		echo '<td>$' . $productPrice . '</td>';
 		echo '</tr>';
 	}
@@ -204,9 +226,10 @@ if($products !== null) {
 
 if($stores !== null) {
 	echo '<tr id="store-">';
-	echo '<th></th>';
-	echo '<th>Store</th>';
-	echo '<th>Description</th>';
+	echo '<th class="table-header"></th>';
+	echo '<th class="table-header">Store</th>';
+	echo '<th class="hidden-xs">Description</th>';
+	echo '<th class="visible-xs"></th>';
 	echo '</tr>';
 
 	foreach($stores as $store) {
@@ -220,27 +243,28 @@ if($stores !== null) {
 
 		echo '<tr id="store-' . $storeId . '">';
 		if(file_exists($store->getImagePath())) {
-			echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'store/index.php?store=' .
+			echo '<td class="wide-column"><a class="thumbnail search-image" href="'. SITE_ROOT_URL . 'store/index.php?store=' .
 					$store->getStoreId() .'">
 					<img class="img-responsive" src="' . CONTENT_ROOT_URL . 'images/store/' .
 				basename($store->getImagePath()) . '">
 												</a></td>';
 		} else {
-			echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'store/index.php?store=' .
+			echo '<td class="wide-column"><a class="thumbnail search-image" href="'. SITE_ROOT_URL . 'store/index.php?store=' .
 				$store->getStoreId() .'">
 					<img class="img-responsive" src="' . $imagePlaceholderSrc . '">
 					</a></td>';
 		}
-		echo '<td>' . $storeName . '</td>';
-		echo '<td>' . $storeDescription . '</td>';
+		echo '<td class="wide-column">' . $storeName . '</td>';
+		echo '<td class="hidden-xs">' . $storeDescription . '</td>';
+		echo '<th class="visible-xs"></th>';
 	}
 }
 
 	if($locations !== null) {
 		echo '<tr id="location-">';
-		echo '<th>Location</th>';
-		echo '<th>Address</th>';
-		echo '<th>City</th>';
+		echo '<th class="table-header">Location</th>';
+		echo '<th class="table-header">Address</th>';
+		echo '<th class="table-header">City</th>';
 		echo '</tr>';
 
 		foreach($locations as $location) {
@@ -266,9 +290,11 @@ if($stores !== null) {
 
 //this counts the number or results - and if there wasn't any it gives them a little message explaining that
 	if($stores === null && $locations === null && $products === null) {
-		echo "<p class=\"alert alert-danger\">Sorry, but we can not find an entry to match your query</p><br><br>";
+		echo "<div class='alert-message'>
+					<p class=\"alert alert-danger\">Sorry, no results.</p><br>
+				</div>";
 //and we remind them what they searched for
-		echo "<b>Searched For:</b>" . $searchq;
+		echo "<b>Searched For: </b>" . $searchq;
 
 	}
 

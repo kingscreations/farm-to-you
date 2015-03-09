@@ -226,6 +226,14 @@ footer .inline-list li {
   border-radius: 3px;
   margin-top: 10px;
 }
+@media screen and (min-width: 768px) {
+	.alert-message {
+		width: 60%;
+		margin-left: 16em;
+		margin-bottom: 160px;
+		margin-top: -10px;
+	}
+}
 
 a:hover {
   text-decoration: none !important;
@@ -536,6 +544,24 @@ td {
 		margin-left: 8em !important;
 	}
 }
+@media screen and (min-width: 768px) {
+	.wide-column {
+		width: 10em;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.search-image {
+		margin-top: 23px
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.table-header {
+		text-align: center;
+	}
+}
+
 /********************************************
 * bootstrap setup
 ********************************************/

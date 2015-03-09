@@ -1,14 +1,15 @@
 
 /*menus and navs*/
-.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover, .list-group-item.hover {
 	color: #FFF;
 	background-color: rgba(115, 90, 41, 0.8);
 	border-color: rgba(51, 40, 18, 1);
 }
 
-#multi-menu.active {
+#multi-menu.active, .list-group-item.active {
 	color: rgba(115, 90, 41, 0.8);
 	border-color: rgba(51, 40, 18, 1);
+	background-color: transparent;
 }
 
 .dropdown-menu > .active > a,

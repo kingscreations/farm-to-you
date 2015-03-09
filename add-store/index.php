@@ -130,7 +130,7 @@ try {
 	// create table of existing stores
 	if($stores !== null) {
 		echo '<div class=form-group>';
-		echo '<table class="table table-responsive">';
+		echo '<table class="table table-responsive merchant-table">';
 		echo '<tr>';
 		echo '<th><h4>Manage your stores</h4></th>';
 		echo '<th></th>';

@@ -507,7 +507,7 @@ td {
 }
 
 @media screen and (min-width: 768px) {
-	.table {
+	.merchant-table {
 		margin-left: 8em !important;
 	}
 }

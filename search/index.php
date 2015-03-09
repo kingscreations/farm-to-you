@@ -158,7 +158,7 @@ if($searchq == "") {
 
 // try to echo a table per each table searched by
 if($stores != null || $locations != null || $products != null) {
-	echo '<div class="table-responsive mt30">';
+	echo '<div class="table-responsive mt25">';
 	echo '<table id="searchResults" class="table table-responsive table-striped table-hover">';
 
 }

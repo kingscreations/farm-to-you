@@ -40,7 +40,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 				// create table of existing stores
 				if($products !== null) {
 
-					echo '<table class="table table-responsive">';
+					echo '<table class="table table-responsive merchant-table">';
 					echo '<tr>';
 					echo '<th>Product</th>';
 					echo '<th></th>';

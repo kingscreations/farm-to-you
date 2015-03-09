@@ -89,7 +89,7 @@ try {
 						<h2>Orders</h2>
 					</div>';
 			echo '<div class="form-group">';
-			echo '<table class="table table-responsive">';
+			echo '<table class="table table-responsive merchant-table">';
 			echo '<tr>';
 			echo '<th>Order #'.$orderId .'</th>';
 			echo '<th></th>';

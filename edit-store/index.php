@@ -168,7 +168,7 @@ try {
 					// create table of existing storeLocations
 					if($storeLocations !== null) {
 						echo '<div class=form-group>';
-						echo '<table class="table table-responsive">';
+						echo '<table class="table table-responsive merchant-table">';
 						echo '<tr>';
 						echo '<th><h4>Pick-Up Locations</h4></th>';
 						echo '<th></th>';

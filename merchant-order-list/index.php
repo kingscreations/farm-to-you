@@ -113,7 +113,7 @@ try {
 				$formattedDate = $checkoutDate->format("m/d/Y - H:i:s");
 				$checkoutFinalPrice = number_format((float)$checkout->getFinalPrice(), 2, '.', '');
 				echo '<div class="form-group">';
-				echo '<table class="table table-responsive">';
+				echo '<table class="table table-responsive merchant-table">';
 				echo '<tr>';
 				echo '<th>Order #' . $orderId . '</th>';
 				echo '<th></th>';

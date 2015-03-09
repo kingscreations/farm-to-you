@@ -146,7 +146,8 @@ $("#addProduct").validate({
 					var regex = /\(id\ = ([0-9]+)\) posted!/i;
 					var match = regex.exec(ajaxOutput);
 					var productId = match[1];
-					$('#dynamic-product-list').append('<li><a class="product-item" href="#" id="' + productId + '"></a></li>');
+					var $dynamicProductList = $('#dynamic-product-list');
+					$dynamicProductList.append('<li><a class="product-item" href="#" id="' + productId + '">'+ $('#inputProductName').val() +'</a></li>');
 				} else {
 					console.error('Exception: Cannot add the product to the #dynamic-product-list');
 				}

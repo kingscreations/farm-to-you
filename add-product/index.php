@@ -42,7 +42,9 @@ try {
 		<div id="multi-menu" class="col-md-3 hidden-xs">
 			<ul class="nav nav-pills nav-stacked">
 				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-				<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+				<li><a href="../add-store/index.php">Manage Stores</a></li>
+				<li class="active"><a href="../add-product">Add product</a></li>
+				<li><a href="../manage-products">My Products</a></li>
 				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
 				<li><a href="../bank-account/index.php">Bank Account</a></li>
 			</ul>
@@ -53,6 +55,8 @@ try {
 			<ul class="dropdown-menu">
 				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
 				<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
+				<li class="active"><a href="../add-product">Add product</a></li>
+				<li><a href="../manage-products">My Products</a></li>
 				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
 				<li><a href="../bank-account/index.php">Bank Account</a></li>
 			</ul>

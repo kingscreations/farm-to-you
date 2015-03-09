@@ -24,7 +24,7 @@ $('.deleteProductButton').click(function() {
 		url: "../php/forms/delete-product-add-to-session.php",
 		data: {productId: productId}
 	}).done(function() {
-		location.href = "../add-product/index.php";
+		location.href = "../manage-products";
 	});
 });
 

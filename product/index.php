@@ -104,7 +104,7 @@ $storeImageSrc  = basename($store->getImagePath());
 
 <div class="container-fluid mt60 transparent-form" id="product">
 	<div class="row">
-		<div class="col-sm-5 col-xs-5">
+		<div class="col-sm-5 col-xs-6 pl0">
 			<?php
 
 			$storeLink = SITE_ROOT_URL . 'store/index.php?store='. $store->getStoreId();
@@ -119,7 +119,7 @@ $storeImageSrc  = basename($store->getImagePath());
 
 			?>
 		</div>
-		<div class="col-sm-7 col-xs-7">
+		<div class="col-sm-7 col-xs-6">
 			<!-- store products thumbnails -->
 			<ul class="thumbnail-links">
 			<?php

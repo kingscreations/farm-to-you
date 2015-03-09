@@ -55,8 +55,8 @@ body {
 footer {
   padding-top: 20px;
   text-align: center;
-  background-color: rgba(255, 255, 255, 1);
-  border-top: 3px rgba(51, 40, 18, 1);
+  background-color: rgb(255, 255, 255);
+  border-top: 3px rgb(51, 40, 18);
 }
 
 footer p {
@@ -65,13 +65,13 @@ footer p {
 }
 
 #main-menu {
-  color: rgba(51, 40, 18, 1);
+  color: rgb(51, 40, 18);
   position: relative;
   z-index: 3;
 }
 
 #main-menu a {
-	color: rgba(51, 40, 18, 1);
+	color: rgb(51, 40, 18);
 	padding: 2px 4px;
 	margin-left: 4px;
 }
@@ -84,7 +84,7 @@ footer p {
 
 #main-menu a:hover {
   background-color: transparent;
-  color: rgba(115, 90, 41, 0.8);
+  color: rgb(115, 90, 41);
   outline: none;
 }
 
@@ -96,7 +96,6 @@ footer p {
 
 #main-menu .dropdown-menu {
   background-color: rgb(255, 255, 255);
-  /*border-color: rgba(51, 40, 18, 1);*/
   border: none;
   color: white
   right: 0px;
@@ -171,15 +170,22 @@ footer .inline-list li {
 }
 
 .product-listing li {
-  display: inline-block;
-  vertical-align: middle;
+	display: inline-block;
+	vertical-align: middle;
 	margin-right: 0.4em;
-  width: 23.802%;
+	width: 48.3%;
 }
 
 .product-listing li:last-child {
 	margin-right: 0;
 }
+
+@media screen and (min-width: 768px) {
+	.product-listing li {
+	  width: 23.802%;
+	}
+}
+
 
 .product-listing-card img.product-listing-image {
 	/*width: 20%;*/
@@ -263,7 +269,7 @@ a:hover {
 
 #farm-to-you-logo a,
 #farm-to-you-logo a:hover {
-  color: rgba(115, 90, 41, 0.8);
+  color: rgb(115, 90, 41);
 }
 
 .delete-item {
@@ -290,7 +296,7 @@ a:hover {
 	position: relative;
 	color: rgba(115, 90, 41, 0.8);
 	font-size: 1em;
-	border: 1px rgba(51, 40, 18, 1);
+	border: 1px rgb(51, 40, 18);
 	border-radius: 12px;
 	padding: 2em;
 	text-align: center;
@@ -403,7 +409,7 @@ form input[type=password]{
   position: relative;
   color: rgba(115, 90, 41, 0.8);
   font-size: .8em;
-  border: 1px rgba(51, 40, 18, 1);
+  border: 1px rgb(51, 40, 18);
   border-radius: 5px;
   padding: 2em;
 }
@@ -430,7 +436,7 @@ form input[type=password]{
   color: rgba(115, 90, 41, 0.8);
   font-family: Biko, sans-serif;
   font-size: .7em;
-    border: 1px rgba(51, 40, 18, 1);
+    border: 1px rgb(51, 40, 18);
   border-radius: 3px;
 }
 
@@ -446,7 +452,7 @@ form input[type=password]{
     color: rgba(115, 90, 41, 0.8);
     font-family: Biko, sans-serif;
     font-size: 1em;
-    border: 1px rgba(51, 40, 18, 1);
+    border: 1px rgb(51, 40, 18);
     border-radius: 5px;
   }
 
@@ -457,7 +463,7 @@ input[type=tel],
 input[type=file], {
   padding: 0.3em;
   padding-left: 1em;
-  border: 2px rgba(51, 40, 18, 1);
+  border: 2px rgb(51, 40, 18);
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
@@ -508,7 +514,7 @@ input[type=password]:focus {
 .submit {
   padding: 0.3em;
   padding-left: 1em;
-  border: 2px rgba(51, 40, 18, 1);
+  border: 2px rgb(51, 40, 18);
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 1.0);
   text-align: center;
@@ -517,7 +523,7 @@ input[type=password]:focus {
   /*margin-top: 12%;*/
   /*margin-bottom: 12%;*/
   position: relative;
-  color: rgba(115, 90, 41, 0.8);
+  color: rgb(115, 90, 41);
   font-family: Biko;
   font-size: 1em;
 }
@@ -576,7 +582,7 @@ li[role=presentation].open a {
 }
 
 #my-account-dropdown-menu {
-  background-color: rgba(115, 90, 41, 0.8);
+  background-color: rgb(115, 90, 41);
   }
 
 .search-dropdown {
@@ -713,8 +719,13 @@ li[role=presentation].open a {
 	margin-left: 2em !important;
 }
 
-.no-padding-right {
+.no-padding-right,
+.pr0 {
   padding-right: 0;
+}
+
+.pl0 {
+	padding-left: 0;
 }
 
 .push-right {
@@ -790,7 +801,7 @@ h2 {
 
 #cart th,
 #cart #total-price-result {
-  color: rgba(51, 40, 18, 1);
+  color: rgb(51, 40, 18);
   font-weight: bold;
 }
 
@@ -823,6 +834,17 @@ h2 {
 .currency-value {
   font-size: 1.6em;
   font-weight: bold;
+}
+
+#product .store-name {
+	position: relative;
+	bottom: 30px;
+}
+
+@media screen and (min-width: 768px) {
+	#product .store-name {
+		bottom: 40px;
+	}
 }
 
 .listing-page-cart {
@@ -858,7 +880,7 @@ h2 {
   padding: 0.05em 0.15em;
   border-radius: 2px;
   color: white;
-  background-color: rgba(115, 90, 41, 0.8);
+  background-color: rgb(115, 90, 41);
   position: absolute;
   bottom: 35px;
   left: 26px;
@@ -912,7 +934,7 @@ h2 {
 .section {
   background-color: white;
   padding: 0.4em;
-  border: 1px rgba(51, 40, 18, 1);
+  border: 1px rgb(51, 40, 18);
   border-radius: 5px;
 }
 
@@ -939,7 +961,7 @@ h2 {
 
 #multi-menu {
   margin-top: 30px;
-  color: rgba(115, 90, 41, 0.8);
+  color: rgb(115, 90, 41);
 }
 
 /********************************************
@@ -980,7 +1002,7 @@ h2 {
 }
 
 .home-top .heading {
-  color: rgba(115, 90, 41, 0.8);
+  color: rgb(115, 90, 41);
   font-family: ArchitectsDaughter, Biko;
   font-size: 1.4em;
 }
@@ -1022,6 +1044,7 @@ h2 {
 	}
 }
 
+.client-view .dropdown-toggle,
 .user-account .dropdown-toggle {
 	width: 60%;
 }
@@ -1080,7 +1103,7 @@ h2 {
   height: 160px;
   font-size: 14px;
   margin-right: 30px;
-  border: 1px rgba(51, 40, 18, 1);
+  border: 1px rgb(51, 40, 18);
 }
 
 #scroller li > img {
@@ -1117,7 +1140,7 @@ h2 {
 #map-canvas {
   width: 500px;
   height: 400px;
-  background-color: rgba(115, 90, 41, 0.8);
+  background-color: rgb(115, 90, 41);
 }
 
 

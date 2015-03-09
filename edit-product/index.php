@@ -66,7 +66,7 @@ try {
 <div class="container-fluid container-margin-sm user-account transparent-form" id="edit-product">
 	<div class="row">
 
-		<div id="multi-menu" class="col-md-3 hidden-sm hidden-xs">
+		<div id="multi-menu" class="col-md-3 hidden-xs">
 			<ul class="nav nav-pills nav-stacked">
 				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
 				<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
@@ -75,7 +75,7 @@ try {
 			</ul>
 		</div>
 
-		<div class="dropdown hidden-lg hidden-md" style="position:relative">
+		<div class="dropdown visible-xs" style="position:relative">
 			<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Menu<span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				<li><a href="../edit-profile/index.php">Edit Profile</a></li>

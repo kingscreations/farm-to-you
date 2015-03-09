@@ -91,16 +91,27 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 
 ?>
 
-<div class="container-fluid transparent-form" id="store-view">
+<div class="container-fluid transparent-form client-view" id="store-view">
 	<div class="row">
 		<div class="col-sm-3" id="store-menu">
-			<div class="list-group">
+
+			<div class="list-group hidden-xs">
 				<span class="list-group-item">Store Sections</span>
 				<a href="#" class="list-group-item active static">Home</a>
 				<?php foreach($categories as $category) { ?>
 					<a href="#" class="list-group-item"><?php echo $category->getCategoryName(); ?></a>
 				<?php } ?>
 
+			</div>
+
+			<div class="dropdown visible-xs">
+				<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Categories<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="#" class="list-group-item active static">Home</a></li>
+					<?php foreach($categories as $category) { ?>
+						<li><a href="#" class="list-group-item"><?php echo $category->getCategoryName(); ?></a></li>
+					<?php } ?>
+				</ul>
 			</div>
 
 			<div id="store-owner" class="section hidden-xs">
@@ -121,7 +132,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 					<div id="store-id-card">
 						<?php $storeLink = SITE_ROOT_URL . 'store/index.php?store='. $store->getStoreId(); ?>
 
-						<div class="store-banner">
+						<div class="store-banner hidden-xs">
 							<a href="<?php echo $storeLink; ?>"
 								title="<?php echo $store->getStoreDescription(); ?>">
 								<img src="<?php echo is_file($storeBasePath.$storeImageSrc)
@@ -143,7 +154,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 							</div>
 						</div>
 
-						<div class="announcement mt20">
+						<div class="announcement mt20 t-left">
 							<a href="<?php echo $storeLink; ?> id="store-announcement>
 								<!-- show only the beginning of the description -->
 								<?php echo $store->getStoreDescription(); ?>

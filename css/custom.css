@@ -2,13 +2,13 @@
 /*menus and navs*/
 .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover, .list-group-item.hover {
 	color: #FFF;
-	background-color: rgba(115, 90, 41, 0.8);
-	border-color: rgba(51, 40, 18, 1);
+	background-color: rgb(115, 90, 41);
+	border-color: rgb(51, 40, 18);
 }
 
 #multi-menu.active, .list-group-item.active {
-	color: rgba(115, 90, 41, 0.8);
-	border-color: rgba(51, 40, 18, 1);
+	color: rgb(115, 90, 41);
+	border-color: rgb(51, 40, 18);
 	background-color: transparent;
 }
 
@@ -17,25 +17,25 @@
 .dropdown-menu > .active > a:hover {
 	color: #FFF;
 	text-decoration: none;
-	border-color: rgba(51, 40, 18, 1);
-	background-color: rgba(115, 90, 41, 0.8);
+	border-color: rgb(51, 40, 18);
+	background-color: rgb(115, 90, 41);
 }
 
 
 /*buttons*/
 .btn-primary {
 	color: #FFF;
-	background-color: rgba(115, 90, 41, 0.8);
-	border-color: rgba(51, 40, 18, 1);
+	background-color: rgb(115, 90, 41);
+	border-color: rgb(93, 69, 37);
 }
 .btn-primary.active, .btn-primary.focus, .btn-primary:active, .btn-primary:focus, .btn-primary:hover, .open > .dropdown-toggle.btn-primary {
 	color: #FFF;
-	background-color: rgba(115, 90, 41, 0.8);
-	border-color: rgba(51, 40, 18, 1);
+	background-color: rgb(115, 90, 41);
+	border-color: rgb(51, 40, 18);
 }
 
 /*footer*/
 a {
-	color: rgba(51, 40, 18, 1);
+	color: rgb(51, 40, 18);
 	text-decoration: none;
 }

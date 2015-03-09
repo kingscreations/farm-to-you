@@ -21,8 +21,7 @@ html, body {
   height: 100%;
 }
 .wrapper {
-  background: transparent url("../images/dull-home-page.jpg") no-repeat fixed center center/cover;
-	background: whitesmoke;
+  background: transparent url("../images/home-page-blur.jpg") repeat top;
   min-height: 100%;
   margin-bottom: -60px;
 }
@@ -90,8 +89,9 @@ footer p {
 }
 
 #main-menu .dropdown-menu {
-  background-color: rgba(255, 255, 255, 0.8);
-  border-color: rgba(51, 40, 18, 1);
+  background-color: rgb(255, 255, 255);
+  /*border-color: rgba(51, 40, 18, 1);*/
+  border: none;
   color: white
   right: 0px;
   left: auto;
@@ -116,7 +116,7 @@ footer p {
 }
 
 #main-menu {
-  background-color: rgba(255, 255, 255, .9);
+  background-color: rgb(255, 255, 255);
   width: 100%;
   height: 60px;
   padding: 15px 1%;
@@ -712,7 +712,7 @@ h2 {
 * cart
 ********************************************/
 .basic-information {
-  color: rgba(115, 90, 41, 0.8);
+  color: rgb(115, 90, 41);
 }
 
 .cart-product {
@@ -757,7 +757,7 @@ h2 {
 }
 
 #listing-page-cart {
-  border: 3px solid rgba(51, 40, 18, 1);
+  border: 3px solid rgb(115, 90, 41);
   border-radius: 3px;
   padding: 1em;
   margin-bottom: 30px;

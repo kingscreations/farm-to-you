@@ -93,7 +93,7 @@ if((preg_match('/^rp/', $profileToken) === 0)) { ?>
 				<br>
 
 				<div class="form-group">
-					<select name="country" class="form-control" style="margin-left: 196px;">
+					<select name="country" class="form-control option-menu">
 						<option value="">Select Country...</option>
 						<option value="US" data-stripe="country">United States</option>
 					</select>

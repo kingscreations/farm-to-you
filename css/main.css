@@ -254,6 +254,12 @@ a:hover {
 /********************************************
 * forms
 ********************************************/
+@media screen and (min-width: 768px) {
+	.option-menu {
+		margin-left: 196px;
+	}
+}
+
 .sign-up-form,
 .signIn-form,
 .activation-form {

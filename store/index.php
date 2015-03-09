@@ -93,7 +93,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 
 <div class="container-fluid transparent-form" id="store-view">
 
-		<div class="col-sm-3 transparent-menu" id="store-menu">
+		<div class="col-sm-3" id="store-menu">
 			<div class="list-group">
 				<span class="list-group-item">Store Sections</span>
 				<a href="#" class="list-group-item active static">Home</a>
@@ -109,7 +109,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 				<a href=""><?php echo $storeOwner->getFirstName() . ' ' . $storeOwner->getLastName(); ?></a>
 			</div>
 		</div>
-		<div class="col-sm-9 transparent-form" id="store-content">
+		<div class="col-sm-9" id="store-content">
 			<?php
 				if($storeLocations === null) {
 					throw new Exception('products are null and store location are null');
@@ -132,28 +132,21 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 							</a>
 						</div><!-- end store-banner -->
 
-						<div class="store-info">
+						<div class="store-info mt30">
 							<div class="row">
 								<div class="col-sm-8">
 									<h1><?php echo $store->getStoreName(); ?></h1>
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-4 t-right">
 									<?php include_once('../php/lib/share-view.php'); ?>
 								</div>
 							</div>
 						</div>
 
-						<div class="announcement">
+						<div class="announcement mt20">
 							<a href="<?php echo $storeLink; ?> id="store-announcement>
 								<!-- show only the beginning of the description -->
-								<?php
-
-								$storeDescription = $store->getStoreDescription();
-								echo strlen($storeDescription) > 20
-									? substr($storeDescription, 0, 20) . '...'
-									: $storeDescription;
-
-								?>
+								<?php echo $store->getStoreDescription(); ?>
 							</a>
 						</div>
 					</div><!-- end store-id-card -->
@@ -161,7 +154,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 			</div>
 
 
-			<div class="row" id="products">
+			<div class="row mt30" id="products">
 				<div class="col-sm-12">
 					<ul class="products product-listing">
 						<?php if($products !== null) {

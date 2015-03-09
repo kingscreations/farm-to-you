@@ -68,13 +68,13 @@ require_once($prefix . 'paths.php');
 			<div class="container-fluid" id="main-menu">
 				<?php if(@isset($showSearch) && $showSearch === false) {?>
 				<div class="row clearfix">
-					<div class="col-sm-6 col-xs-8">
+					<div class="col-sm-6 col-xs-7">
 						<div id="farm-to-you-logo" class="apply-nav-height">
 							<a href="<?php echo SITE_ROOT_URL ?>">Farm to You</a>
 						</div>
 					</div>
 
-					<div class="col-sm-6 col-xs-4">
+					<div class="col-sm-6 col-xs-5">
 
 						<!-- desktop pills -->
 						<ul class="nav nav-pills hidden-xs">
@@ -105,7 +105,7 @@ require_once($prefix . 'paths.php');
 				</div><!-- end row main-menu -->
 				<?php }else{ ?>
 				<div class="row clearfix">
-					<div class="col-sm-4 col-xs-4">
+					<div class="col-sm-4 col-xs-3">
 						<div id="farm-to-you-logo">
 							<a href="<?php echo SITE_ROOT_URL ?>">Farm to You</a>
 						</div>
@@ -124,7 +124,7 @@ require_once($prefix . 'paths.php');
 						</form>
 					</div>
 
-					<div class="col-sm-4 col-xs-3">
+					<div class="col-sm-4 col-xs-4">
 
 						<!-- desktop pills -->
 						<ul class="nav nav-pills hidden-xs">

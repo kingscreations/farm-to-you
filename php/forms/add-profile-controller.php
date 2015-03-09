@@ -9,7 +9,7 @@ require_once("../classes/user.php");
 //require_once("../../dummy-user-session.php");
 require_once("../lib/utils.php");
 
-$userId = $_SESSION['user']['id'];
+$userId = $_SESSION['userId'];
 
 // verify the form values have been submitted
 if(@isset($_POST["inputFirstname"]) === false || @isset($_POST["inputLastname"]) === false

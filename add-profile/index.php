@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(!@isset($_SESSION['user']['id'])) {
+if(!@isset($_SESSION['userId'])) {
 	header('Location: ../sign-up');
 }
 
@@ -23,7 +23,7 @@ $configArray = readConfig($configFile);
 // connection
 $mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"], $configArray["database"]);
 
-$userId = $_SESSION['user']['id'];
+$userId = $_SESSION['userId'];
 
 $hasProfile = Profile::getProfileByUserId($mysqli, $userId);
 

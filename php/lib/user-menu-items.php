@@ -9,7 +9,11 @@ if(@isset($_SESSION['userId'])) {
 	$mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
 
 	$profile = Profile::getProfileByUserId($mysqli, $_SESSION['userId']);
-	$profileType = $profile->getProfileType();
+	if($profile !== null) {
+		$profileType = $profile->getProfileType();
+	} else {
+		$profileType = "u";
+	}
 
 	?>
 
@@ -27,11 +31,13 @@ if(@isset($_SESSION['userId'])) {
 				<a role="menuitem" tabindex="-1" href="<?php echo SITE_ROOT_URL . 'client-order-list'; ?>">Order history</a>
 			</li>
 			<li role="presentation" class="divider"></li>
-		<?php } else { ?>
+		<?php } elseif($profileType === "m") { ?>
 		<li role="presentation">
 			<a role="menuitem" tabindex="-1" href="<?php echo SITE_ROOT_URL . 'merchant-order-list'; ?>">Order history</a>
 		</li>
 		<li role="presentation" class="divider"></li>
+		<?php } else {?>
+			<li role="presentation" class="divider"></li>
 		<?php } ?>
 		<li role="presentation">
 				<a id="sign-out" role="menuitem" tabindex="-1" href="<?php echo SITE_ROOT_URL . 'sign-out'; ?>">Sign out</a>

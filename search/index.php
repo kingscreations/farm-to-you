@@ -166,7 +166,6 @@ try {
 				}?>
 			</ul>
 		</div>
-		<br>
 
 
 <?php
@@ -202,8 +201,7 @@ if($products !== null) {
 		$productPrice = number_format((float)$product->getProductPrice(), 2, '.', '');
 		$productId = $product->getProductId();
 
-		echo '<tr id="product-' . $productId . '" onclick="window.open('. SITE_ROOT_URL . 'product/index.php?product=' .
-			$product->getProductId() .');" target="_blank">';
+		echo '<tr id="product-' . $productId . '">';
 		if(file_exists($product->getImagePath())) {
 			echo '<td><a class="thumbnail search-image" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
 					$product->getProductId() .'">
@@ -254,7 +252,8 @@ if($stores !== null) {
 					<img class="img-responsive" src="' . $imagePlaceholderSrc . '">
 					</a></td>';
 		}
-		echo '<td class="wide-column">' . $storeName . '</td>';
+		echo '<td class="wide-column"><a href="'. SITE_ROOT_URL . 'store/index.php?store=' .
+			$store->getStoreId(). '">'. $storeName . '</a></td>';
 		echo '<td class="hidden-xs">' . $storeDescription . '</td>';
 		echo '<th class="visible-xs"></th>';
 	}

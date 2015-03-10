@@ -118,7 +118,7 @@ try {
 <div class="container-fluid transparent-form" id="search-view">
 
 	<div class="row">
-		<p><?php echo 'Search Results For: <span id="search-term">' . $searchq . '</span>'; ?></p>
+		<p class="big-text"><?php echo 'Search results for "<span id="search-term">' . $searchq . '</span>"'; ?></p>
 	</div>
 
 	<div class="row">

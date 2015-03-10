@@ -74,6 +74,9 @@ try {
 	// create table of existing stores
 	if($orders !== null) {
 		sort($orders);
+		echo '<div class="col-sm-3 visible-xs">
+						<h2>Orders</h2>
+					</div>';
 		foreach($orders as $order) {
 			$orderId = $order->getOrderId();
 			$orderProducts = OrderProduct::getAllOrderProductsByOrderId($mysqli, $orderId);
@@ -81,11 +84,7 @@ try {
 			$checkoutDate = $checkout->getCheckoutDate();
 			$formattedDate = $checkoutDate->format("m/d/Y - H:i:s");
 			$checkoutFinalPrice = number_format((float)$checkout->getFinalPrice(), 2, '.', '');
-			echo '<div class="col-sm-3 visible-xs">
-						<h2>Orders</h2>
-					</div>';
-			echo '<div class="col-sm-9">';
-			echo '<div class="hidden-xs center">
+			echo '<div class="col-sm-9 hidden-xs center">
 						<h2>Orders</h2>
 					</div>';
 			echo '<div class="form-group">';
@@ -122,7 +121,7 @@ try {
 			echo '<tr>';
 			echo '<td>Final Price</td>';
 			echo '<td>$'.$checkoutFinalPrice.'</td>';
-			echo '</tr>';
+			echo '</tr><tr></tr>';
 			echo '</table>';
 			echo '</div>';
 		}

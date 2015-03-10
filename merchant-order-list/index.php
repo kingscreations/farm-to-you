@@ -104,7 +104,11 @@ try {
 		sort($orders);
 
 		if($orders !== null) {
-
+//			echo '<div class="col-sm-3 visible-xs">
+//						<h2>Orders</h2>
+//					</div>';
+			echo '<div class="form-group">';
+			echo '<table class="table table-responsive merchant-table">';
 			foreach($orders as $order) {
 				$orderId = $order->getOrderId();
 				$orderProducts = OrderProduct::getAllOrderProductsByOrderId($mysqli, $orderId);
@@ -112,8 +116,6 @@ try {
 				$checkoutDate = $checkout->getCheckoutDate();
 				$formattedDate = $checkoutDate->format("m/d/Y - H:i:s");
 				$checkoutFinalPrice = number_format((float)$checkout->getFinalPrice(), 2, '.', '');
-				echo '<div class="form-group">';
-				echo '<table class="table table-responsive merchant-table">';
 				echo '<tr>';
 				echo '<th>Order #' . $orderId . '</th>';
 				echo '<th></th>';
@@ -133,7 +135,6 @@ try {
 					$productName = $product->getProductName();
 					$productWeight = $product->getProductWeight();
 					$productPrice = number_format((float)$product->getProductPrice(), 2, '.', '');
-//					$productPrice = $product->getProductPrice();
 					$location = Location::getLocationByLocationId($mysqli, $locationId);
 					$locationName = $location->getLocationName();
 
@@ -145,11 +146,11 @@ try {
 				echo '<tr>';
 				echo '<td>Final Price</td>';
 				echo '<td>$' . $checkoutFinalPrice . '</td>';
-				echo '</tr>';
-				echo '</table>';
-				echo '</div>';
+				echo '</tr><tr><td></td><td></td></tr>';
 			}
 		}
+		echo '</table>';
+		echo '</div>';
 		echo '</div>';
 	} else {
 		echo '<div class="form-group center">

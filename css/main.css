@@ -103,7 +103,7 @@ footer p {
 }
 
 .container-fluid {
-  width: 100%;
+  width: 94%;
   margin-left: auto;
   margin-right: auto;
   padding: 0;
@@ -868,6 +868,10 @@ h2 {
   padding-left: 60px;
 }
 
+[id^=delete-product-] {
+	cursor: pointer;
+}
+
 /* product page */
 .currency-value {
   font-size: 1.6em;
@@ -885,6 +889,7 @@ h2 {
 	}
 }
 
+
 .listing-page-cart {
 	border: 3px solid rgb(115, 90, 41);
 	border-radius: 3px;
@@ -900,6 +905,13 @@ h2 {
 	}
 }
 
+.cart-item {
+	border: 3px solid rgb(115, 90, 41);
+	border-radius: 3px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
 #cart-main-menu-item {
   font-size: 1.2em;
   position: relative;
@@ -912,14 +924,21 @@ h2 {
 }
 
 .count {
-  font-size: 0.7em;
-  padding: 0.05em 0.15em;
-  border-radius: 2px;
-  color: white;
-  background-color: rgb(115, 90, 41);
-  position: absolute;
-  bottom: 35px;
-  left: 26px;
+	font-size: 0.7em;
+	padding: 0.05em 0.15em;
+	border-radius: 2px;
+	color: white;
+	background-color: rgb(115, 90, 41);
+	position: absolute;
+	bottom: 30px;
+	left: 22px;
+}
+
+@media screen and (min-width: 768px) {
+	.count {
+		bottom: 35px;
+		left: 26px;
+	}
 }
 
 /********************************************

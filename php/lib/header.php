@@ -105,7 +105,7 @@ require_once($prefix . 'paths.php');
 				</div><!-- end row main-menu -->
 				<?php }else{ ?>
 				<div class="row clearfix">
-					<div class="col-sm-4 col-xs-3">
+					<div class="col-sm-4 col-xs-4">
 						<div id="farm-to-you-logo">
 							<a href="<?php echo SITE_ROOT_URL ?>">Farm to You</a>
 						</div>
@@ -124,7 +124,7 @@ require_once($prefix . 'paths.php');
 						</form>
 					</div>
 
-					<div class="col-sm-4 col-xs-4">
+					<div class="col-sm-4 col-xs-3">
 
 						<!-- desktop pills -->
 						<ul class="nav nav-pills hidden-xs">

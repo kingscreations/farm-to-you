@@ -21,145 +21,185 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 mysqli_report(MYSQLI_REPORT_STRICT);
 
 ?>
-<div class="container-fluid mt60">
-	<div class="row">
-		<div class="col-sm-12 transparent-form">
-			<?php if(@isset($_SESSION['products'])) { ?>
-				<h1><?php echo count($_SESSION['products']) ?> product in your cart</h1>
-			<?php } else { ?>
-				<h1>Your cart is empty</h1>
-				<p><a href="<?php echo SITE_ROOT_URL ?>">Back to the home page</a></p>
-			<?php } ?>
 
+<div class="container-fluid cart-product transparent-form" id="cart">
+	<form id="cartController" action="../php/forms/cart-controller.php" method="post">
+		<div class="row hidden-xs">
+			<div class="col-sm-12">
 
-			<?php if(@isset($_SESSION) && @isset($_SESSION['products'])) { ?>
-				<div class="container-fluid cart-product white-container" id="cart">
-					<div class="row">
-						<div class="col-sm-12">
-							<form id="cartController" action="../php/forms/cart-controller.php" method="post">
-								<?php echo generateInputTags(); ?>
-								<table class="table">
-									<thead>
-										<tr>
-											<th></th>
-											<th></th>
-											<th>Price</th>
-											<th>Weight</th>
-											<th>Quantity</th>
-											<th>Product total</th>
-											<th></th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php
+				<!--	check if the cart is empty -->
+				<?php if(@isset($_SESSION['products'])) { ?>
+					<h1><?php echo count($_SESSION['products']) ?> product in your cart</h1>
+				<?php } else { ?>
+					<h1>Your cart is empty</h1>
+					<p><a href="<?php echo SITE_ROOT_URL ?>">Back to the home page</a></p>
+					<?php exit(); ?>
+				<?php } ?>
 
-										try {
-											// get the credentials information from the server and connect to the database
-											$configArray = readConfig($configFile);
+				<?php echo generateInputTags(); ?>
+				<table class="table">
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th>Price</th>
+							<th>Weight</th>
+							<th>Quantity</th>
+							<th>Product total</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
 
-											$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
-												$configArray["database"]);
+						try {
+							// get the credentials information from the server and connect to the database
+							$configArray = readConfig($configFile);
 
-											$counter = 1;
+							$mysqli = new mysqli($configArray["hostname"], $configArray["username"], $configArray["password"],
+								$configArray["database"]);
 
-											// for each product in the cart / session
-											foreach($_SESSION['products'] as $sessionProductId => $sessionProduct) {
+							$counter = 1;
 
-												// get the product from the database
-												$product = Product::getProductByProductId($mysqli, $sessionProductId);
+							// for each product in the cart / session
+							foreach($_SESSION['products'] as $sessionProductId => $sessionProduct) {
 
-												if($product === null) {
-													continue;
-												}
+								// get the product from the database
+								$product = Product::getProductByProductId($mysqli, $sessionProductId);
 
-												echo '<tr>';
+								if($product === null) {
+									continue;
+								}
 
-												if(file_exists($product->getImagePath())) {
-													echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
-														$product->getProductId() .'">
-																<img class="img-responsive" src="' . CONTENT_ROOT_URL . 'images/product/' .
-														basename($product->getImagePath()) . '">
-															</a></td>';
-												} else {
-													echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
-														$product->getProductId() .'">
-																<img class="img-responsive" src="../images/placeholder.png">
-															</a></td>';
-												}
+								echo '<tr>';
 
-												echo '<td>' . $product->getProductName() . '</td>';
+								if(file_exists($product->getImagePath())) {
+									echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
+										$product->getProductId() .'">
+												<img class="img-responsive" src="' . CONTENT_ROOT_URL . 'images/product/' .
+										basename($product->getImagePath()) . '">
+											</a></td>';
+								} else {
+									echo '<td><a class="thumbnail" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
+										$product->getProductId() .'">
+												<img class="img-responsive" src="../images/placeholder.png">
+											</a></td>';
+								}
 
-												// price
-												echo '<td id="product'. $counter .'-price">$' . number_format($product->getProductPrice(), 2, '.', '');
+								echo '<td>' . $product->getProductName() . '</td>';
 
-												$productPriceType = $product->getProductPriceType();
-												if($productPriceType === 'w') {
-													echo '/lb';
-												}
+								// price
+								echo '<td id="product'. $counter .'-price">$' . number_format($product->getProductPrice(), 2, '.', '');
 
-												echo '</td>';
-												// end price
+								$productPriceType = $product->getProductPriceType();
+								if($productPriceType === 'w') {
+									echo '/lb';
+								}
 
-												echo '<td id="product'. $counter .'-weight">' . number_format($product->getProductWeight(), 2, '.', '') . 'lb</td>';
+								echo '</td>';
+								// end price
 
-												$maxQuantity = 99; // TODO not sure we need that ==> change the select to an input field will fix the problem
-												$stockLimit  = $product->getStockLimit();
+								echo '<td id="product'. $counter .'-weight">' . number_format($product->getProductWeight(), 2, '.', '') . 'lb</td>';
 
-												if($stockLimit === null) {
-													$stockLimit = $maxQuantity;
-												}
+								$maxQuantity = 99; // TODO not sure we need that ==> change the select to an input field will fix the problem
+								$stockLimit  = $product->getStockLimit();
 
-												echo '<td>';
+								if($stockLimit === null) {
+									$stockLimit = $maxQuantity;
+								}
 
-												// select box
-												echo '<select class="product-quantity" id="product' . $counter . '-quantity" name="productQuantity[]" ' . (($stockLimit === 0) ? 'disabled' : '') .' >';
-												// creating $stockLimit # of options
-												for($i = 0; $i < $stockLimit; $i++) {
-													if(($i + 1) === intval($sessionProduct['quantity'])) {
-														echo '<option selected="selected">' . ($i + 1) . '</option>';
-													} else {
-														echo '<option>' . ($i + 1) . '</option>';
-													}
-												}
+								echo '<td>';
 
-													echo '</select>';
+								// select box
+								echo '<select class="product-quantity" id="product' . $counter . '-quantity" name="productQuantity[]" ' . (($stockLimit === 0) ? 'disabled' : '') .' >';
+								// creating $stockLimit # of options
+								for($i = 0; $i < $stockLimit; $i++) {
+									if(($i + 1) === intval($sessionProduct['quantity'])) {
+										echo '<option selected="selected">' . ($i + 1) . '</option>';
+									} else {
+										echo '<option>' . ($i + 1) . '</option>';
+									}
+								}
 
-												echo '</td>';
-												// end select box
+									echo '</select>';
 
-												echo '<td id="product'. $counter .'-final-price"></td>';
-												echo '<td><a id="delete-product-' . $product->getProductId() . '" class="delete-item"><i class="fa fa-times"></i></a></td>';
+								echo '</td>';
+								// end select box
 
-												echo '</tr>';
-												$counter++;
-											}
+								echo '<td id="product'. $counter .'-final-price"></td>';
+								echo '<td><a id="delete-product-' . $product->getProductId() . '" class="delete-item"><i class="fa fa-times"></i></a></td>';
 
-											// last row (hacky hacky not pretty! :))
-											echo '<tr><td></td><td></td><td></td><td></td>';
-											echo '<td id="total-price-label">Cart total:</td>';
-											echo '<td id="total-price-result"><div class="outline"></div></td></tr>';
+								echo '</tr>';
+								$counter++;
+							}
 
-											$mysqli->close();
+							// last row (hacky hacky not pretty! :))
+							echo '<tr><td></td><td></td><td></td><td></td>';
+							echo '<td id="total-price-label">Cart total:</td>';
+							echo '<td id="total-price-result"><div class="outline"></div></td></tr>';
 
-										} catch(Exception $exception) {
-											echo "Exception: " . $exception->getMessage() . "<br/>";
-											echo $exception->getFile() . ":" . $exception->getLine();
-										}
+						} catch(Exception $exception) {
+							echo "Exception: " . $exception->getMessage() . "<br/>";
+							echo $exception->getFile() . ":" . $exception->getLine();
+						}
 
-										?>
-									</tbody>
-								</table>
-								<p id="outputArea"></p>
-								<input type="submit" value="Continue to checkout" class="btn btn-success push-right" id="cart-validate-button">
-							</form>
-							<div id="outputArea"></div>
-						</div><!-- end col-sm-12 -->
-					</div><!-- end row -->
-				</div><!-- end container-fluid -->
-			<?php } ?>
+						?>
+					</tbody>
+				</table>
+				<p id="outputArea"></p>
+				<input type="submit" value="Continue to checkout" class="btn btn-success push-right" id="cart-validate-button">
+				<div id="outputArea"></div>
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+
+		<div class="row visible-xs">
+			<div class="col-xs-12">
+
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+					<?php
+
+					foreach($_SESSION['products'] as $sessionProductId => $sessionProduct) {
+
+						// get the product from the database
+						$product = Product::getProductByProductId($mysqli, $sessionProductId);
+
+						if($product === null) {
+							continue;
+						}
+
+					?>
+						<div class="panel panel-default cart-item">
+							<div class="panel-heading" role="tab" id="headingOne">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+										<?php echo $product->getProductName(); ?>
+									</a>
+								</h4>
+							</div>
+							<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+								<div class="panel-body">
+									<a class="" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
+									$product->getProductId() .'">
+										<img class="img-responsive" src="<?php echo is_file($product->getImagePath()) ? CONTENT_ROOT_URL . 'images/product/' .
+											basename($product->getImagePath()) : '../images/placeholder.png'; ?>">
+									</a>
+								</div>
+							</div>
+						</div>
+					<?php } ?><!-- end foreach S_SESSION['products']... -->
+				</div>
+
+			</div>
 		</div>
-	</div>
-</div>
+	</form>
+	<?php
+
+	// close the connection to mysqli
+	$mysqli->close();
+
+	?>
+	?>
+</div><!-- end container-fluid -->
 
 <script src="../js/cart.js"></script>
 

@@ -215,9 +215,9 @@ try {
 												</div>
 											</div>
 											<div class="col-sm-8">
-
+												<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d819.0184374672622!2d-106.72317813690184!3d34.80408637014206!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87221cccd4788baf%3A0xac02809846677a!2s108+Carson+Dr%2C+Los+Lunas%2C+NM+87031!5e0!3m2!1sen!2sus!4v1426025237437" width="600" height="450" frameborder="0" style="border:0"></iframe>
 												<!-- google map canvas -->
-												<div id="map-canvas"></div>
+
 											</div>
 										</div><!-- end row -->
 									<?php } ?><!-- end for each store -->
@@ -264,9 +264,9 @@ try {
 								</div>
 							</div>
 							<div class="col-sm-8">
-
+								<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d819.0184374672622!2d-106.72317813690184!3d34.80408637014206!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87221cccd4788baf%3A0xac02809846677a!2s108+Carson+Dr%2C+Los+Lunas%2C+NM+87031!5e0!3m2!1sen!2sus!4v1426025237437" width="500" height="450" frameborder="0" style="border:0"></iframe>
 								<!-- google map canvas -->
-								<div id="map-canvas"></div>
+<!--								<div id="map-canvas"></div>-->
 							</div>
 						</div><!-- end row -->
 					<?php }

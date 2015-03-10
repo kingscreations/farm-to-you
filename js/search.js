@@ -32,7 +32,7 @@ $('tr').on('click', function() {
 
 	if($(this).prop('id').indexOf("store-") !== -1) {
 		id = $(this).prop('id').split('store-')[1];
-		window.location.href = '../product/index.php?store=' + id;
+		window.location.href = '../store/index.php?store=' + id;
 	}
 
 	if($(this).prop('id').indexOf("product-") !== -1) {

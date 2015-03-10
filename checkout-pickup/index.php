@@ -136,7 +136,7 @@ try {
 	<form id="checkoutShippingController" action="../php/forms/checkout-pickup-controller.php" method="post" novalidate onsubmit="event.preventDefault()">
 		<?php echo generateInputTags(); ?>
 		<div class="row">
-			<div class="col-sm-12">
+			<div class="col-sm-12 section">
 				<h1>Pickup locations</h1>
 				<?php if(count($commonLocations) !== 0) { ?>
 					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -271,13 +271,11 @@ try {
 						</div><!-- end row -->
 					<?php }
 				} ?>
-			</div><!-- end col-sm-12 -->
-		</div><!-- end row -->
 
-		<div class="row mt30">
-			<div class="col-sm-12">
-				<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="checkout-pickup-submit">
-			</div>
+				<div class="row mt30">
+						<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="checkout-pickup-submit">
+				</div><!-- end row -->
+			</div><!-- end col-sm-12 -->
 		</div><!-- end row -->
 
 	</form>

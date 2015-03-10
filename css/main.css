@@ -316,13 +316,13 @@ a:hover {
 	background-color: rgba(255, 255, 255, 0.8);
 	margin: auto;
 	width: 70%;
-	margin-top: 20%;
+	margin-top: 12%;
 	position: relative;
 	color: rgba(115, 90, 41, 0.8);
 	font-size: 1em;
 	border: 1px rgb(51, 40, 18);
 	border-radius: 12px;
-	padding: 2em;
+	padding: 1em;
 	text-align: center;
 }
 
@@ -366,16 +366,16 @@ form input[type=password]{
 	}
 }
 
-@media screen and (min-width: 768px) {
-	.sign-up-form,
-	.signIn-form {
-		margin-top: 20%;
-		text-align: inherit;
-	}
+/*@media screen and (min-width: 768px) {*/
+	/*.sign-up-form,*/
+	/*.signIn-form {*/
+		/*margin-top: 20%;*/
+		/*text-align: inherit;*/
+	/*}*/
 
 	form label {
 		min-width: 180px;
-		text-align: right;
+		text-align: center;
 	}
 
 	.user-account textarea,
@@ -409,14 +409,13 @@ form input[type=password]{
 	.sign-up-form #submit,
 	.signIn-form #submit {
 		width: 40%;
-		margin-left: 30%;
+		margin-left: 1.1em;
 	}
 
 	.user-account [type=submit] {
 		width: 50%;
 		margin-left: 197px;
 	}
-}
 
 .form-control-custom {
 	height: 34px;
@@ -1050,6 +1049,22 @@ h2 {
   border: none !important;
 }
 
+.sign-up,
+.sign-in {
+	margin-top: -1.5em;
+}
+
+@media screen and (max-width: 768px) {
+	.sign-in {
+		background: transparent url("../images/home-page.jpg") no-repeat fixed center center/cover;
+		position: absolute;
+		z-index: 1;
+		width: 100%;
+		height: 90%;
+
+	}
+}
+
 /********************************************
 *sign-up, sign-in, activation,
 ********************************************/
@@ -1059,7 +1074,6 @@ h2 {
   background: transparent url("../images/home-page.jpg") no-repeat fixed center center/cover;
   position: absolute;
   z-index: 1;
-  top: 0px;
   width: 100%;
   height: 100%;
 }

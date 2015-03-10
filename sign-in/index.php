@@ -18,8 +18,7 @@ if(@isset($_SESSION['emailPop'])) {
 
 ?>
 
-<div class="signIn">
-	<div class="container-fluid">
+	<div class="container-fluid sign-in">
 		<div class="signIn-form">
 			<div class="row">
 				<div class="col-sm-12">
@@ -34,19 +33,17 @@ if(@isset($_SESSION['emailPop'])) {
 							<?php if(($email) === null) { ?>
 							<label for="email">Your email:</label>
 							<input class="form-control-custom" type="text" name="email" id="email" value="" size="relative" />
-							</br></br>
+							<br><br>
 							<label for="password2">Enter your password:</label>
 							<input class="form-control-custom" type="password" name="password2" id="password2" value="" size="relative" />
-							<br><br>
 							<input type="submit" value="Log In" id="submit">
 
 							<?php } else{ ?>
 							<label for="email">Your email:</label>
 							<input class="form-control-custom" type="text" name="email" id="email" value="<?php echo $email ?>" placeholder="<?php echo $email ?>" size="relative" />
-							</br></br>
+							<br><br>
 							<label for="password2">Enter your password:</label>
 							<input class="form-control-custom" type="password" name="password2" id="password2" value="" size="relative" />
-							<br><br>
 							<input type="submit" value="Log In" id="submit" class="btn btn-default mt30">
 							<?php } ?>
 						</fieldset>
@@ -57,7 +54,6 @@ if(@isset($_SESSION['emailPop'])) {
 			</div><!-- end row -->
 		</div><!-- end signIn form-->
 	</div><!-- end container-fluid -->
-</div><!-- signIn -->
 
 <script src="../js/sign-in.js"></script>
 

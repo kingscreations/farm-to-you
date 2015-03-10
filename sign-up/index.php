@@ -12,8 +12,7 @@ require_once("../php/lib/header.php");
 
 ?>
 
-<div class="sign-up">
-	<div class="container-fluid">
+	<div class="container-fluid sign-up">
 		<div class="sign-up-form">
 			<div class="row">
 				<div class="col-xs-12">
@@ -28,7 +27,7 @@ require_once("../php/lib/header.php");
 							<label>Enter a password:</label>
 							<input class="form-control-custom" type="password" name="password1" id="password1" value="" size="relative" />
 							<br><br>
-							<label>Please re-Enter Password:</label>
+							<label>Please re-enter your password:</label>
 							<input class="form-control-custom" type="password" name="passwordCheck" id="passwordCheck" value="" size="relative" />
 							<br><br>
 							<input type="submit" value="Let's get started!" id="submit" class="btn btn-default mt30">
@@ -40,7 +39,6 @@ require_once("../php/lib/header.php");
 			</div> <!-- end row -->
 		</div><!--.sign-up-form-->
 	</div><!-- end container fluid -->
-</div><!--.sign-up -->
 
 <script src="../js/sign-up.js"></script>
 

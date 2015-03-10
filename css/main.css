@@ -366,12 +366,7 @@ form input[type=password]{
 	}
 }
 
-/*@media screen and (min-width: 768px) {*/
-	/*.sign-up-form,*/
-	/*.signIn-form {*/
-		/*margin-top: 20%;*/
-		/*text-align: inherit;*/
-	/*}*/
+@media screen and (min-width: 768px) {
 
 	form label {
 		min-width: 180px;
@@ -416,6 +411,7 @@ form input[type=password]{
 		width: 50%;
 		margin-left: 197px;
 	}
+}
 
 .form-control-custom {
 	height: 34px;

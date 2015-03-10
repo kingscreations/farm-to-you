@@ -84,6 +84,7 @@ try {
 		echo '<div class="hidden-xs center">
 					<h2>Orders</h2>
 				</div>';
+
 		$allOrderProducts = array();
 		foreach($products as $product) {
 			$merchantProductId = $product->getProductId();
@@ -117,7 +118,8 @@ try {
 				$formattedDate = $checkoutDate->format("m/d/Y - H:i:s");
 				$checkoutFinalPrice = number_format((float)$checkout->getFinalPrice(), 2, '.', '');
 				echo '<tr>';
-				echo '<th>Order #' . $orderId . '</th>';
+				echo '<th class="center visible-xs">Order #'.$orderId .'</th>';
+				echo '<th class="hidden-xs">Order #'.$orderId .'</th>';
 				echo '<th></th>';
 				echo '</tr>';
 				echo '<tr>';

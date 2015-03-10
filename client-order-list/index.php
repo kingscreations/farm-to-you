@@ -77,6 +77,10 @@ try {
 		echo '<div class="col-sm-3 visible-xs">
 						<h2>Orders</h2>
 					</div>';
+		echo '<div class="col-sm-9">
+						<h2 class="center hidden-xs">Orders</h2>';
+		echo '<div class="form-group">';
+		echo '<table class="table table-responsive merchant-table">';
 		foreach($orders as $order) {
 			$orderId = $order->getOrderId();
 			$orderProducts = OrderProduct::getAllOrderProductsByOrderId($mysqli, $orderId);
@@ -84,15 +88,12 @@ try {
 			$checkoutDate = $checkout->getCheckoutDate();
 			$formattedDate = $checkoutDate->format("m/d/Y - H:i:s");
 			$checkoutFinalPrice = number_format((float)$checkout->getFinalPrice(), 2, '.', '');
-			echo '<div class="col-sm-9 hidden-xs center">
-						<h2>Orders</h2>
-					</div>';
-			echo '<div class="form-group">';
-			echo '<table class="table table-responsive merchant-table">';
 			echo '<tr>';
-			echo '<th>Order #'.$orderId .'</th>';
+			echo '<th class="center visible-xs">Order #'.$orderId .'</th>';
+			echo '<th class="hidden-xs">Order #'.$orderId .'</th>';
 			echo '<th></th>';
 			echo '</tr>';
+
 			echo '<tr>';
 			echo '<td>Date</td>';
 			echo '<td>'.$formattedDate .'</td>';
@@ -121,18 +122,21 @@ try {
 			echo '<tr>';
 			echo '<td>Final Price</td>';
 			echo '<td>$'.$checkoutFinalPrice.'</td>';
-			echo '</tr><tr></tr>';
-			echo '</table>';
-			echo '</div>';
+			echo '</tr><tr><td><td></td></td></tr>';
 		}
+		echo '</table>';
+		echo '</div>';
+		echo '</div>';
+		echo '</div>';
+		echo '</div>';
 	} else {
 		echo '<div class="form-group center">';
 		echo '<h4>No orders found.</h4>';
 		echo '</div>';
 	}
-	echo '</div>';
-	echo '</div>';
-	echo '</div>';
+//	echo '</div>';
+//	echo '</div>';
+//	echo '</div>';
 
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";

@@ -25,10 +25,30 @@
 //	}
 //});
 
+/**
+ * Link to each related page (except for the locations)
+ */
+$('tr').on('click', function() {
+
+	if($(this).prop('id').indexOf("store-") !== -1) {
+		id = $(this).prop('id').split('store-')[1];
+		window.location.href = '../product/index.php?store=' + id;
+	}
+
+	if($(this).prop('id').indexOf("product-") !== -1) {
+		id = $(this).prop('id').split('product-')[1];
+		window.location.href = '../product/index.php?product=' + id;
+	}
+});
+
+/**
+ * Click on a category
+ */
 $productsCardId = $('[id^=product-]');
 
 $('.list-group-item').on('click', function(event) {
 
+	// list group item is a link
 	event.preventDefault();
 
 	// the default link should not trigger the ajax callback

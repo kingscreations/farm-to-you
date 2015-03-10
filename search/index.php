@@ -113,16 +113,14 @@ try {
 
 ?>
 
-<script src="../js/search.js"></script>
+<!-- script is at the end! :) -->
 
-<div class="container-fluid transparent-form" >
-<!--	<div class="row">-->
-		<div class>
-			<p id="searchResultPage"><?php echo 'Search Results For: <span id="search-term">' . $searchq . '</span>'; ?></p>
+<div class="container-fluid transparent-form" id="search-view">
 
-<!--</div>-->
+	<div class="row">
+		<p><?php echo 'Search Results For: <span id="search-term">' . $searchq . '</span>'; ?></p>
+	</div>
 
-<!--<div class="container-fluid mt60">-->
 	<div class="row">
 
 		<div class="col-md-6 list-group transparent-menu hidden-xs mt25" id="filter-categories">

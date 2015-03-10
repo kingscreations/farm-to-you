@@ -1152,9 +1152,14 @@ h2 {
   margin-right: 0;
 }
 
-#searchResultPage {
-  font-size: 25px;
-  font-weight: bold;
+#search-view tr {
+	cursor: pointer;
+}
+
+#search-view p {
+/*#searchResultPage {*/
+	font-size: 25px;
+	font-weight: bold;
 }
 
 #filter-categories {

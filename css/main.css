@@ -505,6 +505,10 @@ input[type=file], {
 	padding: 3px 6px;
 }
 
+.search-message{
+	margin-left: 300px;
+}
+
 @media screen and (max-width: 768px) {
 	#search .search-field-splash {
 		margin-top: 12em;

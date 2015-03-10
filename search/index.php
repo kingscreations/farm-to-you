@@ -287,7 +287,7 @@ if($stores !== null) {
 
 //this counts the number or results - and if there wasn't any it gives them a little message explaining that
 	if($stores === null && $locations === null && $products === null) {
-		echo "<div class='alert-message'>
+		echo "<div class='alert-message search-message'>
 					<p class=\"alert alert-danger\">Sorry, no results.</p><br>
 				</div>";
 //and we remind them what they searched for

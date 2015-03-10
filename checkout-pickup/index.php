@@ -136,8 +136,7 @@ try {
 	<form id="checkoutShippingController" action="../php/forms/checkout-pickup-controller.php" method="post" novalidate onsubmit="event.preventDefault()">
 		<?php echo generateInputTags(); ?>
 		<div class="row">
-			<div class="col-sm-12 section">
-				<h1>Pickup locations</h1>
+			<div class="col-sm-12 section mt30">
 				<?php if(count($commonLocations) !== 0) { ?>
 					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
@@ -236,14 +235,14 @@ try {
 						?>
 						<div class="row mt30">
 							<div class="col-sm-12">
-								<h3><?php echo $store->getStoreName() . ' pickup locations'; ?></h3>
+								<h3><?php echo $store->getStoreName() . ' pick-up locations'; ?></h3>
 							</div>
 						</div>
 						<div class="row mt30" id="store-<?php echo $store->getStoreId(); ?>">
 							<div class="col-sm-4">
 								<div class="list-group pickup-locations">
 									<span class="list-group-item disabled static">
-										Select a pickup location
+										Select a pick-up location
 									</span>
 									<?php foreach($locations as $index => $location) {
 
@@ -265,16 +264,14 @@ try {
 							</div>
 							<div class="col-sm-8">
 								<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d819.0184374672622!2d-106.72317813690184!3d34.80408637014206!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87221cccd4788baf%3A0xac02809846677a!2s108+Carson+Dr%2C+Los+Lunas%2C+NM+87031!5e0!3m2!1sen!2sus!4v1426025237437" width="500" height="450" frameborder="0" style="border:0"></iframe>
-								<!-- google map canvas -->
-<!--								<div id="map-canvas"></div>-->
+								<div class="row mt30">
+									<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="checkout-pickup-submit">
+								</div>
 							</div>
 						</div><!-- end row -->
 					<?php }
 				} ?>
 
-				<div class="row mt30">
-						<input type="submit" value="Continue to checkout" class="btn btn-default push-right" id="checkout-pickup-submit">
-				</div><!-- end row -->
 			</div><!-- end col-sm-12 -->
 		</div><!-- end row -->
 

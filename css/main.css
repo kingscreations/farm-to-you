@@ -505,8 +505,10 @@ input[type=file], {
 	padding: 3px 6px;
 }
 
-.search-message{
-	margin-left: 300px;
+@media screen and (min-width: 768px) {
+	.search-message {
+		margin-left: 300px;
+	}
 }
 
 @media screen and (max-width: 768px) {

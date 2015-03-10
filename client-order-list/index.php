@@ -113,7 +113,21 @@ try {
 				$location = Location::getLocationByLocationId($mysqli, $locationId);
 				$locationName = $location->getLocationName();
 
-				echo "$orderProductQuantity order of $productWeight lbs. of $productName for  $$productPrice at $locationName location";
+				$weight = $orderProductQuantity * $productWeight;
+
+				if($weight == 1) {
+					echo "$weight lb. of $productName";
+
+				} elseif ($weight == 0) {
+					if($orderProductQuantity == 1) {
+						echo $orderProductQuantity . ' ' . $productName;
+					}
+					echo $orderProductQuantity . ' ' . $productName . 's';
+				} else {
+					echo "$weight lbs. of $productName";
+				}
+
+				echo " for $$productPrice at $locationName location";
 				echo '<br>';
 			}
 			echo '</td>' ;

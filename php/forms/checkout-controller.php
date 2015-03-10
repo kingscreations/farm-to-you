@@ -206,6 +206,8 @@ try {
 	$checkout = new Checkout(null, $order->getOrderId(), new DateTime(), $totalPrice / 100);
 	$checkout->insert($mysqli);
 
+	$_SESSION['products'] = null;
+
 	//close the database connection
 	$mysqli->close();
 

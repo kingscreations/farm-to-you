@@ -11,7 +11,6 @@ require_once ('../root-path.php');
 require_once("../php/lib/header.php");
 
 ?>
-
 	<div class="container-fluid sign-up-form">
 			<div class="row">
 				<div class="col-xs-12">

@@ -17,7 +17,6 @@ if(@isset($_SESSION['emailPop'])) {
 }
 
 ?>
-
 	<div class="container-fluid sign-in">
 		<div class="signIn-form">
 			<div class="row">

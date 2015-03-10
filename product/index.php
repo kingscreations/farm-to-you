@@ -181,7 +181,15 @@ $storeImageSrc  = basename($store->getImagePath());
 				<div class="listing-page-cart">
 					<h1><?php echo $product->getProductName(); ?></h1>
 
-					<span class="currency-value">$<?php echo number_format((float)$product->getProductPrice(), 2, '.', ''); ?></span><br/>
+					<span class="currency-value">$<?php echo number_format((float)$product->getProductPrice(), 2, '.', '');
+						if($product->getProductWeight() === null) {
+							echo ' each';
+						} elseif($product->getProductWeight() == 1) {
+							echo ' for 1 lb.';
+						} else {
+							echo ' for ' . $product->getProductWeight() . ' lbs.';
+						}?>
+					</span><br/>
 					<?php
 
 					if(@isset($_SESSION['products'][$productId]['availableQuantity'])) {

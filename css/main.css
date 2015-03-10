@@ -36,7 +36,7 @@ html, body {
   content: "";
   display: block;
 }
-footer, .wrapper:after {
+footer, .wrapper:after, .push {
   height: 60px;
 }
 

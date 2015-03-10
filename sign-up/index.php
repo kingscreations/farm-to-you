@@ -12,8 +12,7 @@ require_once("../php/lib/header.php");
 
 ?>
 
-	<div class="container-fluid sign-up">
-		<div class="sign-up-form">
+	<div class="container-fluid sign-up-form">
 			<div class="row">
 				<div class="col-xs-12">
 					<h3>Sign Up!</h3>
@@ -37,7 +36,6 @@ require_once("../php/lib/header.php");
 					<p id="outputArea"></p>
 				</div> <!-- col xs12 -->
 			</div> <!-- end row -->
-		</div><!--.sign-up-form-->
 	</div><!-- end container fluid -->
 
 <script src="../js/sign-up.js"></script>

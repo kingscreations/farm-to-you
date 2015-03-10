@@ -26,7 +26,7 @@ require_once('../php/lib/header.php');
 	<div class="container-fluid visible-xs">
 		<div class="row">
 			<div class="col-xs-12">
-				<h1 class="heading">Delicious products and fair trades directly from the farmers</h1>
+				<h1 class="heading hidden-xs">Delicious products and fair trades directly from the farmers</h1>
 				<form class="mt30" action="../php/forms/search-controller.php" id="search" method="post">
 					<?php echo generateInputTags(); ?>
 					<div class="input-group">

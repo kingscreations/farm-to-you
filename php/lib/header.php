@@ -55,7 +55,7 @@ require_once($prefix . 'paths.php');
 		<!--	stripe api	-->
 		<script src="https://js.stripe.com/v2/"></script>
 
-		<title>Farm To You</title>
+		<title>Farm to You</title>
 	</head>
 	<body>
 		<!-- facebook, twitter... -->
@@ -93,7 +93,7 @@ require_once($prefix . 'paths.php');
 								<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
 									<span class="glyphicon glyphicon-menu-hamburger"></span>
 								</a>
-								<ul class="dropdown-menu" role="menu">
+								<ul class="dropdown-menu pull-right" role="menu">
 									<?php
 
 									require('user-menu-items-mobile.php');
@@ -105,13 +105,20 @@ require_once($prefix . 'paths.php');
 				</div><!-- end row main-menu -->
 				<?php }else{ ?>
 				<div class="row clearfix">
-					<div class="col-sm-4 col-xs-4">
+					<div class="col-sm-4 col-xs-3 hidden-xs">
 						<div id="farm-to-you-logo">
 							<a href="<?php echo SITE_ROOT_URL ?>">Farm to You</a>
 						</div>
 					</div>
 
-					<div class="col-sm-4 col-xs-5">
+					<div class="col-sm-4 col-xs-3 visible-xs">
+						<div id="farm-to-you-logo">
+							<a href="<?php echo SITE_ROOT_URL ?>">Logo</a>
+						</div>
+					</div>
+
+
+					<div class="col-sm-4 col-xs-6 mrn1 mln1">
 						<form  action="../php/forms/search-controller.php" id="search" method="post">
 							<?php echo generateInputTags(); ?>
 							<div class="input-group">
@@ -124,7 +131,7 @@ require_once($prefix . 'paths.php');
 						</form>
 					</div>
 
-					<div class="col-sm-4 col-xs-3">
+					<div class="col-sm-4 col-xs-3 no-padding-right pl0">
 
 						<!-- desktop pills -->
 						<ul class="nav nav-pills hidden-xs">
@@ -143,7 +150,7 @@ require_once($prefix . 'paths.php');
 								<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
 									<span class="glyphicon glyphicon-menu-hamburger"></span>
 								</a>
-								<ul class="dropdown-menu" role="menu">
+								<ul class="dropdown-menu pull-right" role="menu">
 									<?php
 
 									require('user-menu-items-mobile.php');

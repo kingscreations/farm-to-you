@@ -211,7 +211,9 @@ try {
 
 } catch(Stripe_CardError $stripeException) {
 	// The card has been declined
-	echo "<p class=\"alert alert-danger\">Exception: " . $stripeException->getMessage() . "</p>";
+	echo "<p class=\"alert alert-danger\">Stripe Exception: " . $stripeException->getMessage() . "</p>";
+} catch(Exception $exception) {
+	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
 
 ?>

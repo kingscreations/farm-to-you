@@ -24,9 +24,8 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 
 <div class="container-fluid cart-product transparent-form" id="cart">
 	<form id="cartController" action="../php/forms/cart-controller.php" method="post">
-		<div class="row hidden-xs">
+		<div class="row">
 			<div class="col-sm-12">
-
 				<!--	check if the cart is empty -->
 				<?php if(@isset($_SESSION['products'])) { ?>
 					<h1><?php echo count($_SESSION['products']) ?> product in your cart</h1>
@@ -35,6 +34,10 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 					<p><a href="<?php echo SITE_ROOT_URL ?>">Back to the home page</a></p>
 					<?php exit(); ?>
 				<?php } ?>
+			</div>
+		</div>
+		<div class="row hidden-xs">
+			<div class="col-sm-12">
 
 				<?php echo generateInputTags(); ?>
 				<table class="table">
@@ -152,12 +155,13 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 			</div><!-- end col-sm-12 -->
 		</div><!-- end row -->
 
-		<div class="row visible-xs">
+		<div class="row visible-xs mt40">
 			<div class="col-xs-12">
 
-				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel-group t-left" id="accordion" role="tablist" aria-multiselectable="true">
 					<?php
 
+					$count = 0;
 					foreach($_SESSION['products'] as $sessionProductId => $sessionProduct) {
 
 						// get the product from the database
@@ -167,16 +171,25 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 							continue;
 						}
 
+						$expanded = ($count === 0) ? 'true' : 'false';
+
 					?>
-						<div class="panel panel-default cart-item">
-							<div class="panel-heading" role="tab" id="headingOne">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-										<?php echo $product->getProductName(); ?>
-									</a>
-								</h4>
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="heading-<?php echo $product->getProductId(); ?>">
+								<div class="row">
+									<div class="col-xs-6">
+										<h4 class="panel-title">
+											<a <?php echo ($count !== 0) ? 'class="collapsed"' : ''; ?> data-toggle="collapse" data-parent="#accordion" href="#collapse-<?php echo ($count + 1); ?>" aria-expanded="<?php echo $expanded; ?>" aria-controls="collapse-<?php echo $product->getProductId(); ?>">
+												<?php echo ($count + 1) . '- ' . $product->getProductName(); ?>
+											</a>
+										</h4>
+									</div>
+									<div class="col-xs-6">
+										<a id="delete-product-' . $product->getProductId() . '" class="delete-item pull-right"><i class="fa fa-times"></i></a>
+									</div>
+								</div>
 							</div>
-							<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+							<div id="collapse-<?php echo ($count + 1); ?>" class="panel-collapse collapse <?php echo ($count === 0) ? 'in' : ''; ?>" role="tabpanel" aria-labelledby="heading-<?php echo ($count + 1); ?>">
 								<div class="panel-body">
 									<a class="" href="'. SITE_ROOT_URL . 'product/index.php?product=' .
 									$product->getProductId() .'">
@@ -186,7 +199,12 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 								</div>
 							</div>
 						</div>
-					<?php } ?><!-- end foreach S_SESSION['products']... -->
+					<?php
+
+						$count++;
+					}
+
+					?><!-- end foreach S_SESSION['products']... -->
 				</div>
 
 			</div>
@@ -197,7 +215,6 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 	// close the connection to mysqli
 	$mysqli->close();
 
-	?>
 	?>
 </div><!-- end container-fluid -->
 

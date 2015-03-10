@@ -528,8 +528,12 @@ input[type=file], {
 	#search .search-field-splash {
 		margin-top: 12em;
 		padding: 6px;
-		margin-left: 1em;
+		margin-left: .5em;
 		margin-right: 1em;
+	}
+	.search-field-button {
+		margin-top: 12em;
+		margin-left: -1em;
 	}
 }
 
@@ -1107,6 +1111,12 @@ h2 {
     padding: 40px;
     border-radius: 18px;
   }
+}
+
+@media screen and (max-width: 768px) {
+	.home-top-search-area {
+
+	}
 }
 
 .home-top .heading {

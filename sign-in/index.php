@@ -43,6 +43,7 @@ if(@isset($_SESSION['emailPop'])) {
 							<br><br>
 							<label for="password2">Enter your password:</label>
 							<input class="form-control-custom" type="password" name="password2" id="password2" value="" size="relative" />
+								<br>
 							<input type="submit" value="Log In" id="submit" class="btn btn-default mt30">
 							<?php } ?>
 						</fieldset>

@@ -139,7 +139,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 									? $storeBaseUrl.$storeImageSrc
 									: $bannerImagePlaceHolderSrc; ?>"
 									  alt="<?php echo $store->getStoreName(); ?>"
-									  class="img-responsive img-thumbnail"/>
+									  class="img-responsive"/>
 							</a>
 						</div><!-- end store-banner -->
 
@@ -167,7 +167,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 
 			<div class="row mt30" id="products">
 				<div class="col-sm-12">
-					<ul class="products product-listing">
+					<ul class="products product-listing t-left">
 						<?php if($products !== null) {
 									foreach($products as $index => $product) { ?>
 
@@ -181,9 +181,11 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 							$productUrl = SITE_ROOT_URL.'product/index.php?product='.$product->getProductId();
 
 							$productDescription      = $product->getProductDescription();
-							$descriptionLimit        = 14;
-							$productCardTitleEllipse = $product->getProductName() . ' | ' . substr($product->getProductDescription(), 0, $descriptionLimit) . '...';
+							$descriptionLimit        = 28;
+							$productCardTitleEllipse = substr($product->getProductName() . ' | ' . $product->getProductDescription(), 0, $descriptionLimit) . '...';
 							$productCardTitle        = $product->getProductName() . ' | ' . $productDescription;
+
+							$productPrice = number_format((float)$product->getProductPrice(), 2, '.', '');
 
 							?>
 
@@ -204,7 +206,8 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 											title="<?php echo $productCardTitle; ?>">
 											<?php
 
-											echo strlen($product->getProductDescription()) > $descriptionLimit
+											// content
+											echo strlen($productCardTitle) > $descriptionLimit
 												? $productCardTitleEllipse
 												: $productCardTitle;
 
@@ -215,7 +218,7 @@ $bannerImagePlaceHolderSrc  = '../images/banner-placeholder.png';
 												<a href="../store/index.php?store=<?php echo $store->getStoreId(); ?>"><?php echo $store->getStoreName(); ?></a>
 											</span>
 											<span class="product-price">
-												$<?php echo number_format((float)$product->getProductPrice(), 2, '.', ''); ?>
+												$<?php echo ($product->getProductPriceType() === 'u') ? $productPrice : $productPrice . '/lb'; ?>
 											</span>
 										</div>
 									</div>

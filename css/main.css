@@ -194,6 +194,10 @@ footer .inline-list li {
 	height: auto;
 }
 
+.product-listing-card-title {
+	white-space: nowrap;
+}
+
 .product-listing-detail {
   font-size: 0.8em;
 }
@@ -631,7 +635,9 @@ li[role=presentation].open a {
 * thumbnails
 ********************************************/
 .thumbnail {
-  padding: 2px;
+	padding: 2px;
+	margin-bottom: 10px;
+	border-radius: 0;
 }
 
 .tiny-thumbnail,
@@ -654,7 +660,7 @@ li[role=presentation].open a {
   }
 
   .thumbnail {
-    padding: 4px;
+	  padding: 4px;
   }
 
   .thumbnail-links li {
@@ -892,8 +898,6 @@ h2 {
 @media screen and (min-width: 769px) {
 	.listing-page-cart {
 		border-radius: 3px;
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
 	}
 }
 

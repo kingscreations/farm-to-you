@@ -1103,19 +1103,33 @@ h2 {
   margin: auto;
   margin-top: 20%;
   position: relative;
+
+
 }
 
 @media screen and (min-width: 768px) {
   .home-top-search-area {
     width: 840px;
     padding: 40px;
-    border-radius: 18px;
+	  border-radius: 18px;
   }
 }
 
-@media screen and (max-width: 768px) {
-	.home-top-search-area {
+.confirmation-area {
+	background-color: rgba(255, 255, 255, 0.8);
+	text-align: center;
+	padding: 2em;
+	margin: auto;
+	margin-top: 20%;
+	position: relative;
+	border-radius: 18px;
+}
 
+@media screen and (min-width: 768px) {
+	.confirmation-area {
+		width: 840px;
+		padding: 40px;
+		margin: 5% auto auto 10%;
 	}
 }
 

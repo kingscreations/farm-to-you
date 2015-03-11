@@ -35,8 +35,9 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
 ?>
 
-<div class="row-fluid">
-	<div class="col-sm-4 col-sm-offset-4">
+<div class="container-fluid"
+<div class="row-fluid mt25">
+	<div class="col-sm-4 confirmation-area">
 
 			<h2>Thanks for your order!</h2>
 
@@ -67,7 +68,7 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 			echo '<table class="table table-responsive merchant-table">';
 			echo '<tr>';
 			echo '<th class="center visible-xs">Order #'.$orderId .'</th>';
-			echo '<th class="hidden-xs">Order #'.$orderId .'</th>';
+			echo '<th class="center hidden-xs">Order #'.$orderId .'</th>';
 			echo '<th></th>';
 			echo '</tr>';
 
@@ -119,7 +120,7 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 			</table>
 	</div>
 </div><!-- end row-fluid -->
-
+</div>
 <script src="../js/confirmation.js"></script>
 
 <?php require_once '../php/lib/footer.php'; ?>

@@ -3,12 +3,12 @@
 ********************************************/
 @font-face {
   font-family: 'Biko';
-  src: url('../fonts/Biko_Regular.otf') format('opentype');
+  src: url('../fonts/Biko_Regular.woff') format('opentype');
 }
 
 @font-face {
   font-family: 'ArchitectsDaughter';
-  src: url('../fonts/ArchitectsDaughter.ttf') format('truetype');
+  src: url('../fonts/ArchitectsDaughter.woff') format('truetype');
 }
 
 /********************************************
@@ -49,7 +49,7 @@ footer {
 body {
   /*background-color: whitesmoke;*/
   overflow-y: scroll;
-  font-family: Biko;
+  font-family: Biko, sans-serif;
 }
 
 footer {
@@ -518,7 +518,7 @@ input[type=file], {
   width: 70%;
   position: relative;
   color: rgba(115, 90, 41, 0.8);
-  font-family: Biko;
+  font-family: Biko, sans-serif;
   font-size: 1em;
 }
 
@@ -591,7 +591,7 @@ input[type=password]:focus {
   /*margin-bottom: 12%;*/
   position: relative;
   color: rgb(115, 90, 41);
-  font-family: Biko;
+  font-family: Biko, sans-serif;
   font-size: 1em;
 }
 
@@ -1112,7 +1112,7 @@ h2 {
 ********************************************/
 .home-top {
   background: transparent url("../images/home-page.jpg") no-repeat fixed center center/cover;
-  font-family: ArchitectsDaughter, Biko;
+  font-family: ArchitectsDaughter, Biko, sans-serif;
   position: absolute;
   z-index: 1;
   top: 0px;
@@ -1162,7 +1162,7 @@ h2 {
 
 .home-top .heading {
   color: rgb(115, 90, 41);
-  font-family: ArchitectsDaughter, Biko;
+  font-family: ArchitectsDaughter, Biko, sans-serif;
   font-size: 1.4em;
 }
 

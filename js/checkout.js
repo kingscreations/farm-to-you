@@ -113,9 +113,9 @@ $(document).ready(function() {
 			var $form = $(form);
 
 			// Disable the submit button to prevent repeated clicks
-			$form.find('button')
-				.prop('disabled', true)
-				.addClass('disabled');
+			//$form.find('button')
+			//	.prop('disabled', true)
+			//	.addClass('disabled');
 
 			if(submit.hasClass(novalidate) === true) {
 
@@ -178,18 +178,17 @@ $(document).ready(function() {
 			type: "post",
 			url: "../php/forms/checkout-controller.php",
 			data: data
-		})
-			.done(function(ajaxOutput) {
-				$("#outputArea").css('display', '');
-				$("#outputArea").html(ajaxOutput);
+		}).done(function(ajaxOutput) {
+			$("#outputArea").css('display', '');
+			$("#outputArea").html(ajaxOutput);
 
+			if(ajaxOutput.indexOf("alert-danger") === -1) {
 				setTimeout(function() {
 					// refresh the page
 					location.href = "../confirmation/index.php";
 				}, 1000);
-
-
-			});
+			}
+		});
 	}
 
 });

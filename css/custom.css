@@ -7,9 +7,9 @@
 }
 
 #multi-menu.active, .list-group-item.active {
-	color: rgb(115, 90, 41);
-	border-color: rgb(51, 40, 18);
-	background-color: transparent;
+	/*color: rgb(115, 90, 41);*/
+	/*border-color: rgb(51, 40, 18);*/
+	/*background-color: transparent;*/
 }
 
 .dropdown-menu > .active > a,

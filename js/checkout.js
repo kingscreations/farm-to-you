@@ -182,6 +182,13 @@ $(document).ready(function() {
 			.done(function(ajaxOutput) {
 				$("#outputArea").css('display', '');
 				$("#outputArea").html(ajaxOutput);
+
+				setTimeout(function() {
+					// refresh the page
+					location.href = "../confirmation/index.php";
+				}, 1000);
+
+
 			});
 	}
 

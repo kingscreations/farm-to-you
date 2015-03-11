@@ -145,10 +145,14 @@ try {
 						echo "$weight lb. of $productName";
 
 					} elseif ($weight == 0) {
-						if($orderProductQuantity == 1) {
+						if(substr($productName, -1) === 's') {
+							echo $orderProductQuantity . ' orders of ' . $productName;
+
+						} elseif($orderProductQuantity == 1) {
 							echo $orderProductQuantity . ' ' . $productName;
+						} else {
+							echo $orderProductQuantity . ' ' . $productName . 's';
 						}
-						echo $orderProductQuantity . ' ' . $productName . 's';
 					} else {
 						echo "$weight lbs. of $productName";
 					}

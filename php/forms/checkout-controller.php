@@ -137,11 +137,19 @@ try {
 
 		if($rememberUser === true) {
 
+			$customerToken = $profile->getCustomerToken();
+
 			// first create a new customer
-			$customer = \Stripe\Customer::create(array(
-				"card"        => $stripeToken,
-				"description" => $user->getEmail()
-			));
+			$customer = \Stripe\Customer::retrieve($customerToken);
+
+
+			$newCard =  $stripeToken;
+
+			$customer->card = $newCard;
+			$customer->save();
+
+
+
 
 			// then charge the new customer
 			\Stripe\Charge::create(array(

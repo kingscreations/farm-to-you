@@ -16,7 +16,6 @@ if(!@isset($_SESSION['profileId'])) {
 session_abort();
 require_once("../php/lib/header.php");
 
-
 // classes
 require_once("../php/classes/store.php");
 
@@ -129,7 +128,7 @@ try {
 
 	// create table of existing stores
 	if($stores !== null) {
-		echo '<div class=form-group>';
+		echo '<div class="form-group visible-xs">';
 		echo '<table class="table table-responsive merchant-table">';
 		echo '<tr>';
 		echo '<th><h4>Manage your stores</h4></th>';
@@ -145,7 +144,6 @@ try {
 			echo '</tr>';
 		}
 		echo '</table>';
-//		echo '</div>';
 		echo '</div>';
 	}
 
@@ -154,6 +152,33 @@ try {
 }
 
 ?>
+		</div>
+
+<?php
+echo '<div class="col-sm-3 margin-top-less">
+				<div class="form-group mt25 t-right hidden-xs">';
+			echo '<table class="table table-responsive">';
+				echo '<tr>';
+					echo '<th><h4 class="overflow">Manage your stores</h4></th>';
+					echo '<th></th>';
+					echo '</tr>';
+				foreach($stores as $store) {
+				$storeId = $store->getStoreId();
+				$storeName = $store->getStoreName();
+				echo '<tr>';
+					echo '<td>'. $storeName . '</td>';
+
+					echo '<td><button id="'.$storeId.'" class="btn btn-default editButton">Edit '.$storeName.' </button></td>';
+					echo '</tr>';
+				}
+				echo '</table>';
+			echo '</div>';
+
+?>
+
+
+
+
 		</div>
 	</div>
 </div>

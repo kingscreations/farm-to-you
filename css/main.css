@@ -1172,6 +1172,16 @@ h2 {
   border: none !important;
 }
 
+.overflow {
+	font-size: 20px !important;
+	width: 250% !important;
+	text-align: center;
+}
+
+.margin-top-less {
+	margin-top: -0.9em !important;
+}
+
 .sign-up,
 .sign-in {
 	margin-top: -1.5em;

@@ -397,7 +397,7 @@ form input[type=password]{
 @media screen and (min-width: 768px) {
 	form label {
 		min-width: 180px;
-		text-align: center;
+		text-align: right;
 	}
 
 	.user-account textarea,

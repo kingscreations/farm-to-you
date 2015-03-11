@@ -162,6 +162,10 @@ $("#addProduct").validate({
 	}
 });
 
+document.getElementById("back").onclick = function () {
+	location.href = "../edit-store/index.php";
+};
+
 $('.product-item').click(function() {
 	var productId = $(this).attr("id");
 	$.ajax({

@@ -42,8 +42,7 @@ try {
 		<div id="multi-menu" class="col-md-3 hidden-xs">
 			<ul class="nav nav-pills nav-stacked">
 				<li><a href="../edit-profile/index.php">Edit Profile</a></li>
-				<li><a class="active" href="../add-store/index.php">Manage Stores</a></li>
-				<li><a href="../manage-products">My Products</a></li>
+				<li class="active"><a href="../add-store/index.php">Manage Stores</a></li>
 				<li><a href="../merchant-order-list/index.php">List of Orders</a></li>
 				<li><a href="../bank-account/index.php">Bank Account</a></li>
 			</ul>
@@ -122,21 +121,30 @@ try {
 
 				<br>
 
-					<div class="input-tags form-group visible-xs">
+				<div class="input-tags visible-xs">
+					<div class="form-group mb0">
 						<label for="addTags">Tags:</label>
 						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags1" name="addTags1"></span>
 						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags2" name="addTags2"></span>
-						<span><input type="text" class="input-tag form-control distinctTags iblock mt10" id="addTags3" name="addTags3"></span>
-						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags4" name="addTags4"></span>
 					</div>
-					<div class="input-tags form-group hidden-xs">
-						<label for="addTags">Tags:</label>
-						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags1" name="addTags1"></span>
-						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags2" name="addTags2"></span>
+					<div class="form-group mt0">
+						<label></label>
 						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags3" name="addTags3"></span>
 						<span><input type="text" class="input-tag form-control distinctTags iblock" id="addTags4" name="addTags4"></span>
 					</div>
-
+				</div>
+				<div class="input-tags hidden-xs">
+					<div class="form-group">
+						<label for="addTags">Tags:</label>
+						<span><input type="text" class="input-tag form-control distinctTags" id="addTags1" name="addTags1"></span>
+						<span><input type="text" class="input-tag form-control distinctTags" id="addTags2" name="addTags2"></span>
+					</div>
+					<div class="form-group mt10">
+						<label></label>
+						<span><input type="text" class="input-tag form-control distinctTags" id="addTags3" name="addTags3"></span>
+						<span><input type="text" class="input-tag form-control distinctTags" id="addTags4" name="addTags4"></span>
+					</div>
+				</div>
 				<br>
 
 				<div class="form-group mt60">
@@ -146,6 +154,13 @@ try {
 				<p id="outputArea" style=""></p>
 
 			</form>
+
+<!--			<br>-->
+<!--			<div class="form-inline">-->
+<!--				<button class="btn btn-default addButton" id="back">Back</button>-->
+<!--			</div>-->
+
+
 		</div><!-- end col6 -->
 		<div class="col-md-3 hidden-xs mt60">
 			<span>

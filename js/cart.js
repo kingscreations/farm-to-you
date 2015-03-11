@@ -3,6 +3,7 @@
  */
 
  $(document).ready(function() {
+
 	 var maxQuantity = $("#product1Quantity").children().length;
 	 var $productQuantity = $('.product-quantity');
 

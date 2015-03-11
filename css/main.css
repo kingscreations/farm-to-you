@@ -186,7 +186,7 @@ footer .inline-list li {
 	display: inline-block;
 	vertical-align: top;
 	margin-right: 0.4em;
-	width: 48.3%;
+	width: 47%;
 }
 
 .product-listing li:last-child {
@@ -311,7 +311,16 @@ a:hover {
 }
 
 .delete-item {
-  font-size: 2em;
+  font-size: 1.2em;
+	position: relative;
+	top: 3px;
+}
+
+@media screen and (min-width: 768px) {
+	.delete-item {
+		font-size: 2em;
+		position: static;
+	}
 }
 
 /********************************************
@@ -835,10 +844,11 @@ li[role=presentation].open a {
   margin-top: 10%;
 }
 
-.white-transparent-container {
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
-  padding: 2em;
+.white-container {
+  background-color: rgb(255, 255, 255);
+  border-radius: 4px;
+  padding: 1em;
+	font-size: 1em;
 }
 
 .big-text {
@@ -953,6 +963,20 @@ h2 {
 	background-color: white;
 	border: 1px solid rgb(115, 90, 41);
 	border-radius: 0;
+	padding: 0 6px;
+}
+
+#cart .panel-title {
+	position: relative;
+	top: 8px;
+}
+
+#cart .delete-item {
+	height: 26px;
+}
+
+.product-cart-details {
+	padding: 15px;
 }
 
 .panel-group .panel+.panel {
@@ -965,7 +989,6 @@ h2 {
 
 .panel-body {
 	padding: 0;
-	padding-bottom: 15px;
 }
 /**/
 

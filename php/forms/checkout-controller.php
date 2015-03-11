@@ -216,6 +216,8 @@ try {
 
 	unset($_SESSION['products']);
 
+//	$_SESSION['products'] = null;
+
 	$_SESSION['checkoutId'] = $checkout->getCheckoutId();
 	//close the database connection
 	$mysqli->close();

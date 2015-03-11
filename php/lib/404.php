@@ -11,7 +11,7 @@ require_once('header.php');
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="white-transparent-container screen-center">
+				<div class="white-container screen-center">
 					<h1>404 error!</h1>
 					<h2>The requested page has not been found</h2>
 				</div>

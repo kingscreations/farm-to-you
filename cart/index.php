@@ -275,17 +275,20 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 												?>
 											</div><!-- end col-xs-6 -->
 											<div class="col-xs-6">
-												<div class="col-xs-5 col-xs-offset-2">
-													<div class="mt20">
-														Total:
+												<div class="row">
+													<div class="col-xs-5 col-xs-offset-2">
+														<div class="mt20">
+															Total:
+														</div>
 													</div>
-												</div>
-												<div class="col-xs-4">
-													<div id="product-mobile-'<?php echo $counter; ?>.'-final-price">
-												</div>
-												<div>
+													<div class="col-xs-4">
+														<div id="product-mobile-'<?php echo $counter; ?>.'-final-price">
+													</div>
+												</div><!-- end row -->
 											</div><!-- end col-xs-6 -->
+
 										</div><!-- end row -->
+
 									</div><!-- end product cart details -->
 								</div><!-- end panel body -->
 							</div><!-- end collapse -->

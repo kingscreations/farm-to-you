@@ -113,7 +113,8 @@ require_once($prefix . 'paths.php');
 
 					<div class="col-sm-4 col-xs-3 visible-xs">
 						<div id="farm-to-you-logo">
-							<a href="<?php echo SITE_ROOT_URL ?>">Logo</a>
+							<a href="<?php echo SITE_ROOT_URL ?>"><i class="fa fa-pagelines fs30"></i>
+							</a>
 						</div>
 					</div>
 

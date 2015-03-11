@@ -98,8 +98,11 @@ $configFile = "/etc/apache2/capstone-mysql/farmtoyou.ini";
 
 				} elseif ($weight == 0) {
 					if(substr($productName, -1) === 's') {
-						echo $orderProductQuantity . ' orders of ' . $productName;
-
+						if($orderProductQuantity == 1) {
+							echo $orderProductQuantity . ' order of ' . $productName;
+						} else {
+							echo $orderProductQuantity . ' orders of ' . $productName;
+						}
 					} elseif($orderProductQuantity == 1) {
 						echo $orderProductQuantity . ' ' . $productName;
 					} else {

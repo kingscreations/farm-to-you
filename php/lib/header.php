@@ -70,7 +70,8 @@ require_once($prefix . 'paths.php');
 				<div class="row clearfix">
 					<div class="col-sm-6 col-xs-7">
 						<div id="farm-to-you-logo" class="apply-nav-height">
-							<a href="<?php echo SITE_ROOT_URL ?>">Farm to You</a>
+							<a href="<?php echo SITE_ROOT_URL ?>"><i class="fa fa-pagelines fs30"></i></a>
+							<a href="<?php echo SITE_ROOT_URL ?>">farm to you</a>
 						</div>
 					</div>
 
@@ -107,7 +108,9 @@ require_once($prefix . 'paths.php');
 				<div class="row clearfix">
 					<div class="col-sm-4 col-xs-3 hidden-xs">
 						<div id="farm-to-you-logo">
-							<a href="<?php echo SITE_ROOT_URL ?>">Farm to You</a>
+
+							<a href="<?php echo SITE_ROOT_URL ?>"><i class="fa fa-pagelines fs30"></i></a>
+							<a href="<?php echo SITE_ROOT_URL ?>">farm to you</a>
 						</div>
 					</div>
 

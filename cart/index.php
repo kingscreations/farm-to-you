@@ -29,7 +29,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 				<!--	check if the cart is empty -->
 				<?php if(@isset($_SESSION['products'])) { ?>
 
-					<?php if(count($_SESSION['products']) === 1 ) { ?>
+					<?php if(count($_SESSION['products']) === 1 ) { ?>`
 						<h1><?php echo count($_SESSION['products']) ?> product in your cart</h1>
 					<?php } else { ?>
 						<h1><?php echo count($_SESSION['products']) ?> products in your cart</h1>
@@ -278,7 +278,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 												<div class="row">
 													<div class="col-xs-5 col-xs-offset-2">
 														<div class="mt20">
-															Total:
+															Price:
 														</div>
 													</div>
 													<div class="col-xs-4">
@@ -303,6 +303,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 
 			</div><!-- end col-xs-12 -->
 		</div><!-- end row -->
+
 		<div class="row mt30">
 			<div class="col-xs-5 col-xs-offset-2">
 				<div class="mt20">

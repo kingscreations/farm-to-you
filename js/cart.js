@@ -4,7 +4,6 @@
 
  $(document).ready(function() {
 
-	 var maxQuantity = $("#product1Quantity").children().length;
 	 var $productQuantity = $('.product-quantity');
 
 	 // select quantity on change ajax call to update the total price of each row

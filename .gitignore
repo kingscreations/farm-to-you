@@ -5,3 +5,7 @@ external-libs
 .sass-cache/
 css/main.css.map
 node_modules/
+/images/product
+/images/profile
+/images/store
+/farm-to-you

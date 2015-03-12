@@ -1,7 +1,7 @@
 <?php
 
 // content path
-define('CONTENT_ROOT_URL', 'https://farmtoyou.me/');
+define('CONTENT_ROOT_URL', 'http://farmtoyou.me/');
 define('CONTENT_ROOT_PATH', '/var/www/html/farm-to-you/');
 
 define('IMAGE_PATH', 'images/');
@@ -12,7 +12,7 @@ if(empty($currentPathExploded)) {
 	throw new RangeException('Impossible to explode the path');
 }
 
-$rootUrl = "https://". $_SERVER["SERVER_NAME"] . '/' . $currentPathExploded[1] . '/' .
+$rootUrl = "http://". $_SERVER["SERVER_NAME"] . '/' . $currentPathExploded[1] . '/' .
 	$currentPathExploded[2] . '/';
 
 define('SITE_ROOT_URL', $rootUrl);

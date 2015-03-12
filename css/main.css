@@ -1009,20 +1009,21 @@ h2 {
 }
 
 .count {
-	font-size: 0.7em;
-	padding: 0.05em 0.15em;
+	font-size: 0.6em;
+	padding: 0.01em 0.15em;
 	border-radius: 2px;
 	color: white;
 	background-color: rgb(115, 90, 41);
 	position: absolute;
-	bottom: 30px;
-	left: 22px;
+	bottom: 35px;
+	left: 17px;
 }
 
 @media screen and (min-width: 768px) {
 	.count {
-		bottom: 35px;
-		left: 26px;
+		font-size: 0.7em;
+		bottom: 36px;
+		left: 13px;
 	}
 }
 

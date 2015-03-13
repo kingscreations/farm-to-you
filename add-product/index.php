@@ -1,18 +1,19 @@
 <?php
-
+//require files for session
 $currentDir = dirname(__FILE__);
 require_once ("../root-path.php");
 
 session_start();
 
+//check if there is a store session, if not redirect
 if(!@isset($_SESSION['storeId'])) {
 	header('Location: ../sign-in/index.php');
 }
 
 session_abort();
 
+//require header and classes needed
 require_once("../php/lib/header.php");
-
 require_once("../php/classes/product.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
@@ -38,7 +39,7 @@ try {
 }
 
 ?>
-
+		<!--side menu for navigation-->
 		<div id="multi-menu" class="col-md-3 hidden-xs">
 			<ul class="nav nav-pills nav-stacked">
 				<li><a href="../edit-profile/index.php">Edit Profile</a></li>

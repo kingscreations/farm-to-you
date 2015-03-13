@@ -1,4 +1,6 @@
 <?php
+
+//start session
 $currentDir = dirname(__FILE__);
 require_once ("../root-path.php");
 
@@ -17,6 +19,7 @@ require_once '/etc/apache2/capstone-mysql/encrypted-config.php';
 
 $profileId = $_SESSION['profileId'];
 
+// connect to database
 mysqli_report(MYSQLI_REPORT_STRICT);
 $configArray = readConfig("/etc/apache2/capstone-mysql/farmtoyou.ini");
 $mysqli = new mysqli($configArray['hostname'], $configArray['username'], $configArray['password'], $configArray['database']);
@@ -33,14 +36,14 @@ $profileImage = $profile->getImagePath();
 $profileType = $profile->getProfileType();
 $profileToken = $profile->getCustomerToken();
 
-
+// if a customer attempts to get to this page, give em some lord of the rings
 if($profileType !== "m") {
 	echo 'YOU HAVE NO POWER HERE!';
 	exit();
 }
 
 ?>
-
+	<!-- side bar navigation-->
 	<div class="container-fluid container-margin-sm transparent-form user-account">
 		<div class="row">
 			<div id="multi-menu" class="col-md-3 hidden-xs">

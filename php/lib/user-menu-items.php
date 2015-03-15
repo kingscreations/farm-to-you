@@ -24,27 +24,27 @@ if(@isset($_SESSION['userId'])) {
 		</a>
 		<ul id="my-account-dropdown-menu" class="dropdown-menu" role="menu" aria-labelledby="drop6">
 			<li role="presentation">
-				<a role="menuitem" tabindex="-1" href="<?php echo SITE_ROOT_URL . 'edit-profile'; ?>">Settings</a>
+				<a role="menuitem" tabindex="-1" href="<?php echo SITE_ROOT_URL . 'edit-profile/'; ?>">Settings</a>
 			</li>
 		<?php if($profileType === "c") { ?>
 			<li role="presentation">
-				<a role="menuitem" tabindex="-1" href="<?php echo SITE_ROOT_URL . 'client-order-list'; ?>">Order history</a>
+				<a role="menuitem" tabindex="-1" href="<?php echo SITE_ROOT_URL . 'client-order-list/'; ?>">Order history</a>
 			</li>
 			<li role="presentation" class="divider"></li>
 		<?php } elseif($profileType === "m") { ?>
 		<li role="presentation">
-			<a role="menuitem" tabindex="-1" href="<?php echo SITE_ROOT_URL . 'merchant-order-list'; ?>">Order history</a>
+			<a role="menuitem" tabindex="-1" href="<?php echo SITE_ROOT_URL . 'merchant-order-list/'; ?>">Order history</a>
 		</li>
 		<li role="presentation" class="divider"></li>
 		<?php } else {?>
 			<li role="presentation" class="divider"></li>
 		<?php } ?>
 		<li role="presentation">
-				<a id="sign-out" role="menuitem" tabindex="-1" href="<?php echo SITE_ROOT_URL . 'sign-out'; ?>">Sign out</a>
+				<a id="sign-out" role="menuitem" tabindex="-1" href="<?php echo SITE_ROOT_URL . 'sign-out/'; ?>">Sign out</a>
 			</li>
 		</ul>
 	</li>
 <?php } else { ?>
-	<li><a href="<?php echo SITE_ROOT_URL . 'sign-in'; ?>">Login</span></a></li>
-	<li><a href="<?php echo SITE_ROOT_URL . 'sign-up'; ?>">Register</span></a></li>
+	<li><a href="<?php echo SITE_ROOT_URL . 'sign-in/'; ?>">Login</span></a></li>
+	<li><a href="<?php echo SITE_ROOT_URL . 'sign-up/'; ?>">Register</span></a></li>
 <?php } ?>

@@ -29,7 +29,7 @@ require_once('../php/lib/header.php');
 				<h1 class="heading hidden-xs">Local, fresh farm goods directly from the source</h1>
 				<form  action="../php/forms/search-controller.php" id="search" method="post">
 					<?php echo generateInputTags(); ?>
-					<div class="input-group">
+					<div class="input-group inline-flex">
 						<input class="form-control search-field-splash" type="text" id="inputSearch" name="inputSearch" placeholder="What are you looking for today?" />
 						<input type="hidden" value="yes" name="searching">
 <!--						<span class="">-->

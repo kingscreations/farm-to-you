@@ -551,6 +551,43 @@ input[type=file], {
 	}
 }
 
+@media only screen and (min-device-width: 320px) and (max-device-width: 375px) and (max-device-height: 568px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+	#search .search-field-splash {
+		margin-top: 12em;
+		padding: 5px 30px;
+		margin-left: .5em;
+		/*margin-right: 1.5em;*/
+		width: 113%;
+	}
+	.search-field-button {
+		margin-top: 12em;
+		/*margin-left: -2em;*/
+		margin-right: -2em;
+		padding: 6px !important;
+	}
+	.inline-flex {
+		display: inline-flex !important;
+	}
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 375px) and (max-device-height: 568px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+	#search .search-field-splash {
+		margin-top: 12em;
+		padding: 5px 30px;
+		margin-left: .5em;
+		/*margin-right: 1.5em;*/
+		width: 113%;
+	}
+	.search-field-button {
+		margin-top: 12em;
+		/*margin-left: -2em;*/
+		margin-right: -2em;
+		padding: 6px !important;
+	}
+	.inline-flex {
+		display: inline-flex !important;
+	}
+}
 
 	input[type=text]:focus,
 input[type=password]:focus {

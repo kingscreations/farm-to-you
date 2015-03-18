@@ -25,7 +25,7 @@ try {
 
 	$productId = $product->getProductId();
 	$productName = $product->getProductName();
-	$productPrice = $product->getProductPrice();
+	$productPrice = number_format((float)$product->getProductPrice(), 2, '.', '');
 	$productImagePath = $product->getImagePath();
 	$productDescription = $product->getProductDescription();
 	$productWeight = $product->getProductWeight();

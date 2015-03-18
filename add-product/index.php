@@ -69,13 +69,13 @@ try {
 				<?php echo generateInputTags(); ?>
 				<div class="form-group">
 					<label for="inputProductName">Product Name:</label>
-					<input type="text" class="form-control" name="inputProductName" id="inputProductName" placeholder="Product Name">
+					<input type="text" class="form-control" name="inputProductName" id="inputProductName" placeholder="Product name">
 				</div>
 
 				<br>
 
 				<div class="form-group">
-					<label for="inputProductPrice">Product Price : $</label>
+					<label for="inputProductPrice">Product Price:  $</label>
 					<input type="text" class="form-control" name="inputProductPrice" id="inputProductPrice" placeholder="Price">
 				</div>
 
@@ -83,7 +83,7 @@ try {
 
 				<div class="form-group">
 					<label for="inputProductDescription">Product Description:</label>
-					<textarea class="form-control" name="inputProductDescription" id="inputProductDescription" placeholder="Write Product Description here."></textarea>
+					<textarea class="form-control" name="inputProductDescription" id="inputProductDescription" placeholder="Write product description here"></textarea>
 				</div>
 
 				<br>
@@ -101,8 +101,8 @@ try {
 
 				<br>
 
-				<div class="form-group">
-					<label for="inputProductWeight">Product Weight (lbs.):</label>
+				<div class="form-group" id="weight">
+					<label for="inputProductWeight">Product Weight (lbs.) :</label>
 					<input type="text" class="form-control" name="inputProductWeight" id="inputProductWeight" placeholder="Weight">
 				</div>
 

@@ -2,6 +2,23 @@
  * @author Jay Renteria <jay@jayrenteria.com>
  */
 
+$(document).ready(function () {
+	toggleFields();
+	$("#inputProductPriceType[value='w']").change(function () {
+		toggleFields();
+	});
+	$("#inputProductPriceType[value='u']").change(function () {
+		toggleFields();
+	});
+});
+
+function toggleFields() {
+	if($("#inputProductPriceType[value='w']").is(":checked")) {
+		$("#weight").show();
+	} else {
+		$("#weight").hide();
+	}
+}
 
 // tell the validator to validate this form (by id)
 $("#addProduct").validate({
